@@ -212,7 +212,15 @@ def run(profile_all: Path, profile_direct: Path,
         if catalog.accepted_species.duplicated().any():
             raise ValueError("Profile catalog repeats taxon names")
         names_heldout = set(membership.accepted_species)
-        donors = source_native.merge(
+        # Strict independent taxon-name holdout applies also to *source genus
+        # opportunity* features, not merely to floral donor profile counts.
+        filtered_native = source_native.loc[
+            ~source_native.work_species.isin(names_heldout)].copy()
+        if set(filtered_native.work_species) & names_heldout:
+            raise AssertionError("Target name leaked into source availability")
+        filtered_source_map, filtered_source_sizes, filtered_global_prevalence, _ = (
+            _native_mainland_source_data(filtered_native))
+        donors = filtered_native.merge(
             catalog[["accepted_species","profile_id"]], left_on="work_species", right_on="accepted_species",
             how="inner", validate="many_to_one")
         donors = donors.loc[~donors.accepted_species.isin(names_heldout)].copy()
@@ -224,6 +232,7 @@ def run(profile_all: Path, profile_direct: Path,
         source_audit.append({
             "scope": scope, "n_heldout_names": len(names_heldout),
             "n_heldout_name_island_records": len(membership),
+            "n_GIFT_source_entity_name_records_after_holdout": len(filtered_native),
             "n_training_donor_names": len(donor_names),
             "n_donor_genera": len(genus_pdfs),
             "n_GIFT_source_regions": int(source_native.entity_ID.nunique()),
@@ -231,8 +240,8 @@ def run(profile_all: Path, profile_direct: Path,
         scores = {}
         for island, observed in membership.groupby("island_id"):
             preds, audit = predict_island_flora(
-                observed, nearby[island], source_maps, source_sizes,
-                global_prevalence, prior, genus_pdfs)
+                observed, nearby[island], filtered_source_map, filtered_source_sizes,
+                filtered_global_prevalence, prior, genus_pdfs)
             for model, (actual, predicted) in preds.items():
                 values = score_flora(actual, predicted, reference_space.matrix)
                 scores[island, model] = values
@@ -286,7 +295,7 @@ def run(profile_all: Path, profile_direct: Path,
         "source_audit": source_audit,
         "source_only_models": list(MODELS[:3]),
         "oracle_model_uses_known_island_genus": MODELS[3],
-        "source_name_holdout": "all target-island taxon names globally removed from GIFT mainland floral donors before learning source genus profiles",
+        "source_name_holdout": "all target-island taxon names globally removed from GIFT mainland source genus opportunity features AND floral donors before prediction",
         "prediction_unit": "observed taxon-name carrier-weighted recorded flower-category frequencies, conditional on evaluation island flora",
         "not_prediction_of": ["which genus truly colonizes",
                               "new arrivals", "true absences",
