@@ -15,12 +15,16 @@ from pathlib import Path
 import tempfile
 import urllib.request
 import zipfile
+import xml.etree.ElementTree as ET
 
 import numpy as np
 
 RADIUS_KM = 6371.0088
 WEIGELT = "https://zenodo.org/records/4971536/files/Weigelt_etal_2013_PNAS_islanddata.csv?download=1"
 ZIZKA = "https://zenodo.org/records/6325640/files/input.zip?download=1"
+ROEBLE = ("https://media.springernature.com/original/springer-static/"
+          "esm/art%3A10.1038%2Fs41467-024-51556-7/MediaObjects/"
+          "41467_2024_51556_MOESM6_ESM.xlsx")
 GSHHG_COMMIT = "d4a5dafab5f0737ea6c1c1c0263fc20decf6035c"
 GSHHG_URL = ("https://raw.githubusercontent.com/zuizui0223/island/" + GSHHG_COMMIT
              + "/results/geography_20260924/corrected_geography_covariates.csv")
@@ -155,6 +159,71 @@ def parse_verified_geology(archive: Path) -> list[dict]:
     return rows
 
 
+
+def parse_roeble_xlsx(path: Path) -> list[dict]:
+    """Use Roeble et al 2024 Supplementary Data 3 geology for 510 islands.
+
+    Standard-library XLSX parser reads values from the first worksheet;
+    the publicly released table is one worksheet with inline string cells.
+    It does not redistribute the supplementary workbook.
+    """
+    namespace = {"s": "http://schemas.openxmlformats.org/spreadsheetml/2006/main"}
+    with zipfile.ZipFile(path) as z:
+        shared = []
+        if "xl/sharedStrings.xml" in z.namelist():
+            root = ET.fromstring(z.read("xl/sharedStrings.xml"))
+            shared = ["".join(t.text or "" for t in si.findall(".//s:t", namespace))
+                      for si in root.findall("s:si", namespace)]
+        root = ET.fromstring(z.read("xl/worksheets/sheet1.xml"))
+    rows = []
+    for row in root.findall(".//s:sheetData/s:row", namespace):
+        values = {}
+        for cell in row.findall("s:c", namespace):
+            address = cell.attrib.get("r", "")
+            col = 0
+            for char in address:
+                if not char.isalpha():
+                    break
+                col = 26 * col + ord(char.upper()) - 64
+            value_node = cell.find("s:v", namespace)
+            inline = cell.find("s:is", namespace)
+            value = value_node.text if value_node is not None else None
+            if cell.attrib.get("t") == "s" and value is not None:
+                value = shared[int(value)]
+            elif inline is not None:
+                value = "".join(t.text or "" for t in inline.findall(".//s:t", namespace))
+            values[col-1] = value
+        rows.append(values)
+    if not rows:
+        raise ValueError("Empty Roeble supplementary spreadsheet")
+    header = rows[0]
+    lookup = {str(value): column for column, value in header.items() if value}
+    required = ("entity_ID", "longitude", "latitude", "area", "island_type", "geology")
+    if any(k not in lookup for k in required):
+        raise ValueError(f"Roeble geological table missing columns: {required}")
+    result = []
+    for cells in rows[1:]:
+        get = lambda field: cells.get(lookup.get(field, -1))
+        label = (get("island_type") or "").strip().lower()
+        if label not in ("continental", "oceanic"):
+            continue
+        area = _number(get("area"))
+        lat = _number(get("latitude"))
+        lon = _number(get("longitude"))
+        if not _valid_features(lat, lon, area):
+            continue
+        result.append({
+            "id": str(get("entity_ID")), "lat": lat, "lon": lon, "area": area,
+            "geological_origin": label,
+            "geological_source_value": str(get("geology") or ""),
+            "geological_source_name": str(get("geo_entity") or ""),
+            "geological_reference": str(get("geology_ref") or ""),
+        })
+    if len(result) < 300 or len({r["id"] for r in result}) != len(result):
+        raise ValueError(f"Unexpected verified Roeble geology support: {len(result)}")
+    return result
+
+
 def crosswalk(target: list[dict], source: list[dict], *, k: int = 24) -> tuple[dict, dict]:
     """Conservative many-to-one ambiguity-screened spherical centroid crosswalk.
 
@@ -217,20 +286,27 @@ def run_crosswalk(destination: Path) -> dict:
     with tempfile.TemporaryDirectory() as work:
         root = Path(work)
         files = {"gshhg": root / "gshhg.csv", "weigelt": root / "weigelt.csv",
-                 "zizka": root / "zizka.zip"}
+                 "zizka": root / "zizka.zip", "roeble": root / "roeble.xlsx"}
         hashes = {"gshhg": download(GSHHG_URL, files["gshhg"], 80_000_000),
                   "weigelt": download(WEIGELT, files["weigelt"], 15_000_000),
-                  "zizka": download(ZIZKA, files["zizka"], 100_000_000)}
+                  "zizka": download(ZIZKA, files["zizka"], 100_000_000),
+                  "roeble": download(ROEBLE, files["roeble"], 8_000_000)}
         geo = parse_gshhg(files["gshhg"])
         conn = parse_weigelt(files["weigelt"])
         verified = parse_verified_geology(files["zizka"])
+        roeble = parse_roeble_xlsx(files["roeble"])
     conn_match, conn_audit = crosswalk(geo, conn)
     geo_match, geo_audit = crosswalk(geo, verified)
+    roeble_match, roeble_audit = crosswalk(geo, roeble)
     source = {r["id"]: r for r in geo}
     rows = []
     for island in geo:
         matched = conn_match.get(island["id"])
-        strict = geo_match.get(island["id"])
+        zmatch = geo_match.get(island["id"])
+        rmatch = roeble_match.get(island["id"])
+        conflict = bool(zmatch and rmatch and
+                        zmatch["source"]["geological_origin"] != rmatch["source"]["geological_origin"])
+        strict = None if conflict else (rmatch or zmatch)
         direct = strict["source"] if strict else {}
         connected = matched["source"] if matched else {}
         label = direct.get("geological_origin", "unresolved")
@@ -245,7 +321,9 @@ def run_crosswalk(destination: Path) -> dict:
             "distance_to_continent_km": island["continent_distance_km"],
             "island_latitude": island["lat"], "island_longitude": island["lon"],
             "geological_origin": label,
-            "geological_class_source": "Zizka_2022_missing_geology_additions" if strict else "",
+            "geological_class_source": ("Roeble_2024_510_island_geology" if rmatch and not conflict
+                                         else "Zizka_2022_missing_geology_additions" if zmatch and not conflict
+                                         else "conflicted_sources" if conflict else ""),
             "geological_record_id": direct.get("id", ""),
             "geological_reference": direct.get("geological_reference", ""),
             "geological_match_km": strict["km"] if strict else "",
@@ -271,18 +349,24 @@ def run_crosswalk(destination: Path) -> dict:
         "status": "geological_origin_partial_and_lgm_proxy_separate",
         "target_gshhg": len(geo), "weigelt_source_records": len(conn),
         "zizka_verified_additional_records": len(verified),
+        "roeble_2024_geological_records": len(roeble),
+        "roeble_match_audit": roeble_audit,
+        "roeble_zizka_disagreement": sum(bool(geo_match.get(r["id"]) and roeble_match.get(r["id"]) and
+                geo_match[r["id"]]["source"]["geological_origin"] != roeble_match[r["id"]]["source"]["geological_origin"])
+                for r in geo),
         "geological_counts": geology_counts, "LGM_counts": connectivity_counts,
         "geological_match_audit": geo_audit, "LGM_match_audit": conn_audit,
         "origin_LGM_inconsistency_count": len(contradictions),
         "origin_LGM_inconsistency_ids": contradictions[:20],
         "source_sha256": hashes,
         "interpretation_limit": "LGM-unconnected does not imply geologically oceanic",
-        "source_links": {"gshhg": GSHHG_URL, "weigelt": WEIGELT, "zizka": ZIZKA},
+        "source_links": {"gshhg": GSHHG_URL, "weigelt": WEIGELT, "zizka": ZIZKA,
+                         "roeble": ROEBLE},
     }
     (destination / "crosswalk_audit.json").write_text(json.dumps(audit, indent=2) + "\n")
     print(json.dumps({"status": audit["status"], "geological_counts": geology_counts,
                       "LGM_counts": connectivity_counts,
-                      "geology_matched": len(geo_match),
+                      "geology_matched": len(geo_match), "roeble_matched": len(roeble_match),
                       "LGM_matched": len(conn_match),
                       "conflicting": len(contradictions)}, ensure_ascii=False))
     return audit
