@@ -132,7 +132,8 @@ def _paired_uncertainty(values: np.ndarray, *, seed: int = 20261108,
 def run(flora_path: Path, native_mainland_path: Path, assignment_path: Path,
         geological_crosswalk_path: Path, output: Path, *,
         matched_pairs_path: Path | None = None,
-        source_mode: str = SOURCE_MODE, seed: int = 20261108) -> dict:
+        source_mode: str = SOURCE_MODE, seed: int = 20261108,
+        holdout_observed_species: bool = True) -> dict:
     flora_path, native_mainland_path, assignment_path, geological_crosswalk_path, output = (
         map(Path, (flora_path, native_mainland_path, assignment_path,
                    geological_crosswalk_path, output)))
@@ -153,6 +154,17 @@ def run(flora_path: Path, native_mainland_path: Path, assignment_path: Path,
         "island_id").genus.agg(lambda x: set(x)).to_dict()
     mainland = pd.read_csv(native_mainland_path,
                            usecols=["entity_ID", "work_species"], dtype=str)
+    raw_mainland_rows = len(mainland)
+    source_overlap_count = int(mainland.work_species.isin(
+        set(flora.accepted_species)).sum())
+    if holdout_observed_species:
+        # Entire geological reference population, not individual target
+        # island held out in isolation. Never exploit identical native
+        # mainland species as a shortcut to recognizing its island record.
+        mainland = mainland.loc[
+            ~mainland.work_species.isin(set(flora.accepted_species))].copy()
+        if set(mainland.work_species) & set(flora.accepted_species):
+            raise AssertionError("Original island taxon leaked into source ranks")
     source_map, source_sizes, global_genus, native = _native_mainland_source_data(mainland)
     assignments = pd.read_csv(
         assignment_path, dtype=str,
@@ -292,6 +304,10 @@ def run(flora_path: Path, native_mainland_path: Path, assignment_path: Path,
         "schema": "fd_gift_genus_source_opportunity_ranking_v1",
         "status": "source_only_recorded_genus_ranking_not_colonization",
         "source_mode": source_mode,
+        "source_species_holdout": holdout_observed_species,
+        "n_GIFT_entity_name_records_original": raw_mainland_rows,
+        "n_GIFT_entity_name_records_with_test_taxa": source_overlap_count,
+        "n_GIFT_entity_name_records_retained": len(mainland),
         "n_islands_evaluated": int(frame.island_id.nunique()),
         "n_geology_classified": len(geo),
         "n_GIFT_native_source_regions": int(native.entity_ID.nunique()),
@@ -344,10 +360,13 @@ def main() -> None:
         parser.add_argument("--" + name, type=Path, required=True)
     parser.add_argument("--matched-pairs", type=Path)
     parser.add_argument("--source-mode", default=SOURCE_MODE)
+    parser.add_argument("--allow-overlapping-source-species", action="store_true",
+        help="Descriptive source opportunity only; NOT independent predictive validation")
     args = parser.parse_args()
     run(args.flora, args.mainland_native, args.source_assignments,
         args.geology, args.output, matched_pairs_path=args.matched_pairs,
-        source_mode=args.source_mode)
+        source_mode=args.source_mode,
+        holdout_observed_species=not args.allow_overlapping_source_species)
 
 
 if __name__ == "__main__":
