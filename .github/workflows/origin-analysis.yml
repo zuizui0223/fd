@@ -38,6 +38,14 @@ jobs:
             --hypervolume work/fd_hv \
             --crosswalk work/fd_crosswalk \
             --output results/origin_strata
+      - name: Test geological-origin differences under within-origin fixed-profile margins
+        run: |
+          python -m fd.origin_null \
+            --input work/island_public \
+            --g0 work/fd_g0 \
+            --crosswalk work/fd_crosswalk/island_origin_crosswalk.csv \
+            --output results/origin_g1 \
+            --draws 200
       - name: Preserve exact crosswalk, cohort audits, controlled/descriptive comparisons
         if: success()
         uses: actions/upload-artifact@v4
@@ -45,6 +53,7 @@ jobs:
           name: fd-origin-strata-analysis
           path: |
             results/origin_strata
+            results/origin_g1
             work/fd_crosswalk
             work/island_public/source_manifest.json
           retention-days: 30
