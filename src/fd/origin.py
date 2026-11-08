@@ -73,7 +73,10 @@ def parse_gshhg(path: Path) -> list[dict]:
         if _valid_features(lat, lon, area):
             rows.append({"id": r["island_id"], "lat": lat, "lon": lon, "area": area,
                          "regime": r.get("analysis_regime", ""),
-                         "continent_distance_km": _number(r.get("distance_to_continent_km"))})
+                         "continent_distance_km": _number(r.get("distance_to_continent_km")),
+                         "spatial_block": r.get("spatial_block", ""),
+                         **{f"climate_pc{j}": _number(r.get(f"climate_pc{j}"))
+                            for j in range(1, 5)}})
     if not rows or len({r["id"] for r in rows}) != len(rows):
         raise ValueError("No valid unique geographic islands")
     return rows
@@ -237,6 +240,8 @@ def run_crosswalk(destination: Path) -> dict:
             "island_id": island["id"],
             "analysis_regime": island["regime"],
             "area_km2": island["area"],
+            "spatial_block": island["spatial_block"],
+            **{f"climate_pc{j}": island[f"climate_pc{j}"] for j in range(1, 5)},
             "distance_to_continent_km": island["continent_distance_km"],
             "island_latitude": island["lat"], "island_longitude": island["lon"],
             "geological_origin": label,
