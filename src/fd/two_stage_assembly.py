@@ -213,7 +213,7 @@ def run(profile_all: Path, profile_direct: Path,
             raise ValueError("Profile catalog repeats taxon names")
         names_heldout = set(membership.accepted_species)
         donors = source_native.merge(
-            catalog, left_on="work_species", right_on="accepted_species",
+            catalog[["accepted_species","profile_id"]], left_on="work_species", right_on="accepted_species",
             how="inner", validate="many_to_one")
         donors = donors.loc[~donors.accepted_species.isin(names_heldout)].copy()
         if set(donors.accepted_species) & names_heldout:
