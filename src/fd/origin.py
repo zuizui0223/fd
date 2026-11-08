@@ -50,8 +50,8 @@ def _number(value) -> float:
         return float("nan")
 
 
-def _csv(path: Path):
-    with path.open(encoding="utf-8-sig", newline="") as handle:
+def _csv(path: Path, *, encoding: str = "utf-8-sig"):
+    with path.open(encoding=encoding, newline="") as handle:
         yield from csv.DictReader(handle)
 
 
@@ -81,7 +81,7 @@ def parse_gshhg(path: Path) -> list[dict]:
 
 def parse_weigelt(path: Path) -> list[dict]:
     rows = []
-    for r in _csv(path):
+    for r in _csv(path, encoding="latin1"):
         lat, lon, area = (_number(r.get(k)) for k in ("Lat", "Long", "Area"))
         if _valid_features(lat, lon, area) and r.get("GMMC", "") in ("0", "1"):
             rows.append({"id": str(r["ID"]), "lat": lat, "lon": lon, "area": area,
