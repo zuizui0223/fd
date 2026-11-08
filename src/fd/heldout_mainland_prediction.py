@@ -315,6 +315,16 @@ def run(private_all: Path, private_direct: Path, flora: Path,
         if joined.duplicated(["island_id", "accepted_species"]).any():
             raise ValueError("Duplicate private island taxon memberships")
         membership[scope] = joined
+        # Before native/status filtering, exact original PR321 complete-name
+        # and distinct-profile counts must agree on every selected island.
+        # This is a fail-closed validation of the restricted floristic join.
+        subset_expected = g0[scope].loc[
+            g0[scope].island_id.isin(all_ids),
+            ["island_id", "n_names", "n_profiles"],
+        ]
+        check = validate_island_counts(joined, subset_expected, scope)
+        if check["eligible_islands_checked"] != len(all_ids):
+            raise ValueError("Some matched island profile counts were not audited")
     if native_only:
         native = {s: part.loc[part.origin_status == "native"].copy()
                   for s, part in membership.items()}
