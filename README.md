@@ -21,6 +21,16 @@ From the frozen public [PR #321 report](https://github.com/zuizui0223/island/blo
 - An observed profile-turnover share of 0.690–0.902 (median across analyses) is *descriptive*, not above-null evidence.
 - Gaussian KDE hypervolumes were **not** calculated. Two PCoA axes retain only 15.35% of the common positive inertia; 80% requires 17 axes. Do not call a 2-D KDE area total floral hypervolume.
 
+## Out-of-taxon mainland source and genus prediction (2026-11-08)
+
+[Held-out predictive results](results/20261108_heldout_mainland_prediction/README.md) · [Private-input-only reproducibility contract](docs/HELDOUT_MAINLAND_PREDICTION.md)
+
+The next test asks **how well island floral-profile identities can be predicted** when the island's observed genus composition is known. Every name recorded on any of the **74 original geology-matched island endpoints** is excluded from **all 748 native-GIFT mainland training regions**, eliminating exact taxon-name leakage. The independent predictors use either global mainland colour/form frequencies, nearest-mainland floral repertoires, known genus profiles from other mainland species, or nearest-source genus profiles.
+
+**Main positive result:** Knowing genus reduces out-of-taxon exact categorical log loss by **0.709 All** (37-pair bootstrap range 0.644–0.774) and **0.338 Direct** (0.309–0.369) versus the global mainland distribution, alongside gains in original category-distance accuracy. **Nearest-mainland genus information improves categorical-distance losses** by about 0.014 All/0.011 Direct at fixed shrinkage 8, but does **not robustly improve exact-profile log loss**; its sign changes with smoothing. Global genus donor coverage is ~73% All/~66% Direct; five-nearest mainland genus coverage only ~38%/~28%.
+
+Within 28 explicitly native-supported matched pairs, the genus predictive benefit remains. Residual exact-profile geological origin differences under the imperfect held-out predictive model do not contradict the separate, more rigorous genus×regional occurrence randomization **non-rejection** in PR #5. These tests **do not forecast taxon/genera colonization**, reconstruct true ancestral sources, or prove selection/pollination function.
+
 ## Genus and potential mainland-source conditioning (2026-11-08)
 
 [Verified conditional analysis](results/20261108_genus_source_control/README.md) · [Rights-restricted replay contract](docs/GENUS_SOURCE_CONDITIONED_PROTOCOL.md)
