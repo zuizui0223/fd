@@ -1,86 +1,81 @@
-# Native-mainland genus opportunity and 17-dimensional floral hypervolume
+# Island mainland-source genus opportunity, two-stage floral prediction and 17D projected KDE
 
-**2026-11-08 JST — independently executable `fd` extension.** [Methods and rights contract](../../docs/SOURCE_OPPORTUNITY_HYPERVOLUME17.md). Geographic/flower-profile sources pinned to [island PR #321](https://github.com/zuizui0223/island/pull/321). The results are **recorded flora / potential-mainland-source associations**, not actual plant colonization, confirmed absence, or adaptive pollinator response.
+**2026-11-08 JST — post-hoc, source-audited, aggregate-only.** [Methods and privacy contract](../../docs/SOURCE_OPPORTUNITY_HYPERVOLUME17.md). Original trait universe: [island PR #321](https://github.com/zuizui0223/island/pull/321). **No biological arrivals, confirmed absences or selection processes are directly estimated.**
 
-## 1. Source-only prediction of which genera are recorded on geological islands
+## 1. Crucial source-name leakage audit and corrected scientific interpretation
 
-GIFT native mainland source lists contain **748 regions and 1,666,186 native source-region×taxon records**. Each island has five independently assigned nearest mainland regions. We ranked the union of source-eligible genera without fitting any island occurrence outcome, using (i) genus prevalence in all mainland regions, (ii) number of local regions listing the genus, (iii) inverse-distance weighted local presence, or (iv) inverse-distance weighted **native genus name density normalized for source checklist size**.
+The initial opportunity-ranking pilot allowed **exact same species names** to appear in both the island occurrence outcome and its geographically nearby native-GIFT mainland source checklist. For **describing genuine mainland supply/overlap**, an identical mainland species is biologically informative. But for claims of **independent prediction of an unseen taxon-name assemblage**, this source identity overlap is a shortcut.
 
-**No-record is NOT a real absence**. ROC AUC and AP evaluate how these source-only ranks distinguish recorded from unrecorded genera **within the source-defined candidate universe**; they are not occupancy/establishment probabilities. Any genus missing from all five source lists is excluded from that ranking and included only in source coverage diagnostics.
+We therefore require a **stricter explicit holdout**: globally remove *every accepted taxon name recorded on any of the 434 geology-labelled islands* from the 748 GIFT native mainland source checklists **before constructing source-genus predictor features**. This removes 742,400 source-region×name records from the original 1,666,186, leaving **923,786**. It is conservative to the point that it removes true potential supply species, so the two analyses estimate different questions.
 
-The global geological source intersection includes **434 independently geological-typed islands**. Of those, **406** have adequate original all-recorded genus outcome support (174 continental, 232 oceanic) and **306** have enough explicitly native records (141 continental, 165 oceanic).
+**Revision:** The previous apparently positive source-rank AUC gain on continental islands (**0.676 → 0.762**) does **not survive** this unseen-name holdout. It must **not** be cited as a validated predictive discovery. Retain it only as a source-overlap descriptive result, not an out-of-name prediction.
 
-| Original island outcome | Geological island type | Number | AUC: global mainland genus prevalence | AUC: distance-weighted local genus density | Mean AP global → local |
-|---|---|---:|---:|---:|---:|
-| All recorded | Continental | **174** | 0.6760 | **0.7624** | 0.4143 → **0.5072** |
-| All recorded | Oceanic | **232** | 0.7238 | 0.6989 | 0.2850 → 0.2922 |
-| Explicit native | Continental | **141** | 0.6546 | **0.7769** | 0.3172 → **0.4517** |
-| Explicit native | Oceanic | **165** | 0.7262 | 0.7266 | 0.1933 → 0.2385 |
+## 2. Genus source opportunity under strict taxon-name holdout
 
-Local source-density improvement in all-recorded continental islands is ΔAUC=**+0.0864**, island-bootstrap 95% [+0.0728,+0.1003]; in oceanic islands ΔAUC=**−0.0249**, 95% [−0.0410,−0.0080]. However this unpaired full-sample contrast mixes island-region/coverage differences and **does not** establish that geological origin changes arrival success.
+Candidate genera are the union of native genera in the island's five nearest retained GIFT mainland regions. Source-only models use: global number of mainland source regions with genus; count of five nearby regions; distance-weighted presence; and source-list-size-normalized native genus species density. Rank evaluation uses *recorded* vs *unrecorded* candidate genera (not biological presence vs confirmed absence).
 
-**Matched geography interaction check:** Among the fixed [37 origin-matched pairs](../20261108_matched_flower_repertoire/README.md), the oceanic-minus-continental **local_density AUC improvement** is **−0.0274** (pair bootstrap 95% [−0.0503, −0.0048], exploratory sign-flip p=0.0246). Under **12 total paired comparisons** (three local scores × AP/AUC × two floristic-status definitions), **none survives BH/BY** (minimum BH q=0.2004). The explicitly native sensitivity has 31 status-eligible pairs and also no adjusted origin-specific gain. A smaller nominal difference cannot identify geological source-channel loss.
+**399 of 434** geology-labelled islands have adequate all-recorded genus outcomes (174 continental/225 oceanic); **301** have enough explicitly native source-status outcomes (141/160).
 
-The median recorded-genus coverage by five nearest potential mainland source regions is **84.2% continental vs 70.2% oceanic** in all-recorded source-defined islands, compared with **96.6% vs 88.3%** in explicitly native records. These fractions reflect source-data sampling and floristic-status coverage, not proven biological access.
+| Outcome | Geological type | n | Global mainland genus AUC | Nearest source-density genus AUC | Interpretation |
+|---|---|---:|---:|---:|---|
+| All recorded | Continental | 174 | **0.693** | 0.656 | Nearby source model is worse after strict holdout |
+| All recorded | Oceanic | 225 | **0.750** | 0.637 | Nearby source model is worse after strict holdout |
+| Explicit native | Continental | 141 | **0.682** | 0.675 | No clear incremental nearby-source gain |
+| Explicit native | Oceanic | 160 | **0.753** | 0.662 | Nearby source model is worse |
 
-## 2. Full two-stage floral repertoire prediction without known island genus identities
+The source-eligible share of **observed genus records** also falls under strict holdout (median all-recorded continental **41.9%**, oceanic **36.8%**), because the exclusion deliberately removes much of the actual geographically plausible mainland supply. Source genus coverage is a data-support statistic, not a biological lack of connectivity.
 
-This test goes beyond the prior [PR #6 held-out taxon-genus prediction](../20261108_heldout_mainland_prediction/README.md), which used the *observed island genus*. Here the potential source distribution over genera is derived from mainland GIFT regions **without using known test-island genera**, and its species' flower-colour/form profile distributions are mixed to predict a taxon-carrier-weighted island floral-profile frequency vector.
+The same original **37 geographically matched continental/oceanic island pairs** (native evaluable 31 pairs) were compared for gains in AP and AUC from three local models over the global source baseline. Under one fixed **12-test BH/BY family**, there are **zero supported geological contrasts** (minimum BH q≈**0.487**). This rejects any robust inference, from this dataset, that source-rank predictive improvement differs by geological class.
 
-The source reference is learned from GIFT native mainland taxon names with every name from any of the **same 74 matched test islands** removed globally. All/Direct trait sources and the fixed 496-profile reference are kept identical to previous `fd` stages. Models are global mainland floral profile prior; source-only candidate-genus-weighted mix using global region prevalence; source-only mix using nearby genus density; and a separately labeled **known-island-genus oracle** benchmark (not an independent prospective prediction).
+**Biological limitation:** Non-recorded ≠ truly absent; ranked genus AUC is not arrival, establishment, survival, persistence or true occupancy probability. Observed source taxa are a legitimate supply description but cannot simultaneously serve as completely independent name-held-out predictor without changing the estimand.
 
-| Scope / model | Mean log loss for test taxon profile ↓ | Mean **floral-repertoire category-similarity-kernel** error ↓ |
+## 3. Two-stage mainland source → genus → floral phenotype prediction
+
+Using the **original 37 matched island pairs / 74 islands** and the PR321 complete-profile taxon-name mapping, the training candidate source lists and genus-specific floral donor counts both exclude **all** matched test-island names globally, within each All/Direct scope. Hence this stricter two-stage result does NOT rely on the same evaluated species as source predictors or as floral-profile donors.
+
+The source-only model weights candidate genera by normalized nearby source-native genus density, predicts each genus's profile using other GIFT-native mainland taxa, then forms the **island taxon-carrier-weighted frequency vector** across 496 colour/form profiles. It does **not** consume observed island genus identities. A separately labeled `known_genus_oracle` benchmark is allowed to know the actual island genera and is NOT prospective.
+
+| Scope/model | Mean held-out taxon exact-profile log loss ↓ | Mean full original categorical-kernel repertoire error ↓ |
 |---|---:|---:|
-| All / global mainland | 5.3563 | 0.020476 |
-| All / source-only genus-density mixture | 5.3432 | **0.017567** |
-| All / known-genus oracle | 5.2956 | 0.012699 |
-| Direct / global mainland | 5.4687 | 0.024446 |
-| Direct / source-only genus-density mixture | 5.4687 | **0.021290** |
-| Direct / known-genus oracle | 5.4473 | 0.018572 |
+| All / global mainland prior | 5.3563 | 0.020476 |
+| All / **strict source-only genus-density** | 5.3505 | **0.018107** |
+| All / known-genus oracle (post-hoc bound) | 5.2956 | 0.012699 |
+| Direct / global mainland prior | 5.4687 | 0.024446 |
+| Direct / **strict source-only genus-density** | 5.4721 | **0.021582** |
+| Direct / known-genus oracle (post-hoc bound) | 5.4473 | 0.018572 |
 
-The source-only two-stage mixture improves the **full original colour/form categorical-distance repertoire approximation** over the global mainland prior by an absolute **0.002909 All (14.2%)**, matched-pair bootstrap 95% [+0.001748,+0.004097], and **0.003156 Direct (12.9%)**, 95% [+0.001865,+0.004560]. The All exact profile log-loss improvement is only +0.0131 [0.0028,0.0235]; Direct is approximately **zero** (−0.000009). Thus the source-only predictor improves *assemblage-level structural composition* more clearly than *exact test taxon profile identities*.
+**Strict two-stage improvement in the original categorical-distance repertoire error:**
+- **All:** absolute +0.002369, relative **11.6%**, paired 37-cohort bootstrap 95% **[+0.001317,+0.003448]**.
+- **Direct:** absolute +0.002864, relative **11.7%**, 95% **[+0.001616,+0.004249]**.
 
-The **known-genus oracle** outperforms source-only predictors but does not solve arrival: it is allowed to know precisely which genera were recorded on the island. Most potential mainland source genera still lack independent floral trait donors and fall back to the global prior. The approximation is *taxon-carrier-weighted profile frequency*, not true realized pollination-function occupancy or a demonstrated forecast of new colonists.
+The improvement in **name-level exact-profile log loss is not clearly positive** (All +0.0058, interval [−0.0035,+0.0152]; Direct −0.0034, [−0.0099,+0.0032]). Thus a source-only prediction improves **assemblage-level categorical-similarity composition** more consistently than the exact flower type of an individual unknown taxon.
 
-## 3. Hypervolume extension: 17 dimensions instead of only 2
+The source-only model is still not a colonization model: the evaluation uses the original island species/name counts; genera without independent floral donors fall back to a global prior. A fully independent island survey, source ancestry data, and phylogenetic generalization test would be required for causal assembly claims.
 
-Reconstructed common PCoA from the **original mean colour/form state-set Jaccard distance** across 496 profiles. The first **17 positive axes retain 80.4899%** of common positive PCoA inertia (vs **15.353%** for 2 axes). A single scalar preserves the relative contributions of those 17 coordinates rather than independently whitening small axes. Evaluated the **90% highest-density region of a 17D isotropic Gaussian KDE mixture**, with globally identical bandwidths 0.55 and 0.85, **12,000 draws × 2 independent Monte Carlo repetitions per island**.
+## 4. 17D hypervolume: measured, but no unique geological effect beyond profile richness
 
-All-scope geology-labelled complete-floral analysis: **260 islands, 130 geological continental / 130 oceanic**. Direct: **243 islands, 123 continental / 120 oceanic**. Total: **1,006 scope×island×bandwidth analyses**. The median Monte Carlo relative SE is around **2.0%** and the median absolute replicate log-volume discrepancy is about **0.04**. These are conditional numerical integration errors, not natural sampling uncertainty.
+From 496 source-audited exact colour/form state-set profiles, classical PCoA of sqrt(original distance) has **80.4899%** positive inertia in 17 dimensions (versus **15.353%** in the previous 2D projection). Equal-profile-weight 90%-mass isotropic Gaussian KDE density with common scalar reference scaling, h=0.55 and h=0.85; **12,000 Monte Carlo draws ×2 repetitions/island**. Public aggregate + independent geological crosswalk CI calculated All **260 islands** (130 continental/130 oceanic) and Direct **243** (123/120), altogether **1,006 scope×island×bandwidth estimates**. Numerical relative integration SE median≈2%, independent log-volume replicate discrepancy median≈0.04.
 
-| All, 17D projected 90% KDE log hypervolume | Continental median | Oceanic median |
+| All-scope median 17D projected log hypervolume | Continental | Oceanic |
 |---|---:|---:|
-| Bandwidth h=0.55 | 19.54 | 19.37 |
-| Bandwidth h=0.85 | 26.46 | 26.32 |
+| h=0.55 | 19.537 | 19.368 |
+| h=0.85 | 26.460 | 26.315 |
 
-The enormous change in absolute log volume with bandwidth is deliberate evidence that Gaussian smoothing **dominates high-dimensional continuous-volume scale**. The 17D KDE is not biological full-category hypervolume, and 17 axes still omit **19.51%** positive inertia.
+On the original 37 matched pairs raw All/Direct differences are negative (oceanic smaller), with four-test **BH q≈0.0306**, **BY q≈0.0638** (no BY support). **The key falsification is adjusting for each pair's number of recorded distinct profiles:**
 
-On the original 37 matched physical island pairs, raw projected volume trends negative for oceanic islands at both bandwidths and both All/Direct scopes. The four exploratory scope/bandwidth tests have BH q≈0.031 but **none survives BY** (minimum BY q≈0.064). **The critical support check is profile richness**: once each pair's difference in the number of observed distinct colour/form profiles is included, the residual geometric-origin volume difference becomes near zero. The source data pilot yielded All h=.55 richness-adjusted intercept +0.0003 (pair-bootstrap 95% [−0.0133,+0.0142]) and h=.85 −0.0141 ([−0.0353,+0.0069]). **Neither supports a unique geometric packing effect** after ordinary observed profile-count differences.
+| 37-pair adjusted oceanic−continental 17D logvolume intercept | Estimate | Pair-bootstrap 95% interval |
+|---|---:|---:|
+| All, h=0.55 | −0.0086 | −0.0240 to +0.0074 |
+| All, h=0.85 | −0.0137 | −0.0340 to +0.0066 |
+| Direct, h=0.55 | −0.0181 | −0.0360 to +0.0017 |
+| Direct, h=0.85 | −0.0208 | −0.0432 to +0.0026 |
 
-These projected volumes must **not** be compared in raw size to the earlier 2D KDE areas, and cannot be called the physical volume of pollination phenotypes. The original distance-based Rao Q/nearest-profile metrics remain the more interpretable primary evidence.
+All adjusted intervals include zero. **Raw high-dimensional volume differences are substantially explained by numbers of recorded profiles**, rather than demonstrating extra geometrical floral simplification. Results are smoothed 17-axis *projected* Lebesgue volumes, not entire discrete trait functional space, nor a physical pollination niche volume. Bandwidth radically changes absolute volume.
 
-## 4. What the evidence changes
+## 5. Current paper conclusion and next inferential gate
 
-Previously we knew oceanic/continental island floras differed in exact recorded colour×form combinations (37 matched pairs, All/Direct BY q≈.00042), but not in categorical-distance-kernel multivariate deviation under the simple paired null. Genus×broad regional-presence conditioning did not establish any global excess contrast (PR #5).
+**Two supported observations with strong limits:** (1) recorded island floral composition differs across geological classes (prior 37-pair exact-profile test); (2) a genuinely unseen-taxonomic-name **source-only genus-to-floral two-stage mixture** provides a modest improvement in predicting island **assemblage-level categorical similarity** compared with a genus-free global mainland reference. Strict name-held-out source genus **ranking individual island records** does *not* independently demonstrate nearby-source predictive success, and no origin-specific predictive gain is supported after multiple tests. The 17D projected KDE does not establish additional volume compression after recorded profile richness.
 
-The present analysis adds a **positive predictive validation**: *native mainland genus opportunity helps rank which genera are recorded, and its lineage floral repertoires predict island assemblage trait composition better than a genus-free global source model*. This integrates dispersal opportunity and floral phenotypic structure without declaring observed island records to be proven colonizations.
+A defensible question is whether **source lineage assembly**, including genus-level source availability and which taxon names can reach a given island, can explain floral repertoire differences. The causal mechanism remains unresolved because historical dispersal, establishment, detection and true absence are not identified from these checklists.
 
-**Not established**: species arrival or persistence probabilities, a source-driven geographical difference after multiple-comparison controls, within-lineage evolutionary floral convergence, pollinator selection, native-only global representativeness, or a source-independent continuous functional hypervolume reduction.
-
-A defensible working thesis is:
-
-> **Island floral phenotype repertoires arise partly from the geographic and taxonomic constraints on which plant lineages are represented, while neither categorical distance nor high-dimensional smoothed volume alone demonstrates adaptive floral simplification.**
-
-## 5. Execution and rights
-
-- [Source-only genus ranker](../../src/fd/source_genus_opportunity.py) — private-input-only, observed versus unrecorded opportunity metrics.
-- [Two-stage floral source model](../../src/fd/two_stage_assembly.py) — non-target donor profile mixing and known-genus oracle, private inputs only.
-- [17D PCoA KDE estimator](../../src/fd/hypervolume17.py) — 496-profile public aggregate input, strict Monte Carlo quality checks, source-audited geological crosswalk recreated at runtime.
-- [Source-opportunity/HV methods and caveats](../../docs/SOURCE_OPPORTUNITY_HYPERVOLUME17.md).
-- Aggregate results: [source genus ranking](source_genus_rank_scores.csv), [12 paired origin-gain controls](paired_source_gain_contrasts.csv), [two-stage floral model scores](two_stage_flora_scores.csv); full corresponding provenance, CI KDE source output and sensitivity series are retained as downloadable artifacts and source SHA digests.
-
-**Private and source-protected:** island accepted-taxon names, GIFT source entity checklists, geography source IDs, matched island identities, and original trait/source lineages. Never publish them in repository or workflow artifacts. Synthetic CI tests validate source-only model implementation. Full GIFT original-source calculations were executed locally under authorized source access; **the public 17D KDE pipeline uses only legally public aggregate floral profiles and the independent published geology**.
-
-## Next distinct inference gate
-
-Validation against island-native checklist completeness / repeat-detection efforts, with independent mainland lineages and dispersal opportunity, is necessary to distinguish ecological establishment from recording. Another binary-model fit to the same unrecorded labels without repeated observations will not identify colonization success.
+**Reproduction:** [source opportunity ranker](../../src/fd/source_genus_opportunity.py), [source-only two-stage assembly](../../src/fd/two_stage_assembly.py), [17D hypervolume](../../src/fd/hypervolume17.py); [full method/rights contract](../../docs/SOURCE_OPPORTUNITY_HYPERVOLUME17.md). Public CI uses only source-approved aggregated flower profiles, coordinates and independently published geological references; GIFT/rights-restricted species-level runs are restricted to local authorized execution. All committed results are non-identifying summaries.
