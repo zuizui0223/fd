@@ -61,6 +61,18 @@ def ranking_metrics(positives: np.ndarray, scores: np.ndarray) -> dict[str, floa
     return {"average_precision": ap, "roc_auc": auc}
 
 
+def exclude_heldout_species(mainland: pd.DataFrame, names: set[str]) -> pd.DataFrame:
+    """Drop target taxon names from EVERY mainland entity before feature fitting."""
+    if not {"work_species", "entity_ID"}.issubset(mainland.columns):
+        raise ValueError("Source records must include work_species and entity_ID")
+    cleaned = mainland.loc[~mainland.work_species.isin(names)].copy()
+    if set(cleaned.work_species) & names:
+        raise AssertionError("Exact test taxon leaked into GIFT source features")
+    if cleaned.empty:
+        raise ValueError("Name holdout exhausted the source training sample")
+    return cleaned
+
+
 def _native_mainland_source_data(native: pd.DataFrame):
     required = {"entity_ID", "work_species"}
     if not required.issubset(native.columns):
@@ -161,10 +173,8 @@ def run(flora_path: Path, native_mainland_path: Path, assignment_path: Path,
         # Entire geological reference population, not individual target
         # island held out in isolation. Never exploit identical native
         # mainland species as a shortcut to recognizing its island record.
-        mainland = mainland.loc[
-            ~mainland.work_species.isin(set(flora.accepted_species))].copy()
-        if set(mainland.work_species) & set(flora.accepted_species):
-            raise AssertionError("Original island taxon leaked into source ranks")
+        mainland = exclude_heldout_species(
+            mainland, set(flora.accepted_species))
     source_map, source_sizes, global_genus, native = _native_mainland_source_data(mainland)
     assignments = pd.read_csv(
         assignment_path, dtype=str,
