@@ -90,3 +90,25 @@ def test_state_records_derive_from_recorded_state_sets():
     assert red["oceanic_fraction"] == 0.5
     assert red["continental_fraction"] == 0
     assert len(result) == 5
+
+
+def test_geographic_source_neighborhood_rejects_faraway_matched_pairs():
+    rows = [island(f"c{i}") for i in range(10)]
+    rows += [island(f"o{i}") for i in range(10)]
+    labels = {
+        **{f"c{i}": {**geography("continental"),
+                     "island_latitude": "15.0",
+                     "island_longitude": str(20 + i * 0.02)}
+           for i in range(10)},
+        **{f"o{i}": {**geography("oceanic"),
+                     "island_latitude": "15.0",
+                     "island_longitude": str(20 + i * 0.02 if i < 9 else -140)}
+           for i in range(10)},
+    }
+    unrestricted, _ = match_origin_islands(rows, rows, labels)
+    nearby, audit = match_origin_islands(
+        rows, rows, labels, max_pair_geographic_km=500)
+    assert len(unrestricted) == 10
+    assert len(nearby) == 9
+    assert all(x["oceanic_id"] != "o9" for x in nearby)
+    assert audit["distance_calipers"]["max_pair_geographic_km"] == 500
