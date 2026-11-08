@@ -83,7 +83,7 @@ def main():
                     for pos in range(32, header_len-1,32):
                         block=raw[pos:pos+32]
                         if block[0]==13:break
-                        fields.append({"name":block[:11].split(b"\\0",1)[0].decode("ascii",errors="replace"),"width":block[16]})
+                        fields.append({"name":block[:11].split(bytes([0]),1)[0].decode("ascii",errors="replace"),"width":block[16]})
                     report["zenodo"]["geoentities_dbf"]={"records":count,"record_len":row_len,"fields":fields}
                 candidates=[]
                 for n in names:
