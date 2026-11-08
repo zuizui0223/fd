@@ -22,7 +22,7 @@ import pandas as pd
 
 from .core import ProfileSpace, load_profiles
 from .heldout_mainland_prediction import _paired_uncertainty
-from .source_genus_opportunity import _native_mainland_source_data, _sha
+from .source_genus_opportunity import (_native_mainland_source_data, _sha, exclude_heldout_species)
 
 MODELS = ("global_prior", "source_genus_density",
           "source_genus_prevalence", "known_genus_oracle")
@@ -214,10 +214,7 @@ def run(profile_all: Path, profile_direct: Path,
         names_heldout = set(membership.accepted_species)
         # Strict independent taxon-name holdout applies also to *source genus
         # opportunity* features, not merely to floral donor profile counts.
-        filtered_native = source_native.loc[
-            ~source_native.work_species.isin(names_heldout)].copy()
-        if set(filtered_native.work_species) & names_heldout:
-            raise AssertionError("Target name leaked into source availability")
+        filtered_native = exclude_heldout_species(source_native, names_heldout)
         filtered_source_map, filtered_source_sizes, filtered_global_prevalence, _ = (
             _native_mainland_source_data(filtered_native))
         donors = filtered_native.merge(
