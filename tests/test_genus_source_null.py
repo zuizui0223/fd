@@ -89,10 +89,10 @@ def test_finite_permutations_replay_for_source_signature():
 
 def test_published_counts_fail_closed():
     data,_=synthetic()
-    expected=pd.DataFrame([
-        {"island_id":island,"n_names":3,"n_profiles":3}
-        for island in ("C1","O1","C2","O2")
-    ])
+    expected=data.groupby("island_id").agg(
+        n_names=("accepted_species","nunique"),
+        n_profiles=("profile_id","nunique"),
+    ).reset_index()
     # If one island carries two identical profiles the expected number differs:
     # the checker must fail, not silently drop the mismatch.
     assert validate_island_counts(data,expected,"all")["mismatches"]==0
