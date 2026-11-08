@@ -54,6 +54,13 @@ jobs:
             --crosswalk work/fd_crosswalk/island_origin_crosswalk.csv \
             --output results/origin_repertoire \
             --permutations 9999
+      - name: Check stricter covariate matching and separate regions
+        run: |
+          python -m fd.repertoire_sensitivity \
+            --input work/island_public \
+            --g0 work/fd_g0 \
+            --crosswalk work/fd_crosswalk/island_origin_crosswalk.csv \
+            --output results/origin_repertoire_sensitivity
       - name: Preserve aggregate results and crosswalk audit without row-level geology joins
         if: success()
         uses: actions/upload-artifact@v4
@@ -63,6 +70,7 @@ jobs:
             results/origin_strata
             results/origin_g1
             results/origin_repertoire
+            results/origin_repertoire_sensitivity
             work/fd_crosswalk/crosswalk_audit.json
             work/island_public/source_manifest.json
           retention-days: 30
