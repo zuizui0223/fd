@@ -14,7 +14,7 @@ The key predictive chain is therefore **possible source mainland → ranking of 
 
 ## B. Source-only genus opportunity ranking (private source inputs; aggregate outputs)
 
-Input: original [GIFT 3.2](https://gift.uni-goettingen.de/) native mainland lists (748 source entities; 1,666,186 entity×taxon rows), frozen outcome-blind `geo_k5` source assignments, original `island` taxon presence/status table, and the independently audited Roeble/Zizka geological-origin crosswalk. No island outcome is used to fit ranking weights.
+Input: original [GIFT 3.2](https://gift.uni-goettingen.de/) native mainland lists (748 source entities; 1,666,186 entity×taxon rows), frozen outcome-blind `geo_k5` source assignments, original `island` taxon presence/status table, and the independently audited Roeble/Zizka geological-origin crosswalk. **Strict independent prediction MUST first remove every name observed on any of the 434 geology-classified islands from all native GIFT source lists**; the original non-held-out source overlap is only a descriptive sensitivity, not independent prediction. The strict source donor sample contains **923,786 entity×name records** (742,400 originally overlapping records removed). No island labels are fitted as rank-model coefficients.
 
 For each island, the **candidate set** is the union of genera with ≥1 name in five assigned mainland native regions. A test genus is **recorded** if observed in the island source list, otherwise *unrecorded/unlabelled*. No unrecorded genus is declared absent. Genus outside the candidate union is handled in a separately reported **source coverage fraction**, not coded as a false negative.
 
@@ -27,13 +27,13 @@ Compare four fixed source-only rank scores within the **same candidate genus uni
 
 Scores evaluated with tie-aware **average precision (AP)** and pairwise rank **ROC AUC** for recorded-versus-unrecorded candidate genera. AP must be interpreted relative to each island candidate prevalence; metrics are **not** calibrated arrival probabilities.
 
-**Support**: island ≥10 recorded genera, ≥5 among potential source candidates and at least one unrecorded source genus. Across geological oceanic/continental labels this yields 406 physically distinct islands for all recorded status (174 continental/232 oceanic) and 306 for explicitly native status (141/165). The native status subset is not representative of all flora because most island occurrence statuses are unresolved.
+**Support**: island ≥10 recorded genera, ≥5 among potential source candidates and at least one unrecorded source genus. Under strict taxon-name holdout this yields **399 physically distinct islands** for all-recorded status (**174 continental / 225 oceanic**) and **301** for explicitly native status (**141 / 160**). The older overlapping-source exploratory values were 406 (174/232) and 306 (141/165), and must not be described as independent unseen-species prediction. The native status subset is not representative of all flora because most island occurrence statuses are unresolved.
 
 Individual-island bootstrap intervals for source gains condition on the selected island population; **37 original matched geological origin pairs** (31 native-eligible pairs for the ranking score) are evaluated as a separate geographical comparison. The **12 paired tests** (three local models × AP and AUC × two status classes) use one BH/BY family. Even a zero-bias population with species detection probability depending on genus can generate an opportunity rank effect; detection still needs independent modelling.
 
 ## C. Two-stage source → genus → floral repertoires
 
-Use the **same original matched 37 island pairs / 74 islands** as fd PR #4. All scoped trait input has 13,141 island×complete-name records /3,316 unique target name units, Direct 11,664/2,605. Train on the GIFT mainland flora with the original PR321 private **complete** taxon→colour/form profile map. Hold out every one of the **74 islands' target taxon names globally from the entire mainland training corpus**, including every mainland source entity in which that taxon is listed.
+Use the **same original matched 37 island pairs / 74 islands** as fd PR #4. All scoped trait input has 13,141 island×complete-name records /3,316 unique target name units, Direct 11,664/2,605. Train on the GIFT mainland flora with the original PR321 private **complete** taxon→colour/form profile map. Hold out every one of the **74 islands' target taxon names globally from BOTH the mainland candidate genus opportunity source features and every flower-trait donor record**, including every mainland source entity in which that taxon is listed. An initial pilot excluded targets only from donor traits; its larger apparent source benefit is not the strict primary result.
 
 Create four model predictions of the **taxon-carrier-weighted flower-profile frequency vector** on each island:
 
