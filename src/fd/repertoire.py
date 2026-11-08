@@ -67,7 +67,8 @@ def _features(g0: dict, geology: dict) -> np.ndarray:
 def match_origin_islands(g0_all: list[dict], g0_direct: list[dict],
                          crosswalk: dict[str, dict], *,
                          coverage_max: float = MAX_COVERAGE_DIFFERENCE,
-                         climate_pc3_max: float = MAX_CLIMATE_PC3_DIFFERENCE
+                         climate_pc3_max: float = MAX_CLIMATE_PC3_DIFFERENCE,
+                         max_pair_geographic_km: float | None = None
                          ) -> tuple[list[dict], dict]:
     """Match once using All covariates, retain only islands with Direct support.
 
@@ -114,6 +115,25 @@ def match_origin_islands(g0_all: list[dict], g0_direct: list[dict],
             & (np.linalg.norm(standardized[:, :, 4:], axis=2) <= MAX_CLIMATE_Z_DISTANCE)
             & (np.abs(delta[:, :, 6]) <= climate_pc3_max)
         )
+        if max_pair_geographic_km is not None:
+            # Geographic source-neighborhood sensitivity: reduce comparisons
+            # spanning completely different botanical continents, without
+            # claiming this identifies actual historical colonist pools.
+            if max_pair_geographic_km <= 0:
+                raise ValueError("Geographic pairing radius must be positive")
+            lat_c = np.radians([_numeric(crosswalk[r["island_id"]]["island_latitude"])
+                                for r in continental])
+            lat_o = np.radians([_numeric(crosswalk[r["island_id"]]["island_latitude"])
+                                for r in oceanic])
+            lon_c = np.radians([_numeric(crosswalk[r["island_id"]]["island_longitude"])
+                                for r in continental])
+            lon_o = np.radians([_numeric(crosswalk[r["island_id"]]["island_longitude"])
+                                for r in oceanic])
+            cos_angle = (np.sin(lat_c[:, None]) * np.sin(lat_o[None, :])
+                         + np.cos(lat_c[:, None]) * np.cos(lat_o[None, :])
+                         * np.cos(lon_c[:, None] - lon_o[None, :]))
+            km = 6371.0088 * np.arccos(np.clip(cos_angle, -1.0, 1.0))
+            valid &= np.isfinite(km) & (km <= max_pair_geographic_km)
         # One distinct dummy per continental island: maximize valid matches
         # before minimizing their standardized covariate dissimilarity.
         matrix = np.hstack([np.where(valid, cost, 1e6),
@@ -156,6 +176,7 @@ def match_origin_islands(g0_all: list[dict], g0_direct: list[dict],
             "joint_coverage_abs_max": coverage_max,
             "standardized_climate_euclidean_max": MAX_CLIMATE_Z_DISTANCE,
             "climate_pc3_raw_abs_max": climate_pc3_max,
+            "max_pair_geographic_km": max_pair_geographic_km,
         },
         "matching": "maximum valid cardinality, minimum weighted standardized distance; no replacement",
         "selection_blind_to_flower_profile_identity": True,
