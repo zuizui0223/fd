@@ -83,7 +83,7 @@ def descriptive(islands: list[dict], pairs: list[dict], *, key: str,
 
 def _ols_origin_effect(data: list[dict], class_key: str, one: str, two: str,
                        stat: str, *, seed: int) -> dict:
-    """Cluster bootstrap over independent spatial blocks; associative only."""
+    """Fixed-design wild cluster bootstrap; associations, not causal effects."""
     items = []
     for r in data:
         if r.get(class_key) not in (one, two):
@@ -137,20 +137,25 @@ def _ols_origin_effect(data: list[dict], class_key: str, one: str, two: str,
     for i, (r, vals) in enumerate(items):
         byblock.setdefault(r["spatial_block"], []).append(i)
     group_ids = sorted(byblock)
+    # Wild-cluster residual multiplier bootstrap preserves ALL original rows,
+    # origin representation and fixed design rank at each iteration. This is
+    # preferable to resampling blocks when rare island types cause a high
+    # proportion of non-identifiable bootstrap replicates.
+    beta = np.linalg.lstsq(x, y, rcond=None)[0]
+    fitted = x @ beta
+    residual = y - fitted
+    block_ix = np.array([group_ids.index(r["spatial_block"]) for r, vals in items])
     coefficients = []
-    for repeat in range(399):
-        drawn = rng.choice(len(group_ids), size=len(group_ids), replace=True)
-        indices = np.asarray([i for d in drawn for i in byblock[group_ids[d]]], dtype=int)
-        xx, yy = x[indices], y[indices]
-        if np.linalg.matrix_rank(xx) != xx.shape[1]:
-            continue
-        coefficients.append(float(np.linalg.lstsq(xx, yy, rcond=None)[0][1]))
+    for repeat in range(999):
+        signs = rng.choice([-1.0, 1.0], size=len(group_ids), replace=True)
+        generated = fitted + residual * signs[block_ix]
+        coefficients.append(float(np.linalg.lstsq(x, generated, rcond=None)[0][1]))
     result["coefficient"] = estimate
+    result["bootstrap_method"] = "wild_cluster_Rademacher_999_fixed_design"
     result["n_bootstraps_usable"] = len(coefficients)
-    result["status"] = "exploratory_adjusted_cluster_bootstrap" if len(coefficients) >= 300 else "bootstrap_support_limited"
-    if len(coefficients) >= 300:
-        result["bootstrap_ci_025"], result["bootstrap_ci_975"] = [
-            float(v) for v in np.quantile(coefficients, [0.025, 0.975])]
+    result["status"] = "exploratory_adjusted_wild_cluster_bootstrap"
+    result["bootstrap_ci_025"], result["bootstrap_ci_975"] = [
+        float(v) for v in np.quantile(coefficients, [0.025, 0.975])]
     return result
 
 
@@ -209,7 +214,7 @@ def run_analysis(g0_root: Path, hv_root: Path, output: Path, crosswalk_root: Pat
         "historical_connectivity_evidence": "Weigelt et al. 2013 GMMC; 0 unconnected is NOT synonymous with oceanic origin",
         "classified_source_audit": source,
         "cohorts": cohort_counts,
-        "regression": "all scope; log(area)+log1p(distance)+log(name richness)+coverage+climate PCs+regime; spatial-block cluster-bootstrap CI, no inferential p",
+        "regression": "all scope; log(area)+log1p(distance)+log(name richness)+coverage+climate PCs+regime; 999-draw Rademacher wild-spatial-block bootstrap CI, no inferential p",
         "pair_dependence": "Pairs reuse islands, no independent-pair p values",
         "test_scope": "Descriptive comparison of recorded floral phenotype space only; source/lineage and native status not matched",
         "files": ["stratified_island_medians.csv", "stratified_pair_medians.csv",
