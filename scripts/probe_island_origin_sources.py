@@ -100,7 +100,7 @@ def main():
             report["warnings"].append(f"zenodo: {type(exc).__name__}: {exc}")
     (args.output/"origin_source_audit.json").write_text(json.dumps(report,indent=2,ensure_ascii=False))
     print("GEOGRAPHY",json.dumps(report["geography"],ensure_ascii=False)[:4500])
-    print("ZENODO",json.dumps(report["zenodo"],ensure_ascii=False)[:18000])
+    print("NON_RASTER",json.dumps(report["zenodo"].get("non_raster_sources",[]),ensure_ascii=False)[:15000])\n    print("DBF",json.dumps(report["zenodo"].get("geoentities_dbf",{}),ensure_ascii=False)[:3500])\n    print("CSV",json.dumps(report["zenodo"].get("csv_candidates",[]),ensure_ascii=False)[:10000])
     print("WARNINGS",report["warnings"])
 
 
