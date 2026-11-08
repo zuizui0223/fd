@@ -21,6 +21,18 @@ From the frozen public [PR #321 report](https://github.com/zuizui0223/island/blo
 - An observed profile-turnover share of 0.690–0.902 (median across analyses) is *descriptive*, not above-null evidence.
 - Gaussian KDE hypervolumes were **not** calculated. Two PCoA axes retain only 15.35% of the common positive inertia; 80% requires 17 axes. Do not call a 2-D KDE area total floral hypervolume.
 
+## Geological origin follow-up (2026-11-08): continent-derived versus oceanic islands
+
+The [geological-origin report](results/20261108_geological_origin/README.md) and [literature/novelty audit](docs/NOVELTY_LITERATURE_AUDIT.md) distinguish existing island trait-space research from the new question: **do geological histories change the *within-island* recorded floral dispersion and *between-island* functional separation relative to well-defined references?**
+
+- Independently sourced Roeble (2024) and Zizka (2022) geological classifications mapped conservatively to **434/8,264** GSHHG islands, of which **260 All (130 continental / 130 oceanic)** and **243 Direct** meet the complete-floral support gate. Unmatched and mixed islands remain unresolved; continental distance is never used as a geological label.
+- Separate Weigelt (2013) last-glacial mainland-connectivity data matched **1,334 All** support islands. A last-glacial unconnected island is **not** automatically geological oceanic.
+- Oceanic All islands have lower observed equal-profile Rao Q (median **0.75705 vs 0.77447**). An exploratory area, distance, climatic, region, observed richness and trait-coverage adjusted coefficient is **−0.00589** (uncorrected spatial-block wild-bootstrap 95% interval [−0.00988, −0.00227]). Similar direction for Direct.
+- **Crucial falsification:** For the 12 testable of 32 specified *origin-difference* tests under independent binary within-origin profile-margin nulls, **0 were BH/BY-supported**. Class-specific profile counts/prevalence can already reproduce apparent local Q origin differences; these observations do **not** establish enhanced packing, selection, within-lineage evolution, source-independent geological causation or pollinator functional replacement.
+- The local and pairwise outcomes are **categorical colour/form phenotype proxies**. 2-axis KDE is a projection (15.35% positive inertia), not the full floral-functional hypervolume.
+
+The paper's next identification gate is **profile-repertoire composition × source/genus/arrival constraints**, not treating any null rejection as a positive ecological mechanism.
+
 ## Implemented G1 and projected-hypervolume extension (2026-11-08)
 
 The [verified analysis report](results/20261108_g1_hypervolume/README.md) records the successful 11-test CI and full results. Under the fixed binary profile margins, 13/32 exploratory comparisons pass BH adjustment, **none passes BY**. In northern midlatitudes, local equal-profile Rao Q is slightly lower while between-island nearest-profile dissimilarity is higher than the fixed-margin reference.
