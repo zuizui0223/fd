@@ -118,9 +118,19 @@ def _ols_origin_effect(data: list[dict], class_key: str, one: str, two: str,
     # Center and standardize numeric covariates; binary group indicator untouched.
     x[:, 2:10] = (x[:, 2:10] - x[:, 2:10].mean(axis=0)) / np.maximum(
         x[:, 2:10].std(axis=0), 1.0e-9)
-    if np.linalg.matrix_rank(x) < x.shape[1]:
-        result["status"] = "rank_deficient_design"
+    # Preserve intercept and origin contrast. Retain a nuisance covariate
+    # only if it adds numerical rank; otherwise constant indicators/collinear
+    # climate features make the model non-identifiable for no scientific gain.
+    keep = [0, 1]
+    if np.linalg.matrix_rank(x[:, keep]) != 2:
+        result["status"] = "nonidentifiable_origin_contrast"
         return result
+    for column in range(2, x.shape[1]):
+        if np.linalg.matrix_rank(x[:, keep + [column]]) > len(keep):
+            keep.append(column)
+    result["used_design_columns"] = len(keep)
+    result["dropped_collinear_columns"] = x.shape[1] - len(keep)
+    x = x[:, keep]
     estimate = float(np.linalg.lstsq(x, y, rcond=None)[0][1])
     rng = np.random.default_rng(seed)
     byblock = {}
