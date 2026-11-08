@@ -71,7 +71,7 @@ def main():
                     {"name": n, "size": z.getinfo(n).file_size}
                     for n in names if not n.endswith("/")
                     and not n.startswith("input/PHYLACINE")
-                    and re.search(r"\\.(csv|rds|rda|rdata|dbf|shp|gpkg|xlsx)$", n, re.I)
+                    and n.lower().endswith((".csv", ".rds", ".rda", ".rdata", ".dbf", ".shp", ".gpkg", ".xlsx"))
                 ][:160]
                 dbf="input/geoentities_simple.dbf"
                 if dbf in names:
