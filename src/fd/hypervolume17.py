@@ -234,7 +234,7 @@ def run(input_root: Path, g0_root: Path, crosswalk: Path, output: Path, *,
         "scopes": list(scopes), "n_source_classified_matched_islands": len(matches)*2,
         "n_all_origin_island_records": len(records),
         "n_global_paired_tests": len(primary),
-        "interpretation": "87.49% categorical source inference is NOT supplied; 17D retains only 80.49% of positive PCoA inertia and Gaussian smoothing occupies unobserved state-set configurations",
+        "interpretation": "17D retains only 80.49% of positive PCoA inertia; smoothing occupies unobserved state-set configurations; remaining ~19.51% of positive inertia is omitted",
         "not_shown": "full-space hypervolume, causal ecological selection, pollination fitness, independent origin replicate",
         "source_hashes_sha256": {
             "profile_reference": file_sha256(input_root/REF_INPUT),
