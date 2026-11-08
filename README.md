@@ -21,6 +21,14 @@ From the frozen public [PR #321 report](https://github.com/zuizui0223/island/blo
 - An observed profile-turnover share of 0.690–0.902 (median across analyses) is *descriptive*, not above-null evidence.
 - Gaussian KDE hypervolumes were **not** calculated. Two PCoA axes retain only 15.35% of the common positive inertia; 80% requires 17 axes. Do not call a 2-D KDE area total floral hypervolume.
 
+## Matched floral repertoire results (2026-11-08)
+
+[Matched repertoire report](results/20261108_matched_flower_repertoire/README.md) · [Protocol and inference limits](docs/MATCHED_REPERTOIRE_PROTOCOL.md)
+
+The new analysis extends the geological-origin comparison to **which exact flower-colour × flower-form state-set profiles** are represented. In 37 outcome-blind 1:1 continental–oceanic pairs (23 northern-midlatitude, 14 tropical), the exact-profile repertoire composition differs under paired label swaps (**All/Direct BY q≈0.00042** across the fixed four global comparisons), but the **categorical-trait-similarity-aware** global test is not supported (All p=0.0828, Direct p=0.1609). No individual profile survives BH across all 496 tested categories. Colour/state presence is broadly shared across islands; the distinction lies in *combinations and their recorded prevalence*.
+
+Geographically closer matched pairs (≤5,000 km, n=25; ≤3,000 km, n=14 northern-midlatitude) retain exploratory exact-profile differences. These are **post-hoc sensitivities**, not additional independent experiments. The result does **not** identify the source-pool/genus sorting process or establish geological selection, pollinator replacement or true functional niche equivalence; source identity remains the main unresolved gate.
+
 ## Geological origin follow-up (2026-11-08): continent-derived versus oceanic islands
 
 The [geological-origin report](results/20261108_geological_origin/README.md) and [literature/novelty audit](docs/NOVELTY_LITERATURE_AUDIT.md) distinguish existing island trait-space research from the new question: **do geological histories change the *within-island* recorded floral dispersion and *between-island* functional separation relative to well-defined references?**
