@@ -1,0 +1,13 @@
+status,metric,source_model,n_matched_pairs,mean_oceanic_minus_continental_model_gain,paired_bootstrap_q025,paired_bootstrap_q975,p_pair_swap_two_sided,q_bh_12,q_by_12
+all_recorded,average_precision,local_count,37,-0.013207,-0.04602,0.019404,0.4388,0.4786909090909091,1
+all_recorded,average_precision,local_distance,37,-0.009456,-0.043202,0.023899,0.5907,0.5907,1
+all_recorded,average_precision,local_density,37,-0.013728,-0.043467,0.015969,0.3785,0.46812000000000004,1
+all_recorded,roc_auc,local_count,37,-0.025344,-0.051419,0.000827,0.0671,0.20130000000000003,0.6246763095238096
+all_recorded,roc_auc,local_distance,37,-0.022641,-0.049028,0.003256,0.1041,0.20820000000000002,0.6460884632034632
+all_recorded,roc_auc,local_density,37,-0.027362,-0.050278,-0.004811,0.0246,0.2004,0.6218834199134199
+explicit_native,average_precision,local_count,31,-0.014426,-0.038519,0.009656,0.2662,0.4188,1
+explicit_native,average_precision,local_distance,31,-0.011348,-0.036164,0.013434,0.3901,0.46812000000000004,1
+explicit_native,average_precision,local_density,31,-0.016256,-0.044788,0.011645,0.2792,0.4188,1
+explicit_native,roc_auc,local_count,31,-0.025832,-0.049928,-0.001629,0.0501,0.2004,0.6218834199134199
+explicit_native,roc_auc,local_distance,31,-0.021791,-0.045991,0.003108,0.1008,0.20820000000000002,0.6460884632034632
+explicit_native,roc_auc,local_density,31,-0.023879,-0.04529,-0.003699,0.0369,0.2004,0.6218834199134199
