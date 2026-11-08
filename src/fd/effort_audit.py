@@ -27,6 +27,7 @@ import pandas as pd
 from .core import ProfileSpace, load_carriers, load_profiles
 from .pipeline import REF_INPUT
 from .repertoire import _paired_swap_statistic, _upper_tail, match_origin_islands
+from .g1_fixed_margins import _bh
 
 ISLAND_SOURCE_SHA = "3bfa818ffbc7a0dea4319933c4b0a0eb41cfabb5"
 EFFORT_RELATIVE_PATH = "data/v2/staging/gbif/collected/island_observation_effort.csv"
@@ -230,11 +231,24 @@ def run(input_root: Path, g0_root: Path, crosswalk_path: Path,
                     "status": "posthoc_effort_screen_not_independent_confirmation",
                 })
             if not scored:
-                results.append({
-                    "selection": selection, "scope": scope,
-                    "status": "insufficient_pairs_n_less_than_8",
-                    "n_pairs": len(pairs),
-                })
+                for endpoint in ENDPOINTS:
+                    results.append({
+                        "selection": selection, "scope": scope,
+                        "endpoint": endpoint,
+                        "status": "insufficient_pairs_n_less_than_8",
+                        "n_pairs": len(pairs),
+                    })
+    expected_tests = len(CHECKS) * len(SCOPES) * len(ENDPOINTS)
+    if len(results) != expected_tests:
+        raise ValueError("Unexpected number of declared effort screen test slots")
+    probs = [float(r["p_swap_upper"]) if "p_swap_upper" in r else 1.
+             for r in results]
+    bh = _bh(probs)
+    H = sum(1/i for i in range(1, expected_tests+1))
+    for j, row in enumerate(results):
+        if "p_swap_upper" in row:
+            row["q_bh_posthoc16"] = float(bh[j])
+            row["q_by_posthoc16"] = float(min(1., bh[j] * H))
     pd.DataFrame(groups).to_csv(
         output / "effort_pair_support_summary.csv", index=False)
     pd.DataFrame(results).to_csv(
@@ -283,6 +297,8 @@ def run(input_root: Path, g0_root: Path, crosswalk_path: Path,
         "n_prior_effort_islands": len(effort),
         "screens": list(CHECKS),
         "n_label_swap_draws": draws,
+        "posthoc_declared_family_size": expected_tests,
+        "posthoc_multiplicity": "BH/BY over 16 correlated tests, untestable slots assigned p=1",
         "n_matched_p_value_tests_computed": sum(
             "p_swap_upper" in r for r in results),
         "nonclaims": [
