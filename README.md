@@ -21,6 +21,16 @@ From the frozen public [PR #321 report](https://github.com/zuizui0223/island/blo
 - An observed profile-turnover share of 0.690–0.902 (median across analyses) is *descriptive*, not above-null evidence.
 - Gaussian KDE hypervolumes were **not** calculated. Two PCoA axes retain only 15.35% of the common positive inertia; 80% requires 17 axes. Do not call a 2-D KDE area total floral hypervolume.
 
+## Origin-matched floral repertoire screen under independent GBIF observation-effort metadata (2026-11-08)
+
+[Full effort-robustness results](results/20261108_gbif_effort_robustness/README.md) · [Pinned source/method contract](docs/GBIF_EFFORT_SENSITIVITY.md)
+
+Rechecked the **same 37 original oceanic–continental island pairs** using the independent, earlier `island` v2 **Tracheophyta** exact-island GBIF effort metadata (record counts, dataset counts, coordinate uncertainty). All 37 pairs had older effort rows and ≥30 GBIF IDs/≥2 datasets on both islands. Requiring additional **≤4× record-count asymmetry and ≤10 km reported median coordinate uncertainty** retained **21 physical pairs** (12 north-midlat, 9 tropical).
+
+The exact colour×form profile-repertoire separation remains supported in **All** (21-pair signed origin-label swap p=0.0025, 16-slot BH q=0.0057, BY q=0.0193), and more weakly Direct (p=0.0089, BH q=0.0178, **BY q=0.0602**). The original **categorical-similarity-kernel** separation is **not supported** in either scope (All p=0.474; Direct p=0.756).
+
+**Strict interpretation:** this is a **post-hoc gross observation-effort screen** in a *different/earlier sampling campaign*, not a true per-genus detection model or independent replication. It does not establish biological absences, colonization failure, phylogenetic independence, or adaptive flower evolution. It also does **not** override the genus×geographic-availability conditional null non-rejection in [PR #5](results/20261108_genus_source_control/README.md).
+
 ## Mainland lineage opportunity × floral assemblage prediction and 17D projected KDE (2026-11-08)
 
 [Corrected source / two-stage / 17D results](results/20261108_source_opportunity_hv17/README.md) · [Methods and privacy contract](docs/SOURCE_OPPORTUNITY_HYPERVOLUME17.md)
