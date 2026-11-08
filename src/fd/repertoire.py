@@ -321,6 +321,44 @@ def run(input_root: Path, g0_root: Path, crosswalk_path: Path, output: Path,
             })
         profile_records.extend(_binary_profile_tests(oceanic, continental, labels, scope))
         state_records.extend(_state_contrasts(oceanic, continental, profiles, space.ids, scope))
+    # Preserve the entire geology-labelled eligible population as an
+    # explicitly descriptive comparison. These are NOT the matched-pair
+    # inferential cohorts, and no p-values are assigned to this table.
+    full_records = []
+    for scope, eligible_rows in (("all", g0_all), ("direct", g0_direct)):
+        carriers = load_carriers(input_root / "floral_space_20261106" / scope /
+                                 "island_profile_carriers.csv.gz")
+        for region in ("all",) + REGIONS:
+            members = {}
+            for origin in ORIGINS:
+                members[origin] = sorted(r["island_id"] for r in eligible_rows
+                    if r["island_id"] in crosswalk
+                    and crosswalk[r["island_id"]].get("geological_origin") == origin
+                    and (region == "all" or r["analysis_regime"] == region))
+            for profile, color, form in labels:
+                a = members["continental"]
+                b = members["oceanic"]
+                fa = (sum(profile in carriers[i] for i in a) / len(a)) if a else None
+                fb = (sum(profile in carriers[i] for i in b) / len(b)) if b else None
+                full_records.append({
+                    "scope": scope, "region": region, "profile_id": profile,
+                    "flower_primary_color": color, "floral_form": form,
+                    "n_continental_islands": len(a),
+                    "n_oceanic_islands": len(b),
+                    "continental_incidence_fraction": fa,
+                    "oceanic_incidence_fraction": fb,
+                    "difference_oceanic_minus_continental":
+                        fb-fa if fa is not None and fb is not None else None,
+                    "interpretation": "descriptive_unmatched_not_significance",
+                })
+    _write_csv(output / "all_eligible_profile_prevalence.csv", full_records,
+               cols(full_records) if False else (
+                   "scope", "region", "profile_id", "flower_primary_color",
+                   "floral_form", "n_continental_islands", "n_oceanic_islands",
+                   "continental_incidence_fraction", "oceanic_incidence_fraction",
+                   "difference_oceanic_minus_continental", "interpretation",
+               ))
+
     q_global = _bh([r["p_pair_swap_upper"] for r in group_records])
     for i, row in enumerate(group_records):
         row["q_bh_4"] = float(q_global[i])
