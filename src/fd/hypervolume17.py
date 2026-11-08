@@ -121,7 +121,29 @@ def _paired_origin_stats(scores: pd.DataFrame, pairs: list[dict],
         p_two = _two_sided(observed, permutation)
         ii = rng.integers(len(difference), size=(9999, len(difference)))
         qlo, qhi = np.quantile(difference[ii].mean(axis=1), [.025, .975])
+        # Test whether the projected volume difference is more than
+        # the difference in the number of recorded distinct profiles.
+        profile_log_ratio = np.asarray([
+            np.log(lookup.at[p["oceanic_id"], "n_profiles"] /
+                   lookup.at[p["continental_id"], "n_profiles"])
+            for p in selected
+        ])
+        design = np.column_stack([np.ones(len(difference)), profile_log_ratio])
+        beta = np.linalg.lstsq(design, difference, rcond=None)[0]
+        intercepts = []
+        for bootstrap in ii:
+            if np.linalg.matrix_rank(design[bootstrap]) == design.shape[1]:
+                intercepts.append(float(np.linalg.lstsq(
+                    design[bootstrap], difference[bootstrap], rcond=None)[0][0]))
+        adjlo, adjhi = (
+            np.quantile(intercepts, [.025, .975]) if len(intercepts) >= 8000
+            else (np.nan, np.nan)
+        )
         results.append({
+            "profile_richness_adjusted_intercept": float(beta[0]),
+            "profile_richness_coefficient": float(beta[1]),
+            "profile_richness_adjusted_bootstrap_q025": float(adjlo),
+            "profile_richness_adjusted_bootstrap_q975": float(adjhi),
             "scope": scope, "bandwidth": bandwidth, "region": region,
             "n_distinct_pairs": len(selected),
             "mean_log_volume_diff_o_minus_c": observed,
