@@ -1,0 +1,36 @@
+# fd — literature and novelty positioning (2026-11-08)
+
+**Working question:** Does the geological history of an island explain whether recorded floral phenotype space is locally restricted while geographically differentiated from other islands?
+
+## Closest established research (the paper must NOT claim these as new)
+
+| Prior research | Established contribution | Remaining directly testable gap for fd |
+|---|---|---|
+| Barajas Barbosa et al. (2023), *Nature*, doi:10.1038/s41586-023-06305-z | The functional-trait space of Tenerife's native flora is shaped by biogeographic dispersal/diversification; strong functional hotspots coexist with broad functional richness. | Single oceanic island, primarily size/resource-use/life-history traits rather than **global floral colour/form within- vs between-island distance signatures** |
+| Schrader, Wright & Kreft (2024), *J. Biogeogr.*, doi:10.1111/jbi.14703 | Source-pool trait filtering framework; small islands can exhibit especially strong functional filtering. | Put **within-island functional dispersion** alongside **between-island distance-aware profile separation** and test conditional source/geological origin contrasts |
+| Zell et al. (2025 issue / online 2024), *New Phytologist*, doi:10.1111/nph.20234 | Global plant colonization is associated with self-compatibility, life span, floral symmetry and arrival opportunity; taxonomic and encounter effects matter. | Outcome here is **island-assemblage distribution of floral phenotype combinations**, not species colonization probability; the current G0/G1 lacks a species-level colonization counterfactual |
+| Testolin et al. (2024), article doi:10.1007/s42974-024-00195-5 | Geological origin changes species-area relationships on 58 Mediterranean continental vs volcanic islands. | Test **floral functional dispersion and nearest-neighbour beta distances**, not species-area slope alone, with geographic and historical controls |
+| Song et al. (2026), *New Phytol.*, doi:10.1111/nph.71040 | On 35 Chinese islands and mainland plots, species-level and community-level functional trait associations differ. | Different ecology (leaf, xylem, carbon/water traits), geographic focus and functional endpoints; caution against pretending community-level patterns imply evolution |
+| Weigelt et al. (2020), *Ecography*, doi:10.1111/ecog.05174 | Oceanic island floras differ from predicted mainland source pools in taxonomic disharmony. | Need lineage/source-matched checks before interpreting observed floral functional differentiation as geological-origin mechanism |
+| Hetherington-Rauth & Johnson (2020), *Am. Nat.*, doi:10.1086/709018 | Island floral size evolution is not universally toward smaller flowers; 136 phylogenetic island/mainland contrasts. | fd does **not** test within-species evolution; trait composition differences reflect recorded island assemblages only |
+| Zizka et al. (2022), *PNAS*, doi:10.1073/pnas.2208629119 | Geologically classified island inventory for insular woodiness; oceanic includes volcanic/atoll/raised floor, continental includes shelf/fragments, with mixed class. Public data/scripts doi:10.5281/zenodo.6325640. | Potential independently supported origin labels; validate island crosswalk and coverage before stratification |
+
+## What would actually be new (conditionally; do not use 'first' yet)
+
+The **joint** test of (a) local floral-functional dispersion `Q_i`, (b) between-island nearest-profile dissimilarity `NN_{ij}`, (c) island geological history, while (d) comparing to fixed-profile-margin, source/lineage, and data-coverage references on the **same eligible cohorts**. A genuine contribution must show the differences are not artefacts of trait imputation, source-availability, coarse floral categories, genus composition, island size/area or repeated pair dependence. This is a prospective new test, not an already established 'novel discovery'.
+
+Do not substitute an arbitrary `distance_to_continent_km` cut-off for geological origin. The USGS Global Islands size classes ('Continental Mainlands / Big / Small / Very Small') **do not** classify islands as continental shelf versus oceanic geological origin. Geographic source type and geologic origin need independent provenance. A PCoA-2D 90% KDE area is a descriptive **projected** area retaining only 15.35% of common positive inertia; full floral hypervolume is not estimated.
+
+## Competing hypotheses and required contrasts
+
+- **Hgeo0 — shared island-assembly signature**: after matching richness, source/regime, area, distance and coverage, the residual within/between profile-space responses do **not** differ between oceanic and continental islands. Distinguish absence of evidence from equivalence.
+- **Hgeo1 — origin-modified local restriction**: the distribution of `(Q_obs-Q_null)` or predeclared standardized effect differs across origins. It may have either direction; do not pick one after examining results.
+- **Hgeo2 — origin-modified differentiation**: the observed-minus-null median nearest-profile distance between **within-origin** island pairs differs across origins. Equal numbers of physical islands and comparable partner degrees should be checked.
+- **Hgeo3 — source/lineage explanation**: differences disappear when source membership, genus composition, floristic origin, and observation process are held fixed; this supports assemblage/history confounding rather than independent functional selection.
+- **Hgeo4 — mechanistic interpretation**: only if independent pollinator performance/reproductive evidence identifies an association may the study claim functional pollination mechanism.
+
+**Origin ontology (in priority order):** `oceanic` (volcanic, atoll, raised ocean-floor); `continental_shelf`; `continental_fragment`; `mixed`; `unresolved`. Main table may collapse shelf+fragment to `continental` with a predeclared heterogeneity sensitivity; keep mixed/unknown outside the binary contrast.
+
+**Classification requirements:** carry original dataset/paper, source record ID, matched original island identifier, spatial correspondence diagnostics, conflict status and an audit class. Never assign an origin solely from nearest-continent distance, latitude or within a broad bounding box. If only a small high-confidence subset matches, report its narrow inference population, and keep the remaining global islands unclassified rather than forcing a global 'origin result'.
+
+**Inference contract:** direct origin-by-endpoint interaction with uncertainty, not comparing two within-stratum p-values. Original G1 BH 13/32 vs BY 0/32 remains exploratory; rerun the null within comparable strata rather than simply subdividing its null distributions. No new origin-related positive result is currently supported without provenance-validated matched island labels.
