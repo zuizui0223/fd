@@ -21,6 +21,16 @@ From the frozen public [PR #321 report](https://github.com/zuizui0223/island/blo
 - An observed profile-turnover share of 0.690–0.902 (median across analyses) is *descriptive*, not above-null evidence.
 - Gaussian KDE hypervolumes were **not** calculated. Two PCoA axes retain only 15.35% of the common positive inertia; 80% requires 17 axes. Do not call a 2-D KDE area total floral hypervolume.
 
+## Genus and potential mainland-source conditioning (2026-11-08)
+
+[Verified conditional analysis](results/20261108_genus_source_control/README.md) · [Rights-restricted replay contract](docs/GENUS_SOURCE_CONDITIONED_PROTOCOL.md)
+
+The original **37-pair exact colour×form repertoire shift is observed**, but **is not clearly exceptional once the actual island×taxon incidence and genus×four-region geographic availability are held fixed** (1,999 conditionally shuffled whole floral profiles; pooled All exact L2 p=0.1035, Direct p=0.0675; none of the four global tests survives BH/BY, min BH q≈0.185). Genus-only global permutation likewise has no supported pooled contrast. The secondary tropical-genus residual is suggestive but not supported under the more restrictive regional-signature null's eight-comparison BH adjustment. An **explicitly native-only** sensitivity retains 28 original matched pairs and also shows no supported global excess.
+
+The archived **GIFT 3.2** geographically near-native mainland source flora (748 source regions; 1,666,186 records) allows a separate test. Over 90% of the broad *recorded* profile types in each island are represented in the potential five-nearest mainland-source repertoire. Subtracting that normalized profile spectrum leaves the exact-profile origin contrast (All/Direct BY q≈0.00083), but not a consistent categorical-similarity-kernel contrast after FDR. **Source-spectrum subtraction is not the genus conditional null or an ancestral colonization model.**
+
+Interpretation is now centered on **which taxa and floral repertoires become assembled** rather than a claim of evolutionarily smaller or functionally equivalent flowers on oceanic islands. The private trait source archives and taxon/island identity-level tables are never redistributed: only aggregate results, code and hashes are checked into fd.
+
 ## Matched floral repertoire results (2026-11-08)
 
 [Matched repertoire report](results/20261108_matched_flower_repertoire/README.md) · [Protocol and inference limits](docs/MATCHED_REPERTOIRE_PROTOCOL.md)
