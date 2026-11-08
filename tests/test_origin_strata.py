@@ -74,8 +74,7 @@ def test_adjusted_cluster_bootstrap_requires_two_origin_classes():
     fit = _ols_origin_effect(rows, "geological_origin", "continental",
                              "oceanic", "rao_q_profile_equal", seed=11)
     assert fit["n_first"] == 50 and fit["n_second"] == 50
-    assert fit["status"] in ("exploratory_adjusted_cluster_bootstrap",
-                             "bootstrap_support_limited")
+    assert fit["status"] in ("exploratory_adjusted_wild_cluster_bootstrap",)
     assert fit["coefficient"] > 0
     rows[:60] = [dict(r, geological_origin="unresolved") for r in rows[:60]]
     incomplete = _ols_origin_effect(rows, "geological_origin", "continental",
