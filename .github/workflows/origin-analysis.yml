@@ -46,7 +46,7 @@ jobs:
             --crosswalk work/fd_crosswalk/island_origin_crosswalk.csv \
             --output results/origin_g1 \
             --draws 200
-      - name: Preserve exact crosswalk, cohort audits, controlled/descriptive comparisons
+      - name: Preserve aggregate results and crosswalk audit without row-level geology joins
         if: success()
         uses: actions/upload-artifact@v4
         with:
@@ -54,6 +54,6 @@ jobs:
           path: |
             results/origin_strata
             results/origin_g1
-            work/fd_crosswalk
+            work/fd_crosswalk/crosswalk_audit.json
             work/island_public/source_manifest.json
           retention-days: 30
