@@ -21,6 +21,18 @@ From the frozen public [PR #321 report](https://github.com/zuizui0223/island/blo
 - An observed profile-turnover share of 0.690–0.902 (median across analyses) is *descriptive*, not above-null evidence.
 - Gaussian KDE hypervolumes were **not** calculated. Two PCoA axes retain only 15.35% of the common positive inertia; 80% requires 17 axes. Do not call a 2-D KDE area total floral hypervolume.
 
+## Mainland lineage opportunity × floral assemblage prediction and 17D projected KDE (2026-11-08)
+
+[Corrected source / two-stage / 17D results](results/20261108_source_opportunity_hv17/README.md) · [Methods and privacy contract](docs/SOURCE_OPPORTUNITY_HYPERVOLUME17.md)
+
+**Taxon-name leakage audit changes the interpretation.** Allowing GIFT mainland lists to include the **same species** present in tested island floras makes source–island overlap biologically descriptive, but not an independent out-of-species prediction. After excluding every observed taxon name from all 434 geology-classified islands globally from the mainland source lists, the earlier apparent nearby-source genus ranking improvement on continental islands **disappears/reverses**. The strict source-ranking support is 399 islands (174 continental / 225 oceanic) and 301 in explicitly native records (141/160). Its original 37 geographical pair differences are **not BH/BY-supported** over 12 tests (minimum BH q≈0.487). Unrecorded mainland candidate genera are **unknown, not true ecological absences**.
+
+In the stricter independent two-stage flower-assemblage prediction, all names from the original 74 matched test islands are also excluded from GIFT **genus opportunity source features and floral trait donors**. The source-only genus mixture, without using observed island genus identities, lowers original categorical similarity-kernel **floral frequency** error from 0.020476 to 0.018107 (All, **11.6%**) and 0.024446 to 0.021582 (Direct, **11.7%**). Matched-pair bootstrap improvements remain positive; exact individual-taxon profile log-loss improvements do not consistently remain. The known-island-genus benchmark is an *oracle*, not prospective genus colonization prediction.
+
+The new [17-dimensional KDE HDR implementation](src/fd/hypervolume17.py) goes beyond the previous two axes (15.35% inertia): 17 common PCoA axes retain **80.49%** of the 496-profile positive inertia. Runs use two bandwidths, 12,000 draws ×2 per island, 260 geological All and 243 geological Direct islands. Raw oceanic volume differences are largely accounted for by differences in the number of distinct recorded flower profiles, and no profile-richness-adjusted contrast has a 95% pair-bootstrap interval excluding zero. These are **projection-limited Gaussian-smoothed volumes, not total discrete floral functional hypervolumes or pollination niches**.
+
+**Scientific boundary:** mainland source geography can constrain recorded plant lineage repertoires, but existing observation checklists cannot distinguish actual arrival, establishment, observation, native/introduced history or adaptation causally. Source-only flower-repertoire prediction is a modest assemblage-level association, not an ecological sorting mechanism proof. No restricted GIFT taxon identities/source rows or original island evidence are republished.
+
 ## Out-of-taxon mainland source and genus prediction (2026-11-08)
 
 [Held-out predictive results](results/20261108_heldout_mainland_prediction/README.md) · [Private-input-only reproducibility contract](docs/HELDOUT_MAINLAND_PREDICTION.md)

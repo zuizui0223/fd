@@ -38,6 +38,15 @@ jobs:
             --hypervolume work/fd_hv \
             --crosswalk work/fd_crosswalk \
             --output results/origin_strata
+      - name: Calculate 17D projected Gaussian KDE90 hypervolume with Monte Carlo quality audits
+        run: |
+          python -m fd.hypervolume17 \
+            --input work/island_public \
+            --g0 work/fd_g0 \
+            --crosswalk work/fd_crosswalk/island_origin_crosswalk.csv \
+            --output results/hypervolume17 \
+            --scopes all,direct \
+            --samples 12000
       - name: Test geological-origin differences under within-origin fixed-profile margins
         run: |
           python -m fd.origin_null \
@@ -68,6 +77,7 @@ jobs:
           name: fd-origin-strata-analysis
           path: |
             results/origin_strata
+            results/hypervolume17
             results/origin_g1
             results/origin_repertoire
             results/origin_repertoire_sensitivity
