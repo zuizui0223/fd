@@ -40,6 +40,12 @@ def analyze(input_root: Path, g0_root: Path, crosswalk_path: Path, output: Path,
     strict, strict_audit = match_origin_islands(
         all_rows, direct_rows, crosswalk,
         coverage_max=0.12, climate_pc3_max=1.0)
+    geographic, geographic_audit = match_origin_islands(
+        all_rows, direct_rows, crosswalk,
+        max_pair_geographic_km=5000.0)
+    near_region, near_region_audit = match_origin_islands(
+        all_rows, direct_rows, crosswalk,
+        max_pair_geographic_km=3000.0)
     profiles = load_profiles(input_root / REF_INPUT)
     space = ProfileSpace(profiles)
     kernel = 1.0 - space.matrix
@@ -49,8 +55,12 @@ def analyze(input_root: Path, g0_root: Path, crosswalk_path: Path, output: Path,
         for scope in ("all", "direct")
     }
     records = []
-    for cohort, pairs, audit in (("original", main, main_audit),
-                                 ("stricter_covariate_balance", strict, strict_audit)):
+    for cohort, pairs, audit in (
+        ("original", main, main_audit),
+        ("stricter_covariate_balance", strict, strict_audit),
+        ("within_5000km_source_proxy", geographic, geographic_audit),
+        ("within_3000km_source_proxy", near_region, near_region_audit),
+    ):
         for region in ("all",) + REGIONS:
             chosen = [p for p in pairs if region == "all" or p["region"] == region]
             for scope in ("all", "direct"):
@@ -82,6 +92,8 @@ def analyze(input_root: Path, g0_root: Path, crosswalk_path: Path, output: Path,
                     )
                 rng = np.random.default_rng(
                     seed + (12 if cohort.startswith("stricter") else 0)
+                    + (22 if cohort.startswith("within_5000") else
+                       32 if cohort.startswith("within_3000") else 0)
                     + (3 if region == "tropical" else 1 if region == "northern_midlatitude" else 0)
                 )
                 signs = rng.choice([-1.0, 1.0], size=(permutations, len(chosen)))
@@ -108,8 +120,12 @@ def analyze(input_root: Path, g0_root: Path, crosswalk_path: Path, output: Path,
         "status": "exploratory_posthoc_not_independent_confirmation",
         "original_matching": main_audit,
         "strict_matching": strict_audit,
+        "geographic_5000km_matching": geographic_audit,
+        "geographic_3000km_matching": near_region_audit,
         "n_records": len(records),
         "n_strict_pairs": len(strict),
+        "n_geographic_5000km_pairs": len(geographic),
+        "n_geographic_3000km_pairs": len(near_region),
         "different_repertoire_tests_are_nested_sensitivities": True,
         "not_conditioned_on": ["genus", "taxon identities", "source pool",
                                "site-specific pollinator identity"],
