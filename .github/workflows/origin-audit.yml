@@ -20,9 +20,13 @@ jobs:
           python-version: '3.11'
       - name: Inspect geography and third-party origin data availability
         run: python scripts/probe_island_origin_sources.py --output results/origin_source_audit
-      - name: Inspect open island-origin supplementary tables (no commit)\n        run: python scripts/fetch_public_origin_refs.py --output work/origin_references\n      - name: Retain audit only
+      - name: Fetch public geology supplementary references, not commit them
+        run: python scripts/fetch_public_origin_refs.py --output work/origin_references
+      - name: Retain evidence and original reference table artifacts
         uses: actions/upload-artifact@v4
         with:
           name: origin-source-audit
-          path: |\n            results/origin_source_audit/origin_source_audit.json\n            work/origin_references
+          path: |
+            results/origin_source_audit/origin_source_audit.json
+            work/origin_references
           retention-days: 14
