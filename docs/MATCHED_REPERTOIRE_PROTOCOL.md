@@ -26,6 +26,10 @@ Construct a binary incidence vector for each matched island over the same 496 **
 4. **Secondary component states**: record whether each of the original colour or form states appears among recorded profiles on each island; analogous paired exact tests. States are recorded trait descriptions that might not always represent realized morphs on the specific island, so these are **hypothesis-generating**.
 5. **Local functional dispersion**: compute the observed paired mean difference in equal-profile Rao Q and its two-sided sign-swap p as a parallel check, not as a new causal inference.
 
+## Post-hoc source-geography and tighter-balance sensitivities
+
+The initial botanical-source audit found that some tropical pairs satisfying the main environmental matching criteria were thousands of kilometres apart, potentially linking different source floras. Therefore report three additional **post-hoc diagnostic** cohorts without changing the original primary result: (i) maximum absolute complete-trait coverage 0.12 and PC3 difference 1.0; (ii) a strict spherical geographic distance between paired island centroids ≤5,000 km; (iii) ≤3,000 km. These are **proxies for shared biogeographic source opportunity**, not actual genus-level or historical plant source pools. If the 5,000-km restriction removes the apparent functional repertoire difference, the geographic-source alternative has stronger support than the geological origin mechanism. Pair sample sizes and regional balance must be disclosed for each diagnostic.
+
 ## Null interpretation and uncertainty
 
 The sign-swap test assumes **conditional exchangeability of the two origin labels within geographically matched pairs**. Geological origin was not assigned at random, and residual climate imbalance, regional source pools and intra-archipelago dependence remain. Thus p/q are exploratory and **not** a causal test of geological origin. The paired unit is islands, not species. Any global significance establishes only a recorded assemblage composition association at the matched support; it does not demonstrate historical trait evolution or changed pollination services.
