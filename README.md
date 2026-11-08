@@ -21,9 +21,17 @@ From the frozen public [PR #321 report](https://github.com/zuizui0223/island/blo
 - An observed profile-turnover share of 0.690–0.902 (median across analyses) is *descriptive*, not above-null evidence.
 - Gaussian KDE hypervolumes were **not** calculated. Two PCoA axes retain only 15.35% of the common positive inertia; 80% requires 17 axes. Do not call a 2-D KDE area total floral hypervolume.
 
+## Implemented G1 and projected-hypervolume extension (2026-11-08)
+
+The [verified analysis report](results/20261108_g1_hypervolume/README.md) records the successful 11-test CI and full results. Under the fixed binary profile margins, 13/32 exploratory comparisons pass BH adjustment, **none passes BY**. In northern midlatitudes, local equal-profile Rao Q is slightly lower while between-island nearest-profile dissimilarity is higher than the fixed-margin reference.
+
+The new hypervolume implementation computes **finite categorical occupancy** and **90%-mass 2-D Gaussian KDE projected area** for 4,722 scope–island records, with globally fixed bandwidth/weighting sensitivities. Only 15.35% of the reference positive inertia lies in the first 2 PCoA axes, so these KDE areas are **not** the full functional floral-space hypervolume.
+
+Definitions, nonclaims, and replay are in [G1 and hypervolume methods](docs/G1_HYPERVOLUME.md).
+
 ## Implemented fd stage: original-distance analysis
 
-No Gaussian hypervolume or truncated PCoA geometry is required.
+Original-distance metrics do not use PCoA; the supplementary Gaussian KDE is explicitly projection-limited and does not enter the functional-distance significance tests.
 
 - **Local Rao's Q:** mean colour/form dissimilarity over pairs of recorded taxon-name units. Includes a finite-name version and an equal-profile-weight sensitivity.
 - **Between-island functional nearest-profile dissimilarity:** symmetric, carrier-weighted average of the nearest recorded profile in the other island; zero for two identical profile supports even if carrier frequencies differ.
