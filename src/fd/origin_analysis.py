@@ -196,11 +196,10 @@ def run_analysis(g0_root: Path, hv_root: Path, output: Path, crosswalk_root: Pat
             a, b = descriptive(local, pairs, key=key, first=one, second=two, scope=scope)
             summary_rows.extend(a)
             pair_rows.extend(b)
-            if scope == "all":
-                for response in LOCAL_STATS:
-                    adjusted_rows.append(_ols_origin_effect(
-                        local, key, one, two, response,
-                        seed=20261108 + len(adjusted_rows)))
+            for response in LOCAL_STATS:
+                fitted = _ols_origin_effect(local, key, one, two, response,
+                                            seed=20261108 + len(adjusted_rows))
+                adjusted_rows.append({"scope": scope, **fitted})
     if not summary_rows:
         raise ValueError("No classified islands in G0")
     _write_csv(output / "stratified_island_medians.csv", summary_rows, tuple(summary_rows[0]))
@@ -214,7 +213,7 @@ def run_analysis(g0_root: Path, hv_root: Path, output: Path, crosswalk_root: Pat
         "historical_connectivity_evidence": "Weigelt et al. 2013 GMMC; 0 unconnected is NOT synonymous with oceanic origin",
         "classified_source_audit": source,
         "cohorts": cohort_counts,
-        "regression": "all scope; log(area)+log1p(distance)+log(name richness)+coverage+climate PCs+regime; 999-draw Rademacher wild-spatial-block bootstrap CI, no inferential p",
+        "regression": "four overlapping scope sensitivities; log(area)+log1p(distance)+log(name richness)+coverage+climate PCs+regime; 999-draw Rademacher wild-spatial-block bootstrap CI, not multiplicity corrected",
         "pair_dependence": "Pairs reuse islands, no independent-pair p values",
         "test_scope": "Descriptive comparison of recorded floral phenotype space only; source/lineage and native status not matched",
         "files": ["stratified_island_medians.csv", "stratified_pair_medians.csv",
