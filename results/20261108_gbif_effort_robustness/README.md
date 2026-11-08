@@ -35,7 +35,7 @@ The median log GBIF effort ratio (oceanic minus continental) across the 37 origi
 
 For each eligible island, construct the normalized binary incidence vector of the **same 496 recorded flower-colour state-set × floral-form state-set profiles**. Assess origin difference using both (a) exact-profile L2 and (b) the original full colour/form set-Jaccard similarity kernel. Fixed original matching is unchanged and the pair is the sign-swap unit; 9,999 Monte Carlo sign swaps per comparison. One 16-slot **post-hoc** multiple-test family (4 overlapping effort screens × 2 evidence scopes × 2 endpoints); BH/BY computed over all 16 slots.
 
-| Selected subset and endpoint | n pair | Observed−null reference two-sided status | p (upper-tail) | BH q (16) | BY q (16) |
+| Selected subset and endpoint | n pairs | Direction vs paired sign-swap reference | p (upper-tail) | BH q (16) | BY q (16) |
 |---|---:|---|---:|---:|---:|
 | All original, exact-profile L2 | 37 | higher | 0.0001 | 0.00027 | 0.00090 |
 | Direct original, exact-profile L2 | 37 | higher | 0.0001 | 0.00027 | 0.00090 |
