@@ -13,6 +13,7 @@ from scipy.special import gammaln
 from fd.core import ProfileSpace
 from fd.source_genus_opportunity import (
     ranking_metrics, source_candidate_scores, _paired_uncertainty,
+    exclude_heldout_species,
 )
 from fd.hypervolume17 import (
     DIMENSIONS, kde_hdr_17, pcoa_embedding_17,
@@ -95,3 +96,17 @@ def test_projected_kde17_integrator_against_single_gaussian():
     assert rel_mc < 0.07
     with pytest.raises(ValueError):
         kde_hdr_17(points, bandwidth=h, n_draws=100, seed=2026)
+
+
+def test_strict_heldout_taxon_names_are_removed_from_all_mainland_sources():
+    mainland = pd.DataFrame({
+        "entity_ID": ["E1", "E2", "E2", "E3", "E3"],
+        "work_species": ["X test", "X test", "Y unrelated",
+                         "Z test", "W unrelated"],
+    })
+    removed = exclude_heldout_species(mainland, {"X test", "Z test"})
+    assert len(removed) == 2
+    assert set(removed.work_species) == {"Y unrelated", "W unrelated"}
+    assert not {"X test", "Z test"} & set(removed.work_species)
+    with pytest.raises(ValueError):
+        exclude_heldout_species(mainland, set(mainland.work_species))
