@@ -67,6 +67,24 @@ def main():
                     {"filename": n, "bytes": z.getinfo(n).file_size}
                     for n in names if re.search("island|geo|model|predict|environment|origin", n, re.I)
                 ][:160]
+                report["zenodo"]["non_raster_sources"] = [
+                    {"name": n, "size": z.getinfo(n).file_size}
+                    for n in names if not n.endswith("/")
+                    and not n.startswith("input/PHYLACINE")
+                    and re.search(r"\\.(csv|rds|rda|rdata|dbf|shp|gpkg|xlsx)$", n, re.I)
+                ][:160]
+                dbf="input/geoentities_simple.dbf"
+                if dbf in names:
+                    raw=z.read(dbf)
+                    header_len=int.from_bytes(raw[8:10],"little")
+                    row_len=int.from_bytes(raw[10:12],"little")
+                    count=int.from_bytes(raw[4:8],"little")
+                    fields=[]
+                    for pos in range(32, header_len-1,32):
+                        block=raw[pos:pos+32]
+                        if block[0]==13:break
+                        fields.append({"name":block[:11].split(b"\\0",1)[0].decode("ascii",errors="replace"),"width":block[16]})
+                    report["zenodo"]["geoentities_dbf"]={"records":count,"record_len":row_len,"fields":fields}
                 candidates=[]
                 for n in names:
                     if n.endswith("/") or not re.search(r"\.(csv|tsv|txt)$", n, re.I):
@@ -77,12 +95,12 @@ def main():
                         excerpt=source.read(min(2800,info.file_size)).decode("utf-8-sig",errors="replace")
                     lines=excerpt.splitlines()[:3]
                     candidates.append({"name":n,"size":info.file_size,"first_lines":lines})
-                report["zenodo"]["csv_candidates"]=candidates[:50]
+                report["zenodo"]["csv_candidates"]=[x for x in candidates if not x["name"].startswith("input/PHYLACINE")][:100]
         except Exception as exc:
             report["warnings"].append(f"zenodo: {type(exc).__name__}: {exc}")
     (args.output/"origin_source_audit.json").write_text(json.dumps(report,indent=2,ensure_ascii=False))
     print("GEOGRAPHY",json.dumps(report["geography"],ensure_ascii=False)[:4500])
-    print("ZENODO",json.dumps(report["zenodo"],ensure_ascii=False)[:12000])
+    print("ZENODO",json.dumps(report["zenodo"],ensure_ascii=False)[:18000])
     print("WARNINGS",report["warnings"])
 
 
