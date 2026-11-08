@@ -65,7 +65,10 @@ def _features(g0: dict, geology: dict) -> np.ndarray:
 
 
 def match_origin_islands(g0_all: list[dict], g0_direct: list[dict],
-                         crosswalk: dict[str, dict]) -> tuple[list[dict], dict]:
+                         crosswalk: dict[str, dict], *,
+                         coverage_max: float = MAX_COVERAGE_DIFFERENCE,
+                         climate_pc3_max: float = MAX_CLIMATE_PC3_DIFFERENCE
+                         ) -> tuple[list[dict], dict]:
     """Match once using All covariates, retain only islands with Direct support.
 
     The same fixed pairs are then analyzed for All and Direct; nested scopes
@@ -107,9 +110,9 @@ def match_origin_islands(g0_all: list[dict], g0_direct: list[dict],
             (np.abs(delta[:, :, 0]) <= MATCH_LOG_RATIO)
             & (np.abs(delta[:, :, 1]) <= MATCH_LOG_RATIO)
             & (np.abs(delta[:, :, 2]) <= MATCH_LOG_RATIO)
-            & (np.abs(delta[:, :, 3]) <= MAX_COVERAGE_DIFFERENCE)
+            & (np.abs(delta[:, :, 3]) <= coverage_max)
             & (np.linalg.norm(standardized[:, :, 4:], axis=2) <= MAX_CLIMATE_Z_DISTANCE)
-            & (np.abs(delta[:, :, 6]) <= MAX_CLIMATE_PC3_DIFFERENCE)
+            & (np.abs(delta[:, :, 6]) <= climate_pc3_max)
         )
         # One distinct dummy per continental island: maximize valid matches
         # before minimizing their standardized covariate dissimilarity.
@@ -150,9 +153,9 @@ def match_origin_islands(g0_all: list[dict], g0_direct: list[dict],
         "distance_calipers": {
             "log_area_max": MATCH_LOG_RATIO, "log_isolation_max": MATCH_LOG_RATIO,
             "log_names_max": MATCH_LOG_RATIO,
-            "joint_coverage_abs_max": MAX_COVERAGE_DIFFERENCE,
+            "joint_coverage_abs_max": coverage_max,
             "standardized_climate_euclidean_max": MAX_CLIMATE_Z_DISTANCE,
-            "climate_pc3_raw_abs_max": MAX_CLIMATE_PC3_DIFFERENCE,
+            "climate_pc3_raw_abs_max": climate_pc3_max,
         },
         "matching": "maximum valid cardinality, minimum weighted standardized distance; no replacement",
         "selection_blind_to_flower_profile_identity": True,
