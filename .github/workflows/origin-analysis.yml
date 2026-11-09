@@ -95,6 +95,13 @@ jobs:
             --crosswalk work/fd_crosswalk/island_origin_crosswalk.csv \
             --effort results/pinned_prior_gbif_effort.csv \
             --output results/spatial_cluster_dependence
+      - name: Maximize geography-disjoint origin matches and test exact category repertoire difference
+        run: |
+          python -m fd.geography_independent \
+            --input work/island_public \
+            --g0 work/fd_g0 \
+            --crosswalk work/fd_crosswalk/island_origin_crosswalk.csv \
+            --output results/geography_independent
       - name: Preserve aggregate results and crosswalk audit without row-level geology joins
         if: success()
         uses: actions/upload-artifact@v4
@@ -109,6 +116,7 @@ jobs:
             results/gbif_effort_robustness
             results/coverage_rarefaction
             results/spatial_cluster_dependence
+            results/geography_independent
             work/fd_crosswalk/crosswalk_audit.json
             work/island_public/source_manifest.json
           retention-days: 30
