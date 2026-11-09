@@ -34,6 +34,8 @@ Under the most conservative null that all paired origin-label flips *inside each
 
 The code in `src/fd/spatial_clusters.py` computes full-profile and effort-balanced group tests with **exhaustive** spatial-component flips, plus a **leave-one-connected-component-out** sensitivity to assess whether one geographic source cluster dominates the observed category displacement. Report component sizes and numerical results without exporting island IDs or source blocks. No mixed taxon/genus source variation can be inferred as biological adaptation from this test.
 
+A second, independently coded source-region definition also yields the same risk: connecting pairs with a common **Weigelt published archipelago** label (missing labels treated as separate) yields **five components of size 18, 13, 4, 1 and 1** for the same 37 pairs. The archipelago names are coarse (e.g. a broad Japan region may include biologically distinct island groups), so this also provides a stringent *sensitivity*, not a new empirically estimated covariance. Separate exact component swaps and leave-one-component-out metrics must be reported for both graph definitions.
+
 **This is deliberately a worst-case geographic correlation stress test**. Sharing a coarse 10°-like grid block does not imply biological dependence equals 1, and transitive graph linkage can join distant islands. It is also an observational sign-swap null, not geological treatment randomization. Thus a failure under five components does not prove no real category turnover, but it **does prohibit high-confidence independent replication claims** without a more defensible spatial covariance model or genuinely separate archipelagos/source lineages.
 
 ## What a difference can mean
