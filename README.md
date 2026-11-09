@@ -23,11 +23,12 @@ From the frozen public [PR #321 report](https://github.com/zuizui0223/island/blo
 
 ## 2026-11-09 original-distance floral packing / fixed-support SES
 
+[Validated original-distance SES report](results/20261109_distance_ses/README.md) ·
 [Distance-native protocol](docs/DISTANCE_SES.md) ·
 [Executable module](src/fd/distance_ses.py) ·
 [Synthetic tests](tests/test_distance_ses.py)
 
-**Method added; no new empirical positive result is claimed until the public-source CI run has been checked.**
+**Source-pinned CI completed successfully** ([N1b-complete run #42579672053](https://github.com/zuizui0223/fd/actions/runs/42579672053)). None of the original 32 spatially controlled SES origin contrasts supports a geological-specific effect (min exact p=0.0879; minimum BH q=0.4464).
 The 17D Gaussian-KDE HDR result is now considered a **diagnostic appendix**:
 when narrow 17D kernels are mostly disjoint, its log volume tracks the number
 of distinct recorded profiles and its richness-adjusted paired confidence
@@ -40,16 +41,21 @@ and **mean within-island nearest-profile distance**. Smaller values indicate
 closer recorded categories, not measured pollinator function. For each island
 the metrics are compared against uniform fixed-n profile draws from (N0) the
 global 496-profile public reference and (N1) recorded states in other eligible
-islands of the same broad region, with the focal island removed. Both are
-*recorded-support* nulls; **N1 does not control genus or a true source pool**.
+islands of the same broad region, with the focal island removed. **N1b** is a
+more stringent descriptive sensitivity that draws regional profile types in
+proportion to their occurrence in OTHER eligible islands; the universal negative
+SES appearance under uniform N1 does not survive this frequency weighting
+(All equal30 nearest D median SES: continental N1 −1.45 → N1b +0.18;
+oceanic N1 −2.21 → N1b −0.52). These are recorded-support nulls, not genus
+or true mainland-source conditionals.
 Uniform observed 30-profile thinning is an additional support sensitivity,
 not independent biological replication.
 
 Geological SES contrasts are re-tested only as **post-hoc spatial
 sensitivities**: entire geographic components are sign-flipped for the old
 37-pair sample, and pairwise flips are enumerated for the newer geography-
-disjoint **10 verified pairs**. There are 32 predeclared exploratory
-comparisons with one BH/BY family. Source/genus conditional N2 still requires
+disjoint **10 verified pairs**. There are 32 explicitly enumerated post-hoc
+comparisons with one BH/BY family (N1b is descriptive and excluded). Source/genus conditional N2 still requires
 rights-restricted underlying donor data and has **not** been implemented in
 this public pipeline. No new causal claim or population-level floral
 contraction is implied by adding the code.
