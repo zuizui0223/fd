@@ -1,5 +1,7 @@
 # Island mainland-source genus opportunity, two-stage floral prediction and 17D projected KDE
 
+> **2026-11-09 spatial independence caveat:** The frozen 37 origin-matched pairs form only five connected spatial-block groups. Therefore the pairwise raw/KDE hypothesis p and BH/BY values below were computed under *stronger independent-pair exchangeability* than is verified. The independent geographic groups do not establish a distinct origin-caused 17D volume contraction; the earlier profile-richness-adjusted interval already includes zero. Treat paired 17D and source-gain p as exploratory and not spatially confirmed. [Full cohort spatial audit](../20261109_coverage_rarefaction/README.md).
+
 **2026-11-08 JST — post-hoc, source-audited, aggregate-only.** [Methods and privacy contract](../../docs/SOURCE_OPPORTUNITY_HYPERVOLUME17.md). Original trait universe: [island PR #321](https://github.com/zuizui0223/island/pull/321). **No biological arrivals, confirmed absences or selection processes are directly estimated.**
 
 ## 1. Crucial source-name leakage audit and corrected scientific interpretation
