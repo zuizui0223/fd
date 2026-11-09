@@ -172,7 +172,7 @@ def simulate_genus_traits(
     return richness, np.asarray(equal_scores, dtype=float).reshape(-1, len(ENDPOINTS))
 
 
-def source_coverage(model: DonorModel, island: str:
+def source_coverage(model: DonorModel, island: str,
                     genus_counts: dict[str, int]) -> tuple[float, float]:
     """Fraction of recorded name carriers with global/local donor genus support."""
     n = sum(genus_counts.values())
