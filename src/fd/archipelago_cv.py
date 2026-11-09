@@ -102,6 +102,23 @@ def haversine_km(latitude: np.ndarray, longitude: np.ndarray) -> np.ndarray:
     return 6371.0088 * np.arccos(np.clip(angle, -1., 1.))
 
 
+def nearest_geographic_donors(
+    target_index: int, distances: np.ndarray,
+) -> np.ndarray:
+    """Select exactly three nearest same-regime islands using location only.
+
+    No archipelago identity or floral phenotype enters donor selection.
+    Excludes the target even when another centroid has zero distance.
+    """
+    n = len(distances)
+    if distances.shape != (n,n) or n < REFERENCE_NEIGHBORS + 1:
+        raise ValueError("Too few geocoded reference islands")
+    if not 0 <= target_index < n:
+        raise ValueError("Missing target island index")
+    other = np.flatnonzero(np.arange(n) != target_index)
+    return other[np.argsort(distances[target_index, other])[:REFERENCE_NEIGHBORS]]
+
+
 def donor_selection(
     target_index: int,
     group: np.ndarray,
@@ -286,10 +303,7 @@ def run(input_root: Path, g0_root: Path, crosswalk_path: Path,
             # originally declared regime, WITHOUT consulting archipelago
             # labels to select them. Compare identical three-donor and
             # 50%-reference mixture structures.
-            other_geo = np.flatnonzero(np.arange(n) != i)
-            nearest_geo = other_geo[
-                np.argsort(dist[i, other_geo])[:REFERENCE_NEIGHBORS]
-            ]
+            nearest_geo = nearest_geographic_donors(i, dist)
             n_shared_geo = len(set(within) & set(nearest_geo))
             audit["n_geo_nearest_identical"] += int(n_shared_geo==REFERENCE_NEIGHBORS)
             audit["shared_donor_counts"].append(n_shared_geo)
@@ -419,7 +433,7 @@ def run(input_root: Path, g0_root: Path, crosswalk_path: Path,
                         bootstrap=bootstrap,
                         seed=seed + (0 if scope=="all" else 100) +
                              (0 if endpoint==ENDPOINTS[0] else 10) +
-                             (0 if comparison==CONTRASTS[0] else 1),
+                             CONTRASTS.index(comparison),
                     )
                     result.update(stat)
                     result["status"] = "posthoc_archipelago_heldout_predictive_comparison"
