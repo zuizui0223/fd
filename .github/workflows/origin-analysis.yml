@@ -78,6 +78,15 @@ jobs:
             --crosswalk work/fd_crosswalk/island_origin_crosswalk.csv \
             --output results/gbif_effort_robustness \
             --draws 9999
+      - name: Probe geological repertoire support through matched profile/name rarefaction and single-state cohorts
+        run: |
+          python -m fd.coverage_rarefaction \
+            --input work/island_public \
+            --g0 work/fd_g0 \
+            --crosswalk work/fd_crosswalk/island_origin_crosswalk.csv \
+            --output results/coverage_rarefaction \
+            --replications 99 \
+            --permutations 1999
       - name: Preserve aggregate results and crosswalk audit without row-level geology joins
         if: success()
         uses: actions/upload-artifact@v4
@@ -90,6 +99,7 @@ jobs:
             results/origin_repertoire
             results/origin_repertoire_sensitivity
             results/gbif_effort_robustness
+            results/coverage_rarefaction
             work/fd_crosswalk/crosswalk_audit.json
             work/island_public/source_manifest.json
           retention-days: 30
