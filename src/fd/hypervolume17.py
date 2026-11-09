@@ -207,7 +207,7 @@ def run(input_root: Path, g0_root: Path, crosswalk: Path, output: Path, *,
                     "mean_MC_relative_error": float(np.mean(errors)),
                 })
         records_scope = pd.DataFrame([r for r in records if r["scope"] == scope])
-        for bw in BANDWIDTHS:
+        for bw_index, bw in enumerate(BANDWIDTHS):
             bw_rows = records_scope.loc[records_scope.bandwidth == bw]
             quality.append({
                 "scope": scope, "bandwidth": bw, "n_islands": len(bw_rows),
