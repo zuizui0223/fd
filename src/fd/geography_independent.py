@@ -342,8 +342,8 @@ def run(input_root: Path, g0_root: Path, crosswalk: Path, output: Path) -> dict:
     q = _bh([r["p_exact_upper"] for r in tests])
     harmonic = sum(1/i for i in range(1,len(tests)+1))
     for row, adj in zip(tests,q):
-        row["q_bh_posthoc12"]=float(adj)
-        row["q_by_posthoc12"]=float(min(1,adj*harmonic))
+        row["q_bh_posthoc16"]=float(adj)
+        row["q_by_posthoc16"]=float(min(1,adj*harmonic))
     if len(report)!=4 or len(tests)!=16:
         raise AssertionError("Unexpected geographical matching comparison family")
     _write_csv(output/"independent_matching_support.csv",report,AUDIT_FIELDS)
@@ -374,7 +374,7 @@ def run(input_root: Path, g0_root: Path, crosswalk: Path, output: Path) -> dict:
                       "matching_support":report,
                       "tests":[{"grouping":r["grouping"],"scope":r["scope"],
                                 "endpoint":r["endpoint"],"n":r["n_pairs"],
-                                "p":r["p_exact_upper"],"q":r["q_bh_posthoc12"]}
+                                "p":r["p_exact_upper"],"q":r["q_bh_posthoc16"]}
                                for r in tests]},ensure_ascii=False))
     return manifest
 
