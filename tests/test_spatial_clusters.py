@@ -63,3 +63,17 @@ def test_leave_one_cluster_out_does_not_reclassify_remaining_pairs():
     assert all(r["ratio_norm_remaining_to_original"]>=0 for r in rows)
     assert all(-1.0000001<=r["cosine_with_original_mean_direction"]<=1.0000001
                for r in rows)
+
+
+def test_weigelt_archipelago_independent_grouping_does_not_join_unresolved():
+    pairs=_pairs(8)
+    geo={}
+    for i in range(8):
+        geo[f"c{i}"]={"spatial_block":f"cb{i}",
+                        "weigelt_archipelago":"Japan" if i<3 else ""}
+        geo[f"o{i}"]={"spatial_block":f"ob{i}",
+                        "weigelt_archipelago":("West Indies" if 3<=i<6 else "")}
+    comps=connected_block_components(pairs,geo,field="weigelt_archipelago")
+    assert sorted(len(c) for c in comps)==[1,1,3,3]
+    with pytest.raises(ValueError,match="Invalid"):
+        connected_block_components(pairs,geo,field="fake_geography")
