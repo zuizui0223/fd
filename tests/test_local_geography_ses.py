@@ -4,7 +4,7 @@ import pytest
 
 from fd.local_geography_ses import (
     _support_summary, great_circle_distance_km,
-    local_pool, nearest_regional_donors,
+    local_pool, nearest_regional_donors, paired_reference_summary,
 )
 from fd.distance_ses import sample_null
 
@@ -74,3 +74,51 @@ def test_small_geographic_support_cell_does_not_release_radius():
     assert aggregate["median_10th_neighbor_distance_km"] == pytest.approx(150.)
     assert aggregate["n_n1c_equal30_estimable"] == 5
     assert "island_id" not in aggregate
+
+
+def test_matched_n1b_n1c_summary_uses_only_same_focal_and_unchanged_observed():
+    rows=[]
+    for i in range(6):
+        for null,ses,expected in (
+            ("N1b_regional_islandfreq_LOO",-.8,.31),
+            ("N1c_nearest10_geo_LOO",-.1,.26)):
+            rows.append({
+                "scope":"all", "mode":"equal30",
+                "endpoint":"mean_nearest_profile_distance",
+                "region":"tropical","geological_origin":"oceanic",
+                "island_id":f"secret_{i}","n_profiles":38,
+                "null":null,"ses":ses,"observed":.25,
+                "null_mean":expected, "delta":.25-expected,
+            })
+    rows.append({
+        "scope":"all", "mode":"equal30",
+        "endpoint":"mean_nearest_profile_distance",
+        "region":"tropical","geological_origin":"continental",
+        "island_id":"unpaired","n_profiles":38,
+        "null":"N1b_regional_islandfreq_LOO",
+        "ses":-.5,"observed":.25,"null_mean":.3,"delta":-.05,
+    })
+    out=paired_reference_summary(rows)
+    assert len(out)==2  # tropical plus pooled all, unpaired island omitted
+    assert all(x["n_islands_both_nulls"]==6 for x in out)
+    assert all(x["median_N1c_minus_N1b_SES"]==pytest.approx(.7) for x in out)
+    assert all(x["median_N1c_minus_N1b_null_mean"]==pytest.approx(-.05) for x in out)
+    assert all("island_id" not in x for x in out)
+    bad=[dict(x) for x in rows]
+    bad[1]["observed"]=.27
+    with pytest.raises(AssertionError):
+        paired_reference_summary(bad)
+
+
+def test_unpaired_and_small_cells_emit_no_effect_estimates():
+    samples=[]
+    for i in range(4):
+        for null in ("N1b_regional_islandfreq_LOO","N1c_nearest10_geo_LOO"):
+            samples.append(dict(scope="direct",mode="equal30",
+                endpoint="mean_pairwise_distance",region="northern_midlatitude",
+                geological_origin="continental",island_id=f"private_{i}",
+                null=null,observed=.3,ses=.1,delta=.01,null_mean=.29))
+    out=paired_reference_summary(samples)
+    assert len(out)==2
+    assert all(x["status"]=="small_cell_suppressed" for x in out)
+    assert all("median_N1c_SES" not in x for x in out)
