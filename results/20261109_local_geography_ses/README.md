@@ -29,6 +29,19 @@ The nested Direct scope gives a consistent *descriptive* pattern for equal30 nea
 
 Original within-island **mean distinct-pairwise D** tells a similar but weaker story: All/equal30 N1c SES continental −0.0075, oceanic −0.2205. These endpoints are dependent measurements of the same categorical repertoire, not independent replication.
 
+## Same-island paired audit: reference shift is not population replacement
+
+[Source-pinned exact same-island comparison CI #42584985224](https://github.com/zuizui0223/fd/actions/runs/42584985224) exported `local_geography_matched_reference_comparison.csv`, evaluated on the **intersection of targets with estimable N1b and N1c**. Every included island retains its original observed distance and 30-profile thinning; only the null reference changes. No new geological p-value is generated.
+
+| Equal30 nearest-profile D, paired-median statistic | All continental (n=130) | All oceanic (n=130) | Direct oceanic (n=119) |
+|---|---:|---:|---:|
+| **Within-island N1c SES − N1b SES**, median | **−0.165075** | **+0.285840** | **+0.305889** |
+| Within-island N1c null mean − N1b null mean (original D), median | **+0.004094** | **−0.007306** | **−0.007886** |
+| Negative N1b SES fraction | 42.31% | 84.62% | 84.87% |
+| Negative N1c SES fraction | 52.31% | 70.77% | 68.91% |
+
+For oceanic All, nearby recorded floras make the *expected* nearest-profile original D smaller by a median 0.00731 relative to broad-regional prevalence; hence the observed 0.276 nearest-profile D is less exceptional. In contrast, nearby mainland-derived island floras yield a slightly *larger* expected D than their region-wide source reference. This supports **different empirical source-neighborhood compositions** as a descriptive driver of the null-score change. It does not identify underlying taxa, dispersal or the causal geological origin effect.
+
 ## Geographic and support limitations
 
 - The median distance to the **10th nearest eligible donor** is **386.68 km** on continental islands versus **1149.21 km** on oceanic islands. Thus nearest-10 does **NOT** hold physical spatial range constant between origins. The oceanic reference is often geographically much broader.
