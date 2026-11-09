@@ -21,6 +21,20 @@ From the frozen public [PR #321 report](https://github.com/zuizui0223/island/blo
 - An observed profile-turnover share of 0.690–0.902 (median across analyses) is *descriptive*, not above-null evidence.
 - Gaussian KDE hypervolumes were **not** calculated. Two PCoA axes retain only 15.35% of the common positive inertia; 80% requires 17 axes. Do not call a 2-D KDE area total floral hypervolume.
 
+## Sampling-support-standardized geological floral repertoire (2026-11-09)
+
+[Validated 37-pair rarefaction report](results/20261109_coverage_rarefaction/README.md) · [Methods and bounds](docs/COVERAGE_RAREFACTION_SENSITIVITY.md)
+
+**Exact recorded colour×flower-form combinations remain different after controlling the observed amount of information per island.** The frozen 37 paired continental–oceanic island floras all have ≥30 distinct recorded profiles and ≥40 complete taxon-name carriers. Under 99 repeat uniform observed-support draws and 1,999 paired sign swaps per draw:
+
+- Exactly **30 distinct recorded profiles per island**: median exact-profile L2 p **0.007 All / 0.0035 Direct**; 83.8% / 93.9% of the repeated thinnings have raw p below .05.
+- Exactly **40 sampled complete name carriers per island**: median p **0.007 All / 0.004 Direct**; 82.8% / 93.9% of thinnings below raw .05.
+- Per-pair exact profile richness matched to the poorer side: median p **0.0005** in both nested evidence scopes.
+- Restricting to ≥20 **single-state-only profile types** per pair retains **11 All / 10 Direct** pairs: exact-profile p 0.0517 / 0.093. This restricted subset has insufficient support for a comparable positive generality claim.
+- The full original categorical **trait-similarity kernel** remains unsupported across these support screens. The distinction is largely exact recorded category-profile membership, **not demonstrated functional niche-space disjunction**.
+
+**These 99 resamples are correlated thinnings of the same 74 original islands, not independent replications or inferred missing species.** This strengthens the evidence that simple observed sample size alone is insufficient, but it does **not** override prior genus×regional-source conditional null non-rejection, remove trait-dependent reporting bias or demonstrate geological adaptation/colonization. [CI #42554306259](https://github.com/zuizui0223/fd/actions/runs/42554306259) ran the full aggregate source pipeline with 50 tests passed.
+
 ## Origin-matched floral repertoire screen under independent GBIF observation-effort metadata (2026-11-08)
 
 [Full effort-robustness results](results/20261108_gbif_effort_robustness/README.md) · [Pinned source/method contract](docs/GBIF_EFFORT_SENSITIVITY.md)
