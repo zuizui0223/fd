@@ -120,6 +120,16 @@ jobs:
             --output results/distance_ses \
             --draws 999 \
             --thinnings 99
+      - name: Evaluate floral packing relative to the ten nearest OTHER islands
+        run: |
+          python -m fd.local_geography_ses \
+            --input work/island_public \
+            --g0 work/fd_g0 \
+            --crosswalk work/fd_crosswalk/island_origin_crosswalk.csv \
+            --output results/local_geography_ses \
+            --neighbors 10 \
+            --draws 999 \
+            --thinnings 99
       - name: Preserve aggregate results and crosswalk audit without row-level geology joins
         if: success()
         uses: actions/upload-artifact@v4
@@ -137,6 +147,7 @@ jobs:
             results/geography_independent
             results/archipelago_cv
             results/distance_ses
+            results/local_geography_ses
             work/fd_crosswalk/crosswalk_audit.json
             work/island_public/source_manifest.json
           retention-days: 30
