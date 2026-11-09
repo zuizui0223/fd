@@ -47,12 +47,22 @@ as a new information source here.
   not mainland lineage opportunity, colonization, native flora or an unbiased
   complete trait pool. A focal island with more types than the remaining pool
   has no N1 score; do NOT sample with replacement to force one.
+- **N1b_regional_islandfreq_LOO**, a deliberately stronger
+  **descriptive falsification** of N1: use the SAME leave-one-island-out
+  regional support as N1, but draw n distinct profiles without replacement
+  with weights proportional to the *number of other eligible islands* in
+  the same regime that record each profile. This preserves unequal profile
+  prevalence at the broad regional scale. It is not a source or genus null;
+  trait-coverage and correlated geography still matter. N1b is excluded
+  from the fixed 32 geological paired test slots: it is a post-hoc
+  robustness check for whether uniform random reference profiles
+  exaggerate recorded packing.
 - **N2 genus × native source opportunity** is NOT computed by the public
   pipeline. Restricted GIFT/identity-level inputs and source-donor exclusions
   are necessary. A suitable future N2 must hold trait/sampling evidence,
   name leakage and genus-source opportunity fixed. N1 does NOT stand in for N2.
 
-For each observed endpoint T and its 999 Monte Carlo null values, calculate
+For each observed endpoint T and its 999 Monte Carlo null values (N0, N1 or N1b), calculate
 
     delta = T_observed - mean(T_null)
     SES = delta / sd(T_null)            # sample sd, ddof=1
@@ -86,7 +96,7 @@ two metrics, two nulls and two support rules (32 fixed slots):
    pairs (currently 10 pairs); enumerate all pair sign flips. Geographic
    disjointness still does not guarantee lineage or ecological independence.
 
-Use two-sided exact sign p-values for the mean SES contrast. All 32
+Use two-sided exact sign p-values for the mean SES contrast of N0/N1 only. All 32
 exploratory slots (including nonestimable slots assigned p=1) form one
 BH/BY family; report no single favorable raw p as independently confirmed.
 N0 and N1 SES are correlated, as are All/Direct and full/equal30.
@@ -112,7 +122,7 @@ origin-analysis workflow, then run:
       --output results/distance_ses \
       --draws 999 --thinnings 99
 
-Outputs are:
+Outputs are (the summary also includes N1b; the paired table excludes it):
 - distance_ses_origin_summary.csv: grouped descriptive observed/null
   distance, delta, SES and thinning spread (only n >=5).
 - distance_ses_paired_spatial_sensitivity.csv: 32 post-hoc test slots
