@@ -28,7 +28,7 @@ from .effort_audit import read_effort, eligible_pairs
 
 
 ROWS = (
-    "scope", "subset", "endpoint", "n_pairs", "n_components",
+    "scope", "subset", "dependency_grouping", "endpoint", "n_pairs", "n_components",
     "largest_component_pairs", "component_size_distribution",
     "n_exact_component_sign_configurations", "observed",
     "null_median", "null_q025", "null_q975", "exact_component_upper_p",
@@ -36,14 +36,15 @@ ROWS = (
     "status",
 )
 DROP_COLUMNS = (
-    "scope", "subset", "endpoint", "n_pairs_original",
+    "scope", "subset", "dependency_grouping", "endpoint", "n_pairs_original",
     "n_components_original", "n_pairs_remaining", "n_components_remaining",
     "component_size_removed", "remaining_statistic",
     "ratio_norm_remaining_to_original", "cosine_with_original_mean_direction",
 )
 
 
-def connected_block_components(pairs: list[dict], geo: dict[str, dict]
+def connected_block_components(pairs: list[dict], geo: dict[str, dict],
+                               *, field: str = "spatial_block"
                                ) -> list[list[int]]:
     """Return stable pair-index components under any shared geographic block.
 
@@ -51,6 +52,8 @@ def connected_block_components(pairs: list[dict], geo: dict[str, dict]
     *different* block IDs; this is a conservative stress test, not a solved
     spatial covariance model.
     """
+    if field not in ("spatial_block", "weigelt_archipelago"):
+        raise ValueError("Invalid spatial dependency grouping")
     parent=list(range(len(pairs)))
     def root(index):
         while parent[index] != index:
@@ -65,9 +68,13 @@ def connected_block_components(pairs: list[dict], geo: dict[str, dict]
             key=pair[label]
             if key not in geo:
                 raise ValueError("Missing geographic identity of a matched island")
-            block=geo[key].get("spatial_block","")
+            block=geo[key].get(field,"")
             if not isinstance(block,str) or not block.strip():
-                raise ValueError("Missing spatial block of a matched island")
+                if field == "spatial_block":
+                    raise ValueError("Missing spatial block of a matched island")
+                # Missing published archipelago label is NOT a shared grouping.
+                # Each unlabeled endpoint is its own independent placeholder.
+                block=f"__unlabeled_archipelago_{i}_{label}"
             if block in encountered:
                 union(i,encountered[block])
             else:
@@ -135,6 +142,7 @@ def cluster_permutation(
 def delete_component_sensitivity(
     pair_delta:np.ndarray, groups:list[list[int]], kernel:np.ndarray,
     *, scope:str,subset:str,endpoint:str,
+    dependency_grouping:str="spatial_block",
 ) -> list[dict]:
     """What if one spatially connected group drives most of the profile shift?"""
     center=pair_delta.mean(axis=0)
@@ -151,7 +159,9 @@ def delete_component_sensitivity(
         cosine_denom=np.linalg.norm(center)*np.linalg.norm(m)
         cosine=float(center@m/cosine_denom) if cosine_denom>1e-15 else None
         records.append({
-            "scope":scope,"subset":subset,"endpoint":endpoint,
+            "scope":scope,"subset":subset,
+            "dependency_grouping":dependency_grouping,
+            "endpoint":endpoint,
             "n_pairs_original":len(pair_delta),
             "n_components_original":len(groups),
             "n_pairs_remaining":int(mask.sum()),
@@ -181,41 +191,50 @@ def run(input_root:Path,g0_root:Path,crosswalk_path:Path,
     results=[]
     dropout=[]
     component_report=[]
-    for subset in ("all_37","effort_balanced"):
-        selected=(matched if subset=="all_37" else
-                  eligible_pairs(matched,effort,"min30_balanced4x_uncertainty10km")[0])
-        if len(selected)<8:
+    for subset in ("all_37", "effort_balanced"):
+        selected = (matched if subset == "all_37" else
+                    eligible_pairs(matched, effort,
+                                   "min30_balanced4x_uncertainty10km")[0])
+        if len(selected) < 8:
             raise ValueError("Spatial pair support insufficient for specified screen")
-        components=connected_block_components(selected,geo)
-        component_report.append({
-            "subset":subset,"n_pairs":len(selected),
-            "n_connected_components":len(components),
-            "component_sizes":"|".join(map(str,sorted((len(x) for x in components),
-                                                    reverse=True))),
-            "n_northern_midlatitude":sum(p["region"]=="northern_midlatitude" for p in selected),
-            "n_tropical":sum(p["region"]=="tropical" for p in selected),
-        })
-        for scope in ("all","direct"):
-            carriers=load_carriers(input_root/"floral_space_20261106"/scope/
-                                   "island_profile_carriers.csv.gz")
-            delta=_delta(selected,carriers,space)
-            for endpoint,kernel in (
-                ("exact_profile_L2",np.eye(len(space.ids))),
-                ("categorical_similarity_kernel",1-space.matrix),
-            ):
-                test=cluster_permutation(delta,components,kernel)
-                results.append({
-                    "scope":scope,"subset":subset,"endpoint":endpoint,
-                    "n_pairs":len(selected),
-                    "n_components":len(components),
-                    "largest_component_pairs":max(len(x) for x in components),
-                    "component_size_distribution":"|".join(map(
-                        str,sorted((len(x) for x in components),reverse=True))),
-                    "status":"conservative_exact_spatial_block_component_permutation",
-                    **test,
-                })
-                dropout.extend(delete_component_sensitivity(
-                    delta,components,kernel,scope=scope,subset=subset,endpoint=endpoint))
+        for dependency_grouping in ("spatial_block", "weigelt_archipelago"):
+            components = connected_block_components(
+                selected, geo, field=dependency_grouping)
+            component_report.append({
+                "subset": subset,
+                "dependency_grouping": dependency_grouping,
+                "n_pairs": len(selected),
+                "n_connected_components": len(components),
+                "component_sizes": "|".join(map(str, sorted(
+                    (len(x) for x in components), reverse=True))),
+                "n_northern_midlatitude": sum(
+                    p["region"]=="northern_midlatitude" for p in selected),
+                "n_tropical": sum(p["region"]=="tropical" for p in selected),
+            })
+            for scope in ("all", "direct"):
+                carriers = load_carriers(
+                    input_root/"floral_space_20261106"/scope/
+                    "island_profile_carriers.csv.gz")
+                delta = _delta(selected, carriers, space)
+                for endpoint, kernel in (
+                    ("exact_profile_L2", np.eye(len(space.ids))),
+                    ("categorical_similarity_kernel", 1-space.matrix),
+                ):
+                    test = cluster_permutation(delta, components, kernel)
+                    results.append({
+                        "scope": scope, "subset": subset,
+                        "dependency_grouping": dependency_grouping,
+                        "endpoint": endpoint, "n_pairs": len(selected),
+                        "n_components": len(components),
+                        "largest_component_pairs": max(len(x) for x in components),
+                        "component_size_distribution": "|".join(map(
+                            str,sorted((len(x) for x in components),reverse=True))),
+                        "status": "conservative_exact_geography_component_permutation",
+                        **test,
+                    })
+                    dropout.extend(delete_component_sensitivity(
+                        delta, components, kernel, scope=scope, subset=subset,
+                        endpoint=endpoint, dependency_grouping=dependency_grouping))
     _write_csv(output/"spatial_component_null.csv",results,ROWS)
     _write_csv(output/"leave_one_spatial_component_out.csv",dropout,DROP_COLUMNS)
     _write_csv(output/"spatial_component_support.csv",component_report,
@@ -225,7 +244,8 @@ def run(input_root:Path,g0_root:Path,crosswalk_path:Path,
         "status":"conservative_geographic_dependency_stress_test_not_spatial_occupancy_model",
         "n_original_physical_pairs":len(matched),
         "n_all_original_components":component_report[0]["n_connected_components"],
-        "block_graph":"Pairs linked transitively when EITHER origin partner shares a grid spatial_block; one sign flip per entire connected component",
+        "n_dependency_groupings":2,
+        "block_graph":"Pairs linked transitively when EITHER origin partner shares spatial_block OR independently within source-defined Weigelt archipelago; missing archipelago treated as individual endpoint; each grouping independently evaluated",
         "null":"all 2^K exact component-level pair-label sign configurations, squared norm invariant to global sign reversal",
         "caveat":"This extreme graph may over-group physically distant pairs into one component. Grid co-membership alone does not prove perfect dependence. But original independent pair sign swaps should not be read as certified spatially robust.",
         "n_tests":len(results),
