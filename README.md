@@ -21,6 +21,12 @@ From the frozen public [PR #321 report](https://github.com/zuizui0223/island/blo
 - An observed profile-turnover share of 0.690–0.902 (median across analyses) is *descriptive*, not above-null evidence.
 - Gaussian KDE hypervolumes were **not** calculated. Two PCoA axes retain only 15.35% of the common positive inertia; 80% requires 17 axes. Do not call a 2-D KDE area total floral hypervolume.
 
+## Fixed absolute-distance reference (N1d, 2026-11-09)
+
+[Prespecified-code, post-hoc 1,000/2,000 km method](docs/FIXED_RADIUS_DISTANCE_SES.md) · [Original-distance implementation](src/fd/fixed_radius_ses.py) · [Synthetic safeguards](tests/test_fixed_radius_ses.py)
+
+**New geographic-radius sensitivity under validation; not a new positive finding.** The earlier nearest-10 N1c result has highly unequal median geographic reach for source islands (continental ~387 km versus oceanic ~1,149 km). N1d therefore takes *all other eligible islands within the same absolute 1,000 km or 2,000 km radius* in the same broad regime, weights distinct colour/form profiles by donor island incidence, and samples exactly n recorded profile types. It requires at least three other donor islands and enough available profiles, and compares N1d versus regional N1b **on identical focal islands**. Its support audit reports donor-island density and incomplete coverage; any SES difference is descriptive, not a geological-selection test. The two absolute radii were chosen after the N1c result; neither is a preregistered threshold. Real-data conclusions will be added only after the pinned source CI succeeds and aggregates have been inspected.
+
 ## Nearby recorded-island reference (N1c): geographic attenuation, not geological proof
 
 [Validated same-regime nearest-ten source report](results/20261109_local_geography_ses/README.md) · [Method/limits](docs/LOCAL_GEOGRAPHIC_NULL.md) · [Original-D implementation](src/fd/local_geography_ses.py)
