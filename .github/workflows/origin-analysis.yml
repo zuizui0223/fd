@@ -102,6 +102,15 @@ jobs:
             --g0 work/fd_g0 \
             --crosswalk work/fd_crosswalk/island_origin_crosswalk.csv \
             --output results/geography_independent
+      - name: Cross-validate named archipelago floral repertoires against same-regime and distance-matched outside sources
+        run: |
+          python -m fd.archipelago_cv \
+            --input work/island_public \
+            --g0 work/fd_g0 \
+            --crosswalk work/fd_crosswalk/island_origin_crosswalk.csv \
+            --output results/archipelago_cv \
+            --permutations 9999 \
+            --bootstrap 4999
       - name: Measure original categorical-distance packing against fixed-support reference pools
         run: |
           python -m fd.distance_ses \
@@ -126,6 +135,7 @@ jobs:
             results/coverage_rarefaction
             results/spatial_cluster_dependence
             results/geography_independent
+            results/archipelago_cv
             results/distance_ses
             work/fd_crosswalk/crosswalk_audit.json
             work/island_public/source_manifest.json

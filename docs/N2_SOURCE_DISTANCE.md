@@ -27,13 +27,13 @@ geographically plausible opportunities, not demonstrated ancestors.
 ## Donor leakage, data rights and full provenance
 
 Run only locally with authorized original PR321 per-scope
-\`species_profiles.csv.gz\` tables, private \`island×accepted_species\`
+`species_profiles.csv.gz` tables, private `island×accepted_species`
 flora, archived GIFT 3.2 native mainland entity×species names,
 island×mainland source assignments, and the existing pinned
 public G0 and geological crosswalk. Do not add any private inputs to Git.
 
 1. Reconstruct the same original outcome-blind 37 origin-matched pairs
-   and the *post-hoc distinct* 10 \`both_verified\` geographic pairs
+   and the *post-hoc distinct* 10 `both_verified` geographic pairs
    using public covariates. Take the union of their physical islands,
    per All/Direct scope.
 2. Join island name membership with its **single intact, observed
@@ -46,12 +46,12 @@ public G0 and geological crosswalk. Do not add any private inputs to Git.
    species to independently held-out flower-profile donors. This
    disallows exact name reuse across any test island, potential
    source feature or trait donor. Genus sharing is deliberately retained.
-4. Use the existing \`DonorModel\` with prior pseudo-count 0.02/profile
+4. Use the existing `DonorModel` with prior pseudo-count 0.02/profile
    and hierarchical smoothing (default 8 taxon-pseudocounts).
-   \`N2_global_genus\` models traits from globally available
+   `N2_global_genus` models traits from globally available
    non-test native GIFT names in each observed genus.
-   \`N2_local_genus\` updates them with those in the assigned mainland
-   entity set (default \`geo_k5\`). For genus with no non-test donors,
+   `N2_local_genus` updates them with those in the assigned mainland
+   entity set (default `geo_k5`). For genus with no non-test donors,
    the model shrinks/falls back to a global prior rather than
    inventing a false biological absence. REPORT donor coverage.
 
@@ -62,8 +62,8 @@ demonstration.
 
 ## N2 fixed-distinct-profile working reference
 
-Let \`c_ig\` be the number of recorded focal-island taxon-name
-carriers of observed genus g, and \`p_ig(a)\` the heldout donor
+Let `c_ig` be the number of recorded focal-island taxon-name
+carriers of observed genus g, and `p_ig(a)` the heldout donor
 probability for complete categorical profile a under global/local
 genus model. Define approximate inclusion propensity:
 
@@ -87,9 +87,9 @@ genus-preserving randomization test**. This distinction is
 essential even if its SES is striking.
 
 For each of 999 (default) simulated n-profile supports, calculate
-\`mean off-diagonal D\` and \`mean nearest-other-profile D\` on
+`mean off-diagonal D` and `mean nearest-other-profile D` on
 the ORIGINAL 496×496 colour/form state-set Jaccard matrix.
-Report \`SES=(T_obs-mean(T_null))/sd(T_null)\` with SD ddof=1,
+Report `SES=(T_obs-mean(T_null))/sd(T_null)` with SD ddof=1,
 and observed-minus-expected D, alongside N1b on the same target
 islands (sample size fixed and focal island excluded). The separate
 equal-30 sensitivity averages 99 uniform thinnings of observed
@@ -99,13 +99,13 @@ are nested, not independent biological replications.
 ## Inference and sampling safeguards
 
 There is **one fixed post-hoc four-slot hypothesis family**, only
-\`N2_local_genus\` / equal30 / nearest D × All and Direct ×
+`N2_local_genus` / equal30 / nearest D × All and Direct ×
 (1) original 37 pairs with all five spatial connected components
-sign-flipped together and (2) 10 distinct \`both_verified\` pairs
+sign-flipped together and (2) 10 distinct `both_verified` pairs
 with exact pair sign flips. Exact two-sided p and BH/BY q
 are conditional on these observational geographic pairing assumptions.
 If <8 matched pairs have computable SES, retain the test slot
-as \`insufficient_complete_matched_pairs\` (p=1 in the four-slot
+as `insufficient_complete_matched_pairs` (p=1 in the four-slot
 family), not as a result. All other N2 comparisons are
 **descriptive only**; do not add unreported post-hoc significance tests.
 
@@ -131,11 +131,11 @@ A meaningful interpretation gate needs ALL of the following:
 
 ## Local authorized replay (never public GitHub Actions)
 
-The default output is ignored by \`.gitignore\`
-(\`results/run_*/\`); use only aggregate outputs in a separately
+The default output is ignored by `.gitignore`
+(`results/run_*/`); use only aggregate outputs in a separately
 reviewed public report.
 
-\`\`\`bash
+```bash
 python -m fd.n2_source_distance \
   --private-all /secure/island/floral_space_20261106/all/species_profiles.csv.gz \
   --private-direct /secure/island/floral_space_20261106/direct/species_profiles.csv.gz \
@@ -148,7 +148,7 @@ python -m fd.n2_source_distance \
   --input work/island_public \
   --output results/run_private_n2 \
   --source-mode geo_k5 --shrink 8 --draws 999 --thinnings 99
-\`\`\`
+```
 
 The path basenames above are illustrative; they are not claims that
 the source archives have those exact names. File readers require
@@ -157,13 +157,13 @@ sensitivities (e.g. 2 and 20) to check robustness;
 they are not independent hypothesis tests.
 
 Aggregate outputs only:
-- \`n2_distance_ses_summary.csv\`: per-scope/origin/broad-region
+- `n2_distance_ses_summary.csv`: per-scope/origin/broad-region
   observed, modeled, delta, SES; suppress all scores for n<5
-- \`n2_source_donor_coverage.csv\`: donor support and expected vs
+- `n2_source_donor_coverage.csv`: donor support and expected vs
   recorded distinct richness by origin/scope
-- \`n2_paired_spatial_sensitivity.csv\`: four exact coarse or
+- `n2_paired_spatial_sensitivity.csv`: four exact coarse or
   independently geography-disjoint exploratory test slots
-- \`manifest.json\`: source hashes, parameters, run status and
+- `manifest.json`: source hashes, parameters, run status and
   interpretation limitations, **no taxon/island/source identifiers**
 
 **Stop rule:** Without authorized private checkpoint + GIFT source
