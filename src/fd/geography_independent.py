@@ -36,7 +36,7 @@ from .repertoire import (
 )
 from .g1_fixed_margins import _bh
 
-GROUPINGS = ("spatial_block", "weigelt_archipelago", "both")
+GROUPINGS = ("spatial_block", "weigelt_archipelago", "both", "both_verified")
 ENDPOINTS = ("exact_profile_L2", "categorical_similarity_kernel")
 SCOPES = ("all", "direct")
 TEST_FIELDS = (
@@ -68,16 +68,18 @@ def _geographic_resources(edge: dict, grouping: str) -> set[str]:
         f"island:{edge['continental_id']}",
         f"island:{edge['oceanic_id']}",
     }
-    if grouping in ("spatial_block", "both"):
+    if grouping in ("spatial_block", "both", "both_verified"):
         for side in ("c", "o"):
             b = edge[f"{side}_spatial_block"]
             if _missing_label(b):
                 raise ValueError("Missing mandatory spatial block")
             keys.add(f"block:{b}")
-    if grouping in ("weigelt_archipelago", "both"):
+    if grouping in ("weigelt_archipelago", "both", "both_verified"):
         for side, name in (("c", "continental"), ("o", "oceanic")):
             label = edge[f"{side}_archipelago"]
             if _missing_label(label):
+                if grouping == "both_verified":
+                    raise ValueError("Cannot verify source archipelago for selected island")
                 # A missing source label is NOT a known independent archipelago.
                 # Its own island cannot be reused, but it creates no spurious
                 # shared grouping across other islands.
@@ -193,6 +195,12 @@ def independent_pair_matching(
     """
     if not edges:
         raise ValueError("No candidate origin-contrasting pairs")
+    if grouping == "both_verified":
+        edges = [e for e in edges
+                 if not _missing_label(e["c_archipelago"])
+                 and not _missing_label(e["o_archipelago"])]
+    if not edges:
+        raise ValueError("No complete-archipelago source pairs")
     resources = [_geographic_resources(e, grouping) for e in edges]
     resource_names = sorted(set().union(*resources))
     index = {k: i for i, k in enumerate(resource_names)}
@@ -329,14 +337,14 @@ def run(input_root: Path, g0_root: Path, crosswalk: Path, output: Path) -> dict:
                     "n_tropical":diag["n_tropical"],
                     **stat,
                 })
-    # One explicitly post-hoc 12-comparison family: 3 correlated pairing
+    # One explicitly post-hoc 16-comparison family: 4 correlated pairing
     # definitions × 2 evidence scopes × 2 category endpoints.
     q = _bh([r["p_exact_upper"] for r in tests])
     harmonic = sum(1/i for i in range(1,len(tests)+1))
     for row, adj in zip(tests,q):
         row["q_bh_posthoc12"]=float(adj)
         row["q_by_posthoc12"]=float(min(1,adj*harmonic))
-    if len(report)!=3 or len(tests)!=12:
+    if len(report)!=4 or len(tests)!=16:
         raise AssertionError("Unexpected geographical matching comparison family")
     _write_csv(output/"independent_matching_support.csv",report,AUDIT_FIELDS)
     test_fields=tuple(dict.fromkeys(k for r in tests for k in r))
@@ -350,6 +358,7 @@ def run(input_root: Path, g0_root: Path, crosswalk: Path, output: Path) -> dict:
         "matching":"global source-resource-disjoint binary MILP; cardinality prioritized over standardized covariate distance",
         "grouping_types":list(GROUPINGS),
         "n_test_family":len(tests),
+        "verified_archipelago_sensitivity": "both_verified requires both island endpoints have nonmissing published archipelago labels; missing never means verified independence",
         "p_exact":"all 2^n pair sign flips, no Monte Carlo correction; squared statistic has ± symmetry",
         "interpretation":"alternate, geographically less dependent matched subsample, NOT validation of lineage/phylogenetic independence or true geological treatment randomization",
         "data_publication":"NO island IDs, source block IDs, pair membership, original taxon names or restricted genus evidence released",
