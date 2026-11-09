@@ -69,11 +69,16 @@ def connected_block_components(pairs: list[dict], geo: dict[str, dict],
             if key not in geo:
                 raise ValueError("Missing geographic identity of a matched island")
             block=geo[key].get(field,"")
-            if not isinstance(block,str) or not block.strip():
+            unavailable = (
+                not isinstance(block, str) or
+                block.strip().lower() in
+                {"", "na", "n/a", "nan", "null", "none", "unknown", "unresolved", "-"}
+            )
+            if unavailable:
                 if field == "spatial_block":
                     raise ValueError("Missing spatial block of a matched island")
-                # Missing published archipelago label is NOT a shared grouping.
-                # Each unlabeled endpoint is its own independent placeholder.
+                # Source table uses literal "NA" for an unknown archipelago.
+                # It MUST NOT connect several otherwise unrelated pairs.
                 block=f"__unlabeled_archipelago_{i}_{label}"
             if block in encountered:
                 union(i,encountered[block])
