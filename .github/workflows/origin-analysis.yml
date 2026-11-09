@@ -130,6 +130,15 @@ jobs:
             --neighbors 10 \
             --draws 999 \
             --thinnings 99
+      - name: Audit geographic reach by fixed 1000 and 2000 km floral donor radii
+        run: |
+          python -m fd.fixed_radius_ses \
+            --input work/island_public \
+            --g0 work/fd_g0 \
+            --crosswalk work/fd_crosswalk/island_origin_crosswalk.csv \
+            --output results/fixed_radius_ses \
+            --draws 999 \
+            --thinnings 99
       - name: Preserve aggregate results and crosswalk audit without row-level geology joins
         if: success()
         uses: actions/upload-artifact@v4
@@ -148,6 +157,7 @@ jobs:
             results/archipelago_cv
             results/distance_ses
             results/local_geography_ses
+            results/fixed_radius_ses
             work/fd_crosswalk/crosswalk_audit.json
             work/island_public/source_manifest.json
           retention-days: 30
