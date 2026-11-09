@@ -28,6 +28,14 @@ from .pipeline import REF_INPUT, _write_csv, file_sha256
 
 SCOPES = ("all", "direct")
 NULLS = ("N1b_regional_islandfreq_LOO", "N1c_nearest10_geo_LOO")
+MATCHED_FIELDS = (
+    "scope", "mode", "endpoint", "region", "geological_origin",
+    "n_islands_both_nulls", "status",
+    "median_N1b_SES", "median_N1c_SES", "median_N1c_minus_N1b_SES",
+    "fraction_negative_N1b", "fraction_negative_N1c",
+    "median_N1b_observed_minus_null", "median_N1c_observed_minus_null",
+    "median_N1c_minus_N1b_null_mean",
+)
 SUPPORT_FIELDS = (
     "scope", "geological_origin", "n_geology_islands",
     "n_valid_geographic_neighbor_sets",
@@ -127,6 +135,65 @@ def _support_summary(records: list[dict]) -> list[dict]:
     return output
 
 
+def paired_reference_summary(scores: list[dict], *, min_release_n:int=5) -> list[dict]:
+    """Compare N1b and N1c ONLY on the same physical islands and same metric.
+
+    This descriptive within-island paired change avoids interpreting unmatched
+    group medians as the effect of moving from regional to local reference.
+    """
+    grouped=defaultdict(list)
+    by_island=defaultdict(dict)
+    for r in scores:
+        key=(r["scope"],r["mode"],r["endpoint"],r["region"],
+             r["geological_origin"],r["island_id"])
+        if r["null"] in NULLS:
+            if r["null"] in by_island[key]:
+                raise ValueError("Duplicate island×null×metric in local reference")
+            by_island[key][r["null"]]=r
+    for key,variants in by_island.items():
+        if len(variants)!=len(NULLS):
+            continue
+        n1b,n1c=[variants[null] for null in NULLS]
+        if not np.isclose(n1b["observed"],n1c["observed"],rtol=1e-8,atol=1e-8):
+            raise AssertionError("Same-island baseline test must hold observations fixed")
+        common=(n1b["scope"],n1b["mode"],n1b["endpoint"],n1b["region"],
+                n1b["geological_origin"])
+        grouped[common].append((n1b,n1c))
+    report=[]
+    # Fold both broad regime-specific and pooled "all" summaries only after
+    # evaluating each physical island on both nulls.
+    folded=defaultdict(list)
+    for key,records in grouped.items():
+        folded[key].extend(records)
+        if key[3]!="all":
+            folded[(key[0],key[1],key[2],"all",key[4])].extend(records)
+    for key,records in sorted(folded.items()):
+        if not records:
+            continue
+        row=dict(zip(("scope","mode","endpoint","region","geological_origin"),key))
+        row["n_islands_both_nulls"]=len(records)
+        row["status"]=("descriptive_paired_reference_comparison"
+                       if len(records)>=min_release_n else "small_cell_suppressed")
+        if len(records)>=min_release_n:
+            b=np.asarray([pair[0]["ses"] for pair in records])
+            n=np.asarray([pair[1]["ses"] for pair in records])
+            db=np.asarray([pair[0]["delta"] for pair in records])
+            dn=np.asarray([pair[1]["delta"] for pair in records])
+            row.update({
+                "median_N1b_SES":float(np.median(b)),
+                "median_N1c_SES":float(np.median(n)),
+                "median_N1c_minus_N1b_SES":float(np.median(n-b)),
+                "fraction_negative_N1b":float(np.mean(b<0)),
+                "fraction_negative_N1c":float(np.mean(n<0)),
+                "median_N1b_observed_minus_null":float(np.median(db)),
+                "median_N1c_observed_minus_null":float(np.median(dn)),
+                "median_N1c_minus_N1b_null_mean":float(np.median([
+                    pair[1]["null_mean"]-pair[0]["null_mean"] for pair in records])),
+            })
+        report.append(row)
+    return report
+
+
 def run(input_root:Path,g0_root:Path,crosswalk:Path,output:Path,
         *,neighbor_k:int=10,draws:int=999,thinnings:int=99,
         seed:int=20261109)->dict:
@@ -215,9 +282,11 @@ def run(input_root:Path,g0_root:Path,crosswalk:Path,output:Path,
                             })
     summary=_summary(score_rows)
     support=_support_summary(support_rows)
+    paired=paired_reference_summary(score_rows)
     output.mkdir(parents=True,exist_ok=True)
     _write_csv(output/"local_geography_ses_summary.csv",summary,SUMMARY_FIELDS)
     _write_csv(output/"local_geography_support.csv",support,SUPPORT_FIELDS)
+    _write_csv(output/"local_geography_matched_reference_comparison.csv",paired,MATCHED_FIELDS)
     manifest={
         "schema":"fd_nearestK_geography_flora_fixed_support_SES_v1",
         "status":"public_aggregate_posthoc_geographic_falsification",
@@ -227,6 +296,7 @@ def run(input_root:Path,g0_root:Path,crosswalk:Path,output:Path,
             "N1c":"profile incidence among k nearest OTHER same-regime eligible islands only, distance from audited island centroids",
         },
         "sampling":"fixed distinct recorded n or equal30, donor island incidence-weighted draws without replacement",
+        "paired_reference_validation":"N1b vs N1c evaluated on IDENTICAL target islands; no geographic-origin hypothesis test, compare SES and original D differences jointly",
         "draws":draws,"thinnings":thinnings,"seed":seed,
         "scope":"public All/Direct overlapping evidence classes",
         "biological_limit":"geography-proxy reference only; shared taxa/genera not removed; observation processes and spatial dependence persist; no origin hypothesis test here",
@@ -241,6 +311,7 @@ def run(input_root:Path,g0_root:Path,crosswalk:Path,output:Path,
     print(json.dumps({
         "schema":manifest["schema"],"n_group_summary":len(summary),
         "n_support_groups":len(support),
+        "n_paired_reference_groups":len(paired),
         "n_internal_scores":len(score_rows),
         "n_geology_islands":len(support_rows),
         "interpretation":"only observational neighborhood reference; not genus/source conditional N2",
