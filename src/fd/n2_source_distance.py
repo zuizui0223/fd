@@ -62,7 +62,9 @@ AUDIT_COLUMNS = (
     "median_observed_distinct_profiles", "mean_global_genus_donor_fraction",
     "mean_local_genus_donor_fraction", "median_N2_global_expected_unique",
     "median_N2_local_expected_unique", "median_local_expected_to_observed_ratio",
-    "fraction_local_genus_support_below_025", "status",
+    "fraction_local_genus_support_below_025",
+    "median_generative_richness", "median_generative_equal30_valid_fraction",
+    "fraction_observed_richness_outside_generative_95pct", "status",
 )
 
 
@@ -125,7 +127,52 @@ def expected_occupancy_weights(
     return inclusion / inclusion.sum(), expected_unique
 
 
-def source_coverage(model: DonorModel, island: str,
+
+def simulate_genus_traits(
+    genus_counts: dict[str, int], model: DonorModel, island: str,
+    distance: np.ndarray, *, variant: str, draws: int = 199,
+    equal_n: int = 30, seed: int = 20261109,
+) -> tuple[np.ndarray, np.ndarray]:
+    """Simulate EACH held-out island name's trait from the donor genus model.
+
+    Unlike the fixed-n inclusion-weight sample, the number of distinct
+    profiles is generated rather than forced to the observed number.
+    If >=equal_n types emerge, rarefy to equal_n. Output is a model adequacy
+    diagnostic; never treat it as an additional independent origin test.
+    """
+    if variant not in DONOR_VARIANTS or draws < 20 or equal_n < 2:
+        raise ValueError("Unsupported donor generator or simulation support")
+    if not genus_counts or distance.shape != (model.n_profiles, model.n_profiles):
+        raise ValueError("Empty model or incorrect categorical D dimension")
+    parameters = []
+    for genus, count in sorted(genus_counts.items()):
+        if not isinstance(count, (int, np.integer)) or count < 1:
+            raise ValueError("Invalid number of recorded genus-name carriers")
+        probs = np.asarray(
+            model.probabilities(island, genus)[DONOR_VARIANTS[variant]],
+            dtype=float,
+        )
+        if probs.shape != (model.n_profiles,) or not np.isfinite(probs).all():
+            raise ValueError("Invalid genus-specific model probabilities")
+        if np.any(probs < 0) or not np.isclose(probs.sum(), 1., atol=1e-9):
+            raise ValueError("Unnormalized source genus profile probability")
+        parameters.append((count, probs))
+    rng = np.random.default_rng(seed)
+    richness = np.empty(draws, dtype=int)
+    equal_scores = []
+    for i in range(draws):
+        realized = np.unique(np.concatenate([
+            rng.choice(model.n_profiles, size=count, replace=True, p=p)
+            for count, p in parameters
+        ]))
+        richness[i] = len(realized)
+        if len(realized) >= equal_n:
+            fixed = rng.choice(realized, size=equal_n, replace=False)
+            equal_scores.append(distance_statistics(distance, fixed))
+    return richness, np.asarray(equal_scores, dtype=float).reshape(-1, len(ENDPOINTS))
+
+
+def source_coverage(model: DonorModel, island: str:
                     genus_counts: dict[str, int]) -> tuple[float, float]:
     """Fraction of recorded name carriers with global/local donor genus support."""
     n = sum(genus_counts.values())
@@ -284,10 +331,14 @@ def _coverage_summaries(audits: list[dict]) -> list[dict]:
                 ("global_expected", "median_N2_global_expected_unique", np.median),
                 ("local_expected", "median_N2_local_expected_unique", np.median),
                 ("expected_ratio", "median_local_expected_to_observed_ratio", np.median),
+                ("generated_richness_median", "median_generative_richness", np.median),
+                ("generated_equal30_valid_fraction", "median_generative_equal30_valid_fraction", np.median),
             ):
                 r[dst] = float(fun([x[src] for x in rows]))
             r["fraction_local_genus_support_below_025"] = float(
                 np.mean([x["local_fraction"] < 0.25 for x in rows]))
+            r["fraction_observed_richness_outside_generative_95pct"] = float(
+                np.mean([x["generated_obs_outside95"] for x in rows]))
         output.append(r)
     return output
 
@@ -298,10 +349,11 @@ def run(private_all: Path, private_direct: Path, flora: Path,
         output: Path, *, source_mode: str = "geo_k5",
         shrink: float = DEFAULT_SHRINK,
         draws: int = 999, thinnings: int = 99,
+        generative_draws: int = 199,
         seed: int = 20261109, strict: bool = True) -> dict:
     if source_mode not in VALID_MODES or not np.isfinite(shrink) or shrink <= 0:
         raise ValueError("Unrecognized GIFT source mode/shrinkage")
-    if draws < 20 or thinnings < 20:
+    if draws < 20 or thinnings < 20 or generative_draws < 20:
         raise ValueError("Need >=20 support reference and observed thinning draws")
     private_all, private_direct, flora, source_assignments, mainland_native = map(
         Path, (private_all, private_direct, flora, source_assignments, mainland_native))
@@ -392,6 +444,12 @@ def run(private_all: Path, private_direct: Path, flora: Path,
             for variant in DONOR_VARIANTS:
                 weights[variant], expected[variant] = expected_occupancy_weights(
                     genus_counts, model, island, variant)
+            generated_richness, generated_equal30 = simulate_genus_traits(
+                genus_counts, model, island, space.matrix,
+                variant="N2_local_genus", draws=generative_draws,
+                equal_n=30, seed=_seed(seed, scope, island, "N2g"))
+            richness_q025, richness_q975 = np.quantile(
+                generated_richness, [.025, .975])
             audits.append({
                 "scope": scope, "geological_origin": origin,
                 "n_names": len(part), "n_profiles": n,
@@ -399,6 +457,11 @@ def run(private_all: Path, private_direct: Path, flora: Path,
                 "global_expected": expected["N2_global_genus"],
                 "local_expected": expected["N2_local_genus"],
                 "expected_ratio": expected["N2_local_genus"]/n,
+                "generated_richness_median": float(np.median(generated_richness)),
+                "generated_equal30_valid_fraction": float(
+                    len(generated_equal30)/generative_draws),
+                "generated_obs_outside95": bool(
+                    n < richness_q025 or n > richness_q975),
                 **heldout_name_calibration(part, model, island, space),
             })
             rng = np.random.default_rng(_seed(seed, scope, island, "N2_thinning"))
@@ -447,6 +510,17 @@ def run(private_all: Path, private_direct: Path, flora: Path,
                                 "region": row["analysis_regime"],
                                 "n_profiles": n, **item,
                             })
+                if mode == "equal30" and len(generated_equal30) >= 20:
+                    for item in _score(observed, generated_equal30, thinning=thin):
+                        if item is not None:
+                            rows.append({
+                                "scope": scope, "island_id": island,
+                                "null": "N2g_local_genus_taxon_simulation",
+                                "mode": mode, "endpoint": item["endpoint"],
+                                "geological_origin": origin,
+                                "region": row["analysis_regime"],
+                                "n_profiles": n, **item,
+                            })
     summary = _summary(rows)
     pair_rows = paired_primary(rows, cohorts, geo)
     coverage = _coverage_summaries(audits)
@@ -468,7 +542,15 @@ def run(private_all: Path, private_direct: Path, flora: Path,
             "source_block_disjoint_verified_pairs": len(strict_pairs),
             "source_unknown_archipelago_endpoints": verified["n_unknown_archipelago_endpoints"],
         },
-        "draws": draws, "thinnings": thinnings, "seed": seed,
+        "draws": draws, "thinnings": thinnings,
+        "generative_draws": generative_draws, "seed": seed,
+        "generative_model_check": (
+            "Independently sample one profile per observed genus name, then "
+            "evaluate simulated number of distinct types and equally thin "
+            "only simulations with >=30 distinct types. No observed-n "
+            "conditioning; no extra geology tests. A low valid fraction "
+            "or observed richness outside 95% simulation range warns "
+            "against using fixed-n N2 as an ecological null."),
         "calibration_gate": "heldout individual-name categorical log loss and expected original trait distance, averaged across island units, for global prior/global genus/local genus; positive local-vs-global gains are necessary but not sufficient",
         "calibration_output": "n2_heldout_prediction_calibration.csv; grouped means only, no test name/island/source identities",
         "reference_definition": (
@@ -528,6 +610,7 @@ def main() -> None:
     parser.add_argument("--shrink", type=float, default=DEFAULT_SHRINK)
     parser.add_argument("--draws", type=int, default=999)
     parser.add_argument("--thinnings", type=int, default=99)
+    parser.add_argument("--generative-draws", type=int, default=199)
     parser.add_argument("--allow-synthetic", action="store_true")
     args = parser.parse_args()
     run(args.private_all, args.private_direct, args.flora,
@@ -535,6 +618,7 @@ def main() -> None:
         args.crosswalk, args.g0, args.reference, args.input, args.output,
         source_mode=args.source_mode, shrink=args.shrink,
         draws=args.draws, thinnings=args.thinnings,
+        generative_draws=args.generative_draws,
         strict=not args.allow_synthetic)
 
 

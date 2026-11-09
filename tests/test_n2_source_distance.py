@@ -11,7 +11,7 @@ from fd.n2_source_distance import (
     _calibration_summaries, _coverage_summaries, _validate_private_against_public,
     heldout_name_calibration,
     donor_training, expected_occupancy_weights,
-    paired_primary, source_coverage,
+    paired_primary, source_coverage, simulate_genus_traits,
 )
 
 
@@ -134,6 +134,28 @@ def test_calibration_summary_suppresses_identity_and_tiny_cells():
     assert all("island_id" not in row for row in reports)
 
 
+def test_generative_genus_reference_preserves_carrier_counts_and_richness():
+    model = ToyDonorModel()
+    d = np.array([[0., .5, .8], [.5, 0., .6], [.8, .6, 0.]])
+    abundance = {"GenA": 2, "GenB": 2}
+    sim, thin = simulate_genus_traits(
+        abundance, model, "focal", d, variant="N2_local_genus",
+        draws=2000, equal_n=2, seed=5)
+    analytic = expected_occupancy_weights(
+        abundance, model, "focal", "N2_local_genus")[1]
+    assert abs(float(sim.mean()) - analytic) < 0.04
+    assert len(sim) == 2000 and thin.shape[1] == 2
+    assert len(thin) > 50
+    other, alt = simulate_genus_traits(
+        abundance, model, "focal", d, variant="N2_local_genus",
+        draws=2000, equal_n=2, seed=5)
+    assert np.array_equal(sim, other)
+    assert np.array_equal(thin, alt)
+    with pytest.raises(ValueError):
+        simulate_genus_traits(abundance, model, "focal", d,
+                              variant="N1b", draws=30, equal_n=2, seed=1)
+
+
 def test_coverage_uses_taxon_carrier_not_genus_weight():
     m = ToyDonorModel()
     a, b = source_coverage(m, "focal", {"GenA": 1, "GenB": 9})
@@ -195,7 +217,10 @@ def test_four_primary_geographic_tests_use_only_local_genus_equal30_nn():
 def test_donor_coverage_aggregation_emits_no_focal_identity():
     base = dict(scope="all", geological_origin="oceanic", n_names=50,
                 n_profiles=30, global_fraction=.8, local_fraction=.3,
-                global_expected=24., local_expected=20., expected_ratio=2/3)
+                global_expected=24., local_expected=20., expected_ratio=2/3,
+                generated_richness_median=22.,
+                generated_equal30_valid_fraction=.4,
+                generated_obs_outside95=False)
     data = [{**base, "island_id": f"private{i}"} for i in range(4)]
     out = _coverage_summaries(data)
     assert len(out) == 1 and out[0]["status"] == "small_cell_suppressed"

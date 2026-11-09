@@ -117,6 +117,30 @@ for shrink=2/20; do not tune shrinkage on the same held-out
 outcomes and subsequently present the optimized loss as an
 independent validation.
 
+## A second generative check against artificially forcing observed n
+
+The primary fixed-n N2 uses predicted inclusion propensities with
+weighted sampling **without replacement**. This is NOT equivalent to
+the exact joint genus-by-name model conditional on observed profile richness.
+
+Therefore a separate **N2g** model check samples one complete profile
+for EACH observed genus-name carrier from its held-out local-genus donor
+distribution, independently within the model, without forcing the number
+of distinct types to match observation. Across 199 simulations (default),
+report the generated distinct-richness median and 95% interval, the
+fraction of focal islands whose observed richness falls outside this
+interval, and the fraction of simulated communities with >=30 distinct
+types. Only simulations meeting that last criterion are rarefied uniformly
+to 30 types and compared with the observed equal30 metric as an additional
+**descriptive** distance check. If fewer than 20 such simulations are
+usable, no generative distance SES is reported for the island.
+
+The N2g model check must not enter the four geographical p tests.
+If N2g and fixed-n N2 disagree, or richness support is very poor,
+interpret fixed-n N2 as a misleading reference rather than cherry-pick
+the smaller p-value. N2g remains a simulated generative model, not proof
+of independent taxa, source ancestry or ecological filtering.
+
 ## Inference and sampling safeguards
 
 There is **one fixed post-hoc four-slot hypothesis family**, only
@@ -168,7 +192,7 @@ python -m fd.n2_source_distance \
   --reference work/island_public/floral_space_20261106/all/profile_coordinates.csv \
   --input work/island_public \
   --output results/run_private_n2 \
-  --source-mode geo_k5 --shrink 8 --draws 999 --thinnings 99
+  --source-mode geo_k5 --shrink 8 --draws 999 --thinnings 99 --generative-draws 199
 ```
 
 The path basenames above are illustrative; they are not claims that
