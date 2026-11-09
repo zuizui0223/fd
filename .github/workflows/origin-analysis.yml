@@ -102,13 +102,15 @@ jobs:
             --g0 work/fd_g0 \
             --crosswalk work/fd_crosswalk/island_origin_crosswalk.csv \
             --output results/geography_independent
-      - name: Rematch geographical origin islands with nonoverlapping spatial blocks and source archipelagos
+      - name: Measure original categorical-distance packing against fixed-support reference pools
         run: |
-          python -m fd.geography_independent \
+          python -m fd.distance_ses \
             --input work/island_public \
             --g0 work/fd_g0 \
             --crosswalk work/fd_crosswalk/island_origin_crosswalk.csv \
-            --output results/geography_independent
+            --output results/distance_ses \
+            --draws 999 \
+            --thinnings 99
       - name: Preserve aggregate results and crosswalk audit without row-level geology joins
         if: success()
         uses: actions/upload-artifact@v4
@@ -124,6 +126,7 @@ jobs:
             results/coverage_rarefaction
             results/spatial_cluster_dependence
             results/geography_independent
+            results/distance_ses
             work/fd_crosswalk/crosswalk_audit.json
             work/island_public/source_manifest.json
           retention-days: 30
