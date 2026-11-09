@@ -216,10 +216,6 @@ def independent_pair_matching(
     if assert_optimal and solution.status != 0:
         raise ValueError("Matching optimality not verified")
     selected = [edge for edge, flag in zip(edges, solution.x) if flag > .5]
-    if sum(len(set().intersection(*pair)) > 0
-           for i, pair in enumerate(resources)
-           for other in resources[i + 1:]) < 0:
-        raise AssertionError("Unreachable resource check")
     occupied = set()
     for e in selected:
         labels = _geographic_resources(e, grouping)
