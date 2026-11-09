@@ -40,11 +40,13 @@ GROUPINGS = ("spatial_block", "weigelt_archipelago", "both", "both_verified")
 ENDPOINTS = ("exact_profile_L2", "categorical_similarity_kernel")
 SCOPES = ("all", "direct")
 TEST_FIELDS = (
-    "grouping", "scope", "endpoint", "status", "n_independent_pairs",
-    "n_northern_midlatitude", "n_tropical", "n_exact_sign_configurations",
-    "observed", "null_median", "null_q025", "null_q975", "p_exact_upper",
-    "minimum_p_resolution", "q_bh_12", "q_by_12",
+    "grouping", "scope", "endpoint", "n_pairs",
+    "n_northern_midlatitude", "n_tropical",
+    "observed", "null_median", "null_q025", "null_q975",
+    "p_exact_upper", "n_exact_sign_configurations",
+    "minimum_attainable_p", "q_bh_posthoc16", "q_by_posthoc16",
 )
+
 AUDIT_FIELDS = (
     "grouping", "n_candidate_edges", "n_selected_pairs",
     "n_continental_islands", "n_oceanic_islands",
@@ -347,8 +349,7 @@ def run(input_root: Path, g0_root: Path, crosswalk: Path, output: Path) -> dict:
     if len(report)!=4 or len(tests)!=16:
         raise AssertionError("Unexpected geographical matching comparison family")
     _write_csv(output/"independent_matching_support.csv",report,AUDIT_FIELDS)
-    test_fields=tuple(dict.fromkeys(k for r in tests for k in r))
-    _write_csv(output/"independent_origin_repertoire_tests.csv",tests,test_fields)
+    _write_csv(output/"independent_origin_repertoire_tests.csv",tests,TEST_FIELDS)
     manifest={
         "schema":"fd_geography_disjoint_matching_v1",
         "status":"posthoc_geographic_disjointness_stress_test",
