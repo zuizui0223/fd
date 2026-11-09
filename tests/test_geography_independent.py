@@ -109,3 +109,18 @@ def test_verified_archipelago_eligibility_discards_unknown_pairs():
     assert all(x["continental_id"]!="c3" for x in selected)
     with pytest.raises(ValueError,match="Cannot verify"):
         _geographic_resources(data[-1],"both_verified")
+
+
+def test_verified_archipelagos_exclude_unknown_not_as_independent_source():
+    samples = [
+        edge("c1", "o1", "b1", "b2", "Japan", "Izu", 0.4),
+        edge("c2", "o2", "b3", "b4", "NA", "Other", 0.3),
+        edge("c3", "o3", "b5", "b6", "Hawaii", "Madeira", 0.5),
+    ]
+    nonverified, audit = independent_pair_matching(samples, "both")
+    assert len(nonverified) == 3
+    verified, audit = independent_pair_matching(samples, "both_verified")
+    assert len(verified) == 2
+    assert audit["n_candidate_edges"] == 2
+    assert audit["n_unknown_archipelago_endpoints"] == 0
+    assert all(x["continental_id"] != "c2" for x in verified)
