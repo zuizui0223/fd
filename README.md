@@ -72,6 +72,12 @@ rights-restricted underlying donor data and has **not** been implemented in
 this public pipeline. No new causal claim or population-level floral
 contraction is implied by adding the code.
 
+## Nearest-10 spatial reference reduces apparent floral packing (2026-11-09)
+
+[Validated N1c report](results/20261109_local_geography_ses/README.md) · [Successful full CI](https://github.com/zuizui0223/fd/actions/runs/42584462875)
+
+Using original flower-colour/form category distances and 30-profile equalization, the **N1b regional-frequency** nearest-profile SES medians in 130 All continental and 130 oceanic islands were **+0.166 / −0.555**. Sampling from the **10 geographically closest OTHER island** floras (N1c) moves them toward zero to **−0.051 / −0.231**. For oceanic islands the median observed-minus-null distance departure changes from −0.01357 to −0.00553, and the proportion with negative SES falls from 84.6% to 70.8%. This is a substantial *descriptive* reference sensitivity, not geological selection: ten nearest islands span a median ~387 km for continental versus ~1,149 km for oceanic targets and may contain the same species. No new origin hypothesis p values were calculated. **A taxon-name-held-out genus/native-mainland N2 is still needed to separate source-lineage availability from within-pool trait packing.**
+
 ## Local spatial predictability of floral profile repertoires (2026-11-09)
 
 [44-source-archipelago heldout prediction report](results/20261109_archipelago_flower_transfer/README.md) · [Source/distance validation protocol](docs/ARCHIPELAGO_FLORAL_HOLDOUT.md) · [all 12 comparisons](results/20261109_archipelago_flower_transfer/archipelago_holdout_tests.csv)

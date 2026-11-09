@@ -1,73 +1,56 @@
-# Floral profile proximity after conditioning on nearby island repertoires (N1c)
+# Geographic neighborhood reference (N1c) substantially reduces apparent floral packing
 
-**9 November 2026 — observed floral category support; no confirmed geological origin effect.**
+**9 November 2026 — public-source result, observational only.** [Validated source-pinned full workflow #42584462875](https://github.com/zuizui0223/fd/actions/runs/42584462875) produced the complete `results/local_geography_ses/` aggregate artifact. The published method and original-distance reference are [N1c protocol](../../docs/LOCAL_GEOGRAPHIC_NULL.md) and [implementation](../../src/fd/local_geography_ses.py).
 
-[Public-source full replay #42584462875](https://github.com/zuizui0223/fd/actions/runs/42584462875) successfully ran the pinned original 496-profile state-set Jaccard D, independent geological crosswalk, and the new [N1c method](../../docs/LOCAL_GEOGRAPHIC_NULL.md). Aggregate-only raw files are in its `fd-origin-strata-analysis` Actions ZIP artifact. The final post-hoc within-island matched-N1b-versus-N1c report is an additional refinement; do not infer paired island-level changes from group median shifts alone.
+## Question
 
-## Scientific question
+After recording frequency of flower-colour/form category profiles is accounted for, is a focal island's within-flora profile-nearest-neighbor distance still unusually low **relative to its nearest observed island floras** rather than the entire broad region?
 
-The earlier **N1b** null shows residual nearest-profile proximity for recorded oceanic island floras after accounting for the *regional prevalence* of each floral category. Is that simply the expected feature of sharing floral phenotypes with geographically neighboring recorded island assemblages, or does this spatial reference also leave a residual?
+N1c builds a leave-focal-out pool from the **10 closest other eligible islands in the same broad analysis regime**, regardless of geological class. It samples fixed observed-profile richness, giving each profile a weight equal to the number of those 10 donor islands with records. N1b uses the same rule but every other regional island. The original distance D is mean set-Jaccard dissimilarity for colour and form. The endpoint is average distance from each unique focal profile to its nearest OTHER focal profile (exclude the diagonal). A negative SES means nearer recorded categories than the null expects. N1c is descriptive only; it does **not** condition on genus, independently verified source ancestry, true plant absences or detection.
 
-N1c chooses the **ten nearest OTHER eligible islands in the same broad biogeographic regime**, regardless of geological origin. Among those ten neighbors, weight each complete colour/form state-set profile by the number of neighboring islands that record it. The focal island is excluded. Draw an equal number of distinct profiles without replacement, calculate within-support mean nearest-OTHER-profile distance and off-diagonal mean pairwise distance on ORIGINAL D, and compute a sample-SD standardized reference departure.
+All values below are from one validated CI artifact, not stitched across distinct Monte Carlo runs.
 
-This is a geographic profile-incidence null; exact shared taxa, observed genera, actual mainland-source opportunities, detectability and selection are **not conditioned away**. Nothing uses 17D KDE or fills unobserved hypothetical trait combinations.
+## Main results: uniform 30-distinct-profile comparison
 
-## Real data: equal30 near-neighbor distances
-
-All evidence scope (30 observed distinct profiles uniformly selected per island, 99 thinning replicates; both reference baselines use 999 draws):
-
-| Metric | Continental (130 islands) | Oceanic (130 islands) |
+| All scope, 30-profile observed thinning | Continental, 130 islands | Oceanic, 130 islands |
 |---|---:|---:|
-| Median observed mean nearest-profile original D | 0.290527 | 0.275905 |
-| Median N1b broad-regional expected nearest D | 0.286164 | 0.290890 |
-| Median **N1b** nearest-D SES | **+0.165571** | **-0.554704** |
-| Fraction with negative N1b SES | 42.31% | 84.62% |
-| Median **N1c** ten-neighbor expected nearest D | 0.294432 | 0.282709 |
-| Median **N1c** nearest-D SES | **-0.050883** | **-0.231046** |
-| Fraction with negative N1c SES | **52.31%** | **70.77%** |
-| Median N1b observed-minus-null original D | +0.004079 | -0.013566 |
-| Median N1c observed-minus-null original D | -0.001216 | -0.005534 |
+| Median observed nearest-profile D | 0.290527 | 0.275905 |
+| **N1b: regional weighted reference, median D** | 0.286164 | 0.290890 |
+| **N1b: median SES** | **+0.165571** | **−0.554704** |
+| N1b: fraction SES < 0 | 42.3% | 84.6% |
+| **N1c: nearest-10 weighted reference, median D** | 0.294432 | 0.282709 |
+| **N1c: median SES** | **−0.050883** | **−0.231046** |
+| N1c: fraction SES < 0 | 52.3% | 70.8% |
+| N1c: median observed-minus-null D | −0.001216 | −0.005534 |
 
-The **Direct** nested evidence scope is qualitatively consistent: equal30 nearest D median N1b SES **+0.163399 continental** (n=123) and **-0.543248 oceanic** (n=119); N1c SES **-0.048296 continental** and **-0.258306 oceanic** (same n). Oceanic negative N1c SES fraction is 68.91%.
+For oceanic islands, the median negative distance departure shrinks from −0.013566 to −0.005534 under the nearest-10 reference (a descriptive ~59% reduction in the magnitude of the reported median departure). The two SES medians differ because their null reference distribution shifts; they are NOT estimates of a causal fraction explained by geography. Continental islands' median SES is approximately zero under the geographically local comparator.
 
-For equal30 mean *pairwise* original D, All oceanic N1b SES **-0.482856** changes to N1c **-0.220519**; continental N1b **-0.078290** changes to **-0.007521**. Thus attenuation is not unique to the one nearest-neighbor statistic.
+The nested Direct scope gives a consistent *descriptive* pattern for equal30 nearest D: N1b SES +0.1634 continental (123 islands) versus −0.5432 oceanic (119), and N1c SES −0.0483 continental versus −0.2583 oceanic, with 52.8% versus 68.9% of N1c scores negative.
 
-**Read this carefully:** On the identical equal30 All focal population, moving from a broad regional profile-frequency distribution to the ten geographically closest recorded island floras substantially attenuates *descriptive* oceanic category packing. It does not fully eliminate the negative median SES. Differences between group medians are **not** proof of geographic mediation or selection; the donor reference definition itself changes.
+Original within-island **mean distinct-pairwise D** tells a similar but weaker story: All/equal30 N1c SES continental −0.0075, oceanic −0.2205. These endpoints are dependent measurements of the same categorical repertoire, not independent replication.
 
-## Geographic-support audit: a major asymmetry
+## Geographic and support limitations
 
-| Scope / origin | Eligible geography-typed islands | Nearby donor sets found | 30-profile support | Median distinct reference types | Median distance to 10th donor |
-|---|---:|---:|---:|---:|---:|
-| All continental | 130 | 130 | 130 | 185 | **386.7 km** |
-| All oceanic | 130 | 130 | 130 | 172.5 | **1,149.2 km** |
-| Direct continental | 123 | 123 | 123 | 183 | **408.8 km** |
-| Direct oceanic | 120 | 120 | 119 | 173 | **1,330.2 km** |
+- The median distance to the **10th nearest eligible donor** is **386.68 km** on continental islands versus **1149.21 km** on oceanic islands. Thus nearest-10 does **NOT** hold physical spatial range constant between origins. The oceanic reference is often geographically much broader.
+- All/equal30 has usable nearest-10 support for **130/130 continental and 130/130 oceanic** islands. Full observed-n support is unavailable for many continental islands (**111/130** potentially estimable, versus **128/130** oceanic); do not interpret their full-n comparison as the same population. The paired 30-profile design is the least sample-selected descriptive comparison.
+- Direct/equal30 has **123 continental and 119 oceanic** scoreable islands; one oceanic island lacks sufficient scored 30-profile support.
+- Nearest island floras may share **identical plant species** or strong genus history with the focal island. Neither an observational N1b nor a nearby-island N1c reference controls repeated species, phylogenetic supply or the data-reporting process.
+- N1c does **not** generate new origin-group significance p values. The independent 10-pair geological matching and old 5-spatial-component audits still do not establish a multiplicity-supported geological effect.
 
-The ten nearest eligible islands are **three times farther away** (comparing these median radii) for oceanic than for continental test islands in All, so "nearest ten" is NOT a common absolute geographic reach. The oceanic reference remains spatially broader; a lower oceanic proximity score could partly reflect this asymmetry. An explicitly matched absolute-distance reference or richer independent islands would be needed before stronger claims.
+**Scientific statement supported now:** recorded floral phenotypes cluster relative to a broad regional profile-frequency sample in oceanic islands, but this excess is **substantially smaller under geographically nearest recorded floral source mixtures**. This is consistent with, but does not prove, spatially structured lineage assembly and sampling opportunities as a major reason for the prior negative SES. Do NOT say 'geography explains 59% of biological selection', 'oceanic adaptation proven', or 'functional hypervolume contracted'.
 
-At full observed support (n not rarefied), some ten-neighbor pools have too few distinct profiles to provide n without replacement; this is **missing N1c support**, not evidence of no effect. Therefore the 30-profile analysis is the cleaner same-sample-size headline.
+## Next falsification gate: taxon-name-held-out N2
 
-## Regional variation, no geological p-value
+The [private-only source/genus N2](../../docs/N2_SOURCE_DISTANCE.md) uses observed genus counts and candidate GIFT native-mainland floral donors, with all evaluated taxon names held out across donor entities. Existing N2 code additionally checks heldout-name predictive accuracy, donor coverage, expected-versus-observed distinct richness and per-genus carrier-level generative simulations, since a fixed-n weighted profile sample is not an exact conditional trait permutation. **There are no empirical N2 results yet; restricted checkpoint data are needed.**
 
-All equal30 nearest-D N1c SES medians are **-0.201 northern-midlatitude oceanic (n=48)** and **-0.226 tropical oceanic (n=76)**, but only **-0.073 continental northern-midlatitude (n=85)** and **+0.220 continental tropical (n=31)**. The southern extratropical oceanic cell contains only six islands, so its `-0.758` median is a fragile regional description, not a third independent confirmation.
-
-No N1c geological-origin permutation p or new BH/BY claim is provided. The earlier N0/N1 32-slot spatially cautious tests were not significant (minimum BH q=0.446), and the original globally geography-disjoint 10-pair exact-profile repertoire tests did not establish a geological effect. This new N1c reference is an **explicitly post-hoc falsification**, not an additional independent test family.
-
-## Decision gate
-
-The defensible observation is: **the recorded floral profile neighborhoods of oceanic islands remain somewhat closer than expected under both a broad regionally frequency-weighted and a geographically-nearest-island weighted empirical reference, but are much less unusual under the latter**. This is compatible with geography/source-lineage structure, not sufficient evidence of pollinator-mediated adaptive trait compression.
-
-To identify a distinct source-lineage-adjusted residual, the next gate is the [private-input-only taxon-held-out N2](../../docs/N2_SOURCE_DISTANCE.md), conditional on recorded genus counts and independently held-out plausible mainland native donor profiles. It requires source rights, donor-coverage and name-level predictive calibration before any real N2 inferential result is admissible.
-
-## Reproduction and rights
+## Reproduction and data rights
 
 ```bash
 python -m fd.local_geography_ses \
-  --input work/island_public \
-  --g0 work/fd_g0 \
+  --input work/island_public --g0 work/fd_g0 \
   --crosswalk work/fd_crosswalk/island_origin_crosswalk.csv \
   --output results/local_geography_ses \
   --neighbors 10 --draws 999 --thinnings 99
 ```
 
-Only population-aggregated results and source digests are exported; source island identifiers, exact GPS points, donor neighbor membership, species and genus identities are not released. All/Direct overlap, and repeated thinnings of one island are not independent replications.
+The CI artifact contains non-identifying grouped `local_geography_ses_summary.csv`, `local_geography_support.csv`, and method/source-hash manifest; no focal island identities, pair membership, neighbor coordinates, or restricted species-to-trait and GIFT source mappings are published.
