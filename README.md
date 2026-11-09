@@ -21,6 +21,12 @@ From the frozen public [PR #321 report](https://github.com/zuizui0223/island/blo
 - An observed profile-turnover share of 0.690–0.902 (median across analyses) is *descriptive*, not above-null evidence.
 - Gaussian KDE hypervolumes were **not** calculated. Two PCoA axes retain only 15.35% of the common positive inertia; 80% requires 17 axes. Do not call a 2-D KDE area total floral hypervolume.
 
+## Nearby recorded-island reference (N1c): geographic attenuation, not geological proof
+
+[Validated same-regime nearest-ten source report](results/20261109_local_geography_ses/README.md) · [Method/limits](docs/LOCAL_GEOGRAPHIC_NULL.md) · [Original-D implementation](src/fd/local_geography_ses.py)
+
+**The public-source N1c run succeeded** ([CI #42584462875](https://github.com/zuizui0223/fd/actions/runs/42584462875)). With 30 distinct profiles per island, All oceanic median nearest-profile D SES changes from **−0.555** against broad-regional island-prevalence N1b to **−0.231** against the ten geographically nearest *other* eligible islands' profile-prevalence N1c; the continental medians are **+0.166 → −0.051** (130 islands per origin). Direct repeats the attenuation (oceanic **−0.543 → −0.258**). All/Direct are nested and these comparisons are **descriptive**: no new geological-origin p-value is inferred. The oceanic tenth-neighbor distance is **~1,149 km** median versus **~387 km** for continental islands, so fixed ten-neighbor geography has very different absolute reach. This baseline still allows neighboring islands to share the same taxa/genera and cannot replace donor-held-out N2. A new same-island paired comparison of N1b vs N1c SES and raw original-D reference differences is also implemented, avoiding population-change artifacts when local donor support is incomplete.
+
 ## N2 donor-held-out genus/source distance reference (private-only, 2026-11-09)
 
 [Source/lineage conditional protocol](docs/N2_SOURCE_DISTANCE.md) · [Private-input implementation](src/fd/n2_source_distance.py) · [Synthetic tests](tests/test_n2_source_distance.py)
