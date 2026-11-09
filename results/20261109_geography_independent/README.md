@@ -57,7 +57,7 @@ That is an observational, lineage-assembly/predictive framing. More independent 
 ## 5. Reproducibility and source rights
 
 - Implementation: [global MILP matcher and exact sign-swap test](../../src/fd/geography_independent.py).
-- [Frozen study protocol](../../docs/GEOGRAPHIC_INDEPENDENCE.md) and [public GitHub Actions run #42574620150](https://github.com/zuizui0223/fd/actions/runs/42574620150) including whole upstream G0, origin, G1, 2D/17D KDE, rarefaction, spatial-cluster and source-geographic test steps.
-- **59 synthetic/integration tests passed; four public workflows successful.**
+- [Frozen study protocol](../../docs/GEOGRAPHIC_INDEPENDENCE.md) and [source-code replay #42576004635](https://github.com/zuizui0223/fd/actions/runs/42576004635) including whole upstream G0, origin, G1, 2D/17D KDE, rarefaction, spatial-cluster and source-geographic test steps.
+- **60 synthetic/integration tests passed; all four public workflows successful** in [the final source-code CI #42576004635](https://github.com/zuizui0223/fd/actions/runs/42576004635).
 - Source output: aggregate matching support, full 16 exact-comparison null statistics with unadjusted p/BH/BY, and a source SHA manifest in GitHub Actions `fd-origin-strata-analysis` artifact. Results are also summarized in [support table](independent_matching_support.csv) and [16-test table](independent_origin_repertoire_tests.csv).
 - Neither committed source nor uploaded workflow artifacts contain exact island IDs, taxa names, raw source-archipelago labels, source entity IDs, species-to-profile maps, or restricted original flora checklists. Uncertain archipelago labels are never silently treated as verified independent evidence.
