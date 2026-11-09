@@ -21,6 +21,16 @@ From the frozen public [PR #321 report](https://github.com/zuizui0223/island/blo
 - An observed profile-turnover share of 0.690–0.902 (median across analyses) is *descriptive*, not above-null evidence.
 - Gaussian KDE hypervolumes were **not** calculated. Two PCoA axes retain only 15.35% of the common positive inertia; 80% requires 17 axes. Do not call a 2-D KDE area total floral hypervolume.
 
+## Critical 2026-11-09 spatial-independence audit — earlier pairwise significance is NOT confirmatory
+
+[Exact conservative spatial-component analysis](results/20261109_coverage_rarefaction/README.md) · [Component graph and method](docs/COVERAGE_RAREFACTION_SENSITIVITY.md)
+
+**The original 37 geological oceanic/continental matched island pairs are not 37 demonstrably independent geographical tests.** Under the frozen spatial-block graph, linking pairs that share either endpoint's geographic block gives only **5 connected components (23, 11, 1, 1, 1 pairs)**. All 23 northern-midlatitude pairs belong to ONE such connected component; a second coarse Weigelt archipelago grouping independently gives **5 components (18, 13, 4, 1, 1)**. Whole-component exact origin-label flips offer only 32 configurations, with minimum possible p=.0625 for the sign-invariant squared multivariate statistic.
+
+**Actual original-profile exact-L2 results under conservative block grouping:** All exact p **0.2500**, Direct **0.3750** (37 matched pairs); in the earlier 21-pair GBIF-effort-balanced subset, All **0.2500**, Direct **0.3125**. Thus the previous pair-independent exploratory q-values in PR #4 and PR #8 **are not supported as spatially robust discoveries**. Raw category differences still exist, but cannot be claimed to exceed geographically dependent null expectations. Coarse blocks connected by graph transitivity are a deliberately severe stress test, not proof of fully dependent species histories.
+
+The same 37 pairs do retain exact recorded colour×form composition differences after **equal-profile/complete-name rarefaction**, but this does NOT repair spatial pseudoreplication or the stronger **genus×regional-availability conditional null non-rejection**. The primary manuscript framing must shift to **source-lineage assembly and predictive, explicitly observational floral repertoires**, rather than claiming confirmed geological causal filtering or independent oceanic functional niche contraction.
+
 ## Sampling-support-standardized geological floral repertoire (2026-11-09)
 
 [Validated 37-pair rarefaction report](results/20261109_coverage_rarefaction/README.md) · [Methods and bounds](docs/COVERAGE_RAREFACTION_SENSITIVITY.md)
