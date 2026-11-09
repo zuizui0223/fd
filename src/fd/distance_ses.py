@@ -27,7 +27,9 @@ from .g1_fixed_margins import _bh
 
 SCOPES = ("all", "direct")
 ENDPOINTS = ("mean_pairwise_distance", "mean_nearest_profile_distance")
-NULLS = ("N0_global496", "N1_regional_observed_LOO")
+NULLS = ("N0_global496", "N1_regional_observed_LOO",
+         "N1b_regional_islandfreq_LOO")
+PAIRED_NULLS = NULLS[:2]  # frequency-weighted N1b is descriptive falsification only
 MODES = ("full", "equal30")
 COHORTS = ("original_block_components", "geography_both_verified")
 SUMMARY_FIELDS = (
@@ -71,17 +73,24 @@ def distance_statistics(distance: np.ndarray, selected: np.ndarray) -> np.ndarra
 
 
 def sample_null(distance: np.ndarray, pool: np.ndarray, n: int, *,
-                draws: int, seed: int) -> np.ndarray | None:
-    """Draw n distinct profiles without replacement from one frozen pool."""
+                draws: int, seed: int,
+                weights: np.ndarray | None = None) -> np.ndarray | None:
+    """Draw n distinct profiles without replacement, optional fixed incidence weights."""
     available = np.asarray(pool, dtype=int)
     if n < 2 or draws < 20 or len(np.unique(available)) != len(available):
         raise ValueError("Invalid reference pool, sample size or null draws")
     if len(available) < n:
         return None  # do not replace unavailable states or fabricate absences
+    probability = None
+    if weights is not None:
+        w = np.asarray(weights, dtype=float)
+        if w.shape != available.shape or not np.isfinite(w).all() or np.any(w <= 0):
+            raise ValueError("Incidence weights must be positive and pool-aligned")
+        probability = w / w.sum()
     rng = np.random.default_rng(seed)
     out = np.empty((draws, len(ENDPOINTS)), dtype=float)
     for j in range(draws):
-        take = rng.choice(available, size=n, replace=False)
+        take = rng.choice(available, size=n, replace=False, p=probability)
         out[j] = distance_statistics(distance, take)
     return out
 
@@ -200,7 +209,7 @@ def _paired_results(scores: list[dict], original: list[dict],
     rows = []
     for cohort, pairs in ((COHORTS[0], original), (COHORTS[1], independent)):
         for scope in SCOPES:
-            for null in NULLS:
+            for null in PAIRED_NULLS:
                 for mode in MODES:
                     for endpoint in ENDPOINTS:
                         key = (scope, null, mode, endpoint)
@@ -288,6 +297,15 @@ def run(input_root: Path, g0_root: Path, crosswalk: Path, output: Path,
                 ])
             regional_pool = regional_leave_one_out_pool(
                 regional, row["analysis_regime"], profiles, space.lookup)
+            # Each occurrence is ONE other eligible island's recorded support,
+            # not a carrier-name count or inferred biological abundance.
+            regional_weights = np.asarray([
+                regional[row["analysis_regime"]][space.ids[int(idx)]]
+                - int(space.ids[int(idx)] in profiles)
+                for idx in regional_pool
+            ], dtype=float)
+            if np.any(regional_weights <= 0):
+                raise AssertionError("Leave-one-out regional incidence must be positive")
             for mode in MODES:
                 if mode == "equal30" and thin is None:
                     continue
@@ -303,10 +321,15 @@ def run(input_root: Path, g0_root: Path, crosswalk: Path, output: Path,
                                 distance, global_reference, n_draw,
                                 draws=draws, seed=_seed(seed, "N0", n_draw))
                         simulated = global_cache[n_draw]
-                    else:
+                    elif null == "N1_regional_observed_LOO":
                         simulated = sample_null(
                             distance, regional_pool, n_draw, draws=draws,
                             seed=_seed(seed, "N1", scope, island, mode))
+                    else:
+                        simulated = sample_null(
+                            distance, regional_pool, n_draw, draws=draws,
+                            seed=_seed(seed, "N1b", scope, island, mode),
+                            weights=regional_weights)
                     if simulated is None:
                         continue
                     for value in _score(observed_sample, simulated,
@@ -329,6 +352,7 @@ def run(input_root: Path, g0_root: Path, crosswalk: Path, output: Path,
         "reference": "original colour/form state-set Jaccard D, no projection",
         "global_null": "uniform n distinct profiles from all 496 frozen reference states",
         "regional_null": "same-regime observed profile union, excluding entire focal island; neither mainland donor nor genus conditional",
+        "regional_frequency_sensitivity": "N1b selects distinct profiles without replacement in proportion to number of OTHER eligible regional islands bearing each profile; descriptive only, excluded from 32 geology tests",
         "full": "sample size = number of distinct observed island profiles",
         "equal30": f"mean over {thinnings} repeated observed 30-distinct-profile subsamples, compared with fixed n=30 reference",
         "reference_draws": draws, "seed": seed,
@@ -339,7 +363,7 @@ def run(input_root: Path, g0_root: Path, crosswalk: Path, output: Path,
             "geography_verified_disjoint_pairs": len(strict),
             "strict_unknown_source_archipelago_endpoints": match_audit["n_unknown_archipelago_endpoints"],
         },
-        "paired_tests": "32 fixed exploratory slots; two-sided exact component sign flips or geographic-disjoint pair flips; BH/BY across all slots with missing set to p=1",
+        "paired_tests": "32 fixed exploratory slots for N0 and N1 only; N1b is descriptive falsification; two-sided exact component sign flips or geographic-disjoint pair flips; BH/BY across all slots with missing set to p=1",
         "release": "aggregate summaries only, suppress summaries n<5; no island, taxon, paired identity, genus or source names",
         "interpretation_limit": "SES conditions on recorded support only; no ecological absence, evolutionary cause, source/genus null or phylogenetic independence inferred",
         "source_sha256": {
