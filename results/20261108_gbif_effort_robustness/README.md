@@ -1,5 +1,7 @@
 # Observation-effort robustness of geological island floral repertoire differentiation
 
+> **2026-11-09 spatial-dependence correction:** After the effort screen, 21 matched pairs still share geographic blocks (five connected components, size 12/5/2/1/1). Exact component-level sign flips for the exact-category repertoire test yield **All p=0.2500** and **Direct p=0.3125**, versus the old independent-pair p=.0025/.0089. The BY-supported **All q=.0193** below is **not evidence of robustness to geographic pseudoreplication**; it is valid only under independent pair-label exchangeability. Do not claim confirmed geological-filtering significance. The effort-screened descriptive difference remains. [Spatial audit](../20261109_coverage_rarefaction/README.md).
+
 **2026-11-08** | Independent `fd` research line | [method and source contract](../../docs/GBIF_EFFORT_SENSITIVITY.md) | [original 37 matched geological pairs](../20261108_matched_flower_repertoire/README.md)
 
 **Result status:** completed exploratory observation-process sensitivity, with 47 synthetic tests passed in the [successful GitHub Actions run #42465727478](https://github.com/zuizui0223/fd/actions/runs/42465727478). The analysis does **not** identify ecological colonization, real biological absence, a calibrated detection process, or selection on flower traits.
