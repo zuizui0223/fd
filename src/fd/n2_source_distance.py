@@ -46,6 +46,17 @@ PAIR_COLUMNS = (
     "exact_two_sided_sign_p", "sign_null_q025", "sign_null_q975",
     "n_sign_configurations", "q_bh_posthoc4", "q_by_posthoc4",
 )
+CALIBRATION_FIELDS = (
+    "scope", "geological_origin", "n_islands", "status",
+    "mean_global_prior_name_log_loss", "mean_global_genus_name_log_loss",
+    "mean_local_genus_name_log_loss",
+    "mean_local_vs_global_genus_logloss_improvement",
+    "fraction_islands_local_genus_better_than_global_genus",
+    "mean_global_prior_trait_distance", "mean_global_genus_trait_distance",
+    "mean_local_genus_trait_distance",
+    "mean_local_vs_global_genus_trait_distance_improvement",
+)
+
 AUDIT_COLUMNS = (
     "scope", "geological_origin", "n_islands", "median_names",
     "median_observed_distinct_profiles", "mean_global_genus_donor_fraction",
@@ -139,6 +150,69 @@ def _validate_private_against_public(
                   records.profile_id.value_counts().items()}
         if actual != published:
             raise ValueError(f"{scope}: private profile frequencies do not reproduce pinned public aggregate")
+
+
+def heldout_name_calibration(part: pd.DataFrame, model: DonorModel,
+                             island: str, space: ProfileSpace) -> dict:
+    """Score unseen test name profiles; NEVER choose shrinkage using these scores.
+
+    Per name: exact categorical negative log probability and expected original
+    colour/form Jaccard distance. Evaluation names were removed from all
+    source entities BEFORE DonorModel training. These are observational
+    diagnostic losses rather than an independent evolutionary replication.
+    """
+    if part.empty or part.accepted_species.duplicated().any():
+        raise ValueError("Invalid private heldout evaluation island")
+    labels = ("global_prior", "global_genus", "local_genus")
+    loss = np.zeros((len(labels), 2), dtype=float)
+    for genus, profile in part[["genus", "profile_id"]].itertuples(index=False, name=None):
+        pid = space.lookup[int(profile)]
+        p = model.probabilities(island, str(genus))[[0, 2, 3]]
+        if p.shape != (len(labels), len(space.ids)) or not np.isfinite(p).all():
+            raise ValueError("Malformed donor predictive probabilities")
+        loss[:, 0] -= np.log(np.clip(p[:, pid], 1e-15, 1.))
+        loss[:, 1] += p @ space.matrix[:, pid]
+    loss /= len(part)
+    return {f"{metric}_{label}": float(loss[j, k])
+            for j, label in enumerate(labels)
+            for k, metric in enumerate(("log_loss", "trait_distance"))}
+
+
+def _calibration_summaries(audits: list[dict]) -> list[dict]:
+    groups = defaultdict(list)
+    for row in audits:
+        groups[(row["scope"], row["geological_origin"])].append(row)
+    output = []
+    for (scope, origin), samples in sorted(groups.items()):
+        entry = {
+            "scope": scope, "geological_origin": origin,
+            "n_islands": len(samples),
+            "status": "heldout_taxon_name_prediction_diagnostic"
+                      if len(samples) >= 5 else "small_cell_suppressed",
+        }
+        if len(samples) >= 5:
+            for label in ("global_prior", "global_genus", "local_genus"):
+                for metric in ("name_log_loss", "trait_distance"):
+                    field = ("log_loss_" + label if metric == "name_log_loss"
+                             else "trait_distance_" + label)
+                    entry[f"mean_{label}_{metric}"] = float(
+                        np.mean([sample[field] for sample in samples]))
+            improvements = np.array([
+                x["log_loss_global_genus"] - x["log_loss_local_genus"]
+                for x in samples
+            ])
+            distance_gain = np.array([
+                x["trait_distance_global_genus"] -
+                x["trait_distance_local_genus"] for x in samples
+            ])
+            entry["mean_local_vs_global_genus_logloss_improvement"] = float(
+                np.mean(improvements))
+            entry["fraction_islands_local_genus_better_than_global_genus"] = float(
+                np.mean(improvements > 0))
+            entry["mean_local_vs_global_genus_trait_distance_improvement"] = float(
+                np.mean(distance_gain))
+        output.append(entry)
+    return output
 
 
 def paired_primary(scores: list[dict], cohorts: dict[str, list[dict]],
@@ -325,6 +399,7 @@ def run(private_all: Path, private_direct: Path, flora: Path,
                 "global_expected": expected["N2_global_genus"],
                 "local_expected": expected["N2_local_genus"],
                 "expected_ratio": expected["N2_local_genus"]/n,
+                **heldout_name_calibration(part, model, island, space),
             })
             rng = np.random.default_rng(_seed(seed, scope, island, "N2_thinning"))
             thin = (np.asarray([
@@ -375,9 +450,11 @@ def run(private_all: Path, private_direct: Path, flora: Path,
     summary = _summary(rows)
     pair_rows = paired_primary(rows, cohorts, geo)
     coverage = _coverage_summaries(audits)
+    calibration = _calibration_summaries(audits)
     output.mkdir(parents=True, exist_ok=True)
     _write_csv(output/"n2_distance_ses_summary.csv", summary, SUMMARY_FIELDS)
     _write_csv(output/"n2_source_donor_coverage.csv", coverage, AUDIT_COLUMNS)
+    _write_csv(output/"n2_heldout_prediction_calibration.csv", calibration, CALIBRATION_FIELDS)
     _write_csv(output/"n2_paired_spatial_sensitivity.csv", pair_rows, PAIR_COLUMNS)
     manifest = {
         "schema": "fd_private_heldout_genus_source_distance_SES_v1",
@@ -392,6 +469,8 @@ def run(private_all: Path, private_direct: Path, flora: Path,
             "source_unknown_archipelago_endpoints": verified["n_unknown_archipelago_endpoints"],
         },
         "draws": draws, "thinnings": thinnings, "seed": seed,
+        "calibration_gate": "heldout individual-name categorical log loss and expected original trait distance, averaged across island units, for global prior/global genus/local genus; positive local-vs-global gains are necessary but not sufficient",
+        "calibration_output": "n2_heldout_prediction_calibration.csv; grouped means only, no test name/island/source identities",
         "reference_definition": (
             "Model 1-probability-absent-over-taxon-carriers from GIFT native donors "
             "conditioned on OBSERVED genera, then sample n distinct profiles "
