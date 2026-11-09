@@ -45,6 +45,14 @@ restricted species, genus or GIFT mainland donor data.
   islands with 10 eligible geographic donors and sufficient
   support plus median tenth-neighbor radius (only cells ≥5).
   **No individual island IDs, coordinates or neighbor membership.**
+- As N1c will sometimes be unestimable, a separate
+  `local_geography_matched_reference_comparison.csv` measures N1b and N1c
+  on **the same physical islands**, separately by scope, origin, broad
+  regime and endpoint, plus pooled regime summaries. It compares the
+  median SES, fraction of negative SES and **raw original-D observed-minus-
+  null differences**, not just unrelated group median values. Small cells
+  (n<5) suppress effect entries. These remain descriptive contrasts,
+  not an inference from geographically independent species/archipelagos.
 
 ## Why this is not N2
 
@@ -81,7 +89,7 @@ python -m fd.local_geography_ses \
 ```
 
 Only grouped CSVs (local_geography_ses_summary.csv,
-local_geography_support.csv) and a schema/hash/limits manifest
+local_geography_support.csv, local_geography_matched_reference_comparison.csv) and a schema/hash/limits manifest
 are released in the public CI artifact. No required restricted
 input can or should be downloaded as part of this step.
 
