@@ -21,6 +21,16 @@ From the frozen public [PR #321 report](https://github.com/zuizui0223/island/blo
 - An observed profile-turnover share of 0.690–0.902 (median across analyses) is *descriptive*, not above-null evidence.
 - Gaussian KDE hypervolumes were **not** calculated. Two PCoA axes retain only 15.35% of the common positive inertia; 80% requires 17 axes. Do not call a 2-D KDE area total floral hypervolume.
 
+## 2026-11-09 geographic source-disjoint rematching: no confirmed geological effect
+
+[Independent-pair floral repertoire report](results/20261109_geography_independent/README.md) · [Source-disjoint matching contract](docs/GEOGRAPHIC_INDEPENDENCE.md) · [Exact test aggregates](results/20261109_geography_independent/independent_origin_repertoire_tests.csv)
+
+The original 37 continental/oceanic island comparisons share only five geographically connected source groups. We therefore **re-matched the entire eligible geological flora population before examining flower traits**, maximizing different physical island comparisons under the original environment, area, isolation, name-support and coverage gates while prohibiting reuse of spatial blocks and/or source archipelago labels among pairs. This gives **13 block-disjoint pairs, 11 source-archipelago-disjoint pairs, 11 satisfying both, and 10 with both constraints plus verified archipelago labels**.
+
+The strictest **10-pair** original categorical-profile exact L2 comparison is **All p=.1680 / Direct p=.2188** under complete `2^10` exact pair flips; across the **full post-hoc 16-test family none passes BH or BY** (smallest BH q=.2734). A nominal Direct p=.0408 in a **different 13-pair block-only subset** is not supported after multiple-testing correction. Original categorical-similarity-kernel comparisons likewise remain unsupported.
+
+**This supersedes any claim of confirmed oceanic-island adaptive floral syndrome or source-independent structural divergence.** Observed category repertoires differ in particular samples, and known-genus/native-mainland opportunity predicts some recorded assemblage structure. But no currently available set of geographically disjoint pairs provides adjusted support for an independent geological-origin effect. More separate source archipelagos and identity-aware detection/phylogenetic controls are needed. Geographic labels are pragmatic proxies, not definitive phylogenetic independent histories.
+
 ## Critical 2026-11-09 spatial-independence audit — earlier pairwise significance is NOT confirmatory
 
 [Exact conservative spatial-component analysis](results/20261109_coverage_rarefaction/README.md) · [Component graph and method](docs/COVERAGE_RAREFACTION_SENSITIVITY.md)
