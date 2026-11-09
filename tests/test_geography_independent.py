@@ -42,7 +42,7 @@ def test_milp_maximizes_independent_pairs_before_cost():
         edge("c1","o2","b1","b3", "Arch1","Arch3",cost=4.1),
         edge("c2","o1","b4","b2", "Arch4","Arch2",cost=3.7),
     ]
-    for grouping in ("spatial_block","weigelt_archipelago","both"):
+    for grouping in ("spatial_block","weigelt_archipelago","both","both_verified"):
         chosen,audit=independent_pair_matching(data,grouping)
         assert len(chosen)==2
         assert audit["solver_status"]==0
@@ -94,3 +94,18 @@ def test_region_restricted_eligibility_uses_original_calipers():
     assert len(matched)==12
     assert result["n_tropical"]==12
     assert result["n_distinct_spatial_blocks_used"]==24
+
+
+def test_verified_archipelago_eligibility_discards_unknown_pairs():
+    data=[
+        edge("c1","o1","b1","b2","Arch1","Arch2"),
+        edge("c2","o2","b3","b4","Arch3","Arch4"),
+        edge("c3","o3","b5","b6","NA","Arch6"),
+    ]
+    selected,audit=independent_pair_matching(data,"both_verified")
+    assert len(selected)==2
+    assert audit["n_candidate_edges"]==2
+    assert audit["n_unknown_archipelago_endpoints"]==0
+    assert all(x["continental_id"]!="c3" for x in selected)
+    with pytest.raises(ValueError,match="Cannot verify"):
+        _geographic_resources(data[-1],"both_verified")
