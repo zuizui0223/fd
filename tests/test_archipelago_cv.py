@@ -8,7 +8,7 @@ import pytest
 
 from fd.archipelago_cv import (
     _cluster_test, _kernel_score, donor_selection,
-    haversine_km, missing_archipelago,
+    haversine_km, missing_archipelago, nearest_geographic_donors,
 )
 from fd.core import ProfileSpace
 
@@ -35,6 +35,9 @@ def test_geographic_distances_and_source_pool_exclusion():
     assert outside is not None and len(outside)==3
     assert all(labels[j]!=labels[0] for j in outside)
     assert maxwithin>0 and gap<=math.log(3)
+    n_geo=nearest_geographic_donors(0,distance)
+    assert len(n_geo)==3 and 0 not in n_geo
+    assert set(n_geo).issubset(set(range(1,8)))
     a,b,*_=donor_selection(0,labels,distance,within_radius_km=10)
     assert b is None
 
@@ -81,3 +84,19 @@ def test_archipelago_is_the_only_signflip_and_bootstrap_unit():
     assert 0<a["p_cluster_signflip_one_sided"]<=1
     with pytest.raises(ValueError):
         _cluster_test(values[:7],permutations=999,bootstrap=999,seed=11)
+
+
+def test_geography_only_donors_ignore_archipelago_and_may_match_exactly():
+    # The three closest geographic islands can already be exactly the three
+    # closest named archipelago donors; in that case added group identity
+    # must have zero predictive incremental value.
+    lat=np.zeros(8)
+    lon=np.array([0.,.2,.4,.6,20,21,22,23])
+    distance=haversine_km(lat,lon)
+    labels=np.array(["A"]*4+["B"]*4)
+    within, matched,*_=donor_selection(
+        0,labels,distance,within_radius_km=1500)
+    nearest=nearest_geographic_donors(0,distance)
+    assert set(nearest)==set(within)
+    with pytest.raises(ValueError,match="Too few"):
+        nearest_geographic_donors(0,distance[:3,:3])
