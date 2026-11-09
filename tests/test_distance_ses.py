@@ -38,6 +38,26 @@ def test_n0_null_draws_are_fixed_n_no_replacement_and_deterministic():
     assert _seed(11, "all", "N0") != _seed(11, "direct", "N0")
 
 
+def test_weighted_regional_reference_reduces_uniform_rare_profile_bias():
+    # Profile 0 occurs on many peer islands and lies near all other profiles.
+    # Weighted without-replacement draws MUST favor this common profile.
+    d = np.ones((6, 6))
+    np.fill_diagonal(d, 0)
+    d[0, 1:] = .01
+    d[1:, 0] = .01
+    uniform = sample_null(d, np.arange(6), 2, draws=999, seed=10)
+    weighted = sample_null(d, np.arange(6), 2, draws=999, seed=10,
+                           weights=np.array([100, 1, 1, 1, 1, 1]))
+    assert weighted[:, 0].mean() < uniform[:, 0].mean() - .25
+    assert weighted[:, 1].mean() < uniform[:, 1].mean() - .25
+    assert np.array_equal(
+        weighted, sample_null(d, np.arange(6), 2, draws=999, seed=10,
+                              weights=np.array([100, 1, 1, 1, 1, 1])))
+    with pytest.raises(ValueError):
+        sample_null(d, np.arange(6), 2, draws=40, seed=1,
+                    weights=np.array([1, 1, 1, 0, 1, 1]))
+
+
 def test_regional_observed_pool_excludes_focal_only_profiles():
     rows = [
         {"island_id": "a", "analysis_regime": "north"},
