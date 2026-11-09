@@ -34,7 +34,11 @@ from .pipeline import REF_INPUT, _write_csv, file_sha256
 
 SCOPES = ("all", "direct")
 ENDPOINTS = ("exact_profile_L2", "categorical_similarity_kernel")
-CONTRASTS = ("within_vs_region_outside", "within_vs_distance_matched_outside")
+CONTRASTS = (
+    "within_vs_region_outside",
+    "within_vs_geography_only_nearest",
+    "within_vs_distance_matched_outside",
+)
 REFERENCE_NEIGHBORS = 3
 SOURCE_BLEND = .50
 DISTANCE_RATIO_LIMIT = 3.0
@@ -54,13 +58,16 @@ GROUP_FIELDS = (
     "n_groups_with_distance_matched_controls",
     "median_same_archipelago_third_donor_km",
     "median_matched_distance_gap_log",
+    "n_three_nearest_geo_donors_all_same_archipelago",
+    "fraction_three_nearest_geo_donors_all_same_archipelago",
+    "mean_source_geo_donor_overlap_of_three",
 )
 RESULT_FIELDS = (
     "scope", "endpoint", "comparison", "n_islands",
     "n_archipelagos", "n_regional_subgroups", "mean_group_improvement",
     "group_median_improvement", "cluster_bootstrap_q025",
     "cluster_bootstrap_q975", "p_cluster_signflip_one_sided",
-    "q_bh_8", "q_by_8",
+    "q_bh_12", "q_by_12",
     "n_randomizations", "n_group_bootstrap",
     "status",
 )
@@ -68,6 +75,7 @@ PRED_FIELDS = (
     "scope", "endpoint", "n_islands", "n_archipelagos",
     "mean_region_outside_error", "mean_within_group_error",
     "mean_distance_matched_other_error", "n_distance_matched",
+    "mean_geography_only_error",
 )
 
 
@@ -228,6 +236,8 @@ def run(input_root: Path, g0_root: Path, crosswalk_path: Path,
         "n_targets_with_distance_matched_controls": 0,
         "third_distances": [],
         "match_gaps": [],
+        "n_geo_nearest_identical": 0,
+        "shared_donor_counts": [],
         "main_groups": set(),
         "caliper_groups": set(),
     })
@@ -272,6 +282,17 @@ def run(input_root: Path, g0_root: Path, crosswalk_path: Path,
         for i in candidates:
             outside = np.flatnonzero(groups != groups[i])
             within, matched, maxwithin, gap = donor_selection(i, groups, dist)
+            # Geographic-only negative control: nearest three in the SAME
+            # originally declared regime, WITHOUT consulting archipelago
+            # labels to select them. Compare identical three-donor and
+            # 50%-reference mixture structures.
+            other_geo = np.flatnonzero(np.arange(n) != i)
+            nearest_geo = other_geo[
+                np.argsort(dist[i, other_geo])[:REFERENCE_NEIGHBORS]
+            ]
+            n_shared_geo = len(set(within) & set(nearest_geo))
+            audit["n_geo_nearest_identical"] += int(n_shared_geo==REFERENCE_NEIGHBORS)
+            audit["shared_donor_counts"].append(n_shared_geo)
             audit["n_targets_with_source_predictions"] += 1
             audit["main_groups"].add(groups[i])
             audit["third_distances"].append(maxwithin)
@@ -287,6 +308,8 @@ def run(input_root: Path, g0_root: Path, crosswalk_path: Path,
                 same = SOURCE_BLEND * matrix[within].mean(axis=0) + (1-SOURCE_BLEND)*bg
                 other = (SOURCE_BLEND * matrix[matched].mean(axis=0)
                          + (1-SOURCE_BLEND)*bg) if matched is not None else None
+                geo_only = (SOURCE_BLEND * matrix[nearest_geo].mean(axis=0)
+                            + (1-SOURCE_BLEND)*bg)
                 if not np.allclose([bg.sum(),same.sum()],1.,atol=1e-9):
                     raise ValueError("Non-normalized holdout predicted distributions")
                 for endpoint, kernel in kernels.items():
@@ -295,16 +318,19 @@ def run(input_root: Path, g0_root: Path, crosswalk_path: Path,
                     outside_error = (
                         _kernel_score(y, other, kernel) if other is not None
                         else None)
+                    geo_error = _kernel_score(y, geo_only, kernel)
                     target[scope].append({
                         "archipelago": groups[i], "regime": region,
                         "endpoint": endpoint,
                         "within_vs_region_outside": baseline_error-within_error,
+                        "within_vs_geography_only_nearest": geo_error-within_error,
                         "within_vs_distance_matched_outside": (
                             outside_error-within_error if outside_error is not None
                             else None),
                         "baseline_error": baseline_error,
                         "within_error": within_error,
                         "outside_error": outside_error,
+                        "geo_error": geo_error,
                     })
     summary = []
     region_counts = []
@@ -327,6 +353,15 @@ def run(input_root: Path, g0_root: Path, crosswalk_path: Path,
                 float(np.median(a["third_distances"])) if a["third_distances"] else None,
             "median_matched_distance_gap_log":
                 float(np.median(a["match_gaps"])) if a["match_gaps"] else None,
+            "n_three_nearest_geo_donors_all_same_archipelago":
+                a["n_geo_nearest_identical"],
+            "fraction_three_nearest_geo_donors_all_same_archipelago":
+                a["n_geo_nearest_identical"] /
+                a["n_targets_with_source_predictions"] if
+                a["n_targets_with_source_predictions"] else None,
+            "mean_source_geo_donor_overlap_of_three":
+                float(np.mean(a["shared_donor_counts"])) if
+                a["shared_donor_counts"] else None,
         })
     results = []
     predictive = []
@@ -349,6 +384,9 @@ def run(input_root: Path, g0_root: Path, crosswalk_path: Path,
                     r["outside_error"] for r in dist_matched
                 ])) if dist_matched else None,
                 "n_distance_matched": len(dist_matched),
+                "mean_geography_only_error": float(np.mean([
+                    r["geo_error"] for r in same_endpoint
+                ])) if same_endpoint else None,
             })
             for comparison in CONTRASTS:
                 eligible = [r for r in same_endpoint
@@ -387,14 +425,14 @@ def run(input_root: Path, g0_root: Path, crosswalk_path: Path,
                     result["status"] = "posthoc_archipelago_heldout_predictive_comparison"
                 results.append(result)
     # Keep every predeclared comparison in the FDR family, even unsupported.
-    if len(results) != 8:
-        raise ValueError("Expected exactly eight scope×metric×contrast slots")
+    if len(results) != 12:
+        raise ValueError("Expected exactly twelve scope×metric×contrast slots")
     q = _bh([r.get("p_cluster_signflip_one_sided",1.) for r in results])
     H = sum(1/i for i in range(1,len(results)+1))
     for i,r in enumerate(results):
         if "p_cluster_signflip_one_sided" in r:
-            r["q_bh_8"] = float(q[i])
-            r["q_by_8"] = float(min(1., q[i]*H))
+            r["q_bh_12"] = float(q[i])
+            r["q_by_12"] = float(min(1., q[i]*H))
     _write_csv(output/"archipelago_holdout_tests.csv", results, RESULT_FIELDS)
     _write_csv(output/"archipelago_support_by_region.csv",region_counts,
                ("analysis_regime",) + GROUP_FIELDS[2:])
@@ -412,9 +450,12 @@ def run(input_root: Path, g0_root: Path, crosswalk_path: Path,
         "n_targets_tested":len(target["all"])//2,
         "n_distance_matched_targets":sum(
             x["n_targets_with_distance_matched_controls"] for x in region_counts),
-        "n_primary_tests":len(results),
+        "n_posthoc_comparison_slots":len(results),
         "settings":{
             "n_nearest_source_donors":REFERENCE_NEIGHBORS,
+            "geography_only_negative_control":
+                "three nearest eligible islands same regime, ignoring archipelago identity for source selection; 50% blend with SAME outside-group background",
+            "negative_control_design":"added as post-hoc follow-up after first 8-test source-vs-distance audit; full revised 12-slot FDR family",
             "blend_source_to_region_reference":SOURCE_BLEND,
             "other_archipelago_distance_ratio_limit":DISTANCE_RATIO_LIMIT,
             "within_donor_radius_limit_km":WITHIN_RADIUS_KM,
@@ -456,7 +497,7 @@ def run(input_root: Path, g0_root: Path, crosswalk_path: Path,
         "tests":[{k:r.get(k) for k in (
             "scope","endpoint","comparison","n_islands","n_archipelagos",
             "mean_group_improvement","p_cluster_signflip_one_sided",
-            "q_bh_8","status"
+            "q_bh_12","status"
         )} for r in results],
     },ensure_ascii=False))
     return manifest
