@@ -8,7 +8,8 @@ import pytest
 
 from fd.distance_ses import distance_statistics, sample_null
 from fd.n2_source_distance import (
-    _coverage_summaries, _validate_private_against_public,
+    _calibration_summaries, _coverage_summaries, _validate_private_against_public,
+    heldout_name_calibration,
     donor_training, expected_occupancy_weights,
     paired_primary, source_coverage,
 )
@@ -92,6 +93,45 @@ def test_n2_sampled_support_keeps_fixed_richness_and_respects_weights():
     assert a.shape == (100, 2)
     assert np.all(a[:, 0] > 0)
     assert np.isclose(weights.sum(), 1.)
+
+
+def test_name_level_holdout_calibration_rewards_correct_source_donor():
+    from types import SimpleNamespace
+    model = ToyDonorModel()
+    fake_space = SimpleNamespace(
+        lookup={0: 0, 1: 1, 2: 2}, ids=[0, 1, 2],
+        matrix=np.array([[0, .5, 1.], [.5, 0, 1.], [1., 1., 0]]))
+    targets = pd.DataFrame({
+        "accepted_species": ["GenA test1", "GenA test2"],
+        "genus": ["GenA", "GenA"], "profile_id": [1, 1],
+    })
+    got = heldout_name_calibration(targets, model, "focal", fake_space)
+    assert got["log_loss_local_genus"] < got["log_loss_global_genus"]
+    assert got["trait_distance_local_genus"] < got["trait_distance_global_genus"]
+    assert got["log_loss_global_prior"] == pytest.approx(-np.log(1/3))
+    with pytest.raises(ValueError):
+        heldout_name_calibration(
+            pd.concat([targets, targets.iloc[[0]]], ignore_index=True),
+            model, "focal", fake_space)
+
+
+def test_calibration_summary_suppresses_identity_and_tiny_cells():
+    base = dict(scope="all", geological_origin="oceanic",
+                log_loss_global_prior=1.0, log_loss_global_genus=.8,
+                log_loss_local_genus=.7,
+                trait_distance_global_prior=.5,
+                trait_distance_global_genus=.4,
+                trait_distance_local_genus=.3)
+    samples = [{**base, "island_id": f"secret_{i}"} for i in range(4)]
+    small = _calibration_summaries(samples)
+    assert len(small) == 1
+    assert small[0]["status"] == "small_cell_suppressed"
+    assert "mean_local_genus_name_log_loss" not in small[0]
+    reports = _calibration_summaries(samples + [{**base, "island_id": "secret_5"}])
+    assert reports[0]["mean_local_vs_global_genus_logloss_improvement"] == pytest.approx(.1)
+    assert reports[0]["fraction_islands_local_genus_better_than_global_genus"] == 1.
+    assert reports[0]["mean_local_vs_global_genus_trait_distance_improvement"] == pytest.approx(.1)
+    assert all("island_id" not in row for row in reports)
 
 
 def test_coverage_uses_taxon_carrier_not_genus_weight():
