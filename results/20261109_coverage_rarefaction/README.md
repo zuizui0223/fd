@@ -4,6 +4,23 @@
 
 **2026-11-09 | Independent `fd` exploratory result.** [Protocol](../../docs/COVERAGE_RAREFACTION_SENSITIVITY.md) · [Source workflow](https://github.com/zuizui0223/fd/actions/runs/42554306259) (50 tests passed; complete G0/17D KDE, origin and effort runs also successful).
 
+## Spatial dependence: exact nulls supersede pair-independent significance
+
+The complete CI rebuilt original `spatial_block` and separately source-defined Weigelt archipelago connected components using *either* endpoint of each origin pair, preserving exact original category profile statistics. Source missing archipelago codes (e.g. literal `NA`) are explicitly **unresolved**, not a shared region. Under either geographical grouping, 37 original pairs collapse to only **five** components:
+
+| Dependency graph | Original 37-pair component sizes | All exact-profile L2 exact p | Direct exact-profile L2 exact p |
+|---|---|---:|---:|
+| Broad `spatial_block` | 23 / 11 / 1 / 1 / 1 | **0.2500** | **0.3750** |
+| Weigelt archipelago groups | 18 / 13 / 4 / 1 / 1 | **0.1875** | **0.5000** |
+
+The effort-balanced 21-pair subset likewise yields five components (spatial blocks 12/5/2/1/1; Weigelt groups 8/6/4/2/1), with exact L2 p **0.2500 All** and **0.3125 Direct** under *either* graph. The original categorical similarity-kernel statistics have exact p≥0.8125 across the graph tests. There are only **2^5=32** equally weighted whole-component sign configurations; because the quadratic metric is invariant to globally reversing every pair, the smallest attainable p for these five-component data is **0.0625**. That is a resolution floor, not the observed p.
+
+**Leaving out the largest geographic component** does not remove the descriptive colour/form exact-category shift: removing the 23-pair `spatial_block` component leaves 14 pairs with exact L2 norm **1.346×** the full 37-pair norm, but the direction in 496-profile space changes substantially (cosine to original displacement **0.511**). Removing the next 11-pair component leaves 26 pairs, norm 1.257× and directional cosine 0.905. A large observed category difference is thus spread unevenly across regions, and the two major components can partially cancel one another. The remaining singletons cannot supply broad geographic replication.
+
+**Scientific revision:** The previously published PR #4 and PR #8 small p/q values from independent-pair sign swaps are **conditional on a stronger independence/exchangeability assumption than this five-component stress test supports**. The headline inference must be demoted to an **observed and repeatedly sampled category repertoire association, not spatially established geological-origin filtering**. This grouping is deliberately conservative and transitive; coarse-block membership does not prove perfect residual dependence, and source archipelago labels are not fully independent phylogenetic source histories.
+
+[Inspect all sixteen exact spatial component tests](spatial_component_tests.csv) or the complete [GitHub Actions artifact and leave-component-out data](https://github.com/zuizui0223/fd/actions/runs/42556434876). **No island identifiers or private matching/trait rows are published.**
+
 ## Main conclusion: exact categorical repertoire differences are not solely unequal observed support
 
 The same fixed 37 origin-blind geography/climate/area/coverage matched continental–oceanic pairs (23 northern-midlatitude; 14 tropical) were reconstructed from the original pinned island floral aggregates. Instead of comparing all reported profiles directly, we repeated the analysis after **standardizing observed categories or complete taxon-name carriers per island**.
