@@ -21,6 +21,16 @@ From the frozen public [PR #321 report](https://github.com/zuizui0223/island/blo
 - An observed profile-turnover share of 0.690–0.902 (median across analyses) is *descriptive*, not above-null evidence.
 - Gaussian KDE hypervolumes were **not** calculated. Two PCoA axes retain only 15.35% of the common positive inertia; 80% requires 17 axes. Do not call a 2-D KDE area total floral hypervolume.
 
+## Local spatial predictability of floral profile repertoires (2026-11-09)
+
+[44-source-archipelago heldout prediction report](results/20261109_archipelago_flower_transfer/README.md) · [Source/distance validation protocol](docs/ARCHIPELAGO_FLORAL_HOLDOUT.md) · [all 12 comparisons](results/20261109_archipelago_flower_transfer/archipelago_holdout_tests.csv)
+
+**New evidence from outside the original 37-pair geological subset:** The original All/Direct common support includes 711 islands with named Weigelt archipelago labels, of which 606 from 44 named archipelagos can be evaluated by holding out each island and predicting its 496 recorded flower-colour/form profile distribution from three other islands in the same source group. Compared with the regional **outside-group** average, the within-archipelago predictor lowers exact-profile mean error from 0.006861 to 0.005077 (All) / 0.007351 to 0.005473 (Direct), and the original full categorical-kernel error from 0.010609 to 0.006203 (All) / 0.011137 to 0.006574 (Direct). Group-level sign flips give BH q=0.0003/BY q≈0.00093 across 12 correlated post-hoc test slots for these broad improvements.
+
+**But this is almost entirely spatial, NOT a demonstrably special source-archipelago identity effect.** For **581/606 targets (95.9%)**, the three nearest physical islands are *exactly the same three islands* as the three nearest within the target archipelago. A **geography-only nearest-three** predictor, without using archipelago identity to choose donors, achieves virtually identical heldout profile error. The 44-group within-vs-nearest geographic improvement is not supported (All exact p=0.5913, Direct p=0.7033; original-kernel All p=0.8565, Direct p=0.9296). A stricter distance-matched different-archipelago control on 51 targets in 18 source groups likewise does not establish an additional named-source effect.
+
+This supports **local predictability of recorded floral assemblage composition**, not geological trait filtering, evolutionary source ancestry, out-of-species transfer, confirmed functional pollination niches or true floristic absence. Nearby islands may share the exact same plant taxa. The next unresolved ecological question is whether profile similarity persists after **shared species/genera are excluded**, using authorized species-identity-level data only; the public aggregate alone cannot answer it.
+
 ## 2026-11-09 geographic source-disjoint rematching: no confirmed geological effect
 
 [Independent-pair floral repertoire report](results/20261109_geography_independent/README.md) · [Source-disjoint matching contract](docs/GEOGRAPHIC_INDEPENDENCE.md) · [Exact test aggregates](results/20261109_geography_independent/independent_origin_repertoire_tests.csv)
