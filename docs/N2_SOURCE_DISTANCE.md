@@ -96,6 +96,27 @@ equal-30 sensitivity averages 99 uniform thinnings of observed
 island support and uses n=30 in all three null references. All/Direct
 are nested, not independent biological replications.
 
+## Predictive calibration is a separate gate, not a discovery
+
+Before interpreting a local-genus N2 SES, score each tested island's
+**held-out name-level** actual recorded profile under three models:
+the non-genus `global_prior`, `global_genus` and `local_genus`.
+Use exact categorical **negative log probability** as the proper
+primary predictive score, and the expected original state-set
+Jaccard distance to each held-out profile as an ecological
+distance comparator. Calculate per-island mean losses, then
+aggregate *equally by island* within All/Direct and geological
+classes. No individual target name, genus or island is released.
+The output `n2_heldout_prediction_calibration.csv` reports
+local-minus-global-genus improvement and the fraction of
+tested islands on which local genus is better. Positive local
+increment is a necessary adequacy check, not a guarantee of
+correct source ancestry, trait predictions or selection.
+Evaluate the fixed shrink=8 model first and disclose sensitivity
+for shrink=2/20; do not tune shrinkage on the same held-out
+outcomes and subsequently present the optimized loss as an
+independent validation.
+
 ## Inference and sampling safeguards
 
 There is **one fixed post-hoc four-slot hypothesis family**, only
@@ -157,6 +178,7 @@ sensitivities (e.g. 2 and 20) to check robustness;
 they are not independent hypothesis tests.
 
 Aggregate outputs only:
+- `n2_heldout_prediction_calibration.csv`: held-out per-name categorical log loss and expected original D, island-averaged by group, plus local-vs-global increment
 - `n2_distance_ses_summary.csv`: per-scope/origin/broad-region
   observed, modeled, delta, SES; suppress all scores for n<5
 - `n2_source_donor_coverage.csv`: donor support and expected vs
