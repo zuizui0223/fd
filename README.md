@@ -21,6 +21,39 @@ From the frozen public [PR #321 report](https://github.com/zuizui0223/island/blo
 - An observed profile-turnover share of 0.690–0.902 (median across analyses) is *descriptive*, not above-null evidence.
 - Gaussian KDE hypervolumes were **not** calculated. Two PCoA axes retain only 15.35% of the common positive inertia; 80% requires 17 axes. Do not call a 2-D KDE area total floral hypervolume.
 
+## 2026-11-09 original-distance floral packing / fixed-support SES
+
+[Distance-native protocol](docs/DISTANCE_SES.md) ·
+[Executable module](src/fd/distance_ses.py) ·
+[Synthetic tests](tests/test_distance_ses.py)
+
+**Method added; no new empirical positive result is claimed until the public-source CI run has been checked.**
+The 17D Gaussian-KDE HDR result is now considered a **diagnostic appendix**:
+when narrow 17D kernels are mostly disjoint, its log volume tracks the number
+of distinct recorded profiles and its richness-adjusted paired confidence
+intervals all contain zero. Gaussian smoothing is not a natural physical
+measure of a finite colour/form category repertoire.
+
+The replacement uses the original 496 × 496 colour/form set-Jaccard distance
+matrix, with two distinct-profile measures: **mean off-diagonal pair distance**
+and **mean within-island nearest-profile distance**. Smaller values indicate
+closer recorded categories, not measured pollinator function. For each island
+the metrics are compared against uniform fixed-n profile draws from (N0) the
+global 496-profile public reference and (N1) recorded states in other eligible
+islands of the same broad region, with the focal island removed. Both are
+*recorded-support* nulls; **N1 does not control genus or a true source pool**.
+Uniform observed 30-profile thinning is an additional support sensitivity,
+not independent biological replication.
+
+Geological SES contrasts are re-tested only as **post-hoc spatial
+sensitivities**: entire geographic components are sign-flipped for the old
+37-pair sample, and pairwise flips are enumerated for the newer geography-
+disjoint **10 verified pairs**. There are 32 predeclared exploratory
+comparisons with one BH/BY family. Source/genus conditional N2 still requires
+rights-restricted underlying donor data and has **not** been implemented in
+this public pipeline. No new causal claim or population-level floral
+contraction is implied by adding the code.
+
 ## 2026-11-09 geographic source-disjoint rematching: no confirmed geological effect
 
 [Independent-pair floral repertoire report](results/20261109_geography_independent/README.md) · [Source-disjoint matching contract](docs/GEOGRAPHIC_INDEPENDENCE.md) · [Exact test aggregates](results/20261109_geography_independent/independent_origin_repertoire_tests.csv)
