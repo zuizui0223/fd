@@ -1,0 +1,166 @@
+"""Synthetic-only N2 lineage/source floral-distance safeguards.
+
+No restricted GIFT, private flora, or taxon-to-trait mappings enter public CI.
+"""
+import numpy as np
+import pandas as pd
+import pytest
+
+from fd.distance_ses import distance_statistics, sample_null
+from fd.n2_source_distance import (
+    _coverage_summaries, _validate_private_against_public,
+    donor_training, expected_occupancy_weights,
+    paired_primary, source_coverage,
+)
+
+
+class ToyDonorModel:
+    n_profiles = 3
+
+    def probabilities(self, island, genus):
+        if island != "focal":
+            raise ValueError("Unknown source island")
+        if genus == "GenA":
+            global_genus = [.8, .2, 0.]
+            local_genus = [.2, .8, 0.]
+        elif genus == "GenB":
+            global_genus = [0., .2, .8]
+            local_genus = [0., .4, .6]
+        else:
+            global_genus = local_genus = [1/3]*3
+        return np.array([
+            [1/3]*3, [1/3]*3, global_genus, local_genus,
+        ], dtype=float)
+
+    def genus_support(self, island, genus):
+        return {"GenA": (True, True), "GenB": (True, False)}[genus]
+
+
+def test_global_name_holdout_excludes_all_mainland_entities():
+    source = pd.DataFrame({
+        "entity_ID": ["E1", "E2", "E2", "E3", "E3"],
+        "work_species": ["GenA target", "GenA target", "GenA donor",
+                         "GenB donor", "GenB target"],
+    })
+    profile = pd.DataFrame({
+        "accepted_species": ["GenA target", "GenA donor",
+                              "GenB donor", "GenB target"],
+        "genus": ["GenA", "GenA", "GenB", "GenB"],
+        "profile_id": [0, 1, 2, 0],
+    })
+    train = donor_training(source, profile,
+                           {"GenA target", "GenB target"})
+    assert set(train.accepted_species) == {"GenA donor", "GenB donor"}
+    assert len(train) == 2
+    assert train.duplicated(["entity_ID", "accepted_species"]).sum() == 0
+    with pytest.raises(ValueError):
+        donor_training(source, profile, {"GenA target",
+                                        "GenB target", "GenA donor", "GenB donor"})
+    with pytest.raises(ValueError):
+        donor_training(source, profile, set())
+
+
+def test_genus_conditioned_expected_profile_occupancy_not_genus_shuffle():
+    model = ToyDonorModel()
+    # Two independent GenA names: P(p present) = 1-(1-p)^2.
+    weights, n_unique = expected_occupancy_weights(
+        {"GenA": 2}, model, "focal", "N2_global_genus")
+    expected = np.array([.96, .36, 0.])
+    assert n_unique == pytest.approx(expected.sum())
+    assert np.allclose(weights, expected / expected.sum())
+    local, local_unique = expected_occupancy_weights(
+        {"GenA": 2}, model, "focal", "N2_local_genus")
+    assert local_unique == pytest.approx(expected.sum())
+    assert local[1] > weights[1]  # local donor shifts form/color affinity
+    with pytest.raises(ValueError):
+        expected_occupancy_weights({}, model, "focal", "N2_global_genus")
+    with pytest.raises(ValueError):
+        expected_occupancy_weights({"GenA": 0}, model, "focal", "N2_local_genus")
+    with pytest.raises(ValueError):
+        expected_occupancy_weights({"GenA": 2}, model, "focal", "N1b")
+
+
+def test_n2_sampled_support_keeps_fixed_richness_and_respects_weights():
+    model = ToyDonorModel()
+    weights, _ = expected_occupancy_weights(
+        {"GenA": 4, "GenB": 4}, model, "focal", "N2_local_genus")
+    d = np.array([[0., .2, .7], [.2, 0., .9], [.7, .9, 0.]])
+    a = sample_null(d, np.arange(3), 2, draws=100, seed=8, weights=weights)
+    b = sample_null(d, np.arange(3), 2, draws=100, seed=8, weights=weights)
+    assert np.array_equal(a, b)
+    assert np.isfinite(a).all()
+    assert a.shape == (100, 2)
+    assert np.all(a[:, 0] > 0)
+    assert np.isclose(weights.sum(), 1.)
+
+
+def test_coverage_uses_taxon_carrier_not_genus_weight():
+    m = ToyDonorModel()
+    a, b = source_coverage(m, "focal", {"GenA": 1, "GenB": 9})
+    assert a == 1.
+    assert b == pytest.approx(.1)
+
+
+def test_private_public_composition_audit_rejects_frequency_mismatch():
+    actual = pd.DataFrame({
+        "island_id": ["i1", "i1", "i1", "i2", "i2"],
+        "accepted_species": ["A one", "A two", "B one", "A three", "B two"],
+        "genus": ["A", "A", "B", "A", "B"],
+        "profile_id": [0, 0, 1, 0, 1],
+    })
+    g0 = pd.DataFrame({
+        "island_id": ["i1", "i2"], "n_names": [3, 2], "n_profiles": [2, 2],
+    })
+    _validate_private_against_public(
+        actual, g0, {"i1": {0: 2, 1: 1}, "i2": {0: 1, 1: 1}}, "all")
+    with pytest.raises(ValueError):
+        _validate_private_against_public(
+            actual, g0, {"i1": {0: 1, 1: 2}, "i2": {0: 1, 1: 1}}, "all")
+
+
+def test_four_primary_geographic_tests_use_only_local_genus_equal30_nn():
+    pair = [{"continental_id": f"c{i}", "oceanic_id": f"o{i}"}
+            for i in range(10)]
+    geo = {f"{side}{i}": {"spatial_block": f"{side}-{i}"}
+           for i in range(10) for side in ("c", "o")}
+    rows = []
+    for scope in ("all", "direct"):
+        for p in pair:
+            for side, ses in (("continental_id", 0.), ("oceanic_id", -1.)):
+                rows.append({
+                    "scope": scope, "island_id": p[side],
+                    "null": "N2_local_genus",
+                    "mode": "equal30",
+                    "endpoint": "mean_nearest_profile_distance",
+                    "ses": ses,
+                })
+    results = paired_primary(
+        rows, {"original_block_components": pair,
+               "geography_both_verified": pair}, geo)
+    assert len(results) == 4
+    assert all(x["exact_two_sided_sign_p"] == pytest.approx(2/1024)
+               for x in results)
+    assert all(x["q_bh_posthoc4"] == pytest.approx(2/1024)
+               for x in results)
+    # Unknown/missing test islands must not be silently declared independent.
+    incomplete = paired_primary(
+        rows[:7], {"original_block_components": pair,
+                   "geography_both_verified": pair}, geo)
+    assert len(incomplete) == 4
+    assert all(x["status"] == "insufficient_complete_matched_pairs"
+               for x in incomplete)
+    assert all("exact_two_sided_sign_p" not in x for x in incomplete)
+
+
+def test_donor_coverage_aggregation_emits_no_focal_identity():
+    base = dict(scope="all", geological_origin="oceanic", n_names=50,
+                n_profiles=30, global_fraction=.8, local_fraction=.3,
+                global_expected=24., local_expected=20., expected_ratio=2/3)
+    data = [{**base, "island_id": f"private{i}"} for i in range(4)]
+    out = _coverage_summaries(data)
+    assert len(out) == 1 and out[0]["status"] == "small_cell_suppressed"
+    assert "mean_local_genus_donor_fraction" not in out[0]
+    data.append({**base, "island_id": "private5"})
+    out = _coverage_summaries(data)
+    assert out[0]["mean_local_genus_donor_fraction"] == pytest.approx(.3)
+    assert all("island_id" not in row for row in out)
