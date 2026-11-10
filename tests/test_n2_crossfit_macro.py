@@ -40,6 +40,8 @@ def test_grouped_summary_keeps_the_five_fold_source_contrast_sign():
                 "local_logloss": 5.1,
                 "genus_gain": 1., "source_gain": -.1,
                 "source_distance_gain": .02,
+                "genus_brier_gain": .3, "source_brier_gain": .004,
+                "genus_kernel_gain": .5, "source_kernel_gain": .01,
             })
     output = summarize(rows, draws=299, min_cell=5)
     assert len(output) == 4  # one global and one tropical row per scope
@@ -48,6 +50,9 @@ def test_grouped_summary_keeps_the_five_fold_source_contrast_sign():
     assert all(r["genus_gain_block_q025"] > 0 for r in output)
     assert all(r["mean_source_distance_gain"] == pytest.approx(.02)
                for r in output)
+    assert all(r["mean_source_brier_gain"] == pytest.approx(.004) for r in output)
+    assert all(r["mean_source_kernel_gain"] == pytest.approx(.01) for r in output)
+    assert all(r["source_kernel_gain_block_q025"] > 0 for r in output)
     assert not any("island_id" in row or "spatial_block" in row for row in output)
 
 
@@ -65,4 +70,8 @@ def test_scant_spatial_replication_suppresses_predictive_claim():
     assert all(r["status"] == "insufficient_independent_geographic_support"
                for r in out)
     assert all("mean_genus_gain" not in r for r in out)
-    assert METRICS == ("genus_gain", "source_gain", "source_distance_gain")
+    assert METRICS == (
+        "genus_gain", "source_gain", "source_distance_gain",
+        "genus_brier_gain", "source_brier_gain",
+        "genus_kernel_gain", "source_kernel_gain",
+    )
