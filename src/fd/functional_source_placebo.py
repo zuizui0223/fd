@@ -58,6 +58,8 @@ def validate_predictions(frame: pd.DataFrame, *, folds: int = 5) -> pd.DataFrame
         raise ValueError("Species-fold leakage/identity mismatch")
     if x.groupby("taxon_name").fold.nunique().gt(1).any():
         raise ValueError("A species has inconsistent folds across islands")
+    if x.groupby(["scope", "trait", "taxon_name"]).state.nunique().gt(1).any():
+        raise ValueError("Contradictory binary trait states for same taxon")
     numeric = ["state", "p_actual", "p_placebo_1", "p_placebo_2",
                "source_pool_ratio_1", "source_pool_ratio_2",
                "source_coverage_diff_1", "source_coverage_diff_2",
