@@ -160,6 +160,8 @@ def test_posthoc_placebo_trait_decomposition_on_identical_matched_islands():
         assert r["mean_joint_product_gain"] == pytest.approx(.005)
         assert r["joint_product_block_q025"] > 0
         assert r["mean_form_gain"] == pytest.approx(-.002)
+        assert r["mean_form_minus_colour_gain"] == pytest.approx(-.008)
+        assert r["form_minus_colour_block_q975"] < 0
         assert "spatial_block" not in r
     broken=[dict(x) for x in rows]
     broken[0]["matched_additive_gain"] = 1.
