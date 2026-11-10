@@ -11,6 +11,10 @@ from fd.proper_scoring import (
 class TinyModel:
     n_profiles = 2
 
+    def genus_support(self, island, genus):
+        assert island == "island" and genus == "Gen"
+        return True, True
+
     def probabilities(self, island, genus):
         assert island == "island" and genus == "Gen"
         return np.array([
