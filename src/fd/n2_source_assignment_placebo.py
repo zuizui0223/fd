@@ -46,6 +46,9 @@ TRAIT_PLACEBO_FIELDS = (
     *tuple(field for trait in KERNEL_NAMES
             for field in (f"mean_{trait}_gain", f"{trait}_block_q025",
                           f"{trait}_block_q975")),
+    "mean_form_minus_colour_gain",
+    "form_minus_colour_block_q025",
+    "form_minus_colour_block_q975",
 )
 
 REPORT_COLUMNS = (
@@ -232,6 +235,18 @@ def summarize_trait_placebo(records: list[dict], *, draws: int = 4999,
                     .5*(record["mean_colour_gain"] +
                         record["mean_form_gain"]), atol=1e-9):
                     raise AssertionError("Additive source placebo is not the mean of marginals")
+                # A paired difference on identical islands, NOT a comparison
+                # of two independent bootstrap intervals. Sign and magnitude
+                # remain post-hoc and Jaccard scales differ by trait.
+                matched = test.assign(
+                    _form_minus_colour=test["matched_form_gain"] -
+                    test["matched_colour_gain"])
+                delta, lo, hi = block_bootstrap_mean(
+                    matched, response="_form_minus_colour",
+                    draws=draws, seed=seed)
+                record["mean_form_minus_colour_gain"] = delta
+                record["form_minus_colour_block_q025"] = lo
+                record["form_minus_colour_block_q975"] = hi
             output.append(record)
     return output
 
