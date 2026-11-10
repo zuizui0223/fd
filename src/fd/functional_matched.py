@@ -118,3 +118,44 @@ def safe_matched_summary(scores: pd.DataFrame, *, min_matches: int=10,
     return pd.DataFrame.from_records(records, columns=[*fields,'n_focal_matches',
         'n_source_groups','mean_equal_group_local_advantage',
         'median_match_local_advantage','share_groups_positive'])
+
+
+def main(argv: list[str] | None = None) -> None:
+    """Run locally with rights-authorized source data; release grouped output only."""
+    import argparse
+    import json
+    from pathlib import Path
+
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--private-traits', type=Path, required=True)
+    parser.add_argument('--private-matches', type=Path, required=True)
+    parser.add_argument('--output', type=Path, required=True)
+    parser.add_argument('--min-carriers', type=int, default=20)
+    parser.add_argument('--minimum-matches', type=int, default=10)
+    parser.add_argument('--minimum-groups', type=int, default=5)
+    parser.add_argument('--max-distance-ratio', type=float, default=3.)
+    args = parser.parse_args(argv)
+    traits = pd.read_csv(args.private_traits, dtype={'island_id':str,'taxon_name':str,'genus':str})
+    matches = pd.read_csv(args.private_matches, dtype={
+        'match_id':str,'island_a':str,'island_b':str,
+        'source_group':str,'donor_group':str,
+    })
+    scores = matched_retention(traits, matches, min_carriers=args.min_carriers,
+                               max_distance_ratio=args.max_distance_ratio)
+    summary = safe_matched_summary(scores, min_matches=args.minimum_matches,
+                                   min_groups=args.minimum_groups)
+    args.output.mkdir(parents=True,exist_ok=True)
+    summary.to_csv(args.output/'functional_matched_grouped.csv',index=False)
+    (args.output/'status.json').write_text(json.dumps({
+        'status':'observational_grouped_only_not_a_null_test',
+        'private_identifiers_released':False,
+        'min_trait_carriers':args.min_carriers,
+        'min_focal_matches':args.minimum_matches,
+        'min_source_groups':args.minimum_groups,
+        'max_distance_ratio':args.max_distance_ratio,
+        'released_comparison_rows':len(summary),
+    },indent=2)+'\n',encoding='utf-8')
+
+
+if __name__ == '__main__':
+    main()
