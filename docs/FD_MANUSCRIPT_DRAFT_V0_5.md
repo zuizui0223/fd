@@ -199,6 +199,30 @@ uncertain across source-evidence scopes.*
 
 [Coarse five-fold and paired marginal audit](../results/20261110_joint_flower_source/MARGINAL_FIXED.md).
 
+## Distribution of residual association: a minority-driven mean, not universal transfer
+
+A further *island-level* heterogeneity audit on the SAME 1,007 All /
+950 Direct tightly donor-matched source-placebo targets finds
+marginal-fixed joint-K gains above zero in **60.8% All / 54.4%
+Direct**. The median gains are **+0.000104 / +0.000049**, both
+smaller than their respective means. The **10%-trimmed** average
+is **+0.000165 (whole-spatial-block 95% interval +0.000012 to
++0.000313) All**, but **+0.000113 (−0.000079 to +0.000305)
+Direct**. The top 10% largest positive-gain islands account for
+about **48% of all POSITIVE** gains in each scope; because negative
+gains offset some islands, they account for about **82% of the
+NET SIGNED All gain**.
+
+The All effect is not merely a single extreme outlier, but is
+heterogeneous; nested Direct and coarse five-fold tests do not
+give strong evidence for ubiquitous positive association gain.
+The paper should say **a weak, geographically uneven conditional
+predictive signal**, not universal flower colour/form coupling,
+synchronous evolution, or a globally consistent ecological driver.
+
+[Private-data-safe heterogeneity audit](../results/20261110_joint_flower_source/coupling_heterogeneity_aggregate.csv) ·
+[reproducible code](../src/fd/coupling_heterogeneity.py).
+
 ## Main-text figure structure (maximum four figures)
 
 **Figure 1: Geography, available lineage opportunity, and analysis
