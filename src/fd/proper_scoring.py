@@ -74,3 +74,49 @@ def heldout_probability_scores(part: pd.DataFrame, model, island: str,
     return {f"{name}_{metric}": float(loss[i, j])
             for i, name in enumerate(LABELS)
             for j, metric in enumerate(LOSS_TYPES)}
+
+def heldout_name_source_gains(part: pd.DataFrame, model, island: str,
+                              similarity: np.ndarray) -> pd.DataFrame:
+    """Private in-memory per-name deltas, for one-name-one-vote robustness.
+
+    The caller must aggregate by (name, geographic heldout fold), then across
+    folds by name before any summary. NEVER write this returned table to the
+    public repository, artifacts, or logs.
+    """
+    if part.empty or part.accepted_species.duplicated().any():
+        raise ValueError("Need distinct held-out name identities")
+    k = np.asarray(similarity, dtype=float)
+    n = model.n_profiles
+    if k.shape != (n, n):
+        raise ValueError("Similarity matrix does not match original profile IDs")
+    records = []
+    for genus, subset in part.groupby("genus", sort=False):
+        p = np.asarray(model.probabilities(island, genus)[[2, 3]], dtype=float)
+        if p.shape != (2, n) or (p < 0).any() or not np.isfinite(p).all():
+            raise ValueError("Invalid genus donor model")
+        if not np.allclose(p.sum(axis=1), 1., atol=1e-9):
+            raise ValueError("Non-normalized genus donor probabilities")
+        kp = p @ k
+        norm_delta = float(p[0]@p[0] - p[1]@p[1])
+        kernel_delta = float(p[0]@kp[0] - p[1]@kp[1])
+        has_local = bool(model.genus_support(island, genus)[1])
+        for name, profile in subset[["accepted_species", "profile_id"]].itertuples(
+                index=False, name=None):
+            idx = int(profile)
+            if idx < 0 or idx >= n:
+                raise ValueError("Unrecognized heldout trait profile")
+            records.append({
+                "accepted_species": name, "genus": genus,
+                "source_gain_logloss": float(
+                    np.log(max(p[1, idx], 1e-15) / max(p[0, idx], 1e-15))),
+                "source_gain_trait_distance_loss": float(
+                    kp[1, idx] - kp[0, idx]),
+                "source_gain_brier": float(
+                    norm_delta - 2*(p[0, idx]-p[1, idx])),
+                "source_gain_kernel": float(
+                    kernel_delta - 2*(kp[0, idx]-kp[1, idx])),
+                "has_local_genus_donor": has_local,
+            })
+    if len(records) != len(part):
+        raise AssertionError("Missing source score for an evaluated name")
+    return pd.DataFrame.from_records(records)
