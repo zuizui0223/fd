@@ -154,15 +154,50 @@ and adding Kjoint gain **All +0.002378
 [the source-audited aggregate report](../results/20261110_joint_flower_source/README.md).
 Public CI alone does not run these private GIFT inputs.
 
+## New empirical marginal-preserving source audit (10 November 2026)
+
+[Complete source-verified IPF coupling result](../results/20261110_joint_flower_source/MARGINAL_FIXED.md) · [All aggregate scores](../results/20261110_joint_flower_source/marginal_fixed_placebo_aggregate.csv) · [Exact same five-fold target sets](../results/20261110_joint_flower_source/marginal_fixed_five_fold_audit.csv).
+
+The original **Kjoint**, although full rank and strictly proper on the
+496-profile reference, rewards improvements to flower-colour or flower-form
+marginals as well as to their association. We therefore used **iterative
+proportional fitting (IPF)** to project each true/placebo mainland-genus
+probability vector onto the unchanged **global-genus colour-set and form-set
+margins simultaneously**, on exactly the same original 496 profile support.
+This preserves the source model's supported 2×2 association odds ratios
+while eliminating any difference in the predicted marginals. Source
+assignments, five heldout spatial folds, original test island names,
+donor coverage, donor name pool size, and shrinkage were held fixed.
+
+The pre-IPF strictly donor-matched source-placebo joint K-score
+improvement of **+0.002378 All / +0.001097 Direct** falls to a
+marginal-fixed joint improvement **+0.000214 All (spatial-block 95%
+interval +0.000036 to +0.000370) / +0.000140 Direct
+(−0.000062 to +0.000331)**. The strictly proper Brier counterpart is
+**+0.000205 All / +0.000137 Direct**, with the same scope-specific
+interval interpretation. No IPF convergence failures (2×10⁻⁷
+tolerance); original unconstrained source scores reproduced on
+the same 1,007 All and 950 Direct islands.
+
+The scoring gain is thus attenuated by approximately 91% All / 87%
+Direct when both marginal traits are equalized. **This is not a
+causal allocation of floral evolution or a species-level adaptive
+effect.** A very small conditional source-associated pairing signal
+remains for All, while Direct cannot be distinguished from zero.
+The robust macroecological conclusion is strong known-genus
+predictability and weak additional *marginal-trait-linked* regional
+source information, rather than a large transfer of independent
+flower colour/form associations.
+
 ## Manuscript decision gate
 
-With the source-placebo **joint-product** check now completed,
-the strongest defensible statement is: *candidate native mainland
-donor geography contains small additional probabilistic information
-about recorded **joint flower colour/form profiles** after the
-known-genus and independent donor-support matching conditions,
-with a positive block-bootstrap interval in All and uncertain
-replication in the nested Direct scope*. This is a conditional
-observational source-prediction result, NOT independent evidence
-of a pure colour–form interaction mechanism, evolved pollinator
-syndrome, historical mainland ancestry or geological-origin filtering.
+With **both joint-product and marginal-fixed** donor-matched tests
+completed, the strongest defensible statement is: *candidate native
+mainland donor geography adds modest information about the separately
+predicted colour/form trait marginals beyond known genus composition;
+a much smaller conditional colour/form pairing signal remains in
+All and is not reliably distinguished from zero in nested Direct*.
+This is a conditional **observational prediction** result, NOT
+independent evidence of evolved interaction selection, an adaptive
+pollinator syndrome, historical mainland ancestry or geological
+origin filtering.
