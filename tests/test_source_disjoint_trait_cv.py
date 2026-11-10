@@ -76,3 +76,10 @@ def test_privacy_and_holdout_policy_guards():
                               scope_label="All",min_test_species=2)
     with pytest.raises(ValueError,match="Unknown"):
         run(fixtures(),policy="invented")
+
+
+def test_repeated_dataframe_index_is_not_repeated_island_identity():
+    f=fixtures()
+    x=f[0]
+    f[0]=pd.concat([x.iloc[:40],x.iloc[40:].reset_index(drop=True)])
+    assert len(run(f)) == 4
