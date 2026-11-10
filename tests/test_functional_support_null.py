@@ -6,7 +6,7 @@ from fd.functional_support_null import validate_counts, score_pairs, safe_aggreg
 def row(scope="All",region="tropical",a="I1",b="I2",trait="generalized_form"):
     x={"scope":scope,"region":region,"island_a":a,"island_b":b,"trait":trait}
     for stage,n in (("all",100),("species",80),("genus",60)):
-        for side,k in (("a",40),("b",30)):
+        for side,k in (("a",40),("b",30 if stage=="all" else 25)):
             x[f"{stage}_n_{side}"]=n
             x[f"{stage}_k_{side}"]=k
     x["genus_k_b"]=5
