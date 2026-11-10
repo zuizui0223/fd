@@ -26,12 +26,21 @@ from .n2_crossfit_macro import block_bootstrap_mean
 from .pipeline import _write_csv
 from .proper_scoring import heldout_probability_scores, inspect_kernel
 from .trait_kernels import KERNEL_NAMES, kernel_quality, heldout_axis_source_gains
+from .marginal_fixed_coupling import marginal_fixed_placebo_gain
 
 SCOPES = ("all", "direct")
 POLICIES = ("genus_coverage_only", "genus_coverage_plus_donor_size_factor2")
 MAX_ABS_COVERAGE_DIFF = 0.02
 MAX_DONOR_SIZE_RATIO = 2.0
 MIN_CONTROLS = 2
+COUPLING_FIELDS = (
+    "scope", "policy", "region", "n_islands", "n_spatial_blocks", "status",
+    "mean_joint_before_marginal_fixed", "mean_joint_marginal_fixed",
+    "joint_marginal_fixed_block_q025", "joint_marginal_fixed_block_q975",
+    "mean_brier_marginal_fixed", "brier_marginal_fixed_block_q025",
+    "brier_marginal_fixed_block_q975", "largest_ipf_marginal_error",
+    "mean_ipf_iterations", "fraction_joint_marginal_fixed_positive",
+)
 TRAIT_PLACEBO_FIELDS = (
     "scope", "policy", "region", "n_islands", "n_spatial_blocks", "status",
     *tuple(field for trait in KERNEL_NAMES
@@ -227,11 +236,52 @@ def summarize_trait_placebo(records: list[dict], *, draws: int = 4999,
     return output
 
 
+def summarize_marginal_fixed(records: list[dict], *, draws: int = 4999,
+                             seed: int = 20261110) -> list[dict]:
+    """Aggregation of the actual-vs-placebo source gain with BOTH margins fixed."""
+    data = pd.DataFrame(records)
+    if data.empty:
+        return []
+    out = []
+    for (scope, policy), frame in data.groupby(["scope", "policy"], sort=True):
+        strata = [(scope, policy, "all", frame)]
+        strata += [(scope, policy, region, sub) for region, sub
+                   in frame.groupby("analysis_regime", sort=True)]
+        for _, _, region, sample in strata:
+            item = {"scope": scope, "policy": policy, "region": region,
+                    "n_islands": len(sample),
+                    "n_spatial_blocks": sample.spatial_block.nunique(),
+                    "status": "posthoc_marginal_fixed_source_association_prediction"}
+            if len(sample) < 5 or sample.spatial_block.nunique() < 5:
+                item["status"] = "insufficient_independent_geographic_support"
+            else:
+                item["mean_joint_before_marginal_fixed"] = float(
+                    sample.matched_joint_product_gain.mean())
+                for col, name in (
+                    ("coupling_fixed_joint_gain", "joint_marginal_fixed"),
+                    ("coupling_fixed_brier_gain", "brier_marginal_fixed"),
+                ):
+                    mean, lo, hi = block_bootstrap_mean(
+                        sample, response=col, draws=draws, seed=seed)
+                    item["mean_" + name] = mean
+                    item[name + "_block_q025"] = lo
+                    item[name + "_block_q975"] = hi
+                item["largest_ipf_marginal_error"] = float(
+                    sample.max_ipf_error.max())
+                item["mean_ipf_iterations"] = float(
+                    sample.mean_ipf_iterations.mean())
+                item["fraction_joint_marginal_fixed_positive"] = float(
+                    (sample.coupling_fixed_joint_gain > 0).mean())
+            out.append(item)
+    return out
+
+
 def run(private_all: Path, private_direct: Path, flora: Path,
         mainland_native: Path, assignments: Path, g0_root: Path,
         geography: Path, reference: Path, input_root: Path, output: Path,
         *, shrink: float = DEFAULT_SHRINK,
-        bootstrap_draws: int = 4999) -> dict:
+        bootstrap_draws: int = 4999,
+        evaluate_marginal_fixed: bool = False) -> dict:
     """Source-grade five-fold controlled comparison; aggregate-only results."""
     if not np.isfinite(shrink) or shrink <= 0:
         raise ValueError("Require positive frozen source shrinkage")
@@ -244,6 +294,7 @@ def run(private_all: Path, private_direct: Path, flora: Path,
         raise ValueError("Frozen colour/form profile reference changed")
     kernel_evidence = inspect_kernel(space.matrix)
     similarity = kernel_evidence.pop("kernel")
+    reference_profiles = load_profiles(reference)
     trait_k, trait_audit = kernel_quality(load_profiles(reference))
     if not np.allclose(trait_k["additive"], similarity, atol=1e-12):
         raise AssertionError("Original D additive kernel identity failed")
@@ -276,6 +327,7 @@ def run(private_all: Path, private_direct: Path, flora: Path,
         source.source_mode.eq("geo_k5"),
         ["island_id", "entity_ID"]].drop_duplicates()
     all_records = []
+    fixed_records = []
     support = {}
     for scope in SCOPES:
         selected = g0[scope].merge(geo, on="island_id", validate="one_to_one")
@@ -376,10 +428,27 @@ def run(private_all: Path, private_direct: Path, flora: Path,
                     if abs(all_records[-1]["matched_additive_gain"] -
                            all_records[-1]["matched_kernel_gain"]) > 1e-9:
                         raise AssertionError("Additive K gain must equal original source-placebo score")
+                    if evaluate_marginal_fixed and policy == POLICIES[1]:
+                        association = marginal_fixed_placebo_gain(
+                            test, model, island,
+                            [c["source_island"] for c in control],
+                            reference_profiles)
+                        fixed_records.append({
+                            **all_records[-1],
+                            "coupling_fixed_joint_gain": association[
+                                "actual_minus_placebo_marginal_fixed_joint"],
+                            "coupling_fixed_brier_gain": association[
+                                "actual_minus_placebo_marginal_fixed_brier"],
+                            "max_ipf_error": association["maximum_ipf_error"],
+                            "mean_ipf_iterations": association[
+                                "mean_ipf_iterations"],
+                        })
     reports, folds = summarize_placebo(
         all_records, draws=bootstrap_draws)
     trait_scores = summarize_trait_placebo(
         all_records, draws=bootstrap_draws)
+    fixed_scores = summarize_marginal_fixed(
+        fixed_records, draws=bootstrap_draws)
     output.mkdir(parents=True, exist_ok=True)
     _write_csv(output / "n2_source_placebo_matched_groups.csv",
                reports, REPORT_COLUMNS)
@@ -387,6 +456,11 @@ def run(private_all: Path, private_direct: Path, flora: Path,
                folds, FOLD_COLUMNS)
     _write_csv(output / "n2_source_placebo_trait_kernels.csv",
                trait_scores, TRAIT_PLACEBO_FIELDS)
+    if evaluate_marginal_fixed:
+        if not fixed_scores:
+            raise ValueError("No eligible marginal-fixed support-matched source cohort")
+        _write_csv(output / "n2_source_placebo_marginal_fixed.csv",
+                   fixed_scores, COUPLING_FIELDS)
     manifest = {
         "schema": "fd_heldout_geo_source_placebo_support_match_v1",
         "status": "private_input_posthoc_coverage_matched_source_prediction",
@@ -405,6 +479,10 @@ def run(private_all: Path, private_direct: Path, flora: Path,
         "missing_support": support,
         "kernel": kernel_evidence,
         "marginal_and_joint_trait_kernels": trait_audit,
+        "marginal_fixed_coupling_computed": evaluate_marginal_fixed,
+        "marginal_fixed_method": "IPF project local source and each matched alternate onto global genus colour-set/form-set marginals, preserve association odds; compare strictly proper joint and Brier loss on exact same recorded profile types",
+        "marginal_fixed_output": ("n2_source_placebo_marginal_fixed.csv"
+                                  if evaluate_marginal_fixed else None),
         "trait_kernel_output": "n2_source_placebo_trait_kernels.csv; post-hoc colour, form, additive, product-joint source placebo on same island/control groups",
         "interaction_limit": "joint-product prediction can detect paired colour/form associations but is not by itself a pure interaction effect",
         "privacy": ("Only group/fold summary and hashes persisted; "
@@ -441,11 +519,14 @@ def main() -> None:
         p.add_argument("--" + path, type=Path, required=True)
     p.add_argument("--shrink", type=float, default=DEFAULT_SHRINK)
     p.add_argument("--bootstrap-draws", type=int, default=4999)
+    p.add_argument("--evaluate-marginal-fixed", action="store_true",
+                   help="Private data, strict support-matched cohort only; IPF to identical colour and form marginals")
     a = p.parse_args()
     run(a.private_all, a.private_direct, a.flora, a.mainland_native,
         a.assignments, a.g0, a.geography, a.reference,
         a.input, a.output, shrink=a.shrink,
-        bootstrap_draws=a.bootstrap_draws)
+        bootstrap_draws=a.bootstrap_draws,
+        evaluate_marginal_fixed=a.evaluate_marginal_fixed)
 
 
 if __name__ == "__main__":
