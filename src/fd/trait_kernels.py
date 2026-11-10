@@ -93,6 +93,34 @@ def quadratic_kernel_score(prob: np.ndarray, observed_id: int,
     return float(p @ k @ p - 2 * (k @ p)[observed_id] + k[observed_id, observed_id])
 
 
+
+def heldout_axis_source_gains(part, model, island: str,
+                              kernels: Mapping[str, np.ndarray]) -> dict[str, float]:
+    """Post-hoc donor gain split into colour, form, additive and joint scores.
+
+    Scores use the SAME held-out test names, donor model and target island
+    for all kernels. Each profile remains its original intact colour/form
+    set-state identifier. Joint product tests joint phenotype similarity,
+    but a joint gain is NOT by itself a pure interaction effect.
+    """
+    from .proper_scoring import heldout_probability_scores
+
+    if set(kernels) != set(KERNEL_NAMES):
+        raise ValueError("Incomplete trait-kernel score family")
+    result = {}
+    for name in KERNEL_NAMES:
+        scores = heldout_probability_scores(part, model, island, kernels[name])
+        result[f"genus_{name}"] = float(
+            scores["global_prior_kernel"] - scores["global_genus_kernel"])
+        result[f"source_{name}"] = float(
+            scores["global_genus_kernel"] - scores["local_genus_kernel"])
+    for prefix in ("genus_", "source_"):
+        expected = .5 * (result[prefix + "colour"] +
+                         result[prefix + "form"])
+        if not np.isclose(result[prefix + "additive"], expected, atol=1e-9):
+            raise AssertionError("Additive trait-kernel score must equal marginal mean")
+    return result
+
 def audit_reference(reference: Path, output: Path) -> dict:
     """Public-only CLI run; log only kernel diagnostics, never taxon records."""
     reference, output = Path(reference), Path(output)
