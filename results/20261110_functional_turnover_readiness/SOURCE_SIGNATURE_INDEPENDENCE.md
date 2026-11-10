@@ -64,3 +64,19 @@ To make a new independently generalized finding, acquire or qualify **geographic
 ## Verification and release constraints
 
 Public implementation `src/fd/source_signature_dependency.py` reconstructs the five-region source-signature overlap graph **from the licensed local source input**, checks missing/repeated donors, preselects one control seed, suppresses groups with <40 islands / <10 spatial blocks / <5 exact source signatures, and returns only region×trait×scope×ledger coarse aggregates. `tests/test_source_signature_dependency.py` contains synthetic shared-source graph, missing/duplicate source, repeated-seed and privacy checks. This module was exercised against the original locally retained private island-level score table, with its 24 supported aggregate rows independently reconciled against an earlier implementation (including region counts, source signatures, graph components and weighted score means). No protected island, genus, taxon, donor source ID, or per-island score is committed to GitHub; public GitHub CI tests logic only.
+
+
+## New outcome-blind test: what if every original fd island is included?
+
+The matched source/placebo subset is not the full FD island universe. To see if the lack of northern-high independent donor networks was created by matching/trait coverage, repeat the source graph construction on ALL **1,419 distinct G0 paired-cohort islands** *before using any floral or reproductive outcome*; use only the frozen G0 island IDs/regime and the same five `geo_k5` mainland donor entities.
+
+| Regime | Original G0 islands | Exact donor signatures | Any-shared-donor components | Largest component by islands | >=3-shared-donor components |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| Northern high latitude | **90** | **15** | **1** | **90** | 4 (largest 83 islands) |
+| Northern midlatitude | 1,051 | 171 | 8 | 640 | 15 (largest 589) |
+| Tropics | 218 | 90 | 8 | 127 | 22 (largest 60) |
+| Southern extratropical | 60 | 29 | 5 | 44 | 8 (largest 43) |
+
+All 1,419 original islands have their five geographical native-GIFT source labels. Northern-high **still has one connected geographic donor network even at the full eligible-island scale**, prior to self-compatibility measurement or placebo matching. Therefore increasing the number of pair comparisons using this unchanged data source cannot supply a source-*disjoint* northern-high test. This does **not** establish that the underlying plant lineages have one shared historical ancestry: the overlap graph follows the pragmatic GIFT source-region labels, not a resolved colonization phylogeny.
+
+The independent, nonidentifying implementation is `src/fd/source_network_universe.py`, tested with `tests/test_source_network_universe.py`. It checks the original island's unique broad regime and exactly five distinct `geo_k5` donor entities, and publishes **only** region-level counts and connectivity; no species, island or donor IDs. This is an outcome-blind *feasibility/positivity* result, NOT another functional trait p-value or selection inference.
