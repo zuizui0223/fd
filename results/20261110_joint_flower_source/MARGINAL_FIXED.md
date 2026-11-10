@@ -146,6 +146,46 @@ scores to donor-model shrinkage strength (e.g. 2/8/20) remains
 **unevaluated** and is a further limitation before strong ecological
 claims.
 
+## Heterogeneity: does the small average gain characterize most islands?
+
+The marginal-fixed source result is a **signed difference in heldout
+prediction scores**, and meaningful island-level heterogeneity can be
+hidden by a positive group mean. Using the **same strict 1,007 All /
+950 Direct island cohorts**, and resampling **whole spatial blocks**
+rather than raw islands, we computed medians, 10%-trimmed means,
+10%-winsorized means, and the proportion of islands with positive
+actual-source versus placebo advantages.
+
+| Post-hoc marginal-fixed joint K-score diagnostic | All | Direct |
+|---|---:|---:|
+| Positive-score island fraction | **60.8%** | **54.4%** |
+| Island-level median gain | +0.000104 | +0.000049 |
+| 10%-trimmed mean gain | **+0.000165** | +0.000113 |
+| 95% whole-block interval for trimmed mean | **+0.000012 to +0.000313** | −0.000079 to +0.000305 |
+| 10%-winsorized mean gain | +0.000192 | +0.000129 |
+| 95% whole-block interval for winsorized mean | +0.000018 to +0.000359 | −0.000070 to +0.000323 |
+
+Large positive island deviations are offset by negative ones.
+The top 10% of islands with the greatest gains contribute about
+**48% of all positive island-level gains** in each scope. As a
+share of the *net signed sum*, that group contributes **~82% All**
+and **~120% Direct**; the latter can exceed 100% because other islands
+have negative source effects. This concentration statistic is
+descriptive and inherently unstable when the net gain approaches zero.
+
+**Conclusion:** A small All conditional association advantage
+is not driven *only* by single extreme outliers, because the
+symmetrically trimmed average remains positive under the fitted-model
+spatial-block bootstrap. But many recorded islands do not benefit
+from the true source assignment, and Direct remains uncertain.
+Therefore a claim of broadly shared joint floral-phenotype transfer
+or universal source filtering would be too strong.
+
+[Anonymous two-row results](coupling_heterogeneity_aggregate.csv) ·
+[reproducible private-input summary calculation](../../src/fd/coupling_heterogeneity.py).
+The per-island/block input tables are NOT published, and all model
+and shrinkage limitations remain in force.
+
 ## Mechanistic interpretation and inferential stop
 
 **Supported:** Geographic native-mainland donor lists contain
