@@ -5,6 +5,7 @@ import pytest
 
 from fd.n2_crossfit_macro import (
     METRICS, block_bootstrap_mean, summarize, taxon_balanced_source_summary,
+    summarize_trait_axes,
 )
 
 
@@ -115,3 +116,27 @@ def test_taxon_balance_rejects_duplicated_name_fold_rows():
     }] * 2)
     with pytest.raises(ValueError, match="deduplicated"):
         taxon_balanced_source_summary([rows], draws=299)
+
+
+
+def test_trait_axis_macro_summary_checks_additive_identity_and_block_uncertainty():
+    rows = []
+    for scope in ("all", "direct"):
+        for j in range(6):
+            rows.append(dict(
+                scope=scope, spatial_block=f"block{j}",
+                analysis_regime="tropical",
+                genus_colour=.3, genus_form=.1,
+                genus_additive=.2, genus_joint_product=.12,
+                source_colour=.01, source_form=-.002,
+                source_additive=.004, source_joint_product=.006,
+            ))
+    report = summarize_trait_axes(rows, draws=199)
+    assert len(report) == 4
+    assert all(r["mean_source_additive"] == pytest.approx(.004) for r in report)
+    assert all(r["mean_source_joint_product"] == pytest.approx(.006) for r in report)
+    assert all(r["source_joint_product_block_q025"] > 0 for r in report)
+    assert all("spatial_block" not in r for r in report)
+    rows[0]["source_additive"] = .9
+    with pytest.raises(AssertionError, match="Additive"):
+        summarize_trait_axes(rows, draws=199)
