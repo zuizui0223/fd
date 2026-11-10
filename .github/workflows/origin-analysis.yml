@@ -32,6 +32,11 @@ jobs:
           python -m fd.trait_kernels \
             --reference work/island_public/floral_space_20261106/all/profile_coordinates.csv \
             --output results/trait_kernel_audit
+      - name: Recalculate conservative five-fold coupling sensitivity from released aggregate only
+        run: |
+          python -m fd.fold_coupling_sensitivity \
+            --summary results/20261110_joint_flower_source/marginal_fixed_five_fold_audit.csv \
+            --output results/coupling_fivefold_stress
       - name: Reconstruct floral Rao Q and original-distance comparisons
         run: python -m fd.pipeline --input work/island_public --output work/fd_g0
       - name: Recompute common projected KDE sensitivity
@@ -164,6 +169,7 @@ jobs:
             results/local_geography_ses
             results/fixed_radius_ses
             results/trait_kernel_audit
+            results/coupling_fivefold_stress
             work/fd_crosswalk/crosswalk_audit.json
             work/island_public/source_manifest.json
           retention-days: 30
