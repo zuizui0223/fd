@@ -125,6 +125,12 @@ and removes unambiguous Direct interval separation, further emphasizing
 **evidence availability as a major limitation** rather than claiming
 a strong source-specific floral syndromic mechanism.
 
+## New marginal-fixed follow-up (completed, 10 November 2026)
+
+[Same-island, donor-matched, **marginal-fixed** joint source analysis](MARGINAL_FIXED.md) · [Aggregate score/95% interval table](marginal_fixed_placebo_aggregate.csv) · [All five geographic folds](marginal_fixed_five_fold_audit.csv).
+
+**Important falsification:** The positive *unconstrained* Kjoint advantage above is **mostly marginal**. After each true/placebo local-genus full-profile probability distribution is IPF-rescaled so that its **separate colour-set and form-set marginals BOTH exactly match the global-genus benchmark** on the 496 observed categories, the strict All joint K-score gain falls from **+0.002378** to **+0.000214 (95% spatial-block interval +0.000036 to +0.000370)**. Direct falls from **+0.001097** to **+0.000140 (−0.000062 to +0.000331)**. Strict full-profile Brier yields **+0.000205 (0.000022 to 0.000379)** All and **+0.000137 (−0.000087 to +0.000360)** Direct. The local source score's residual conditional coupling signal is thus **very small and Direct-uncertain**; there were no IPF convergence failures. All/Direct remain nested scopes and these post-hoc scores are not evolutionary causal effects.
+
 ## Scientific ceiling and next test
 
 **Supported observational result:** Geography-linked native-mainland
@@ -135,20 +141,19 @@ and Direct's conservative interval includes zero. This extends the
 previous additive/soft-trait result to a **full-rank, strictly proper
 joint-profile score**, not merely the marginal mean of colour and form.
 
-**Not yet demonstrated:** A statistically identifiable pure
-*colour–form association effect after holding marginal colour and
-form distributions fixed*. Kjoint improvements can arise when the
-marginals themselves are predicted better, so the results **must not**
-be described as an evolved floral trait combination syndrome. Likewise
-we did not measure pollinator efficacy, evolutionary selection, actual
-mainland ancestors, dispersal success, biological absence or an
-independent geological-oceanic adaptive shrinkage effect.
-
-For a stronger **interaction-specific** claim, future work would require
-a valid marginal-preserving counterfactual over existing observed full
-profile categories, with source and genus opportunity held fixed.
-Naively multiplying colour and form frequencies into hypothetical
-individual-flower profiles is NOT allowed by the observed data model.
+**New observational qualification:** The marginal-preserving
+counterfactual has now been computed: the source assignment retains
+a **very small positive All coupling-sensitive score** under a strict
+donor-matched reference, but Direct's 95% interval includes zero.
+This does NOT identify an evolved flower colour/form syndrome or
+causal ecological selection. The residual may still reflect
+taxonomy, observed trait reporting, private GIFT donor sampling,
+shared historical geography and incomplete source-region coverage.
+A row/column probability projection over only the 496 originally
+recorded categories does not generate hypothetical colour/form
+combinations. We have not measured pollinator efficacy, evolutionary
+selection, actual mainland ancestors, dispersal success, biological
+absence or independent geological adaptive shrinkage.
 
 There is no justification to turn the current small source-score
 improvement into a causal historical mainland-island claim. Report
