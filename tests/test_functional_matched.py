@@ -79,3 +79,16 @@ def test_knowable_source_identity_is_enforced():
     p=_pairs();p.loc[0,'donor_group']='UNKNOWN'
     with pytest.raises(ValueError,match='Unknown donor_group'):
         validate_matches(p)
+
+
+def test_cli_writes_only_safe_empty_aggregate(tmp_path):
+    from fd.functional_matched import main
+    traits=tmp_path/'traits.csv';matches=tmp_path/'matches.csv';output=tmp_path/'out'
+    _traits().to_csv(traits,index=False)
+    _pairs().to_csv(matches,index=False)
+    main(['--private-traits',str(traits),'--private-matches',str(matches),
+          '--output',str(output),'--min-carriers','2'])
+    import json
+    assert sorted(p.name for p in output.iterdir())==['functional_matched_grouped.csv','status.json']
+    assert json.loads((output/'status.json').read_text())['released_comparison_rows']==0
+    assert (output/'functional_matched_grouped.csv').read_text().startswith('trait_scope,domain,trait,')
