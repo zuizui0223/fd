@@ -66,7 +66,7 @@ A strict source-backed island-native target subset was evaluated without allowin
 | All (both ledgers) | 16/16 positive | 15/15 positive |
 | Direct (both ledgers) | **8/14 positive** | **14/14 positive** |
 
-Therefore **53/59** eligible source-native strict comparisons are positive at tau=1, with all five negatives and one additional? The exact distribution is: Direct SC/SI provides 8 positive of 14; All SC/SI and both evidence tiers of floral symmetry remain positive. One northern-high Direct SC/SI source-ledger cell has just **42** strict native species, so is **withheld** by the >=50 species gate, not treated as a negative or missing ecological effect.
+Therefore **53/59** eligible source-native strict comparisons are positive at tau=1. The **six nonpositive comparisons are all in Direct SC/SI** (8 positive of 14); All SC/SI and both evidence tiers of floral symmetry retain positive gains. One northern-high Direct SC/SI source-ledger cell has just **42** strict native species, so is **withheld** by the >=50 species gate, not treated as a negative or missing ecological effect.
 
 ## Source independent holdout remains conditional prediction, not an island syndrome
 
