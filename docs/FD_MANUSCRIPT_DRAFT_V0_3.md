@@ -98,9 +98,12 @@ population, not the stricter 1,007/950 source-matched-placebo cohorts.
   retains only 228/9,017 All and 172/6,562 Direct known-profile donors;
   geography-fold crossfitting is necessary for predictive evaluation.
 - An additive colour/form Jaccard K-score tells us nothing about
-  colour/form *pairing beyond the separate marginals*. A **proper
-  joint-sensitive product kernel** is newly implemented, but its real
-  source-placebo result is NOT yet calculated.
+  colour/form *pairing beyond the separate marginals*. The frozen
+  496-profile rank audit shows **Kcolour=31, Kform=46, Kadd=76,
+  Kjoint=496**. Thus the new product kernel is **strictly proper**
+  on the full recorded profile reference, not just a coarse marginal
+  summary. Its real source-placebo prediction result is **NOT YET
+  CALCULATED**. Mathematical identifiability != ecological evidence.
 
 ## Main-text figure structure (maximum four figures)
 
