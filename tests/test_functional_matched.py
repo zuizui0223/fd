@@ -18,9 +18,9 @@ def _traits():
 
 def _pairs():
     return pd.DataFrame([
-      {'match_id':'m1','island_a':'A','island_b':'N','source_group':'S1',
+      {'match_id':'m1','island_a':'A','island_b':'N','source_group':'S1','donor_group':'S1',
        'role':'local','distance_km':50},
-      {'match_id':'m1','island_a':'A','island_b':'C','source_group':'S1',
+      {'match_id':'m1','island_a':'A','island_b':'C','source_group':'S1','donor_group':'S2',
        'role':'distance_control','distance_km':70},
     ])
 
@@ -71,3 +71,11 @@ def test_group_privacy_gate_and_weighting():
     assert result.iloc[0].n_source_groups==5
     assert result.iloc[0].mean_equal_group_local_advantage==2.
     assert not {'match_id','source_group','island_a','island_b'} & set(result.columns)
+
+def test_knowable_source_identity_is_enforced():
+    p=_pairs();p.loc[1,'donor_group']='S1'
+    with pytest.raises(ValueError,match='another source_group'):
+        validate_matches(p)
+    p=_pairs();p.loc[0,'donor_group']='UNKNOWN'
+    with pytest.raises(ValueError,match='Unknown donor_group'):
+        validate_matches(p)
