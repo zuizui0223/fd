@@ -6,7 +6,7 @@ import numpy as np
 import pytest
 
 from fd.n2_source_assignment_placebo import (
-    matching_candidates, summarize_placebo, POLICIES,
+    matching_candidates, summarize_placebo, summarize_trait_placebo, POLICIES,
 )
 
 
@@ -136,3 +136,31 @@ def test_small_spatial_cell_suppresses_results():
     assert len(summary) == 2
     assert all(r["status"] == "insufficient_geographic_support" for r in summary)
     assert all("mean_kernel_gain" not in r for r in summary)
+
+
+
+def test_posthoc_placebo_trait_decomposition_on_identical_matched_islands():
+    rows = []
+    for policy in POLICIES:
+        for i in range(7):
+            rows.append({
+                "scope":"all", "policy":policy,
+                "analysis_regime":"tropical",
+                "spatial_block":f"spatial_{i}",
+                "matched_colour_gain":.006,
+                "matched_form_gain":-.002,
+                "matched_additive_gain":.002,
+                "matched_joint_product_gain":.005,
+            })
+    report = summarize_trait_placebo(rows, draws=199)
+    assert len(report) == 4  # 2 policies x pooled/regional
+    for r in report:
+        assert r["mean_additive_gain"] == pytest.approx(.002)
+        assert r["mean_joint_product_gain"] == pytest.approx(.005)
+        assert r["joint_product_block_q025"] > 0
+        assert r["mean_form_gain"] == pytest.approx(-.002)
+        assert "spatial_block" not in r
+    broken=[dict(x) for x in rows]
+    broken[0]["matched_additive_gain"] = 1.
+    with pytest.raises(AssertionError, match="Additive"):
+        summarize_trait_placebo(broken, draws=199)
