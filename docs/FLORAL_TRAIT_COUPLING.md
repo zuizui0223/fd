@@ -44,12 +44,32 @@ On the *same frozen 496 intact profile IDs* define
   the right separate marginals but wrong colour/form pairing can score
   substantially worse than the correct pairing model.
 
-The public 496-row reference kernel eigenvalues and rank are independently
-audited in a public GitHub Action artifact. Depending on joint rank, Kjoint
-may or may not be *strictly* proper: **inspect the actual rank** before
-claiming that exact full-profile probabilities are identified. Kadd's
-previous audited effective rank was only **76**, so its score is proper
-but not strictly proper over all exact categories.
+A direct independent **pivoted-Cholesky rank audit** of the frozen
+496-profile public reference (Git blob `982ecb538eea67fff290c6025be7f5c5a093596d`,
+rank threshold 1e-8) gave:
+
+| Proper similarity kernel | Numerical rank among 496 profiles |
+|---|---:|
+| Colour-state-set Jaccard Kcolour | 31 |
+| Flower-form-state-set Jaccard Kform | 46 |
+| Original equal-weight Kadd | 76 |
+| Colour/form Hadamard product Kjoint | **496 (full)** |
+
+The reference contains **31 distinct recorded colour state sets** and
+**46 distinct recorded form state sets**. The rank of additive K is
+exactly 31+46-1=76 because marginal feature space overlap contributes
+the common constant function. Kjoint has **full rank on all 496 observed
+complete trait profiles**, so the associated quadratic K-score is
+**strictly proper for the full probability distribution over those 496
+categories** (subject to independent PSD/eigenvalue confirmation in
+public CI). This changes which estimand we are capable of evaluating:
+the old Kadd cannot identify exact colour/form pairing probability
+structure, whereas Kjoint can.
+
+**The mathematical full rank is not an empirical ecological effect.**
+No donor-source predictive improvement or selection inference has yet
+been verified with the joint kernel. The public GitHub Action additionally
+calculates symmetric eigenvalues and SHA256 for source-pinned confirmation.
 
 **Do not overclaim:** Positive Kjoint improvement does not automatically
 prove an ecological 'colour–form interaction'. Joint predictions change
