@@ -20,7 +20,7 @@ from typing import Mapping
 
 import numpy as np
 
-from .core import Profile, load_profiles
+from .core import Profile, ProfileSpace, load_profiles
 from .pipeline import file_sha256
 from .proper_scoring import inspect_kernel
 
@@ -128,11 +128,24 @@ def audit_reference(reference: Path, output: Path) -> dict:
     if len(profiles) != 496 or sorted(profiles) != list(range(496)):
         raise ValueError("Frozen original 496-profile reference changed")
     kernels, info = kernel_quality(profiles)
+    # Compare against the INDEPENDENT original distance implementation,
+    # not a tautological average of the just-constructed component matrices.
+    original_similarity = 1. - ProfileSpace(profiles).matrix
     additive_error = float(np.max(np.abs(
-        kernels["additive"] - (kernels["colour"] + kernels["form"]) / 2
+        kernels["additive"] - original_similarity
     )))
     if additive_error > 1e-12:
-        raise AssertionError("Original additive colour/form kernel identity failed")
+        raise AssertionError("Trait-score kernel disagrees with original categorical D")
+    expected_ranks = {
+        "colour": 31, "form": 46, "additive": 76, "joint_product": 496,
+    }
+    for name, expected in expected_ranks.items():
+        if info[name]["rank_positive_1e8"] != expected:
+            raise AssertionError(
+                f"Frozen public floral kernel rank drift: {name} "
+                f"{info[name]['rank_positive_1e8']} != {expected}")
+    if info["joint_product"]["minimum_eigenvalue"] <= 1e-8:
+        raise AssertionError("Joint colour/form source kernel ceased to be strictly PD")
     # Kadd = 1 - 0.5*(Jaccard colour distance + Jaccard form distance).
     result = {
         "schema": "fd_public_original_floral_trait_kernel_audit_v1",
@@ -142,7 +155,9 @@ def audit_reference(reference: Path, output: Path) -> dict:
         "kernel_quality": info,
         "additive_formula": "Kadd=(K_colour+K_form)/2=1-original_D",
         "joint_formula": "Kjoint=K_colour * K_form (Hadamard/Schur)",
-        "additive_max_identity_error": additive_error,
+        "original_distance_max_identity_error": additive_error,
+        "frozen_expected_numeric_ranks": expected_ranks,
+        "joint_min_eigenvalue_must_be_positive": True,
         "scope": "trait scoring algebra only; no island-level effect, no source prediction, no adaptation claim",
         "interaction_limit": "product kernel can detect joint colour/form association, but a joint K-score gain is not uniquely pure interaction after conditioning on changing marginals",
     }
@@ -151,7 +166,7 @@ def audit_reference(reference: Path, output: Path) -> dict:
         json.dumps(result, indent=2, ensure_ascii=False) + "\n")
     print(json.dumps({"reference_profiles": result["reference_profiles"],
                       "kernels": result["kernel_quality"],
-                      "additive_max_identity_error": additive_error}))
+                      "original_distance_max_identity_error": additive_error}))
     return result
 
 
