@@ -27,7 +27,7 @@ jobs:
         run: python -m pip install -e '.[test]'
       - name: Run rights-safe module tests (synthetic inputs only)
         run: |
-          python -m pytest -q tests/test_functional_turnover.py tests/test_functional_matched.py tests/test_functional_rarefaction.py tests/test_functional_support_null.py tests/test_functional_genus_reference.py tests/test_public_island_taxon_frequency.py
+          python -m pytest -q tests/test_functional_turnover.py tests/test_functional_matched.py tests/test_functional_rarefaction.py tests/test_functional_support_null.py tests/test_functional_genus_reference.py tests/test_functional_source_placebo.py tests/test_public_island_taxon_frequency.py
       - name: Read only pinned PUBLIC GBIF taxon frequency files from upstream island
         uses: actions/checkout@v4
         with:
