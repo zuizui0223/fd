@@ -3,7 +3,9 @@ import numpy as np
 import pandas as pd
 import pytest
 
-from fd.proper_scoring import inspect_kernel, heldout_probability_scores
+from fd.proper_scoring import (
+    inspect_kernel, heldout_probability_scores, heldout_name_source_gains,
+)
 
 
 class TinyModel:
@@ -68,3 +70,20 @@ def test_positive_semidefinite_nonidentity_kernel_proper_distance_score():
         assert result[label+"_kernel"] == pytest.approx(expected_kernel)
         assert result[label+"_trait_distance_loss"] == pytest.approx(
             np.mean([1-(k@p)[0], 1-(k@p)[1]]))
+
+
+def test_name_deltas_integrate_to_island_wide_proper_scores():
+    part = pd.DataFrame({
+        "accepted_species": ["Gen a", "Gen b"],
+        "genus": ["Gen", "Gen"], "profile_id": [0, 1],
+    })
+    k = np.array([[1., .5], [.5, 1.]])
+    model = TinyModel()
+    whole = heldout_probability_scores(part, model, "island", k)
+    names = heldout_name_source_gains(part, model, "island", k)
+    assert set(names.accepted_species) == {"Gen a", "Gen b"}
+    for metric in ("logloss", "trait_distance_loss", "brier", "kernel"):
+        assert names["source_gain_" + metric].mean() == pytest.approx(
+            whole["global_genus_" + metric] -
+            whole["local_genus_" + metric])
+    assert all(names.has_local_genus_donor == 1)
