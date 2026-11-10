@@ -3,8 +3,12 @@ name: fd functional-trait readiness and public GBIF turnover audit
 on:
   pull_request:
     paths:
-      - 'src/fd/functional_*.py'\n      - 'src/fd/trait_pair_opportunity.py'\n      - 'src/fd/source_disjoint_trait_cv.py'
-      - 'tests/test_functional_*.py'\n      - 'tests/test_trait_pair_opportunity.py'\n      - 'tests/test_source_disjoint_trait_cv.py'
+      - 'src/fd/functional_*.py'
+      - 'src/fd/trait_pair_opportunity.py'
+      - 'src/fd/source_disjoint_trait_cv.py'
+      - 'tests/test_functional_*.py'
+      - 'tests/test_trait_pair_opportunity.py'
+      - 'tests/test_source_disjoint_trait_cv.py'
       - 'tests/test_public_island_taxon_frequency.py'
       - 'scripts/audit_public_island_taxon_frequency.py'
       - '.github/workflows/functional-readiness.yml'
