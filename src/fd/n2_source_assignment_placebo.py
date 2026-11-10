@@ -25,12 +25,19 @@ from .n2_source_distance import donor_training, _validate_private_against_public
 from .n2_crossfit_macro import block_bootstrap_mean
 from .pipeline import _write_csv
 from .proper_scoring import heldout_probability_scores, inspect_kernel
+from .trait_kernels import KERNEL_NAMES, kernel_quality, heldout_axis_source_gains
 
 SCOPES = ("all", "direct")
 POLICIES = ("genus_coverage_only", "genus_coverage_plus_donor_size_factor2")
 MAX_ABS_COVERAGE_DIFF = 0.02
 MAX_DONOR_SIZE_RATIO = 2.0
 MIN_CONTROLS = 2
+TRAIT_PLACEBO_FIELDS = (
+    "scope", "policy", "region", "n_islands", "n_spatial_blocks", "status",
+    *tuple(field for trait in KERNEL_NAMES
+            for field in (f"mean_{trait}_gain", f"{trait}_block_q025",
+                          f"{trait}_block_q975")),
+)
 
 REPORT_COLUMNS = (
     "scope", "policy", "region", "n_islands", "n_spatial_blocks",
@@ -185,6 +192,41 @@ def summarize_placebo(records: list[dict], *,
     return reports, folds
 
 
+def summarize_trait_placebo(records: list[dict], *, draws: int = 4999,
+                            seed: int = 20261110) -> list[dict]:
+    """Post-hoc marginal vs joint source-placebo scores on SAME matched islands."""
+    if draws < 99 or not records:
+        raise ValueError("No source-matched test evidence")
+    data = pd.DataFrame(records)
+    output = []
+    for (scope, policy), group in data.groupby(["scope", "policy"], sort=True):
+        collection = [(scope, policy, "all", group)]
+        collection += [(scope, policy, regime, sub)
+                       for regime, sub in group.groupby("analysis_regime", sort=True)]
+        for _, _, regime, test in collection:
+            record = {"scope": scope, "policy": policy, "region": regime,
+                      "n_islands": len(test),
+                      "n_spatial_blocks": test.spatial_block.nunique(),
+                      "status": "posthoc_marginal_joint_source_placebo"}
+            if len(test) < 5 or test.spatial_block.nunique() < 5:
+                record["status"] = "insufficient_geographic_support"
+            else:
+                for name in KERNEL_NAMES:
+                    avg, lo, hi = block_bootstrap_mean(
+                        test, response="matched_" + name + "_gain",
+                        draws=draws, seed=seed)
+                    record["mean_" + name + "_gain"] = avg
+                    record[name + "_block_q025"] = lo
+                    record[name + "_block_q975"] = hi
+                if not np.isclose(
+                    record["mean_additive_gain"],
+                    .5*(record["mean_colour_gain"] +
+                        record["mean_form_gain"]), atol=1e-9):
+                    raise AssertionError("Additive source placebo is not the mean of marginals")
+            output.append(record)
+    return output
+
+
 def run(private_all: Path, private_direct: Path, flora: Path,
         mainland_native: Path, assignments: Path, g0_root: Path,
         geography: Path, reference: Path, input_root: Path, output: Path,
@@ -202,6 +244,9 @@ def run(private_all: Path, private_direct: Path, flora: Path,
         raise ValueError("Frozen colour/form profile reference changed")
     kernel_evidence = inspect_kernel(space.matrix)
     similarity = kernel_evidence.pop("kernel")
+    trait_k, trait_audit = kernel_quality(load_profiles(reference))
+    if not np.allclose(trait_k["additive"], similarity, atol=1e-12):
+        raise AssertionError("Original D additive kernel identity failed")
     geo = pd.read_csv(
         geography, usecols=["island_id", "spatial_block"], dtype=str)
     if geo.island_id.duplicated().any():
@@ -284,6 +329,8 @@ def run(private_all: Path, private_direct: Path, flora: Path,
                     for genus, count in test.genus.value_counts().items()}
                 actual = heldout_probability_scores(
                     test, model, island, similarity)
+                actual_axis = heldout_axis_source_gains(
+                    test, model, island, trait_k)
                 support[scope]["n_scoreable"] += 1
                 for policy in POLICIES:
                     control, n_available = matching_candidates(
@@ -294,6 +341,9 @@ def run(private_all: Path, private_direct: Path, flora: Path,
                         continue
                     alternate = [heldout_probability_scores(
                         test, model, c["source_island"], similarity)
+                        for c in control]
+                    alt_axis = [heldout_axis_source_gains(
+                        test, model, c["source_island"], trait_k)
                         for c in control]
                     actual_cov = sum(
                         count for genus, count in focal_genus.items()
@@ -316,14 +366,27 @@ def run(private_all: Path, private_direct: Path, flora: Path,
                         "mean_overlap_source_entity_jaccard": float(np.mean([
                             c["entity_jaccard"] for c in control])),
                         "n_eligible_control_assignments": n_available,
+                        **{
+                            "matched_" + name + "_gain": float(
+                                actual_axis["source_" + name] -
+                                np.mean([a["source_" + name] for a in alt_axis]))
+                            for name in KERNEL_NAMES
+                        },
                     })
+                    if abs(all_records[-1]["matched_additive_gain"] -
+                           all_records[-1]["matched_kernel_gain"]) > 1e-9:
+                        raise AssertionError("Additive K gain must equal original source-placebo score")
     reports, folds = summarize_placebo(
+        all_records, draws=bootstrap_draws)
+    trait_scores = summarize_trait_placebo(
         all_records, draws=bootstrap_draws)
     output.mkdir(parents=True, exist_ok=True)
     _write_csv(output / "n2_source_placebo_matched_groups.csv",
                reports, REPORT_COLUMNS)
     _write_csv(output / "n2_source_placebo_matched_folds.csv",
                folds, FOLD_COLUMNS)
+    _write_csv(output / "n2_source_placebo_trait_kernels.csv",
+               trait_scores, TRAIT_PLACEBO_FIELDS)
     manifest = {
         "schema": "fd_heldout_geo_source_placebo_support_match_v1",
         "status": "private_input_posthoc_coverage_matched_source_prediction",
@@ -341,6 +404,9 @@ def run(private_all: Path, private_direct: Path, flora: Path,
                       "phylogenetic independence nor pollination adaptation"),
         "missing_support": support,
         "kernel": kernel_evidence,
+        "marginal_and_joint_trait_kernels": trait_audit,
+        "trait_kernel_output": "n2_source_placebo_trait_kernels.csv; post-hoc colour, form, additive, product-joint source placebo on same island/control groups",
+        "interaction_limit": "joint-product prediction can detect paired colour/form associations but is not by itself a pure interaction effect",
         "privacy": ("Only group/fold summary and hashes persisted; "
                     "no island, source, genus or taxon-level outputs"),
         "source_sha256": {
