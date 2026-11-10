@@ -27,6 +27,11 @@ jobs:
           python -m pytest -q
       - name: Retrieve source-commit-pinned public trait aggregate inputs
         run: python scripts/fetch_island_aggregates.py --output work/island_public
+      - name: Audit marginal and joint flower colour/form kernels on frozen 496 public profiles
+        run: |
+          python -m fd.trait_kernels \
+            --reference work/island_public/floral_space_20261106/all/profile_coordinates.csv \
+            --output results/trait_kernel_audit
       - name: Reconstruct floral Rao Q and original-distance comparisons
         run: python -m fd.pipeline --input work/island_public --output work/fd_g0
       - name: Recompute common projected KDE sensitivity
@@ -158,6 +163,7 @@ jobs:
             results/distance_ses
             results/local_geography_ses
             results/fixed_radius_ses
+            results/trait_kernel_audit
             work/fd_crosswalk/crosswalk_audit.json
             work/island_public/source_manifest.json
           retention-days: 30
