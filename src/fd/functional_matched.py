@@ -13,7 +13,7 @@ from .functional_turnover import TRAIT_GROUPS, audit_pairs
 
 ROLES = ('local', 'distance_control')
 PRIMARY_DOMAINS = ('reproductive_assurance', 'floral_accessibility')
-INPUT_COLUMNS = ('match_id', 'island_a', 'island_b', 'source_group', 'role', 'distance_km')
+INPUT_COLUMNS = ('match_id', 'island_a', 'island_b', 'source_group', 'donor_group', 'role', 'distance_km')
 
 
 def validate_matches(pairs: pd.DataFrame, *, max_distance_ratio: float = 3.) -> pd.DataFrame:
@@ -24,15 +24,22 @@ def validate_matches(pairs: pd.DataFrame, *, max_distance_ratio: float = 3.) -> 
     if max_distance_ratio < 1:
         raise ValueError('max_distance_ratio must be >=1')
     x = pairs[list(INPUT_COLUMNS)].copy()
-    for field in ('match_id', 'island_a', 'island_b', 'source_group', 'role'):
+    for field in ('match_id', 'island_a', 'island_b', 'source_group', 'donor_group', 'role'):
         if x[field].isna().any() or x[field].astype(str).str.strip().eq('').any():
             raise ValueError(f'Missing {field}')
         x[field] = x[field].astype(str).str.strip()
+    for field in ('source_group', 'donor_group'):
+        if x[field].str.lower().isin(['na','nan','none','unknown']).any():
+            raise ValueError(f'Unknown {field} label')
     if not x.role.isin(ROLES).all():
         raise ValueError('role must be local or distance_control')
     x['distance_km'] = pd.to_numeric(x['distance_km'], errors='coerce')
     if x.distance_km.isna().any() or (~np.isfinite(x.distance_km)).any() or (x.distance_km <= 0).any():
         raise ValueError('distance_km must be positive and finite')
+    if ((x.role == 'local') & (x.donor_group != x.source_group)).any():
+        raise ValueError('Local donor must share focal source_group')
+    if ((x.role == 'distance_control') & (x.donor_group == x.source_group)).any():
+        raise ValueError('Distance control must belong to another source_group')
     if (x.island_a == x.island_b).any():
         raise ValueError('Focal and donor must differ')
     for match, group in x.groupby('match_id'):
