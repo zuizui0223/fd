@@ -157,6 +157,48 @@ colonization.
 [Aggregate scores and intervals](../results/20261110_joint_flower_source/marginal_fixed_placebo_aggregate.csv) ·
 [Reproducible IPF implementation](../src/fd/marginal_fixed_coupling.py).
 
+## Stronger inference audit: what remains uncertain
+
+The marginal-fixed joint-source signal above was reevaluated using the
+five entire cross-fitting fold means as coarse sign units rather than
+119/116 resampled spatial blocks. The exact 32-configuration two-sided
+stress tail is **0.0625** for the All/Direct joint-source K scores
+(5/5 positive folds), and **0.1875** for Direct marginal-fixed
+Brier (4/5 positive folds). This is not a valid independent ecological
+randomization test because the training donor pools and botanical
+lineages overlap between folds. It demonstrates that apparently
+narrow conditional spatial-block bootstrap intervals do **not**
+alone establish generality across truly independent histories.
+
+Leave-one-test-fold-out means stay positive
+(**All joint +0.000183..+0.000249; Direct +0.000101..+0.000175**).
+This supports stability of the *direction* in this observational
+cross-validation design, not a geographically universal effect.
+
+The question whether flower form is more geographically predictable
+than flower colour also requires a direct paired contrast. The
+matched-source form-minus-colour gain is **+0.001738** All
+(95% block interval **−0.000221..+0.003288**) and **+0.000662**
+Direct (**−0.000808..+0.001967**). Both intervals include zero;
+neither stronger form predictability nor more intense ecological
+selection on floral architecture is supported.
+
+Finally, the IPF conditional coupling result uses donor shrinkage
+**8**. Variation across shrinkage 2/8/20 was previously important for
+exact-category source prediction, and the **marginal-fixed coupling
+sensitivity to alternative shrinkage has not been run**. Therefore
+the tiny All residual cannot be presented as a robust independent
+colour×form evolution discovery.
+
+**One-sentence conclusion locked for the current evidence:**
+*Geographically plausible native-mainland donors weakly improve
+heldout predictions of recorded floral phenotypes beyond plant genus,
+largely via separate colour and form distributions; their additional
+conditional colour–form pairing signal is small, observational and
+uncertain across source-evidence scopes.*
+
+[Coarse five-fold and paired marginal audit](../results/20261110_joint_flower_source/MARGINAL_FIXED.md).
+
 ## Main-text figure structure (maximum four figures)
 
 **Figure 1: Geography, available lineage opportunity, and analysis
