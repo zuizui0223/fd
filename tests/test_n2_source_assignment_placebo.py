@@ -6,7 +6,8 @@ import numpy as np
 import pytest
 
 from fd.n2_source_assignment_placebo import (
-    matching_candidates, summarize_placebo, summarize_trait_placebo, POLICIES,
+    matching_candidates, summarize_placebo, summarize_trait_placebo,
+    summarize_marginal_fixed, POLICIES,
 )
 
 
@@ -164,3 +165,44 @@ def test_posthoc_placebo_trait_decomposition_on_identical_matched_islands():
     broken[0]["matched_additive_gain"] = 1.
     with pytest.raises(AssertionError, match="Additive"):
         summarize_trait_placebo(broken, draws=199)
+
+
+
+def test_coupling_is_scored_on_exact_same_strict_source_cohort():
+    records=[]
+    for k in range(8):
+        records.append({
+            "scope":"all", "policy": POLICIES[1],
+            "analysis_regime":"tropical", "spatial_block":f"block{k}",
+            "matched_joint_product_gain":.004,
+            "coupling_fixed_joint_gain":.0003,
+            "coupling_fixed_brier_gain":.0002,
+            "max_ipf_error":5e-10,
+            "mean_ipf_iterations":70,
+        })
+    result=summarize_marginal_fixed(records,draws=199)
+    assert len(result)==2
+    assert all(r["n_islands"]==8 for r in result)
+    assert all(r["mean_joint_before_marginal_fixed"] == pytest.approx(.004)
+               for r in result)
+    assert all(r["mean_joint_marginal_fixed"] == pytest.approx(.0003)
+               for r in result)
+    assert all(r["joint_marginal_fixed_block_q025"] > 0 for r in result)
+    assert all(r["largest_ipf_marginal_error"] <= 1e-8 for r in result)
+    assert all("spatial_block" not in r for r in result)
+
+
+def test_marginal_fixed_scope_suppresses_weak_geographical_replication():
+    records=[{
+        "scope":"direct","policy":POLICIES[1],
+        "analysis_regime":"tropical","spatial_block":"one",
+        "matched_joint_product_gain":.2,
+        "coupling_fixed_joint_gain":.1,
+        "coupling_fixed_brier_gain":.2,
+        "max_ipf_error":0.,
+        "mean_ipf_iterations":5,
+    } for _ in range(5)]
+    out=summarize_marginal_fixed(records,draws=199)
+    assert len(out)==2
+    assert all(r["status"]=="insufficient_independent_geographic_support" for r in out)
+    assert all("mean_joint_marginal_fixed" not in r for r in out)
