@@ -5,6 +5,7 @@ import pytest
 from fd.core import distance
 from fd.trait_kernels import (
     kernel_quality, phenotype_kernels, quadratic_kernel_score,
+    heldout_axis_source_gains,
 )
 
 
@@ -71,3 +72,34 @@ def test_probability_score_checks_shapes_and_names():
         quadratic_kernel_score(p, 3, k)
     with pytest.raises(ValueError):
         quadratic_kernel_score(p, 1, np.eye(4))
+
+
+
+class _CouplingModel:
+    n_profiles = 4
+
+    def probabilities(self, island, genus):
+        assert island == "island" and genus == "Gen"
+        # Global genus and local source have exactly the SAME marginal
+        # distributions of colour and form, but opposite joint pairings.
+        return np.asarray([
+            [.25, .25, .25, .25],  # global prior
+            [.25, .25, .25, .25],  # unused source-wide prior
+            [0., .5, .5, 0.],      # wrong coupling in global genus
+            [.5, 0., 0., .5],      # correct pairing from local source
+        ])
+
+
+def test_heldout_source_can_improve_joint_pairing_with_zero_marginal_gain():
+    import pandas as pd
+    observed = pd.DataFrame({
+        "accepted_species": ["Gen a", "Gen b"],
+        "genus": ["Gen", "Gen"], "profile_id": [0, 3],
+    })
+    gains = heldout_axis_source_gains(
+        observed, _CouplingModel(), "island",
+        phenotype_kernels(_four_combinations()))
+    assert gains["source_colour"] == pytest.approx(0, abs=1e-12)
+    assert gains["source_form"] == pytest.approx(0, abs=1e-12)
+    assert gains["source_additive"] == pytest.approx(0, abs=1e-12)
+    assert gains["source_joint_product"] == pytest.approx(1.0)
