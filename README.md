@@ -37,7 +37,7 @@ From the frozen public [PR #321 report](https://github.com/zuizui0223/island/blo
 
 ## 2026-11-10 original floral traits: additive scores do not identify joint colour/form arrangements
 
-[Marginal versus joint trait-kernel methods](docs/FLORAL_TRAIT_COUPLING.md) · [Executable and source-audited kernel algebra](src/fd/trait_kernels.py) · [Synthetic coupling falsification](tests/test_trait_kernels.py) · [Four-figure manuscript decision draft](docs/FD_MANUSCRIPT_DRAFT_V0_3.md)
+[Marginal versus joint trait-kernel methods](docs/FLORAL_TRAIT_COUPLING.md) · [Executable and source-audited kernel algebra](src/fd/trait_kernels.py) · [Synthetic coupling falsification](tests/test_trait_kernels.py) · [Four-figure manuscript decision draft](docs/FD_MANUSCRIPT_DRAFT_V0_4.md)
 
 **Important correction to the meaning of previous N2 results:** the old original-distance similarity score uses **Kadd=(Kcolour+Kform)/2**. Therefore the earlier similarity-aware local native mainland source gain is an exact average of **colour-only** and **form-only** score improvements; it does **not** establish prediction of their recorded *joint arrangements*. The frozen 496-profile public reference has **31 distinct colour-set profiles and 46 form-set profiles**. Direct pivoted-Cholesky audits (rank tolerance 1e-8) yield Kcolour rank **31**, Kform **46**, Kadd **76**, and the **joint Hadamard product Kcolour×Kform rank 496/496**. Thus on the frozen full profile reference the new Kjoint is capable of strictly proper full-profile probability scoring; unlike Kadd it detects different colour-form pairings with identical marginal proportions.
 
