@@ -61,3 +61,48 @@ A color/form PCoA area or 17D KDE Gaussian volume is **not** a substitute for re
 - The bundled synthetic tests validate correct missingness handling, species/genus exclusion, shared taxon consistency and only aggregated output. **They do not establish any real-data significance.**
 
 **Stop rule:** No language about ecological niche replacement, pollination equivalence, adaptive syndrome evolution or universal function conservation without an independently verified biological functional endpoint and spatially/source-robust real-data result.
+
+## 2026-11-10 real public taxonomic recording-frequency result
+
+A new source-pinned **GBIF observation-frequency audit** was completed on the `island` public `data/v2/staging/gbif/collected/island_taxa.csv`, source commit `3bfa818ffbc7a0dea4319933c4b0a0eb41cfabb5`, blob `5ae92313517118f0dbb29d8863aa2e379ce88747`. It was verified against `collection_status.json` (blob `9b186799a43f9108cf62f6a54eef074f8d42d3c3`).
+
+- **115,328 recorded candidate taxon names**, **1,039,757 island×taxon occurrences**, **4,549 islands with records** from 103 collected source blocks.
+- **58,660 taxa (50.86%) were recorded on exactly one sampled island**; another 15,981 on exactly two, 17,184 on 3–5, 9,015 on 6–10, and 14,488 on 11 or more islands.
+- The median number of sampled islands per taxon is 1, the 90th percentile 14, the 99th percentile 148, and the maximum 993.
+
+These are **recording frequencies**, NOT evidence that half the taxa are true biological island endemics. Opportunistic GBIF sampling and unequal islands' taxonomic coverage could produce much of the concentration. The earlier 115,328 candidate-name GBIF campaign is **not** the corrected Chapter 1's 106,295 trait-analysis-applicable species. This public table contains **no per-island functional trait outcome**.
+
+Aggregate-only output: [public_island_taxon_frequency.json](../results/20261110_functional_turnover_readiness/public_island_taxon_frequency.json). Reproduction script: [audit_public_island_taxon_frequency.py](../scripts/audit_public_island_taxon_frequency.py); the dedicated [public-only CI](../.github/workflows/functional-readiness.yml) checks the frozen values against both pinned files. The source status and the raw record lists stay in the upstream `island` repository.
+
+## Matched local-versus-distance-control functional comparison (new executable module)
+
+The [functional_matched.py](../src/fd/functional_matched.py) extension takes one outcome-blind **matched two-donor triplet per focal island**. A row of the private matched-pairs input must include:
+
+- `match_id` and `island_a`: unique match and focal island identifier;
+- `island_b`: donor island, with two different donor islands per focal;
+- `source_group`: known focal archipelago;
+- `donor_group`: known donor archipelago;
+- `role`: exactly one `local` donor from the same named archipelago and one `distance_control` donor from another;
+- `distance_km`: positive actual focal–donor distance; donor-distance ratio must be <=3, preassigned from geography, not floral outcomes.
+
+No focal island may appear in more than one match, and all labels must be known. This is a **stricter and explicitly archipelago-identity-conditioned** test than a simple near-versus-far comparison; it does not by itself estimate the main geographic distance slope. All/Direct inputs are run **separately**, not treated as independent replications.
+
+For each of the seven traits, score the same focal island against both donors under three scopes: all taxa, remove plant species shared in each donor comparison, remove genera shared in each donor comparison. Each scored trait needs **>=20 recorded carriers on EACH side of EACH donor comparison**. Define:
+
+`local_advantage = |prevalence_focal - prevalence_control| - |prevalence_focal - prevalence_local|`.
+
+A positive value means the local donor has a smaller observed prevalence gap than an otherwise distance-matched alternative. For the two primary domains, take the equal-weight mean over at least two of the three component traits **available on both donor comparisons**. The signal-only `plain_colour` is secondary. This measures traits of **different sampled taxa**, not equivalent pollination performance or selection. Deleting shared genera can create different selected taxon universes on the local and control comparisons; outcome-blind support diagnostics and balanced-source checks remain essential.
+
+Example local rights-authorized execution:
+
+    python -m fd.functional_matched \
+      --private-traits /protected/accepted_all_traits.csv \
+      --private-matches /protected/outcome_blind_triplets.csv \
+      --output work/private_fd_functional_matched \
+      --min-carriers 20 --minimum-matches 10 --minimum-groups 5
+
+The CLI exports ONLY `functional_matched_grouped.csv` and `status.json`. The mean advantage weights known source groups equally; a group must have eligible matches, >=10 independent focal matches and >=5 named source groups are required to print a row. Raw ids, taxa, pair-level differences and donor names are never written by this CLI. The output is **descriptive and post-hoc**, with **no p-values**; source archipelagos and plant phylogenies may remain dependent.
+
+The older colour/form geographic control retained only 51 focal islands in 18 named archipelagos after matching donor distances. This does **not** imply the same 51 have adequate reproductive or floral-access trait evidence; eligibility must be newly measured. Underlying Chapter 1 trait coverage includes just 48,497 resolved reproductive-assurance species-axis cells among 106,295 analysis-applicable species. No private seven-trait join or actual matched functional contrast has been run in this public branch.
+
+**Empirical next gate:** produce a privacy-safe table of supported focal matches and named source groups for each primary domain after genus exclusion, from an authorized private checkpoint; if too few remain, do not claim functional retention. If support remains, freeze a whole-trait-vector genus × source-availability conditional null and inference groups before fitting, with true ecological service interpretation kept separate from plant-side trait proxies.
