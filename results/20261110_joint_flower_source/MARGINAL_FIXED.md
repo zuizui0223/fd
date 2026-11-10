@@ -90,6 +90,62 @@ estimate respectively. These figures quantify **sensitivity of a
 particular scoring rule to conditioning**, not biological proportions
 explained, statistical mediation or causal trait selection.
 
+## Conservative five-fold and paired trait-scale checks
+
+The published spatial-block 95% intervals above treat 119 All / 116
+Direct spatial blocks as resampling units, **conditional on fitted donor
+models and the source-assignment matching design**. This does not make
+the five cross-fitting model fits or shared donor taxa independent.
+
+A second deliberately conservative check uses the **five geographic
+test-fold means** as the five sign units, weighted by island counts.
+With only 2^5=32 hypothetical sign configurations, the smallest
+possible conventional two-sided sign tail for five concordant
+nonzero folds is 2/32=**0.0625**:
+
+| Strict source-placebo endpoint | All positive folds | Direct positive folds | Five-fold two-sided tail, if exchangeable |
+|---|---:|---:|---:|
+| Joint K, unrestricted marginals | 5/5 | 5/5 | 0.0625 / 0.0625 |
+| **Joint K, both trait marginals fixed** | **5/5** | **5/5** | **0.0625 / 0.0625** |
+| Full Brier, both trait marginals fixed | 5/5 | 4/5 | 0.0625 / 0.1875 |
+
+The **fold exchangeability assumption is not established**: folds
+share taxon traits and overlapping native-mainland donor training
+opportunity. These sign tails are diagnostic stress statistics,
+**not confirmatory permutation p-values** or proof of five independent
+evolutionary replications.
+
+Removing any one of the five test folds leaves positive
+island-weighted marginal-fixed K-score means:
+**All +0.000183 to +0.000249**, Direct **+0.000101 to +0.000175**.
+This is directional stability, not identification of a causal effect.
+
+The form-only K-score gain has a larger point estimate than the
+colour-only gain, but **the paired difference on identical islands**
+is not consistently positive under spatial-block uncertainty:
+All form-minus-colour **+0.001738**, 95% block interval
+**[-0.000221,+0.003288]**; Direct **+0.000662**,
+**[-0.000808,+0.001967]**. The two marginal kernels also have
+different baseline state-space structure, so raw source-skill
+differences must not be interpreted as relative strengths of
+natural selection on flower form and flower colour.
+
+[Machine-readable five-fold stress table](fold_coarse_sign_sensitivity.csv) ·
+[Paired form-minus-colour uncertainty](form_vs_colour_paired_source_gap.csv).
+The coarse fold calculation can be reproduced directly from the
+already-released anonymous five-fold table without accessing any
+restricted source data:
+
+    python -m fd.fold_coupling_sensitivity \
+      --summary results/20261110_joint_flower_source/marginal_fixed_five_fold_audit.csv \
+      --output results/coupling_fivefold_stress
+
+All these checks are **post-hoc robustness analyses**, not separate
+pre-registered hypothesis families. A full sensitivity of marginal-fixed
+scores to donor-model shrinkage strength (e.g. 2/8/20) remains
+**unevaluated** and is a further limitation before strong ecological
+claims.
+
 ## Mechanistic interpretation and inferential stop
 
 **Supported:** Geographic native-mainland donor lists contain
