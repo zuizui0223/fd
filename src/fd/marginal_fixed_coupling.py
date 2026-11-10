@@ -160,13 +160,24 @@ def marginal_fixed_source_gain(
 
 def marginal_fixed_placebo_gain(
     focal: pd.DataFrame, model, actual: str, controls: list[str],
-    profiles: Mapping[int, Profile],
+    profiles: Mapping[int, Profile], *,
+    colour_codes: np.ndarray | None = None,
+    form_codes: np.ndarray | None = None,
+    joint_kernel: np.ndarray | None = None,
 ) -> dict:
-    """Actual vs exactly same two controls, with global genus marginals fixed."""
+    """Actual vs exactly same two controls, with global genus marginals fixed.
+
+    Precompute reference kernels ONCE per run for large island cohorts:
+    constructing the 496x496 kernel separately per target is costly.
+    """
     if len(controls) != 2 or actual in controls or controls[0] == controls[1]:
         raise ValueError("Require two distinct alternative source assignments")
-    colour, form = profile_axis_codes(profiles)
-    kernel = phenotype_kernels(profiles)["joint_product"]
+    if colour_codes is None or form_codes is None:
+        colour, form = profile_axis_codes(profiles)
+    else:
+        colour, form = colour_codes, form_codes
+    kernel = (phenotype_kernels(profiles)["joint_product"] if
+              joint_kernel is None else joint_kernel)
     actual_gain = marginal_fixed_source_gain(
         focal, model, actual, profiles,
         colour_codes=colour, form_codes=form, joint_kernel=kernel)
