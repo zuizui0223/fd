@@ -70,6 +70,10 @@ For each sampled genus-exclusive island pair, score ONLY taxon names whose stric
 
 In the tropics the observed-minus-predicted residual is only **+0.00394 All / +0.00493 Direct**, corresponding to 0.39/0.49 percentage points of trait prevalence, after providing genus information and sampling variance. The *numerical expected-to-observed mean ratio* is about **96.0% / 95.4%**, NOT a causal fraction of variation explained. Under 200 block-disjoint greedy re-selections, **68.5%/69%** are positive: the residual sign is not geographically stable enough for a claim of novel functional sorting. Southern-extratropical differences are larger but have only **11 maximum possible disjoint block pairs** and the same source/observation limitations.
 
+### Numerical approximation cross-check
+
+To test whether the *small* tropical genus-model residual is an artifact of the normal absolute-moment approximation, we drew an outcome-blind sample of 350 candidate island pairs per evidence scope and compared the normal formula with **1,500 direct independent-Bernoulli trait-state draws per eligible pair** (tau=0.05, the same fixed genus predictions). After the >=20 known-carrier-per-side gate, **341 All and 340 Direct pairs** remained. Mean `normal estimate - simulated expectation` was **-0.0000365 All / -0.0000146 Direct**; the 95th percentile of *absolute per-pair* discrepancy was **0.00141 / 0.00159**. This does not account for botanical shared-source correlation or model uncertainty, but indicates that the 0.00394/0.00493 **aggregate mean** tropical residual is not driven primarily by the numerical normal approximation.
+
 **Smoothing sensitivity is crucial:** with tau 0.01 to 0.20, tropical residual is **+0.00363 to +0.00503 All / +0.00452 to +0.00637 Direct**. An earlier arbitrary stronger shrinkage tau=8 inflates the tropical residual to +0.02320/+0.02804. A genus model's apparent failure must not be interpreted as selection if its donor-strength parameter was chosen poorly.
 
 ## Main scientific interpretation (evidence-limited)
