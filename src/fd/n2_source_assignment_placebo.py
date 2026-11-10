@@ -26,7 +26,7 @@ from .n2_crossfit_macro import block_bootstrap_mean
 from .pipeline import _write_csv
 from .proper_scoring import heldout_probability_scores, inspect_kernel
 from .trait_kernels import KERNEL_NAMES, kernel_quality, heldout_axis_source_gains
-from .marginal_fixed_coupling import marginal_fixed_placebo_gain
+from .marginal_fixed_coupling import marginal_fixed_placebo_gain, profile_axis_codes
 
 SCOPES = ("all", "direct")
 POLICIES = ("genus_coverage_only", "genus_coverage_plus_donor_size_factor2")
@@ -295,7 +295,8 @@ def run(private_all: Path, private_direct: Path, flora: Path,
     kernel_evidence = inspect_kernel(space.matrix)
     similarity = kernel_evidence.pop("kernel")
     reference_profiles = load_profiles(reference)
-    trait_k, trait_audit = kernel_quality(load_profiles(reference))
+    trait_k, trait_audit = kernel_quality(reference_profiles)
+    colour_codes, form_codes = profile_axis_codes(reference_profiles)
     if not np.allclose(trait_k["additive"], similarity, atol=1e-12):
         raise AssertionError("Original D additive kernel identity failed")
     geo = pd.read_csv(
@@ -432,7 +433,9 @@ def run(private_all: Path, private_direct: Path, flora: Path,
                         association = marginal_fixed_placebo_gain(
                             test, model, island,
                             [c["source_island"] for c in control],
-                            reference_profiles)
+                            reference_profiles,
+                            colour_codes=colour_codes, form_codes=form_codes,
+                            joint_kernel=trait_k["joint_product"])
                         fixed_records.append({
                             **all_records[-1],
                             "coupling_fixed_joint_gain": association[
