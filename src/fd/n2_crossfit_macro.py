@@ -25,9 +25,14 @@ from .n2_source_distance import (
 from .n2_source_coverage_audit import balanced_block_folds
 from .heldout_mainland_prediction import DonorModel, DEFAULT_SHRINK
 from .pipeline import _write_csv
+from .proper_scoring import inspect_kernel, heldout_probability_scores
 
 SCOPES = ("all", "direct")
-METRICS = ("genus_gain", "source_gain", "source_distance_gain")
+METRICS = (
+    "genus_gain", "source_gain", "source_distance_gain",
+    "genus_brier_gain", "source_brier_gain",
+    "genus_kernel_gain", "source_kernel_gain",
+)
 FIELDS = (
     "scope", "region", "n_islands", "n_spatial_blocks", "status",
     "mean_global_genus_coverage", "mean_local_source_genus_coverage",
@@ -37,6 +42,10 @@ FIELDS = (
     "mean_source_gain", "source_gain_block_q025", "source_gain_block_q975",
     "mean_source_distance_gain", "source_distance_gain_block_q025",
     "source_distance_gain_block_q975",
+    "mean_genus_brier_gain", "genus_brier_gain_block_q025", "genus_brier_gain_block_q975",
+    "mean_source_brier_gain", "source_brier_gain_block_q025", "source_brier_gain_block_q975",
+    "mean_genus_kernel_gain", "genus_kernel_gain_block_q025", "genus_kernel_gain_block_q975",
+    "mean_source_kernel_gain", "source_kernel_gain_block_q025", "source_kernel_gain_block_q975",
 )
 
 
@@ -122,6 +131,8 @@ def run(profile_all: Path, profile_direct: Path, flora: Path,
     space = ProfileSpace(load_profiles(reference))
     if len(space.ids) != 496 or space.ids != list(range(496)):
         raise ValueError("Frozen 496 categorical profiles and IDs changed")
+    kernel_audit = inspect_kernel(space.matrix)
+    similarity = kernel_audit.pop("kernel")
     profiles = {
         "all": load_private_maps(profile_all, "all", set(space.ids)),
         "direct": load_private_maps(profile_direct, "direct", set(space.ids)),
@@ -179,6 +190,10 @@ def run(profile_all: Path, profile_direct: Path, flora: Path,
                                shrink=shrink)
             for island, part in batch.groupby("island_id", sort=True):
                 audit = heldout_name_calibration(part, model, island, space)
+                proper = heldout_probability_scores(part, model, island, similarity)
+                if (abs(proper["global_genus_logloss"] - audit["log_loss_global_genus"]) > 1e-9 or
+                        abs(proper["local_genus_logloss"] - audit["log_loss_local_genus"]) > 1e-9):
+                    raise AssertionError("Two implementations of donor heldout log loss disagree")
                 frac_g, frac_l = source_coverage(
                     model, island,
                     {str(g): int(n) for g, n in part.genus.value_counts().items()})
@@ -198,6 +213,14 @@ def run(profile_all: Path, profile_direct: Path, flora: Path,
                     "source_distance_gain": (
                         audit["trait_distance_global_genus"] -
                         audit["trait_distance_local_genus"]),
+                    "genus_brier_gain": (
+                        proper["global_prior_brier"] - proper["global_genus_brier"]),
+                    "source_brier_gain": (
+                        proper["global_genus_brier"] - proper["local_genus_brier"]),
+                    "genus_kernel_gain": (
+                        proper["global_prior_kernel"] - proper["global_genus_kernel"]),
+                    "source_kernel_gain": (
+                        proper["global_genus_kernel"] - proper["local_genus_kernel"]),
                 }
                 internal.append(row)
                 support[scope]["scored"] += 1
@@ -213,6 +236,8 @@ def run(profile_all: Path, profile_direct: Path, flora: Path,
         "fold_assignment": "five disjoint source spatial blocks balanced by All island counts; Direct inherits All block assignment",
         "global_name_holdout": "all names in the entire heldout geographic fold removed from every mainland source entity before trait donor training",
         "proper_name_score": "categorical negative log probability of complete colour/form profile; equal-island grouped average",
+        "proper_probability_scores": "Brier (strictly proper) and K=1-original-D kernel quadratic score (proper but not strictly proper at rank deficient K); equal-island scoring",
+        "kernel_audit": kernel_audit,
         "distance_loss": "expected original mean state-set Jaccard distance; not a proper probabilistic calibration score",
         "bootstrap": "999 whole-spatial-block resamplings within each group; exploratory confidence limits; not source phylogenetic independence",
         "support": support,
