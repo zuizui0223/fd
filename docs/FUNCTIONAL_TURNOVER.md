@@ -1,6 +1,6 @@
 # Functional-trait turnover under island taxonomic turnover
 
-**Status: exploratory, descriptive-only input/coverage gate (2026-11-10). No new empirical functional-diversity, null-model, or evolutionary finding is claimed.**
+**Status (2026-11-10): source-pinned private-input empirical prevalence/coverage and sequential equal-carrier rarefaction diagnostics completed; these are exploratory descriptions, NOT independent functional-diversity significance, geological causality, or evolutionary findings.** See [restricted-source aggregate results](../results/20261110_functional_turnover_readiness/private_functional_rarefaction_diagnostic.md).
 
 ## Scientific question and independence from island Chapter 1
 
