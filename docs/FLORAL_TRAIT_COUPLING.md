@@ -1,6 +1,6 @@
 # Floral trait-source prediction: marginal colour, marginal form and joint combinations
 
-**2026-11-10. Status: mathematical redefinition + source-pinned public-kernel audit + synthetic tests; private N2 joint-prediction re-estimation is NOT yet a verified empirical result.**
+**2026-11-10. Status: public kernel rank/PSD audit AND private original-checkpoint source-matched joint-probability replay complete; separate geological-origin N2 SES is not evaluated.** [Aggregate empirical score report](../results/20261110_joint_flower_source/README.md).
 
 ## Previously overlooked identification problem
 
@@ -68,8 +68,10 @@ structure, whereas Kjoint can.
 
 **The mathematical full rank is not an empirical ecological effect.**
 No donor-source predictive improvement or selection inference has yet
-been verified with the joint kernel. The public GitHub Action additionally
-calculates symmetric eigenvalues and SHA256 for source-pinned confirmation.
+been verified with the joint kernel. Independent original-profile eigendecomposition further confirms Kjoint has
+minimum eigenvalue **+0.00389547906**, not just full pivoted-Cholesky
+rank. Public GitHub Actions separately calculate eigenvalues and source SHA256
+for a source-pinned audit.
 
 **Do not overclaim:** Positive Kjoint improvement does not automatically
 prove an ecological 'colour–form interaction'. Joint predictions change
@@ -140,18 +142,27 @@ The actual N2 per-score extensions live in
 `src/fd/n2_source_assignment_placebo.py`.
 Their outputs are respectively
 `n2_trait_component_crossfit.csv` and
-`n2_source_placebo_trait_kernels.csv`, produced **only** by an
-authorized local replay with nonredistributable native-mainland taxon
-sources. A successful public CI does not mean this private empirical
-analysis has been run.
+`n2_source_placebo_trait_kernels.csv`, produced **only** by
+authorized local replay with nonredistributable native-mainland
+taxon sources. An **independent computational replay of the original
+five folds** has now been completed, verifying that the previous
+Kadd strict-placebo gains are reproduced to six decimal places
+and adding Kjoint gain **All +0.002378
+(95% spatial-block interval +0.000878,+0.003753)** and
+**Direct +0.001097 (−0.000153,+0.002178)** on the same
+1,007/950 donor-opportunity matched islands. See
+[the source-audited aggregate report](../results/20261110_joint_flower_source/README.md).
+Public CI alone does not run these private GIFT inputs.
 
 ## Manuscript decision gate
 
-Without the source-placebo **joint-product** check, the strongest
-defensible statement is: *native mainland donor geography carries
-some additional information about similarity among recorded floral
-traits beyond known genus composition, although strict donor-support
-matching greatly attenuates that advantage*. It is not yet proof that
-specific **colour–form combinations** or pollinator-relevant floral
-configurations transfer consistently from mainland source pools to
-islands.
+With the source-placebo **joint-product** check now completed,
+the strongest defensible statement is: *candidate native mainland
+donor geography contains small additional probabilistic information
+about recorded **joint flower colour/form profiles** after the
+known-genus and independent donor-support matching conditions,
+with a positive block-bootstrap interval in All and uncertain
+replication in the nested Direct scope*. This is a conditional
+observational source-prediction result, NOT independent evidence
+of a pure colour–form interaction mechanism, evolved pollinator
+syndrome, historical mainland ancestry or geological-origin filtering.
