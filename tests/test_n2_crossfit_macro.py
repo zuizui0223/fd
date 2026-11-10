@@ -4,7 +4,7 @@ import pandas as pd
 import pytest
 
 from fd.n2_crossfit_macro import (
-    METRICS, block_bootstrap_mean, summarize,
+    METRICS, block_bootstrap_mean, summarize, taxon_balanced_source_summary,
 )
 
 
@@ -75,3 +75,43 @@ def test_scant_spatial_replication_suppresses_predictive_claim():
         "genus_brier_gain", "source_brier_gain",
         "genus_kernel_gain", "source_kernel_gain",
     )
+
+
+def test_taxon_balanced_source_gain_does_not_multiply_repeated_island_names():
+    # One broadly recorded taxon (five folds) versus 19 unique taxa.
+    # A record-weighted mean is 5/24, but correct one-name mean = 1/20.
+    rows = []
+    for g in range(20):
+        folds = range(5) if g == 0 else [0]
+        for fold in folds:
+            rows.append({
+                "accepted_species": f"Gen{g} taxon",
+                "genus": f"Gen{g}", "scope": "all", "fold": fold,
+                "source_gain_kernel": float(g == 0),
+                "source_gain_brier": .001 * (g + 1),
+                "source_gain_logloss": 0.,
+                "source_gain_trait_distance_loss": 0.,
+                "has_local_genus_donor": float(g == 0),
+            })
+    out = taxon_balanced_source_summary(
+        [pd.DataFrame(rows)], draws=399)
+    assert len(out) == 1
+    assert out[0]["n_unique_names"] == 20
+    assert out[0]["n_unique_genera"] == 20
+    assert out[0]["n_name_fold_units"] == 24
+    assert out[0]["mean_source_gain_kernel"] == pytest.approx(1/20)
+    assert out[0]["mean_local_genus_donor_support"] == pytest.approx(1/20)
+    assert out[0]["mean_source_gain_brier"] == pytest.approx(.0105)
+    assert all("accepted_species" not in x and "genus" not in x
+               for x in out)
+
+
+def test_taxon_balance_rejects_duplicated_name_fold_rows():
+    rows = pd.DataFrame([{
+        "accepted_species": "Gen one", "genus": "Gen", "scope": "all",
+        "fold": 0, "source_gain_kernel": .1, "source_gain_brier": .1,
+        "source_gain_logloss": .1, "source_gain_trait_distance_loss": .1,
+        "has_local_genus_donor": 1.,
+    }] * 2)
+    with pytest.raises(ValueError, match="deduplicated"):
+        taxon_balanced_source_summary([rows], draws=299)
