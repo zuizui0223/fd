@@ -10,6 +10,17 @@ We now require EVERY training mainland species AND EVERY evaluated island specie
 
 This audit uses the same original 1,419 G0 study islands and 9 within-region source-overlap components with >=40 islands. Before training, every name recorded on ANY of the 1,419 island floras (**110,587 distinct accepted names**) is excluded from ALL mainland donor entities, including unmeasured island taxa; the full five-nearest native GIFT mainland source-entity union linked to each evaluated component is excluded as well. Five-source GIFT labels describe **possible checklist opportunity**, not actual ancestors.
 
+
+## Evidence-provenance correction: All is NOT independent genus training
+
+The original `fixed/source/current/evidence/all_analysis_eligible_trait_ledger.csv.gz` contains **11,159 of 17,885 SC/SI state labels** and **23,771 of 56,202 symmetry state labels** as `evidence_scope=genus_consensus` (`evidence_quality=low`). These outcomes are already constructed from other species in the **same genus**. A genus model predicting them risks circularity; the positive All 18/18 results **cannot be claimed as independent validation of genus conservation**. The `snapshot` All ledger includes 15,214/21,885 SC/SI and 18,582/50,621 symmetry states classified as `validated_low`, which likewise require distinct provenance screening before biological independent-replication claims.
+
+**Promote ONLY Direct species-documented results as the scientific primary comparison.** The 9/9 Direct/source and Direct/snapshot symmetry results remain real out-of-source, out-of-name conditional predictions; do not reinterpret them as measured visitation, selection or evolutionary mechanisms.
+
+Crucially, every **185–195 SC All-only / Direct-missing mainland donor candidate** in the source-adjusted ledger is a `genus_consensus` low-evidence record. These are *not* independent external empirical SC/SI evidence to be reclassified automatically: use them only to prioritize independent species-level measurements. For a genuinely independent Direct acquisition list, the **751–831 candidate donor species with Direct symmetry and missing Direct SC/SI** per component are better outcome-blind candidate identities, but their reproductive state must be newly established from legitimate species-direct sources.
+
+A purely taxonomic, **outcome-blind donor acquisition priority** ranks candidate *genera* by how many strictly SC/SI-recorded island test species have NO existing Direct mainland donor in that genus. In the nine source-adjusted evaluation groups, current same-genus SC coverage averages **7.88%**; in a hypothetical scenario where one independent Direct SC/SI record were added in each of the top 5, 10, 25 or 50 eligible uncovered genera, mean *potential* coverage would be **11.88%, 14.01%, 17.55%, 19.93%**, with an attainable-by-this-candidate-set upper bound of **21.11%**. These numbers are **coverage feasibility ceilings**, not measured new traits, estimated predictive improvements, or warranted claims of independent source replication. Candidate genus IDs / taxon lists remain private.
+
 ## Main result: controlled opportunity, different trait prediction
 
 At tau = 1 pseudo-donor name, all-recorded island targets:
@@ -51,10 +62,10 @@ SC/SI improves with increased same-genus donor observations, showing that its we
 
 The strict all-1,419-island name exclusion and source-region holdout yield **104–105 Direct SC/SI donor names** per component (compared with 54–55 names already known for BOTH traits). For the Direct/source-adjusted ledger, the current fraction of evaluated SC/SI names with a same-genus donor ranges from **4.2% to 12.7%** (mean ~7.9%).
 
-Two outcome-blind candidate groups remain in the eligible mainland flora: **185–195** taxon names per component have SC/SI recorded in All but not Direct, and **751–831** have Direct symmetry but no Direct SC/SI state. These are overlapping candidate lists across components, NOT thousands of independently available new studies.
+Two outcome-blind candidate groups remain in the eligible mainland flora: **185–195** taxon names per component have SC/SI states in the *genus-consensus-imputed* source All ledger but not Direct, and **751–831** have true Direct symmetry records but no Direct SC/SI state. The former are NOT independently observed SC data. These are overlapping candidate lists across components, NOT thousands of independently available new studies.
 
 The theoretical upper bound on same-genus evaluation coverage if every candidate received newly validated Direct SC/SI evidence is:
-- Review/verify **All-only SC/SI** candidates: mean **18.9%** coverage
+- Hypothetically acquire **independent SC/SI evidence for genus-consensus-imputed All candidates**: mean **18.9%** coverage
 - Obtain true SC/SI data for **Direct-symmetry-only** candidates: mean **21.1%**
 - Both candidate classes combined: mean **29.1%**
 
