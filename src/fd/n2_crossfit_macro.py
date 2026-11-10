@@ -28,8 +28,19 @@ from .pipeline import _write_csv
 from .proper_scoring import (
     inspect_kernel, heldout_probability_scores, heldout_name_source_gains,
 )
+from .trait_kernels import KERNEL_NAMES, kernel_quality, heldout_axis_source_gains
 
 SCOPES = ("all", "direct")
+AXIS_METRICS = tuple(
+    f"{prefix}_{name}" for prefix in ("genus", "source")
+    for name in KERNEL_NAMES
+)
+AXIS_FIELDS = (
+    "scope", "region", "n_islands", "n_spatial_blocks", "status",
+    *tuple(field for metric in AXIS_METRICS
+           for field in (f"mean_{metric}", f"{metric}_block_q025",
+                         f"{metric}_block_q975")),
+)
 SOURCE_NAME_METRICS = (
     "source_gain_logloss", "source_gain_trait_distance_loss",
     "source_gain_brier", "source_gain_kernel",
@@ -179,6 +190,43 @@ def taxon_balanced_source_summary(
     return results
 
 
+def summarize_trait_axes(rows: list[dict], *, draws: int = 999,
+                         seed: int = 20261110) -> list[dict]:
+    """One original island vote for each post-hoc trait kernel.
+
+    Retains the same geographically held-out island population across all
+    kernels. No source IDs, species, genera or individual island outcomes.
+    """
+    sample = pd.DataFrame(rows)
+    out = []
+    for scope, by_scope in sample.groupby("scope", sort=True):
+        groups = [(scope, "all", by_scope)]
+        groups += [(scope, region, sub) for region, sub
+                   in by_scope.groupby("analysis_regime", sort=True)]
+        for _, region, frame in groups:
+            row = {"scope": scope, "region": region,
+                   "n_islands": len(frame),
+                   "n_spatial_blocks": frame.spatial_block.nunique(),
+                   "status": "posthoc_heldout_trait_kernel_decomposition"}
+            if len(frame) < 5 or frame.spatial_block.nunique() < 5:
+                row["status"] = "insufficient_independent_geographic_support"
+            else:
+                for metric in AXIS_METRICS:
+                    avg, lo, hi = block_bootstrap_mean(
+                        frame, response=metric, draws=draws,
+                        seed=_seed(seed, scope, region + metric))
+                    row["mean_" + metric] = avg
+                    row[metric + "_block_q025"] = lo
+                    row[metric + "_block_q975"] = hi
+                if not np.isclose(
+                        row["mean_source_additive"],
+                        .5*(row["mean_source_colour"] + row["mean_source_form"]),
+                        atol=1e-9):
+                    raise AssertionError("Additive marginal kernel identity broken")
+            out.append(row)
+    return out
+
+
 def run(profile_all: Path, profile_direct: Path, flora: Path,
         mainland_native: Path, assignments: Path, g0_root: Path,
         geographic_blocks: Path, reference: Path, input_root: Path,
@@ -197,6 +245,9 @@ def run(profile_all: Path, profile_direct: Path, flora: Path,
         raise ValueError("Frozen 496 categorical profiles and IDs changed")
     kernel_audit = inspect_kernel(space.matrix)
     similarity = kernel_audit.pop("kernel")
+    trait_k, trait_audit = kernel_quality(load_profiles(reference))
+    if not np.allclose(trait_k["additive"], similarity, atol=1e-12):
+        raise AssertionError("Original D and additive colour/form kernel mismatch")
     profiles = {
         "all": load_private_maps(profile_all, "all", set(space.ids)),
         "direct": load_private_maps(profile_direct, "direct", set(space.ids)),
@@ -225,6 +276,7 @@ def run(profile_all: Path, profile_direct: Path, flora: Path,
     if flora_table.duplicated(["island_id", "accepted_species"]).any():
         raise ValueError("Duplicated name-bearing island records")
     internal = []
+    axis_islands = []
     private_name_fold = []
     support = {}
     for scope in SCOPES:
@@ -257,6 +309,18 @@ def run(profile_all: Path, profile_direct: Path, flora: Path,
             for island, part in batch.groupby("island_id", sort=True):
                 audit = heldout_name_calibration(part, model, island, space)
                 proper = heldout_probability_scores(part, model, island, similarity)
+                axis_gains = heldout_axis_source_gains(
+                    part, model, island, trait_k)
+                if abs(axis_gains["source_additive"] - (
+                        proper["global_genus_kernel"] -
+                        proper["local_genus_kernel"])) > 1e-9:
+                    raise AssertionError("Trait-axis score disagrees with source proper score")
+                axis_islands.append({
+                    "scope": scope,
+                    "analysis_regime": part.analysis_regime.iloc[0],
+                    "spatial_block": part.spatial_block.iloc[0],
+                    **axis_gains,
+                })
                 names = heldout_name_source_gains(part, model, island, similarity)
                 for name_metric, check_metric in (
                     ("source_gain_logloss", "logloss"),
@@ -312,11 +376,15 @@ def run(profile_all: Path, profile_direct: Path, flora: Path,
             fold_name["fold"] = int(fold)
             private_name_fold.append(fold_name)
     summarized = summarize(internal, draws=bootstrap_draws, seed=seed)
+    axis_summary = summarize_trait_axes(
+        axis_islands, draws=bootstrap_draws, seed=seed)
     names_summary = taxon_balanced_source_summary(
         private_name_fold, draws=bootstrap_draws, seed=seed)
     output.mkdir(parents=True, exist_ok=True)
     _write_csv(output / "n2_geographic_crossfit_prediction.csv",
                summarized, FIELDS)
+    _write_csv(output / "n2_trait_component_crossfit.csv",
+               axis_summary, AXIS_FIELDS)
     _write_csv(output / "n2_taxon_balanced_source_scores.csv",
                names_summary, NAME_BALANCE_FIELDS)
     manifest = {
@@ -329,6 +397,9 @@ def run(profile_all: Path, profile_direct: Path, flora: Path,
         "proper_name_score": "categorical negative log probability of complete colour/form profile; equal-island grouped average",
         "proper_probability_scores": "Brier (strictly proper) and K=1-original-D kernel quadratic score (proper but not strictly proper at rank deficient K); equal-island scoring",
         "kernel_audit": kernel_audit,
+        "trait_axis_kernels": trait_audit,
+        "trait_axis_inference": "post-hoc: separate colour and form marginal similarity, additive identity, product joint association; product signal is not uniquely pure interaction",
+        "trait_axis_output": "n2_trait_component_crossfit.csv, grouped island-equal geographic-block intervals only",
         "taxon_balanced_sensitivity": "within heldout fold average each accepted name over islands, then across folds equally by name; whole-genus bootstrap, not independent family phylogeny",
         "taxon_balanced_output": "n2_taxon_balanced_source_scores.csv; two aggregate scope rows, no names or genus keys",
         "distance_loss": "expected original mean state-set Jaccard distance; not a proper probabilistic calibration score",
