@@ -58,7 +58,7 @@ def holdout_genus_transfer(
     g=regimes[["island_id","analysis_regime"]].copy()
     if g.isna().any().any() or g.island_id.duplicated().any():
         raise ValueError("Invalid unique island regimes")
-    g=g.astype(str)
+    g=g.astype(str).reset_index(drop=True)
     s=source_assignments[["island_id","source_mode","source_rank","entity_ID"]].copy()
     s.source_rank=pd.to_numeric(s.source_rank,errors="coerce")
     if s.source_rank.isna().any():
