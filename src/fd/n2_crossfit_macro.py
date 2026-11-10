@@ -25,9 +25,22 @@ from .n2_source_distance import (
 from .n2_source_coverage_audit import balanced_block_folds
 from .heldout_mainland_prediction import DonorModel, DEFAULT_SHRINK
 from .pipeline import _write_csv
-from .proper_scoring import inspect_kernel, heldout_probability_scores
+from .proper_scoring import (
+    inspect_kernel, heldout_probability_scores, heldout_name_source_gains,
+)
 
 SCOPES = ("all", "direct")
+SOURCE_NAME_METRICS = (
+    "source_gain_logloss", "source_gain_trait_distance_loss",
+    "source_gain_brier", "source_gain_kernel",
+)
+NAME_BALANCE_FIELDS = (
+    "scope", "n_unique_names", "n_unique_genera", "n_name_fold_units",
+    "mean_local_genus_donor_support",
+    *tuple(v for k in SOURCE_NAME_METRICS
+           for v in (f"mean_{k}", f"{k}_genus_boot_q025",
+                     f"{k}_genus_boot_q975")),
+)
 METRICS = (
     "genus_gain", "source_gain", "source_distance_gain",
     "genus_brier_gain", "source_brier_gain",
@@ -115,6 +128,57 @@ def summarize(rows: list[dict], *, draws: int = 999,
     return output
 
 
+def taxon_balanced_source_summary(
+    name_fold: list[pd.DataFrame], *, draws: int = 999,
+    seed: int = 20261110,
+) -> list[dict]:
+    """One taxon name = one unit; bootstrap entire recorded genera.
+
+    Requires upstream aggregation of repeated island observations WITHIN
+    each geographic fold, then equal weighting of distinct fold predictions
+    within each taxon. Genus blocks are NOT phylogenetically independent
+    families; this is a strong sensitivity, not a causal bootstrap.
+    """
+    if draws < 99 or not name_fold:
+        raise ValueError("Missing private name-fold prediction evidence")
+    data = pd.concat(name_fold, ignore_index=True)
+    keys = ["scope", "fold", "accepted_species"]
+    if data.duplicated(keys).any():
+        raise ValueError("Name-fold outcomes were not deduplicated")
+    results = []
+    for scope, part in data.groupby("scope", sort=True):
+        taxon = part.groupby(["accepted_species", "genus"], sort=False)[
+            [*SOURCE_NAME_METRICS, "has_local_genus_donor"]
+        ].mean().reset_index()
+        row = {
+            "scope": scope, "n_unique_names": len(taxon),
+            "n_unique_genera": taxon.genus.nunique(),
+            "n_name_fold_units": len(part),
+            "mean_local_genus_donor_support": float(
+                taxon.has_local_genus_donor.mean()),
+        }
+        for metric in SOURCE_NAME_METRICS:
+            group = taxon.groupby("genus", sort=True)[metric].agg(
+                ["sum", "size"]).to_numpy(dtype=float)
+            if len(group) < 20:
+                raise ValueError("Insufficient taxonomically distinct genus clusters")
+            rng = np.random.default_rng(_seed(seed, scope, metric))
+            estimates = []
+            for chunk in range(0, draws, 199):
+                nrep = min(199, draws-chunk)
+                idx = rng.integers(len(group), size=(nrep, len(group)))
+                estimates.append(
+                    group[idx, 0].sum(axis=1) /
+                    group[idx, 1].sum(axis=1))
+            values = np.concatenate(estimates)
+            row[f"mean_{metric}"] = float(taxon[metric].mean())
+            row[f"{metric}_genus_boot_q025"], row[
+                f"{metric}_genus_boot_q975"] = map(
+                    float, np.quantile(values, [.025, .975]))
+        results.append(row)
+    return results
+
+
 def run(profile_all: Path, profile_direct: Path, flora: Path,
         mainland_native: Path, assignments: Path, g0_root: Path,
         geographic_blocks: Path, reference: Path, input_root: Path,
@@ -161,6 +225,7 @@ def run(profile_all: Path, profile_direct: Path, flora: Path,
     if flora_table.duplicated(["island_id", "accepted_species"]).any():
         raise ValueError("Duplicated name-bearing island records")
     internal = []
+    private_name_fold = []
     support = {}
     for scope in SCOPES:
         eligible = g0[scope].merge(geography, on="island_id",
@@ -182,6 +247,7 @@ def run(profile_all: Path, profile_direct: Path, flora: Path,
             raise ValueError("Missing independent source entity assignment")
         support[scope] = {"n_islands": len(eligible), "scored": 0}
         for fold, batch in member.groupby("fold", sort=True):
+            named_parts = []
             heldout = set(batch.accepted_species)
             donor = donor_training(native, profiles[scope], heldout)
             selected_assign = source_scoped.loc[
@@ -191,6 +257,19 @@ def run(profile_all: Path, profile_direct: Path, flora: Path,
             for island, part in batch.groupby("island_id", sort=True):
                 audit = heldout_name_calibration(part, model, island, space)
                 proper = heldout_probability_scores(part, model, island, similarity)
+                names = heldout_name_source_gains(part, model, island, similarity)
+                for name_metric, check_metric in (
+                    ("source_gain_logloss", "logloss"),
+                    ("source_gain_trait_distance_loss", "trait_distance_loss"),
+                    ("source_gain_brier", "brier"),
+                    ("source_gain_kernel", "kernel"),
+                ):
+                    check = (
+                        proper["global_genus_" + check_metric] -
+                        proper["local_genus_" + check_metric])
+                    if abs(float(names[name_metric].mean())-check) > 1e-9:
+                        raise AssertionError("Per-name/whole-island scoring disagreement")
+                named_parts.append(names)
                 if (abs(proper["global_genus_logloss"] - audit["log_loss_global_genus"]) > 1e-9 or
                         abs(proper["local_genus_logloss"] - audit["log_loss_local_genus"]) > 1e-9):
                     raise AssertionError("Two implementations of donor heldout log loss disagree")
@@ -224,10 +303,22 @@ def run(profile_all: Path, profile_direct: Path, flora: Path,
                 }
                 internal.append(row)
                 support[scope]["scored"] += 1
+            # Keep only one private row per (taxon name, heldout fold), despite
+            # the same taxon occurring on many focal islands.
+            fold_name = pd.concat(named_parts, ignore_index=True).groupby(
+                ["accepted_species", "genus"], sort=False
+            )[[*SOURCE_NAME_METRICS, "has_local_genus_donor"]].mean().reset_index()
+            fold_name["scope"] = scope
+            fold_name["fold"] = int(fold)
+            private_name_fold.append(fold_name)
     summarized = summarize(internal, draws=bootstrap_draws, seed=seed)
+    names_summary = taxon_balanced_source_summary(
+        private_name_fold, draws=bootstrap_draws, seed=seed)
     output.mkdir(parents=True, exist_ok=True)
     _write_csv(output / "n2_geographic_crossfit_prediction.csv",
                summarized, FIELDS)
+    _write_csv(output / "n2_taxon_balanced_source_scores.csv",
+               names_summary, NAME_BALANCE_FIELDS)
     manifest = {
         "schema": "fd_n2_5_spatial_block_fold_heldout_prediction_v1",
         "status": "private_input_only_exploratory_predictive_calibration",
@@ -238,6 +329,8 @@ def run(profile_all: Path, profile_direct: Path, flora: Path,
         "proper_name_score": "categorical negative log probability of complete colour/form profile; equal-island grouped average",
         "proper_probability_scores": "Brier (strictly proper) and K=1-original-D kernel quadratic score (proper but not strictly proper at rank deficient K); equal-island scoring",
         "kernel_audit": kernel_audit,
+        "taxon_balanced_sensitivity": "within heldout fold average each accepted name over islands, then across folds equally by name; whole-genus bootstrap, not independent family phylogeny",
+        "taxon_balanced_output": "n2_taxon_balanced_source_scores.csv; two aggregate scope rows, no names or genus keys",
         "distance_loss": "expected original mean state-set Jaccard distance; not a proper probabilistic calibration score",
         "bootstrap": "999 whole-spatial-block resamplings within each group; exploratory confidence limits; not source phylogenetic independence",
         "support": support,
