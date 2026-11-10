@@ -48,7 +48,7 @@ def margins(p: np.ndarray, colour: np.ndarray,
 def match_marginals(
     global_genus: np.ndarray, local_genus: np.ndarray,
     colour: np.ndarray, form: np.ndarray, *,
-    tol: float = 1e-8, max_iter: int = 3000,
+    tol: float = 2e-7, max_iter: int = 3000,
 ) -> tuple[np.ndarray, dict]:
     """KL-minimal IPF projection of local predictions onto global marginals.
 
