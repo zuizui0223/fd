@@ -53,9 +53,9 @@ def leave_one_family_out_scores(
         if not cols or len(cols) != len(set(cols)) or not set(cols).issubset(features):
             raise ValueError("Invalid fixed model feature family")
 
-    from sklearn.linear_model import Ridge
-    from sklearn.preprocessing import StandardScaler
-
+    # Use the same ridge normal equations and TRAIN-fold-only z-scoring
+    # as fd's existing family-disjoint implementation. No sklearn runtime
+    # dependency is needed by the lightweight public CI.
     errors = {}
     for name, cols in models.items():
         X = features[cols].to_numpy(float)
@@ -65,9 +65,17 @@ def leave_one_family_out_scores(
         for family in unique:
             test = np.flatnonzero(fam == family)
             train = np.flatnonzero(fam != family)
-            scaler = StandardScaler().fit(X[train])
-            model = Ridge(alpha=alpha).fit(scaler.transform(X[train]), y[train])
-            pred[test] = model.predict(scaler.transform(X[test]))
+            mu = X[train].mean(axis=0)
+            sd = X[train].std(axis=0)
+            sd[sd < 1e-12] = 1
+            a_train = (X[train] - mu) / sd
+            a_test = (X[test] - mu) / sd
+            intercept = y[train].mean(axis=0)
+            beta = np.linalg.solve(
+                a_train.T @ a_train + alpha * np.eye(a_train.shape[1]),
+                a_train.T @ (y[train] - intercept),
+            )
+            pred[test] = intercept + a_test @ beta
         pred = _simplex(pred)
         mse = np.square(pred - y).mean(axis=1)
         mae = np.abs(pred - y).mean(axis=1)
