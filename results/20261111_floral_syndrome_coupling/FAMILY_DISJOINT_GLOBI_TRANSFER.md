@@ -87,3 +87,14 @@ An additional 999-draw, intact **TWO-STRUCTURAL-TRAIT vector** permutation stric
 
 This finding does NOT mean other optical signals (UV patterns, spectral reflectance, nectar guides) are unimportant; those were not included in the present three coarse summary features. The source GloBI five-channel shares remain global documented references, not the pollinator community physically on each island.
 
+
+
+## 11 November 2026 supplemental strict taxonomy / equal-family audit
+
+An independent rerun **excluded both genera whose frozen GBIF rows assigned competing family labels** instead of applying a majority classification. The resulting **484 genera in 88 unambiguous families** were evaluated by scikit-learn `GroupKFold(5)` against identical source-reference controls. Ridge alpha100, simplex-constrained whole-family-heldout MSE was **0.041756 evidence-only**, **0.040708 + three coarse floral morphology traits**, **0.041707 + all marginal states**, **0.052824 + full joint profiles**. Coarse gain **+0.001048 (2.51%)**, sign positive in an independent five-partition/two-alpha sensitivity; full joint features remain negative.
+
+**A material inference qualification:** The earlier [+0.000403,+0.002716] interval is obtained by resampling families **with their number of genera as weights** on the 486-genus cohort. In the new strict 484-genus cohort, giving all **88 families exactly one vote** produces gain +0.001074, but conditional family-equal bootstrap interval **[−0.000226,+0.002346] includes zero**; only 48/88 family means are positive. These are different estimands, not a numerical contradiction, and the original CI must not be described as evidence for a universally positive mean effect across families. The public `globi_family_holdout_cv.py` now returns **both** family-equal and genus-weighted family-cluster bootstrap intervals, and rejects unresolved `AMBIG:` family labels.
+
+Within-family shuffling of intact three-trait vectors (447/484 shufflable genera, 999 draws) yielded an exploratory source-effort-preserving null median +0.000259 and 95% range [−0.000124,+0.000695], versus observed +0.001048, upper-tail fraction 0.001; family/provider/phylogenetic non-independence remains unresolved. A further same-cohort structural feature ablation across 5 balanced family folds shows average gain **+0.001349 for actinomorphy + open-radial form**, compared with **−0.000017 for inconspicuous colour alone**; adding colour to form+symmetry changes average gain by −0.000019. This supports a narrow *documented interaction-composition* structural proxy, not a measured island pollination syndrome.
+
+[Full audit](FAMILY_UNAMBIGUOUS_484_AUDIT.md) · [unambiguous family predictions](family_unambiguous_484_prediction_aggregate.csv) · [structural ablation](family_unambiguous_484_structural_ablation.csv). Private genus–family mapping and original source rows are not committed.
