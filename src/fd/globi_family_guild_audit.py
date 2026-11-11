@@ -86,6 +86,6 @@ def audit_guilds(features:pd.DataFrame, families:pd.Series, documented:np.ndarra
             within_family_null_median=float(np.median(ctrl)),
             within_family_null_025=float(np.quantile(ctrl,.025)),
             within_family_null_975=float(np.quantile(ctrl,.975)),
-            posthoc_one_sided_tail=float((1+(ctrl>=delta.mean()).sum())/(shuffles+1),
+            posthoc_one_sided_tail=float((1+(ctrl>=delta.mean()).sum())/(shuffles+1)),
             provider_independent=False,local_pollination_measured=False))
     return pd.DataFrame.from_records(rows)
