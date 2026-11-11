@@ -61,3 +61,20 @@ The frozen 2,228-genus GloBI aggregate does **not** contain per-plant-genus × c
 - `per_guild_88_family_within_family_morphology_null.csv`: six anonymous original-data summary rows.
 - `pollination_evidence_family_coverage_sensitivity.csv`: eighteen anonymous rows summarizing bird, Diptera and five-channel pooled thresholds.
 - GloBI and `island` original taxon/provider rows were never committed to the public fd branch. All empirical results are exploratory; public CI validates synthetic rules and no raw genus names.
+
+
+## 5. Independent pollinator-taxon catalog evidence-class audit
+
+The independently frozen original `channel_taxon_catalog_confirmatory.csv` in the GloBI qualified-interactions artifact **10291643834** (separate from genus→guild modeled input) has one row per documented visitor taxon per channel, with raw `n_pollination_rows` and `n_flower_visit_rows` counts. Summing those source-v0.9 catalog rows yields:
+
+| Documented visitor channel | Confirmatory visitor taxa | `pollination` labeled interaction rows | `flower_visit` labeled rows | Fraction explicitly labeled `pollination` |
+| --- | ---: | ---: | ---: | ---: |
+| Bombus | 146 | 41,495 | 135,466 | **23.45%** |
+| Other bees | 2,206 | 143,049 | 115,980 | **55.23%** |
+| Lepidoptera | 2,360 | 8,515 | 167,712 | **4.83%** |
+| Flower-visiting birds | 370 | 2,670 | 8,651 | **23.58%** |
+| Diptera | 1,846 | 34,753 | 46,800 | **42.61%** |
+
+The source contains **visitor-taxon-level counts**, not the exact same 484 botanical genus × GloBI channel training records. Therefore these global fractions **cannot** be used to back-correct the five-channel genus MSE or infer local island pollination effectiveness. Even a record labeled `pollination` is not equivalent to independently documented successful pollen transfer/seed set. For Lepidoptera in particular, the literature reference composition heavily reflects plain flower-visit records, and the original GloBI group does not distinguish daytime butterflies from nocturnal moths.
+
+Released grouped original-data source: [`globi_qualified_pollinator_catalog_evidence_classes.csv`](globi_qualified_pollinator_catalog_evidence_classes.csv). Original pollinator species names, precise reference citations and provider IDs were NOT exported to fd.
