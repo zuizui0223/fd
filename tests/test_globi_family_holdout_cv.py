@@ -53,6 +53,10 @@ def test_blocked_morphology_gain_and_private_aggregate():
     row = summary.set_index("model").loc["simple_morphology"]
     assert row.n_genera == 100 and row.n_family_blocks == 20
     assert row.MSE_gain_over_reference_only > 0
+    assert row.family_equal_bootstrap_lower <= row.family_equal_gain
+    assert row.family_equal_bootstrap_upper >= row.family_equal_gain
+    assert (row.conditional_family_bootstrap_lower <= row.MSE_gain_over_reference_only
+            <= row.conditional_family_bootstrap_upper)
     assert not {"genus", "family", "island_id", "accepted_species"} & set(summary)
 
 
@@ -94,3 +98,12 @@ def test_morphology_ablation_disaggregates_colour_and_structure():
     assert scores["symmetry_form"] > 0
     assert scores["evidence_only"] == pytest.approx(0)
     assert not {"family", "genus", "accepted_species"} & set(z.columns)
+
+
+def test_competing_family_labels_must_be_excluded_before_blocked_cv():
+    x, y, families = synthetic()
+    families.iloc[0] = "AMBIG:Apocynaceae&Asclepiadaceae"
+    with pytest.raises(ValueError, match="conflicting"):
+        family_disjoint_scores(x, MODELS, y, families,
+                               seeds=(20261111,), alphas=(100.),
+                               bootstrap_draws=199)
