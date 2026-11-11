@@ -56,6 +56,12 @@ jobs:
           assert set(g.channel) == {'bombus','non_bombus_bees','lepidoptera','diptera','flower_visiting_birds','five_channel_mean'}
           assert set(g.n_heldout_families) == {88} and set(g.n_heldout_genera) == {484}
           assert not g.source_level_provider_independence_verified.any()
+          p = pd.read_csv(base / 'pollination_evidence_family_coverage_sensitivity.csv')
+          assert not forbidden.intersection(p.columns)
+          assert set(p.min_genus_explicit_pollination_rows) == {0,1,3,10,20,50}
+          assert (p.n_heldout_families >= 50).all()
+          assert (p.n_heldout_genera >= 150).all()
+          assert p.shape[0] == 18
           assert (x.n_islands >= 20).all()
           assert (x.n_spatial_blocks >= 5).all()
           assert len(a) == 1 and int(a.n_species_with_all_3_templates.iloc[0]) >= 50
