@@ -180,3 +180,57 @@ def within_family_morphology_null(
         "posthoc_upper_tail_fraction": float((1+(null >= observed).sum())/(permutations+1)),
         "actual_island_visitors_or_pollination_effectiveness_tested": False,
     }
+
+
+def coarse_morphology_ablation(
+    x: pd.DataFrame, y: np.ndarray, families: pd.Series, *,
+    base_features: list[str], symmetry: str, form: str, colour: str,
+    seeds=(20261111, 20261112, 20261113, 20261114, 20261115),
+    alpha: float = 100.,
+) -> pd.DataFrame:
+    """Outcome-blind whole-family ablation of three DIRECT structural/signal axes.
+
+    All feature choices and test genus rows stay fixed across comparisons.
+    The output reports documentation composition scores, not local guilds.
+    """
+    if len(set(base_features+[symmetry,form,colour])) != len(base_features)+3:
+        raise ValueError("Duplicate or overlapping evidence/morphology predictors")
+    designs = {
+        "evidence_only": [],
+        "symmetry_only": [symmetry],
+        "form_only": [form],
+        "colour_only": [colour],
+        "symmetry_form": [symmetry,form],
+        "symmetry_colour": [symmetry,colour],
+        "form_colour": [form,colour],
+        "all_three": [symmetry,form,colour],
+    }
+    complete = base_features + designs["all_three"]
+    stub = {name:complete for name in MODEL_ORDER}
+    fam, target = _validate(x, stub, y, families)
+    if not np.isfinite(alpha) or alpha <= 0:
+        raise ValueError("Regularization must be finite and positive")
+    result = []
+    for seed in seeds:
+        split = family_folds(fam, seed=int(seed))
+        prediction = {
+            name: _predict(x[base_features+features].to_numpy(float),
+                           target, split, alpha)
+            for name, features in designs.items()
+        }
+        loss = {
+            name: np.square(target-p).mean(axis=1)
+            for name, p in prediction.items()
+        }
+        for name, features in designs.items():
+            gain = loss["evidence_only"]-loss[name]
+            result.append({
+                "fold_seed":int(seed), "ridge_alpha":float(alpha),
+                "model":name, "n_genera":len(x),
+                "n_family_blocks":len(np.unique(fam)),
+                "n_morph_predictors":len(features),
+                "five_channel_MSE":float(loss[name].mean()),
+                "MSE_gain_over_evidence_only":float(gain.mean()),
+                "no_island_visitor_or_pollen_service_observed":True,
+            })
+    return pd.DataFrame(result)
