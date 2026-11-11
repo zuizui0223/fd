@@ -5,6 +5,10 @@ on:
     paths:
       - 'src/fd/floral_syndrome_coupling.py'
       - 'tests/test_floral_syndrome_coupling.py'
+      - 'src/fd/pollinator_assemblage_bridge.py'
+      - 'src/fd/globi_morphology_falsification.py'
+      - 'tests/test_pollinator_assemblage_bridge.py'
+      - 'tests/test_globi_morphology_falsification.py'
       - 'results/20261111_floral_syndrome_coupling/**'
       - '.github/workflows/floral-syndrome-coupling.yml'
   workflow_dispatch:
@@ -25,7 +29,7 @@ jobs:
         run: python -m pip install -e '.[test]'
       - name: Test Direct categorical diversity, conditioning and privacy
         run: |
-          python -m pytest -q tests/test_floral_syndrome_coupling.py
+          python -m pytest -q tests/test_floral_syndrome_coupling.py tests/test_pollinator_assemblage_bridge.py tests/test_globi_morphology_falsification.py
       - name: Verify privacy-gated public grouped result tables
         run: |
           python - <<'PY'
