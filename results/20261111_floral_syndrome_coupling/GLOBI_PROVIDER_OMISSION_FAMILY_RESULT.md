@@ -41,3 +41,22 @@ The model's five channels (Bombus, other bees, Lepidoptera, Diptera, flower-visi
 **Not established:** independent multi-provider replication, after-omission model gain distinctly positive on equal-family uncertainty, paired attenuation confidence interval, true island guild presence or pollination service.
 
 The next source-pinned rerun is [island Actions #43034251795](https://github.com/zuizui0223/island/actions/runs/43034251795). It adds a **proper paired family resampling of the after-minus-before incremental gain** using shared 77 family units, and evaluates the individual five documented channels in the same heldout cohort. If source support is insufficient, the exact code must report `NOT_IDENTIFIABLE`. The original data and taxon/provider reference IDs remain in restricted input; fd receives anonymous aggregate summary only. Draft PRs are kept unmerged pending source integrity review.
+
+
+## 12 Nov 2026: the paired 77-family result has completed
+
+The new original-GloBI provider/whole-family workflow [#43034251795](https://github.com/zuizui0223/island/actions/runs/43034251795) **SUCCEEDED**, with anonymous [source receipt artifact #13864221183](https://github.com/zuizui0223/island/actions/runs/43034251795/artifacts/13864221183). Both source conditions use exactly **344 genera and 77 botanical families**. Unlike the previous separate confidence intervals, the completed analysis resamples the **same 77 families as PAIRS**:
+
+- Source-archive omission change in mean family-equal flower-open-form MSE gain: **−0.001082**, paired conditional 95% interval **[−0.002177,−0.000107]**; negative throughout. This establishes an exploratory, **conditional source-documentation attenuation** under this coarse archive-label omission, not absence of actual pollination service.
+- Non-Bombus bees: family-equal incremental gain **+0.004348 before / +0.001087 after**, *paired change* **−0.003262 [−0.006630,−0.000129]**.
+- Lepidoptera: **+0.001609 before / −0.000069 after**, paired change **−0.001679 [−0.003375,−0.000039]**.
+- Bird flower-interaction documentation: **+0.002243 before / +0.002621 after**, *paired change* **+0.000378 [−0.000508,+0.001350]**, includes zero. Importantly, the **after-source-omission bird documentation prediction gain** alone has a positive conditional family-equal 95% interval **[+0.000879,+0.004586]**. It is NOT a verified bird-pollination syndrome.
+- Bombus and Diptera paired changes have conditional intervals containing zero.
+
+A caveat on the artifact metadata: the original source-coverage receipt retains a legacy top-level string `status=PROVIDER_COVERAGE_ONLY_NOT_FAMILY_PREDICTION`, even though its explicitly nested `provider_omitted_family_transfer.status=COMPLETED_EXPLORATORY_PROVIDER_OMITTED_FAMILY_TRANSFER` and boolean `provider_family_prediction_rerun_completed=true` show **actual completed family transfer**. Interpret the more specific nested fields, which are supported by matching runner logs and GitHub job success. This is a metadata legacy labeling issue, not a failed biological fit.
+
+This source-label omission is NOT guaranteed independent-publication-source filtering: the dominant `sourceArchiveURI` may aggregate several human research providers. The five GloBI outcomes are compositional and overlap in botanical/documentary origins, and all results are exploratory after prior model selection.
+
+**Updated interpretation:** the original GloBI documentation-composition pattern is partly source-label dependent; a narrower **documented bird-reference composition** prediction signal remains after this broad source-label omission. The result supplies an evidence filter for future true pollinator shift work, not evidence that birds replace bees on islands.
+
+See the [paired six-guild anonymous aggregation](paired_provider_omission_77families_fiveguilds.csv) and the separate [strict local island-pollinator evidence gate](../20261112_pollinator_shift/POLLINATOR_SHIFT_EVIDENCE_AUDIT.md).
