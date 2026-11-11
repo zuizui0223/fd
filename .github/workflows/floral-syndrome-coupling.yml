@@ -10,12 +10,14 @@ on:
       - 'src/fd/globi_channel_composition_cv.py'
       - 'src/fd/globi_family_holdout_cv.py'
       - 'src/fd/globi_family_lofo.py'
+      - 'src/fd/globi_family_guild_audit.py'
       - 'src/fd/globi_provider_provenance_gate.py'
       - 'tests/test_pollinator_assemblage_bridge.py'
       - 'tests/test_globi_morphology_falsification.py'
       - 'tests/test_globi_channel_composition_cv.py'
       - 'tests/test_globi_family_holdout_cv.py'
       - 'tests/test_globi_family_lofo.py'
+      - 'tests/test_globi_family_guild_audit.py'
       - 'tests/test_globi_provider_provenance_gate.py'
       - 'results/20261111_floral_syndrome_coupling/**'
       - '.github/workflows/floral-syndrome-coupling.yml'
@@ -37,7 +39,7 @@ jobs:
         run: python -m pip install -e '.[test]'
       - name: Test Direct categorical diversity, conditioning and privacy
         run: |
-          python -m pytest -q tests/test_floral_syndrome_coupling.py tests/test_pollinator_assemblage_bridge.py tests/test_globi_morphology_falsification.py tests/test_globi_channel_composition_cv.py tests/test_globi_family_holdout_cv.py tests/test_globi_family_lofo.py tests/test_globi_provider_provenance_gate.py
+          python -m pytest -q tests/test_floral_syndrome_coupling.py tests/test_pollinator_assemblage_bridge.py tests/test_globi_morphology_falsification.py tests/test_globi_channel_composition_cv.py tests/test_globi_family_holdout_cv.py tests/test_globi_family_lofo.py tests/test_globi_provider_provenance_gate.py tests/test_globi_family_guild_audit.py
       - name: Verify privacy-gated public grouped result tables
         run: |
           python - <<'PY'
@@ -49,6 +51,11 @@ jobs:
           forbidden = {"island_id", "accepted_species", "genus", "spatial_block", "entity_ID"}
           assert not forbidden.intersection(x.columns)
           assert not forbidden.intersection(a.columns)
+          g = pd.read_csv(base / 'per_guild_88_family_within_family_morphology_null.csv')
+          assert not forbidden.intersection(g.columns)
+          assert set(g.channel) == {'bombus','non_bombus_bees','lepidoptera','diptera','flower_visiting_birds','five_channel_mean'}
+          assert set(g.n_heldout_families) == {88} and set(g.n_heldout_genera) == {484}
+          assert not g.source_level_provider_independence_verified.any()
           assert (x.n_islands >= 20).all()
           assert (x.n_spatial_blocks >= 5).all()
           assert len(a) == 1 and int(a.n_species_with_all_3_templates.iloc[0]) >= 50
