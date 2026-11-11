@@ -24,8 +24,9 @@ def _validate(x: pd.DataFrame, models: dict[str, list[str]], y: np.ndarray,
     if not families.index.equals(x.index) or families.isna().any():
         raise ValueError("Missing or misordered botanical family mapping")
     labels = families.astype(str).str.strip()
-    if labels.eq("").any() or labels.str.lower().isin(("unknown", "unresolved", "nan")).any():
-        raise ValueError("Unresolved family identification cannot pass a family holdout")
+    if (labels.eq("").any() or labels.str.lower().isin(("unknown", "unresolved", "nan")).any()
+            or labels.str.startswith("AMBIG:").any()):
+        raise ValueError("Unresolved or conflicting family identification cannot pass a family holdout")
     f = labels.to_numpy()
     if len(np.unique(f)) < 10:
         raise ValueError("Insufficient botanical family blocks")
@@ -119,7 +120,11 @@ def family_disjoint_scores(x: pd.DataFrame, models: dict[str, list[str]],
                 fam_n = np.array([len(idx) for idx in family_rows])
                 fam_mean = fam_sum / fam_n
                 boots = rng.integers(len(uniques), size=(bootstrap_draws, len(uniques)))
+                # Two different estimands: prior interval weights sampled
+                # families by their GENUS counts; the new interval gives each
+                # family one vote. Do not interchange them.
                 resamples = fam_sum[boots].sum(axis=1) / fam_n[boots].sum(axis=1)
+                family_equal_resamples = fam_mean[boots].mean(axis=1)
                 output.append({
                     "model": name, "fold_seed": int(seed), "ridge_alpha": float(alpha),
                     "n_genera": len(x), "n_family_blocks": len(uniques),
@@ -127,6 +132,8 @@ def family_disjoint_scores(x: pd.DataFrame, models: dict[str, list[str]],
                     "MSE_five_documented_channels": float(error.mean()),
                     "MSE_gain_over_reference_only": float(gain.mean()),
                     "family_equal_gain": float(fam_mean.mean()),
+                    "family_equal_bootstrap_lower": float(np.quantile(family_equal_resamples, .025)),
+                    "family_equal_bootstrap_upper": float(np.quantile(family_equal_resamples, .975)),
                     "n_positive_families": int((fam_mean > 0).sum()),
                     "conditional_family_bootstrap_lower": float(np.quantile(resamples, .025)),
                     "conditional_family_bootstrap_upper": float(np.quantile(resamples, .975)),
