@@ -4,6 +4,7 @@ import pytest
 
 from fd.globi_family_holdout_cv import (
     family_disjoint_scores, family_folds, within_family_morphology_null,
+    coarse_morphology_ablation,
 )
 
 MODELS = {
@@ -78,3 +79,18 @@ def test_within_family_whole_triplet_placebo_not_causal():
     assert result["n_families"] == 20
     assert result["n_genera_in_shufflable_families"] == 100
     assert not result["actual_island_visitors_or_pollination_effectiveness_tested"]
+
+
+
+def test_morphology_ablation_disaggregates_colour_and_structure():
+    x, y, families = synthetic()
+    z = coarse_morphology_ablation(
+        x, y, families, base_features=MODELS["evidence_only"],
+        symmetry="prop_actinomorphic", form="prop_open_radial",
+        colour="prop_inconspicuous", seeds=(20261111,), alpha=100.)
+    assert len(z) == 8
+    scores = z.set_index("model").MSE_gain_over_evidence_only
+    assert scores["all_three"] > 0
+    assert scores["symmetry_form"] > 0
+    assert scores["evidence_only"] == pytest.approx(0)
+    assert not {"family", "genus", "accepted_species"} & set(z.columns)
