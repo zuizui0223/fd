@@ -65,3 +65,25 @@ Thus the gain is not reproduced by genus-level morphology rearrangements that pr
 - Synthetic regression tests in `tests/test_globi_family_holdout_cv.py`.
 - Public nonidentifying aggregate tables: family-vs-genus heldout scores across five family-fold assignments, independent GroupKFold check, whole-family conditional intervals, per-channel output and within-family shuffles. The **genus-to-family mapping and original species, GloBI reference/interaction and island rows remain in a private local source-audited workspace**.
 - Original GitHub Actions source artifact and blob identifiers allow auditing under the original data rights. Public GitHub CI checks synthetic algorithms and confidentiality only; it **does not independently rerun the source-restricted original-data calculations**.
+
+
+## Trait ablation: floral access structure rather than simple colour drives the transfer
+
+To prevent overinterpreting the island colour×architecture correlation as a working *multivariate pollination-syndrome classifier*, freeze the same **486 genera / 88 family** test frame, evidence-only source reference controls, same five family-disjoint fold assignments and ridge alpha100, then compare the three coarse floral features separately and in pairs.
+
+| Added Direct morphology over source-effort baseline | Mean five-channel MSE reduction across 5 family fold seeds |
+| --- | ---: |
+| Inconspicuous (green/brown) colour fraction ONLY | **−0.000006** |
+| Actinomorphic symmetry fraction ONLY | +0.000610 |
+| Open-radial flower-form fraction ONLY | +0.001021 |
+| Actinomorphy + open-radial form | **+0.001364** |
+| All three including inconspicuous colour | **+0.001357** |
+
+The *incremental* effect of adding this colour fraction after form+symmetry is **−0.000007 on average**, with fold-specific values −0.000039, +0.000026, −0.000008, +0.000017 and −0.000032. **Colour adds no robust out-of-family predictive skill in this coarse design.** In contrast, excluding either of the two floral structural axes weakens the prediction. Form and symmetry are partially ontologically overlapping, so their components do not constitute two independent ecological processes.
+
+An additional 999-draw, intact **TWO-STRUCTURAL-TRAIT vector** permutation strictly within each GBIF-backed botanical family (fixed first family CV fold, alpha100) gives observed five-channel MSE reduction **+0.001558**, placebo median **+0.000729**, 95% reference interval **[+0.000397,+0.001068]**, exploratory upper-tail fraction **0.001**. This supports a within-family genus-level *recorded morphology–documentation* association for structural proxies, without establishing actual flower–visitor functional fit.
+
+**Tighter conclusion:** the small generalizable signal is principally about the plant's **structural visitor-access architecture**, not the full colour×form×symmetry combination and not even the particular green/brown-versus-other colour contrast. The independent island flora result that colour/architecture combinations are nonrandom remains valid, but that co-association **has not been shown to improve out-of-family GloBI visitor-channel prediction**.
+
+This finding does NOT mean other optical signals (UV patterns, spectral reflectance, nectar guides) are unimportant; those were not included in the present three coarse summary features. The source GloBI five-channel shares remain global documented references, not the pollinator community physically on each island.
+
