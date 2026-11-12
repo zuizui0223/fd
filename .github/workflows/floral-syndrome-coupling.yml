@@ -88,6 +88,23 @@ jobs:
           assert receipt['n_candidate_island_plant_species_occurrences'] == 1125
           assert receipt['n_strict_native_island_species_occurrences_same_name_as_geo_k5_source'] == 197
           assert receipt['n_plant_species_by_island_effective_visitor_matrix_rows_in_joined_source'] == 0
+          evidence = pd.read_csv('results/20261112_pollinator_shift/native_54_species_direct_functional_trait_coverage.csv')
+          templates = pd.read_csv('results/20261112_pollinator_shift/native_54_morphology_template_ambiguity.csv')
+          assert not forbidden.intersection(evidence.columns)
+          assert not forbidden.intersection(templates.columns)
+          assert set(evidence.n_direct_species_with_record_among_54) <= set(range(55))
+          assert set(evidence.n_direct_single_category_among_54) <= set(range(55))
+          assert (evidence.n_direct_species_with_record_among_54 +
+                  evidence.n_species_without_direct_record_among_54).eq(54).all()
+          sc = evidence.set_index('trait')
+          assert int(sc.loc['self_incompatibility','n_direct_species_with_record_among_54']) == 17
+          assert int(sc.loc['mating_system','n_direct_species_with_record_among_54']) == 8
+          assert int(sc.loc['autonomous_selfing_capacity','n_direct_single_category_among_54']) == 11
+          assert int(sc.loc['floral_form','n_direct_species_with_record_among_54']) == 54
+          assert len(templates) == 4 and (templates.n_native_source_matched_species == 54).all()
+          assert not templates.observed_pollinator_identity_confirmed.any()
+          assert int(templates.loc[templates.template.eq('bird_like'),
+                     'n_species_with_3plus_informative_Direct_traits'].iloc[0]) == 5
           assert not pair.effective_local_pollination_measured.any()
           assert set(pair.n_matched_genera) == {344}
           assert set(pair.n_matched_families) == {77}
