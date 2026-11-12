@@ -119,3 +119,35 @@ If the original GSHHG 2.3.7 high-resolution polygon layer is reconstructed from 
 - **New study design implication:** test the original documented **5 bird species**, **11 multiguild species** and **12 bibliography-rich species** for actual spatially linked source/island visitor information; do not select them because of favorable sign in a guild model and do not turn genus template scores into known pollinator identities.
 
 [Aggregate-only five-guild data](native_54_exact_species_globi_v09_guild_reference_coverage.csv) · [frozen source receipt](native_54_exact_species_globi_v09_coverage_receipt.json) · [original code and linked Source PR #323](https://github.com/zuizui0223/island/pull/323). No exact plant taxon, coordinate, locality, original provider name or bibliography identifier was committed.
+
+
+## Dominant GloBI archive omission: the exact species-level bird signal largely disappears
+
+A SOURCE-v0.9 original [Actions #43160907960](https://github.com/zuizui0223/island/actions/runs/43160907960) **SUCCEEDED**, yielding anonymous [artifact #13917963603](https://github.com/zuizui0223/island/actions/runs/43160907960/artifacts/13917963603) with an exact-species (NOT genus) **original provider-label omission audit**. The **same 54 candidate plants** were retained as the candidate universe; no observation or flower form was used to choose a favorable source subset. The largest archive-FIRST label accounts for **95.016%** of the **622** exact species×visitor guild×provider×reference×evidence-class units. Only **8** original archive-first source labels were represented for these 54 species. Removing the dominant source label leaves:
+
+| Named-plant GloBI original evidence | Before source-label deletion | After |
+| --- | ---: | ---: |
+| Species with one or more globally cited flower-interaction records | **27/54** | **7/54** |
+| Species with 3 or more bibliography keys | 12/54 | **3/54** |
+| Species documented globally with 2+ visitor guilds | 11/54 | **4/54** |
+| Species with ≥1 explicitly `pollination`-classified record | **7/54** | **7/54** |
+| Documented Bombus guild species | 4 | **0** |
+| Documented other-bee guild species | 14 | **7** |
+| Documented Lepidoptera guild species | 20 | **4** |
+| Documented bird guild species | 5 | **1** |
+| Documented Diptera guild species | 5 | **2** |
+| Species with ≥3 bird-channel bibliography keys | 2 | **0** |
+
+This is a decisive **data-source concentration / evidence-attrition finding**, not evidence that a biological pollinator guild was extirpated. The persistently documented seven species with explicitly labeled pollination claims are potentially useful follow-up cases but original `pollination` record types are not independently verified seed set, and one archive may group several contributing studies. The **genus-level** positive bird-reference prediction after dominant-source omission has a much weaker **exact species-level** supporting evidence base; these two distinct analyses should never be presented as equivalent.
+
+*Research-safe conclusion:* The original data can identify some species with references to more than one visitor group, but **source-disjoint local visitor turnover is not measured**. The narrow observational claim `11 distinct plant species with ≥2 globally documented guilds` drops to `4` after removing a coarsely defined dominant archive-label group. It is more accurate to interpret this as **global documented multi-guild interaction opportunities** than an evolutionary pollinator shift or field-level functional compensation.
+
+[Original five-group before/after counts](native_54_exact_species_globi_v09_provider_omission.csv) · [54-species source citation coverage](native_54_exact_species_globi_v09_guild_reference_coverage.csv). No original plant/visitor/provider identities have been exported.
+
+## Geographic audit blocker, with no false island-local positives
+
+The original frozen exact-GSHHG 8265-island geometry artifact #8066083419 expired 1 October 2026. Source-run independently downloaded the official **exact original GSHHG 2.3.7 h archive** and verified its pinned original ZIP SHA256 `8dbbe7e071e77e9e75f2d639239099ebca8d5c16d6a07df8169729d49f15cf41`. **But** reconstructed current polygon processing from the same GSHHG source produced **8260 polygon IDs rather than historical 8265**: **9 original IDs missing**, **4 newly generated IDs not in the frozen source universe**. This genuine original-geography/version drift means that a globally georeferenced original GloBI relation must NOT be simply labeled as on one of the original study's focal islands based on a different map layer. The geometry workflow [#43162269986](https://github.com/zuizui0223/island/actions/runs/43162269986) **failed closed**, as required by the registered identity contract.
+
+We have also implemented a stricter **focal-island-only** check that retrieves the original 928 Direct trait-complete floras and independently qualified island visitor states and tests whether **ALL 21 focal island WKB-derived original IDs** are preserved exactly, even when other historical islands' hashes drift. This can unlock **only those 21 original matching polygons**; it cannot be called a globally verified 8265-polygon rebuild, and it cannot establish any mainland source population or pollen delivery. The [corrected focal-geometry workflow](https://github.com/zuizui0223/island/actions/workflows/run-fd-globi-gshhg-geometry-preflight.yml) has been triggered, but focal identity completeness has NOT been verified at the time this report was appended. Original source geography+species-level matching must remain blocked if a single focal ID fails.
+
+Conclusion for the paper: **keep direct morphology and flora-assembly results as the core; use species×guild citations and archive fragility as an evidence audit, never as verified same-species island pollinator replacement or bird syndrome evolution.**
