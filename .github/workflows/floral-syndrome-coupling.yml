@@ -131,7 +131,7 @@ jobs:
           assert locality['n_native_focal_islands_with_locality_matched_plant_species_visitors'] == 3
           assert locality['n_same_native_island_plant_species_pairs_with_two_or_more_documented_guilds'] == 2
           assert locality['n_evolutionary_source_mainland_island_pollinator_shifts_verified'] == 0
-          assert not local.actual_island_to_mainland_pollinator_shift_certified.any()
+          assert not local.original_source_archive_independence_verified.any()
           assert not local.effective_pollen_deposition_verified.any()
           assert locality['original_species_island_provider_reference_ids_not_released'] is True
           assert not pair.effective_local_pollination_measured.any()
