@@ -144,10 +144,37 @@ This is a decisive **data-source concentration / evidence-attrition finding**, n
 
 [Original five-group before/after counts](native_54_exact_species_globi_v09_provider_omission.csv) · [54-species source citation coverage](native_54_exact_species_globi_v09_guild_reference_coverage.csv). No original plant/visitor/provider identities have been exported.
 
-## Geographic audit blocker, with no false island-local positives
+## 12 November 2026 confirmed spatial overlap: exact native island plant×GloBI cited visit references
 
-The original frozen exact-GSHHG 8265-island geometry artifact #8066083419 expired 1 October 2026. Source-run independently downloaded the official **exact original GSHHG 2.3.7 h archive** and verified its pinned original ZIP SHA256 `8dbbe7e071e77e9e75f2d639239099ebca8d5c16d6a07df8169729d49f15cf41`. **But** reconstructed current polygon processing from the same GSHHG source produced **8260 polygon IDs rather than historical 8265**: **9 original IDs missing**, **4 newly generated IDs not in the frozen source universe**. This genuine original-geography/version drift means that a globally georeferenced original GloBI relation must NOT be simply labeled as on one of the original study's focal islands based on a different map layer. The geometry workflow [#43162269986](https://github.com/zuizui0223/island/actions/runs/43162269986) **failed closed**, as required by the registered identity contract.
+The original frozen GSHHG global 8,265-island prepared artifact #8066083419 expired on 1 October 2026. Rebuilding from the EXACT same GSHHG 2.3.7 high-resolution ZIP (SHA256 `8dbbe7e071e77e9e75f2d639239099ebca8d5c16d6a07df8169729d49f15cf41`) yielded **8,260** geometry IDs, with **9 historical IDs not reconstructed and 4 additional IDs not historically present**. This is a real full-universe geometry migration mismatch; no full 8,265-island equivalence is claimed.
 
-We have also implemented a stricter **focal-island-only** check that retrieves the original 928 Direct trait-complete floras and independently qualified island visitor states and tests whether **ALL 21 focal island WKB-derived original IDs** are preserved exactly, even when other historical islands' hashes drift. This can unlock **only those 21 original matching polygons**; it cannot be called a globally verified 8265-polygon rebuild, and it cannot establish any mainland source population or pollen delivery. The [corrected focal-geometry workflow](https://github.com/zuizui0223/island/actions/workflows/run-fd-globi-gshhg-geometry-preflight.yml) has been triggered, but focal identity completeness has NOT been verified at the time this report was appended. Original source geography+species-level matching must remain blocked if a single focal ID fails.
+However, the strict [original focal polygon recovery #43162949729](https://github.com/zuizui0223/island/actions/runs/43162949729) **SUCCEEDED**: all **21 prior, source-selected** Bombus-qualified-nondetection/bird-occurrence candidate island polygon IDs were reconstructed *identically*. Only geometries carrying exact original IDs could be used; source-area centroids and alternate Natural Earth coastlines were prohibited.
 
-Conclusion for the paper: **keep direct morphology and flora-assembly results as the core; use species×guild citations and archive fragility as an evidence audit, never as verified same-species island pollinator replacement or bird syndrome evolution.**
+The completed [SHA-verified original GloBI v0.9 source-and-island overlay #43163702599](https://github.com/zuizui0223/island/actions/runs/43163702599), [anonymous artifact #13919492018](https://github.com/zuizui0223/island/actions/runs/43163702599/artifacts/13919492018), linked the **54 accepted native source-matched flower species**, original **197 native island×plant-species name matches on 13 islands**, exactly identical historical GSHHG polygon memberships, cited **exact species** GloBI original relationships and coordinate availability. After filtering for source-cited GloBI plant species records on the *same exact polygon where that plant is original-source native*:
+
+| Original source-backed data unit | Strict observed count |
+| --- | ---: |
+| Georeferenced original GloBI distinct species×visitor group×source provider×citation×class×coordinate units among the 54 | 600 |
+| Units geographically inside any of the exact 13 source-matched focal island polygons | **6** |
+| Units also matching the ORIGINAL NATIVE PLANT SPECIES recorded on that same polygon | **6** |
+| Unique matching native plant species | **3** |
+| Distinct original islands containing those plant records | **3** |
+| Same-island native plant species with 2+ documented GloBI guilds | **2** |
+| Island native plant species with 3+ original distinct bibliography IDs | **0** |
+| Island-polygon matches with explicit original GloBI `pollination` relation class | **3 rows** |
+| Actual island population×mainland source population paired flower-visitation tests | **0** |
+| Measured pollen transfer, seed set or verified evolutionary guild shifts | **0** |
+
+**Five documented guilds at the same native plant on its exact original island:** flower-visiting birds **3 plant species/3 islands**; Lepidoptera (butterflies+moths together) **2 species/2 islands**; non-Bombus bees **1 species/1 island**; Bombus **0** and Diptera **0**. Records across visitor guilds can belong to the same plant and island; do not sum guild counts as independent species.
+
+**Scientific significance without overclaim:** this is the first fd source-pinned result with **plant SPECIES NAME + originally native island flora ID + exact historical island polygon + original cited GloBI interaction type** simultaneously supported. It moves beyond assuming that a bird recorded anywhere on an island visits a particular flower. However, GloBI positions may reflect source-level georeferencing rather than standardized visit encounters; there is **no event timestamp in the original v0.9 TSV**, no original mainland counterpart visitor series, and no measured effective pollen transfer or fruit set. Thus a locally georeferenced `pollination` label must not be promoted to biologically verified effective pollination, and **none of the 3 species is a demonstrated evolutionary pollinator shift**. This 3-island sample is insufficient for a global macroecological regression.
+
+[Anonymized 5-channel locality counts](native_54_exact_same_island_GloBI_v09_geo_5guild_counts.csv) · [verified original-source locality receipt](native_54_exact_same_island_GloBI_v09_locality_receipt.json).
+
+## Source concentration and next macro-scale gate
+
+Original exact-species GLOBAL data are strongly concentrated in one coarse archive-first label (~95% of 622 species×guild reference/class units); after removing that label the original 54-species globally cited coverage falls **27→7 species**, globally multiple-guild species **11→4**, and globally bird-documentation species **5→1**. Whether the **six island-local** source-cited records retain more than one genuinely independent original study, unique field site or archive group remains to be evaluated and must not be assumed from raw row count.
+
+Because a study with only **3 species on 3 islands** cannot identify global island pollinator shifts, we additionally set up a **source-independent screening cohort of the full 928 Direct flora islands**, with native versus unresolved plant origin distinctly coded. The candidate macro screen matches the original Direct plant SPECIES name AND an original GSHHG polygon ID AND a GloBI original citation-bearing relationship; nonreproducible historical polygons are marked *not evaluable*, not pollinator absences. No result from that new full-928 screening is claimed before its source-verified run finishes.
+
+The right manuscript architecture remains: **(1) robust floristic form/colour structure, (2) source-relative flora sorting, (3) an explicitly sparse but real source-cited plant-specific island-visitation bridge**, and (4) actual historical guild shifts/functional reproductive assurance as *untested hypotheses*, not conclusions.
