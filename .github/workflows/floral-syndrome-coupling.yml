@@ -74,6 +74,20 @@ jobs:
           assert not forbidden.intersection(pair.columns)
           assert set(shift.n_islands_candidate_co_record) == {21,22}
           assert (shift.actual_species_level_pollinator_shift_certified == False).all()
+          source = pd.read_csv('results/20261112_pollinator_shift/source_matched_direct_flora_region_aggregate.csv')
+          blocks = pd.read_csv('results/20261112_pollinator_shift/source_matched_candidate_21_block_sensitivity.csv')
+          import json
+          receipt = json.loads(Path('results/20261112_pollinator_shift/source_matched_21_candidate_receipt.json').read_text())
+          assert len(source) == 6 and len(blocks) == 8
+          assert not forbidden.intersection(source.columns)
+          assert not forbidden.intersection(blocks.columns)
+          assert (source.n_islands >= 10).all() and (source.n_spatial_blocks >= 5).all()
+          assert set(blocks.n_candidate_islands)=={21} and set(blocks.n_spatial_blocks)=={14}
+          assert not blocks.actual_pollinator_shift_tested.any()
+          assert receipt['n_30plus_complete_flora_islands'] == 928
+          assert receipt['n_candidate_island_plant_species_occurrences'] == 1125
+          assert receipt['n_strict_native_island_species_occurrences_same_name_as_geo_k5_source'] == 197
+          assert receipt['n_plant_species_by_island_effective_visitor_matrix_rows_in_joined_source'] == 0
           assert not pair.effective_local_pollination_measured.any()
           assert set(pair.n_matched_genera) == {344}
           assert set(pair.n_matched_families) == {77}
