@@ -105,6 +105,21 @@ jobs:
           assert not templates.observed_pollinator_identity_confirmed.any()
           assert int(templates.loc[templates.template.eq('bird_like'),
                      'n_species_with_3plus_informative_Direct_traits'].iloc[0]) == 5
+          species_guild = pd.read_csv('results/20261112_pollinator_shift/native_54_exact_species_globi_v09_guild_reference_coverage.csv')
+          species_receipt = json.loads(Path('results/20261112_pollinator_shift/native_54_exact_species_globi_v09_coverage_receipt.json').read_text())
+          assert species_guild.shape[0] == 5
+          assert not forbidden.intersection(species_guild.columns)
+          assert (species_guild.source_matched_native_plant_species_universe == 54).all()
+          assert species_receipt['source_workflow_run'] == 43144106425
+          assert species_receipt['n_candidate_species'] == 54
+          assert species_receipt['n_species_with_1plus_cited_exact_flower_relation'] == 27
+          assert species_receipt['n_species_with_3plus_distinct_bibliography_keys'] == 12
+          assert species_receipt['n_species_with_2plus_recorded_guilds'] == 11
+          assert species_receipt['n_exact_species_guild_provider_bibliography_units'] == 622
+          assert species_receipt['n_date_resolved_species'] is None
+          assert not species_guild.observed_actual_same_species_island_mainland_pollinator_shift.any()
+          assert species_receipt['n_verified_island_and_continental_plant_visitation_pairs'] == 0
+          assert species_receipt['n_certified_evolutionary_pollinator_shifts_in_available_input'] == 0
           assert not pair.effective_local_pollination_measured.any()
           assert set(pair.n_matched_genera) == {344}
           assert set(pair.n_matched_families) == {77}
