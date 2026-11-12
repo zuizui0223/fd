@@ -43,7 +43,7 @@ def fixture(n=12):
 def test_cohort_and_GIFT_species_overlap_but_no_shift_inferred():
     out,receipt=source_pool_audit(*fixture())
     assert len(out)==1 and out.n_islands.iloc[0]==12
-    assert receipt["n_complete_trait_islands"]==12
+    assert receipt["n_islands_atleast_30_direct_complete_species"]==12
     assert receipt["n_bombus_nondetected_bird_recorded"]==12
     assert receipt["n_candidate_island_species_records"]==360
     assert receipt["n_native_same_named_source_species_records"]==360
