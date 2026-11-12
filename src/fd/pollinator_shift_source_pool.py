@@ -62,7 +62,7 @@ def source_pool_audit(flora:pd.DataFrame, direct_ledger:pd.DataFrame,
     qualified=set(known_n[known_n>=min_direct_species].index)
     if not qualified:
         return pd.DataFrame(), {
-            "n_complete_trait_islands":0,
+            "n_islands_atleast_30_direct_complete_species":0,
             "n_bombus_nondetected_bird_recorded":0,
             "species_level_pollinator_shift_confirmed":False,
         }
