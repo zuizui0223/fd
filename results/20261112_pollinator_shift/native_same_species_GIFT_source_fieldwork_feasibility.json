@@ -17,5 +17,9 @@
   "n_DISTINCT_native_source_matched_species_with_open_radial_form": 9,
   "n_DISTINCT_native_source_matched_species_with_actinomorphic_symmetry": 38,
   "n_directly_confirmed_same_species_mainland_to_island_visitor_replacements": 0,
-  "important_semantics": "The GloBI count refers to globally documented GENUS interactions, not verified visits to the selected same species or focal island; candidates may share sources and all plant names are kept private."
+  "important_semantics": "The GloBI count refers to globally documented GENUS interactions, not verified visits to the selected same species or focal island; candidates may share sources and all plant names are kept private.",
+  "n_original_21_candidate_island_plant_occurrences_with_native_status": 251,
+  "n_of_these_native_records_source_status_resolved": 251,
+  "n_of_these_native_records_source_status_conflicts": 0,
+  "native_record_qualifying_source": "GIFT_origin+WCVP_endemism"
 }
