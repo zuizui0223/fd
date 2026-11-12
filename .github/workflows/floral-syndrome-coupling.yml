@@ -134,6 +134,24 @@ jobs:
           assert not local.original_source_archive_independence_verified.any()
           assert not local.effective_pollen_deposition_verified.any()
           assert locality['original_species_island_provider_reference_ids_not_released'] is True
+          macro_guild = pd.read_csv('results/20261112_pollinator_shift/globi_928_island_exact_species_locality_guild_aggregate.csv')
+          macro_receipt = json.loads(Path('results/20261112_pollinator_shift/globi_928_island_original_source_locality_receipt.json').read_text())
+          assert len(macro_guild)==5
+          assert not forbidden.intersection(macro_guild.columns)
+          assert macro_receipt['source_verified_run']==43198808095
+          assert macro_receipt['original_Direct_complete_928_flora_islands']==928
+          assert macro_receipt['original_historical_geometries_verified']==927
+          assert macro_receipt['n_same_island_plant_species_pairs_with_source_cited_relation']==552
+          assert macro_receipt['n_distinct_islands_with_cited_exact_plant_relation']==109
+          assert macro_receipt['n_island_plant_pairs_with_2plus_documented_visitor_guilds']==213
+          assert macro_receipt['n_island_plant_pairs_with_3plus_bibliography_keys']==149
+          assert macro_receipt['n_strict_native_island_species_pairs_with_cited_relation']==157
+          assert macro_receipt['n_islands_with_strict_native_plant_relationship']==40
+          assert macro_receipt['n_original_origin_unresolved_island_plant_pairs_with_relation']==265
+          assert macro_receipt['n_confirmed_historical_same_plant_mainland_island_pollinator_shifts']==0
+          assert macro_receipt['n_measured_effective_pollen_delivery_or_seedset_outcomes']==0
+          assert macro_receipt['GloBI_v09_original_event_time_present'] is False
+          assert not macro_guild.original_visit_success_measured.any()
           assert not pair.effective_local_pollination_measured.any()
           assert set(pair.n_matched_genera) == {344}
           assert set(pair.n_matched_families) == {77}
