@@ -41,6 +41,21 @@ Source-verified native-only floral species are too sparse for independent genera
 
 The *14-block-equal* candidate open-form excess is **+0.0107** with conditional 4,999 block-resampling 95% range **[−0.0507,+0.0722]**; actinomorphy +0.0264 [−0.0149,+0.0671]. **Neither is robust against spatial-block weighting**. Similar positive source-relative open-form differences occur among many islands where both Bombus and birds are recorded, so the 21-island direction is **not a specific pollinator-loss effect**. The strict tropical detected/undetected contrast lacks positivity (only 2 Bombus-detected tropical islands versus 16 adequately nondetected); northern midlatitudes have 480 detected versus only 5 adequately nondetected. The data do not identify a causal local shift.
 
+## Is marginal floral diversity maintained while recorded guild channels change?
+
+To connect functional-trait diversity to the potential mainland source, the same **21 candidate islands** and five GIFT source pools were additionally rarefied to **exactly 30 Direct fully trait-complete species each**. Perform **120 independently seeded species subsamples** per island and per source pool; Rao Q averages equal-weight Gini–Simpson diversity across colour/form/symmetry, while colour–architecture coordination uses the chance-corrected mutual information `I(colour;[form,symmetry])` with **29 within-subsample colour-label shuffles**. This is an exploratory island-flora-versus-potential-source botanical assemblage comparison, not an independent source-population flower measurement.
+
+| Source-relative quantity, n=21 islands / 14 blocks | Island-equal median (island−source) | Islands above source | Equal-spatial-block mean and conditional 95% range |
+| --- | ---: | ---: | --- |
+| **Morphological Rao Q** | **−0.018858** | **7/21** | −0.001569 **[−0.018059,+0.014363]** |
+| **Excess colour–architecture mutual information**, nats | **−0.026626** | **9/21** | −0.015501 **[−0.049419,+0.018282]** |
+
+Neither functional-related floral disparity nor multi-trait coordination is robustly higher in the candidate island flora than in its potential mainland source pools. With a different unbiased full-composition Rao Q estimator on all 928 eligible islands, tropical Bombus-undetected/bird-recorded candidate islands (15/8 blocks) have median source-relative Q **−0.0376**, while tropical observation-unresolved islands (88/40 blocks) have median **−0.0104**. This is a **context comparison only**: the unresolved group is NOT a Bombus-present biological control, local effort differs, and the 5-region source pool is generally richer than the recorded island flora.
+
+Hence neither increased flower morphological hypervolume nor increased syndrome coordination provides a demonstrated compensatory signature for the hypothetical change in pollinator channel. Source-pool guild-documentation contrasts in the next section can coexist with lower morphological Q because **which species are present** and **how diverse their trait states are** are different assemblage properties. In particular, no island-versus-mainland *same-species* trait evolution can be estimated from globally fixed accepted-species trait categories.
+
+[Anonymized 21-island matched rarefaction](source_matched_21_island_RaoQ_trait_coordination.csv); source-covering reference measurements are not the actual ancestral community or observed pollination effectiveness.
+
 ## Global GloBI genus reference composition: descriptive evidence of source-pool floristic sorting
 
 Use the original GloBI 2026-06-04 genus breadth v2 source archive (SHA256 `475dda8b0eef4ce22ad1aa736fa82cc049042d801217c65d52641489288ca254`), requiring ≥3 independent references per botanical genus. Each island and mainland source has its own **plant species weighted mean of the genus's worldwide GloBI documentary five-guild reference shares**. These are NOT the local visitor composition of those islands, nor an independent source-provider-controlled survey.
