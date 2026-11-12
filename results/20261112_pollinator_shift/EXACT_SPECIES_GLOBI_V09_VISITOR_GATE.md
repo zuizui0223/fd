@@ -67,3 +67,55 @@ Only the first hypothesis currently has source-pinned descriptive results; the o
 - GloBI source genus v2 artifact `10328696801`, SHA256 `475dda8b0eef4ce22ad1aa736fa82cc049042d801217c65d52641489288ca254`.
 - Original GloBI v0.9 pinned DOI `10.5281/zenodo.20546682`, SHA256 `095e57398420d1e0746e61233c796beedcfb8e03bd0c6a732aa17ae62043bd17`.
 - Original GloBI documented interaction records include species identity, source/provider and bibliographic citation keys and optional `decimalLatitude`, `decimalLongitude`, `eventDateUnixEpoch`. Cite original GloBI contributing datasets and do not redistribute protected raw input; source-specific anonymity thresholds apply to future releases.
+
+
+## Verified original-data result: 27 source-cited exact species
+
+This gate **has now been passed at the GLOBAL species-name level**. Original source [island run #43144106425](https://github.com/zuizui0223/island/actions/runs/43144106425) **completed successfully**, with [anonymous artifact #13911307901](https://github.com/zuizui0223/island/actions/runs/43144106425/artifacts/13911307901) and SHA-verified exact GloBI June 4 2026 v0.9 `interactions.tsv.gz` (`095e57398420d1e0746e61233c796beedcfb8e03bd0c6a732aa17ae62043bd17`).
+
+The frozen **54 native plant species whose accepted names match candidate mainland GIFT native source checklists**, from 13 of 21 candidate islands, had the following actual source-reconstructed evidence:
+
+| Real source-v0.9 identity and provenance check | Observed value |
+| --- | ---: |
+| Original GloBI rows streamed | 24,577,183 |
+| Flower-interaction predicate rows with exact plant-species match | **1,123** |
+| Retained records among five chosen guilds, correct plant kingdom and named visitor species | **792** |
+| Distinct exact plant species with ≥1 real bibliography-backed guild interaction | **27/54** |
+| Plant species with ≥3 distinct bibliography keys | **12/54** |
+| Plant species with two or more globally documented visitor guilds | **11/54** |
+| Species with at least one explicitly classified `pollination` interaction | **7/54** |
+| Species with explicitly classified `flower_visit` interaction | **25/54** |
+| Species represented under ≥2 archive-first original provider labels | **5/54** |
+| Species with any source coordinates | **27/54** |
+| Source-eligible georeferenced interaction rows | **642/792** |
+| Plant species with coordinates in at least two distinct rounded 0.1-degree grid cells | **13/54** |
+| Distinct original species×guild×provider×bibliography×evidence-class units | **622** |
+| Original v0.9 `eventDateUnixEpoch` available | **NO** (missing field, dating unassessable) |
+
+**Exact species-based global documented visitor guild evidence** (guilds overlap, so counts cannot be added):
+
+| Global documented channel | Species with ≥1 bibliography-backed record | Species with ≥3 bibliography keys |
+| --- | ---: | ---: |
+| Bombus | 4 | 3 |
+| Other bees | 14 | 7 |
+| Lepidoptera (moth and butterfly NOT separated) | 20 | 11 |
+| **Flower-visiting birds** | **5** | **2** |
+| Diptera | 5 | 1 |
+
+The previously reported **15 bird-associated *genera*** among these 54 plant species were a different and weaker proxy; only **5 plants have independently retrievable exact plant-species–bird-channel GloBI records**, and 2 have ≥3 distinct bird bibliography keys. This is a major difference between genus-level extrapolation and actual plant identity. The **11 species with 2+ globally documented guilds** are candidates for **pollinator generalization/interaction rewiring**, but **not** evidence that distinct guilds visited the same location, that both effectively transferred pollen, or that a change occurred after island colonization.
+
+Neither 622 source-documentation units nor 642 georeferenced relation rows establishes the number of independent field studies, and the earlier source v0.9 concentration audit found one archive-first provider label disproportionately dominates global reference units. Source crossprovider duplicates are excluded by the original audit; only **5/54 plant species have evidence associated with two or more provider labels**. Provenance unit definitions remain stricter than raw interaction row counts.
+
+### True island-versus-mainland switch remains geographically unassessed
+
+The **642** nonempty-coordinate records have NOT been spatially joined to the original frozen GSHHG island polygons and relevant candidate GIFT mainland regions; a globally georeferenced species record cannot be called an observation on any of the 13 focal islands by species name alone. The original frozen geometry artifact #8066083419 was checked and is **no longer accessible (expired 2026-10-01)**. Do **not** replace it with an unverified Natural Earth geometry, approximate island centroid radius or arbitrary map rectangle and label that a local visitor record.
+
+If the original GSHHG 2.3.7 high-resolution polygon layer is reconstructed from its independently pinned archive SHA256 `8dbbe7e071e77e9e75f2d639239099ebca8d5c16d6a07df8169729d49f15cf41`, island polygon equality and exact-island plant species overlap must be revalidated BEFORE any genuinely local interaction evidence can be counted. Even then, the v0.9 original has no event-time field and the `pollination` label may reflect an observer interpretation, not pollen transfer/fruit set.
+
+### Current scientific conclusion
+
+- **Confirmed source-backed result:** 27 native island/GIFT-source candidate *plant species* have original GloBI five-guild *documented global* flower interaction evidence, 11 have multiple guilds documented, 7 have explicit pollination-labeled rows, and 5 have exact species-associated bird-channel references.
+- **Not confirmed:** a single 13-island plant species with both independently sampled island and mainland flower visitation guild composition or effectiveness; a historical bird-for-bee, moth-for-bee or multiple-guild compensatory **pollinator shift**; island-local floral form evolution. Data absence is **not proof of no true shift**.
+- **New study design implication:** test the original documented **5 bird species**, **11 multiguild species** and **12 bibliography-rich species** for actual spatially linked source/island visitor information; do not select them because of favorable sign in a guild model and do not turn genus template scores into known pollinator identities.
+
+[Aggregate-only five-guild data](native_54_exact_species_globi_v09_guild_reference_coverage.csv) · [frozen source receipt](native_54_exact_species_globi_v09_coverage_receipt.json) · [original code and linked Source PR #323](https://github.com/zuizui0223/island/pull/323). No exact plant taxon, coordinate, locality, original provider name or bibliography identifier was committed.
