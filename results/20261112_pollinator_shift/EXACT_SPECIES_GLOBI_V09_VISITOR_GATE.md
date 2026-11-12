@@ -31,6 +31,12 @@ This deterministic original frozen source selection reproduces **928 original el
 
 Using the previously frozen **GloBI global plant-genus** reference breadth data only, 33/54 candidates have a genus with ≥3 independent documented visitor-interaction references, and 15/54 have a genus with some bird documentary records. **Only 3 of those 15** have original open-radial floral form. These are taxonomic/documentation overlaps, not observed visitors of the 54 individual plant species.
 
+### Cross-evidence attrition inside the native 54-species cohort
+
+The old *globally documented GENUS-level* GloBI visit/breadth ledger yields ≥3 reference support for **33/54** species' genera and any global bird-channel reference for **15/54** species' genera. Among those **15** genus-bird-documentation candidates, only **6** have Direct species-level SC/SI evidence and **5** have Direct floral tube-depth evidence. Of the full 54, **9** have original Direct open-radial form (just **3** of the 15 genus-bird documentation candidates). Strict Direct high/medium reproductive record coverage is therefore inadequate for a bird-versus-bee pollination-service or mating-system adaptation model. These statements do **not** indicate actual bird interactions with any of the 54 named species.
+
+The three older morphology-template candidates are poorly discriminating in exactly this 54-species cohort: only **5** have ≥3 Direct informative traits for `bird_like` and **4** have `bird_like` concordance ≥0.75 on those ≥3 traits. Only **3** candidates have ≥3 Direct informative traits for EACH of bee-like, butterfly-like and bird-like, and all three have high score in **all three templates**. These are overlapping morphology templates, not verified guild membership. Anonymous cohort aggregate: [`native_54_morphology_template_ambiguity.csv`](native_54_morphology_template_ambiguity.csv) and [`native_54_species_direct_functional_trait_coverage.csv`](native_54_species_direct_functional_trait_coverage.csv).
+
 ## Exact plant species × visitor reference retrieval implemented
 
 To avoid projecting genus labels onto species, we implemented original GloBI v0.9 source-stream parsing in [island Draft PR #323](https://github.com/zuizui0223/island/pull/323): `src/island_v2/fd_globi_species_shift_v09.py`, `tests/test_fd_globi_species_shift_v09.py`, and the existing v0.9 SHA-pinned workflow.
