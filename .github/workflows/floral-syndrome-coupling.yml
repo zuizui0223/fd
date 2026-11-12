@@ -101,7 +101,7 @@ jobs:
           assert int(sc.loc['mating_system','n_direct_species_with_record_among_54']) == 8
           assert int(sc.loc['autonomous_selfing_capacity','n_direct_single_category_among_54']) == 11
           assert int(sc.loc['floral_form','n_direct_species_with_record_among_54']) == 54
-          assert len(templates) == 4 and (templates.n_native_source_matched_species == 54).all()
+          assert len(templates) == 4 and (templates.n_native_exact_source_matched_species == 54).all()
           assert not templates.observed_pollinator_identity_confirmed.any()
           assert int(templates.loc[templates.template.eq('bird_like'),
                      'n_species_with_3plus_informative_Direct_traits'].iloc[0]) == 5
