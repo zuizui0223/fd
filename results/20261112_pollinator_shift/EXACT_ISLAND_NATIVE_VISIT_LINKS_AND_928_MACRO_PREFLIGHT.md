@@ -48,3 +48,33 @@ The original full-928 preflight is triggered by source workflow [#43198808095](h
 Retain **floral trait Rao diversity / nonrandom colour×architecture coordination and floristic mainland source-pool filtering** as the fd positive quantitative evidence. Treat a real ecological shift as a distinct question needing independent same-species source/island flower visitor observations, historical comparability and ideally pollen-effective visit/seed set data. Present the 6 exact-polygon interactions as a tiny source-backed potential follow-up, not a macroscopic bird-for-bee adaptation study.
 
 Public original identity-protected grouped files: [5-guild 3-island counts](native_54_exact_same_island_GloBI_v09_geo_5guild_counts.csv); [original source/locality receipt](native_54_exact_same_island_GloBI_v09_locality_receipt.json). Original botanical species/island/latitude-longitude/source provider/reference IDs were never committed to fd. Both PRs remain Draft.
+
+
+## Confirmed original local citation independence audit
+
+An independent later SHA-pinned original GloBI source replay **SUCCEEDED**: [island Actions #43197981268](https://github.com/zuizui0223/island/actions/runs/43197981268). The previously reported 6 matched native plant×island original-GloBI geo-citation units (3 plant species / 3 islands) can be decomposed by site and original evidence identifiers, without disclosing any original identities:
+
+| Original local source evidence | Verified number |
+| --- | ---: |
+| Distinct original bibliography keys across all six rows | **4** |
+| Distinct original georeferenced site coordinates | **4** |
+| Distinct `sourceArchiveURI`-first labels | **2** |
+| Native island×plant pairs with two or more original archive labels | **0** |
+| Native island×plant pairs with two or more distinct coordinate sites | **1** |
+| Native island×plant pairs with ≥3 original bibliography keys | **0** |
+| Original relation units left after deleting the archive label largest in the *whole 54-species* source cohort | **3/6** |
+| Plant species / islands with locality-linked evidence after that omission | **1 species / 1 island** |
+
+The post-deletion single surviving plant species retains documented **other-bee, Lepidoptera and bird guild** references on the same island polygon, but they are **not evidence of simultaneous visits, pollen-transfer effectiveness or independent historic local pollinator switching**. The dominant archive was determined from the **whole source-verified 54 native source-matched species corpus**, not selected to make those six locality records favorable or unfavorable.
+
+Most importantly, **none of the 3 native species’ island pairs is independently corroborated by ≥2 archive-first source labels**. Across the source-wide original GloBI v0.9 archive, provider independence remains limited even where same-island GloBI coordinates are available. The six rows are 4 citation keys and 4 source coordinate sites, NOT six independent plant population experiments.
+
+[Evidence-resolution waterfall](native54_evidence_waterfall_source_study_and_locality_gates.csv) is a nonidentifying aggregation with denominators for plant species, islands, citation units and island×plant observations kept separate.
+
+## Full-island macro next step is genuinely registered
+
+The new `src/island_v2/fd_globi_macro_928_locality_v09.py` and synthetic `tests/test_fd_globi_macro_928_locality_v09.py` in [island PR #323](https://github.com/zuizui0223/island/pull/323) extend beyond the conditionally selected 21 candidate islands to the **whole original 928 Direct-trait-complete island flora**. Only the original same accepted plant species, source-cited full GloBI relationship, and a matching original WKB-hashed exact GSHHG island polygon are accepted. Strict `native` is kept separate from unresolved flora origin, and the 9 unreplicated original island polygon IDs can never be silently counted as guild absence. The new [source-pinned workflow #43198808095](https://github.com/zuizui0223/island/actions/runs/43198808095) has **passed all synthetic checks and original source recovery/geometry verification**, then entered the 2.7GB original GloBI v0.9 scan. Macro ecological outcome counts are **pending** until the original run succeeds; no numbers are guessed from the source-only genus proxy.
+
+### Inference ceiling
+
+The original fd **928-island colour×flower-architecture coordination** is a source-reconstructed **flower trait result** independent of these source-geocoded animal rows. The 3-island local links can serve as a descriptive data-quality bridge but **do not establish an island bee→bird pollinator shift, compensation, new pollination syndrome, selective adaptation or causal reproductive service**. A 928-island evidence-coverage preflight may say whether a geographically broad documented plant–visitor association analysis is even supportable; only if enough independent island species, matched sampling opportunity, bibliographies and providers are present should a real macro pollinator-functional model be considered.
