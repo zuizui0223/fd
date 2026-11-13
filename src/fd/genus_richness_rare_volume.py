@@ -51,9 +51,23 @@ def _sample_one_per_genus(by_genus:dict[str,tuple[str,...]],*,n:int,
 
 
 def _one_score(reference:RarityReference,triple:pd.DataFrame,
-               names:list[str])->np.ndarray:
-    p=triple.loc[names,list(TRAITS)].to_numpy(dtype=str)
-    coverage,k=reference.measure(p)
+               names:list[str], *,
+               source_profile_bitmap:dict[str,tuple[tuple[str,str,str],int]]|None=None)->np.ndarray:
+    if source_profile_bitmap is None:
+        p=triple.loc[names,list(TRAITS)].to_numpy(dtype=str)
+        coverage,k=reference.measure(p)
+    else:
+        seen=set()
+        covered=0
+        for name in names:
+            profile,bitmap=source_profile_bitmap[name]
+            seen.add(profile)
+            covered |= bitmap
+        k=len(seen)
+        coverage=np.asarray([
+            (covered & reference.bins[c]).bit_count()/reference.n_bins[c]
+            for c in ("rare","middle","common")
+        ],dtype=float)
     u=reference.expected_uniform[k]
     w=reference.expected_speciesfreq[k]
     return np.asarray([float(coverage[0]),float(coverage[2]),
@@ -66,6 +80,7 @@ def _one_island(
     reference:RarityReference,triple:pd.DataFrame,
     local:set[str],source:set[str],*,n:int=15,
     draws:int=40,seed:int=20261113,
+    source_profile_bitmap:dict[str,tuple[tuple[str,str,str],int]]|None=None
 )->dict:
     if draws<20:
         raise ValueError("Insufficient original reference genus-unit thinnings")
@@ -79,8 +94,10 @@ def _one_island(
     for _ in range(draws):
         island_names=_sample_one_per_genus(a,n=n,rng=rng)
         donor_names=_sample_one_per_genus(b,n=n,rng=rng)
-        results.append(_one_score(reference,triple,island_names)-
-                       _one_score(reference,triple,donor_names))
+        results.append(_one_score(reference,triple,island_names,
+                           source_profile_bitmap=source_profile_bitmap)-
+                       _one_score(reference,triple,donor_names,
+                           source_profile_bitmap=source_profile_bitmap))
     z=np.asarray(results,float).mean(axis=0)
     return dict(zip(OUTCOMES,map(float,z)))
 
@@ -128,6 +145,12 @@ def original_genus_richness_normalization(
         "entity_ID").work_species.agg(set).to_dict())
     byisland={i:g for i,g in original.groupby("island_id")}
     ref=RarityReference.from_original(triple,null_draws=reference_draws,seed=seed)
+    source_profile_bitmap={}
+    for name,row in zip(triple.index,triple[list(TRAITS)].to_numpy(dtype=str)):
+        profile=tuple(row)
+        source_profile_bitmap[str(name)]=(profile,ref.volume.masks[profile][1])
+    if len(source_profile_bitmap)!=len(triple):
+        raise ValueError("Original Direct plant species identifiers duplicated")
     support=[]
     rows=[]
     for i in sorted(eligible):
@@ -159,7 +182,8 @@ def original_genus_richness_normalization(
                 if not record["has_genus_richness_support"]:
                     continue
                 z=_one_island(ref,triple,names,all_source,n=n_genus,
-                    draws=repeats,seed=_seedstr(seed,i,scope,n_genus))
+                    draws=repeats,seed=_seedstr(seed,i,scope,n_genus),
+                    source_profile_bitmap=source_profile_bitmap)
                 rows.append(dict(record,**z))
     p=pd.DataFrame(support)
     actual=pd.DataFrame(rows)
