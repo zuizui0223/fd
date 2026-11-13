@@ -49,9 +49,18 @@ def _source_genus(names: set[str]) -> set[str]:
 
 
 def _ball_mask(reference:RarityReference, names:list[str],
-               triples:pd.DataFrame)->int:
+               triples:pd.DataFrame, *,
+               original_species_mask:dict[str,int]|None=None)->int:
     mask=0
-    if len(names):
+    if original_species_mask is not None:
+        # Pre-compile source original trait state -> radius-1 integer bitmap
+        # ONCE at the start of a real 928-island analysis; it is exact and
+        # avoids high-cost pandas lookups for ~100k rarefied network draws.
+        for species in names:
+            if species not in original_species_mask:
+                raise ValueError("Original Direct species missing from reference")
+            mask |= original_species_mask[species]
+    elif len(names):
         for p in set(map(tuple,triples.loc[names,list(TRAITS)].to_numpy(dtype=str))):
             if p not in reference.volume.masks:
                 raise ValueError("Original direct phenotype not in global reference")
@@ -101,7 +110,8 @@ def _genus_groups(names:set[str])->dict[str,tuple[str,...]]:
 def _sample_components(
     reference:RarityReference,triples:pd.DataFrame,
     local_names:set[str],source_names:set[str],*,
-    n:int=30,repeats:int=40,seed:int=20261113
+    n:int=30,repeats:int=40,seed:int=20261113,
+    original_species_mask:dict[str,int]|None=None
 )->dict[str,float]:
     if n!=30 or repeats<20:
         raise ValueError("Frozen original macro sample/rarefaction is fixed")
@@ -123,8 +133,10 @@ def _sample_components(
         for pool in (i,m):
             shared=[t for t in pool if genus(t) in shared_genus]
             exclusive=[t for t in pool if genus(t) not in shared_genus]
-            sh=_ball_mask(reference,shared,triples)
-            un=_ball_mask(reference,exclusive,triples)
+            sh=_ball_mask(reference,shared,triples,
+                            original_species_mask=original_species_mask)
+            un=_ball_mask(reference,exclusive,triples,
+                            original_species_mask=original_species_mask)
             input_groups.append(two_group_shapley(reference,sh,un))
         diff={k:input_groups[0][k]-input_groups[1][k]
               for k in input_groups[0]}
@@ -142,6 +154,7 @@ def _match_unique_genera(
     ref:RarityReference,triple:pd.DataFrame,
     local_names:set[str],donor_names:set[str],*,
     n:int=5,repeats:int=40,seed:int=20261113,
+    original_species_mask:dict[str,int]|None=None
 )->dict[str,float]:
     if n not in (MATCHED_FIVE,MATCHED_EIGHT) or repeats<20:
         raise ValueError("Frozen distinct genus source-match size/rarefaction changed")
@@ -158,8 +171,10 @@ def _match_unique_genera(
         bb=[str(rng.choice(b[g])) for g in selected]
         if len(set(aa))!=n or len(set(bb))!=n or set(aa)&set(bb):
             raise ValueError("Genus matched source taxon names not independent")
-        p=_ball_mask(ref,aa,triple)
-        q=_ball_mask(ref,bb,triple)
+        p=_ball_mask(ref,aa,triple,
+                     original_species_mask=original_species_mask)
+        q=_ball_mask(ref,bb,triple,
+                     original_species_mask=original_species_mask)
         values.append((
             _bin_value(ref,p,"rare")-_bin_value(ref,p,"common")
             -_bin_value(ref,q,"rare")+_bin_value(ref,q,"common"),
@@ -221,6 +236,15 @@ def original_genus_shapley_macro(
        "entity_ID").work_species.agg(set).to_dict()
     byisland={k:x for k,x in original.groupby("island_id")}
     ref=RarityReference.from_original(triple,null_draws=reference_draws,seed=seed)
+    # Compiled exact per-species category-neighborhood lookup: each bit means
+    # one of 100 actually observed original global reference profiles.
+    species_mask={
+        str(species):ref.volume.masks[tuple(row)][1]
+        for species,row in zip(triple.index,
+             triple[list(TRAITS)].to_numpy(dtype=str))
+    }
+    if len(species_mask)!=len(triple):
+        raise ValueError("Direct global species IDs not unique")
     all_rows=[]
     genus_rows=[]
     for island in sorted(eligible):
@@ -243,7 +267,8 @@ def original_genus_shapley_macro(
                 n_local_complete_Direct_species=len(members),
                 n_source_complete_Direct_species=len(source))
             stats=_sample_components(ref,triple,members,source,
-                n=30,repeats=repeats,seed=_seedstr(seed,island,scope,"shapley"))
+                n=30,repeats=repeats,seed=_seedstr(seed,island,scope,"shapley"),
+                original_species_mask=species_mask)
             entry={**metadata,**stats}
             all_rows.append(entry)
             genus_count=len(_source_genus(members)&_source_genus(source))
@@ -253,7 +278,8 @@ def original_genus_shapley_macro(
             for k in (MATCHED_FIVE,MATCHED_EIGHT):
                 if genus_count>=k:
                     matched=_match_unique_genera(ref,triple,members,source,
-                        n=k,repeats=repeats,seed=_seedstr(seed,island,scope,"g",k))
+                        n=k,repeats=repeats,seed=_seedstr(seed,island,scope,"g",k),
+                        original_species_mask=species_mask)
                     for metric,v in matched.items():
                         support[f"g{k}_{metric}"]=v
             genus_rows.append(support)
