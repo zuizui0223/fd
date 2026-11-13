@@ -39,6 +39,16 @@ jobs:
             x=e[[loaded[1]]]
             cat('=== FILE:',file,'OBJECT:',loaded[1],'\n')
             cat('class',class(x),' top keys',paste(names(x),collapse=','),'\n')
+            if ('layers' %in% names(x)) {
+              cat('SOURCE_LAYER_ATTRIBUTES',paste(sort(unique(x$layers$attribute)),collapse=','),'\n')
+              cat('SOURCE_NODE_ATTRIBUTES',paste(sort(unique(x$nodes$attribute)),collapse=','),'\n')
+              cat('SOURCE_EDGE_ATTRIBUTES',paste(sort(unique(x$interactions$attribute)),collapse=','),'\n')
+              for (attribute in sort(unique(x$layers$attribute))) {
+                val=x$layers$value[x$layers$attribute==attribute]
+                cat('SOURCE_LAYER_ATTR',attribute,'N',length(val),
+                    'values',paste(utils::head(unique(val),15),collapse='|'),'\n')
+              }
+            }
             if (is.list(x)) {
               for (k in names(x)) {
                 a=x[[k]]
