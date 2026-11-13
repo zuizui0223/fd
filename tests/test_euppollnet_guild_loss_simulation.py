@@ -1,7 +1,7 @@
 """Synthetic counterfactual network guild-removal, no biological loss claims."""
 import json
 import pandas as pd
-from fd.euppollnet_island_overlap import SOURCE_COLUMNS
+from fd.euppollnet_island_overlap import SOURCE_COLUMNS, validate_original_visits
 from fd.euppollnet_guild_loss_simulation import (
     _group_remove, original_island_network_guild_ablation
 )
@@ -18,6 +18,9 @@ def _data():
         if i<8 or i>=10:
             rows.append(("study","network","2019-07-01",42.,12.,plant,"SPECIES",
                   "Syrphus demo","Diptera","Syrphus","Syrphidae"))
+        if i<6:
+            rows.append(("study","network","2019-07-01",42.,12.,plant,"SPECIES",
+                  "Andrena demo","Hymenoptera","Andrena","Andrenidae"))
     d=pd.DataFrame(rows,columns=SOURCE_COLUMNS)
     s=pd.DataFrame([("study","network",42.,12.,"isla")],columns=[
         "Study_id","Network_id","Latitude","Longitude","island_id"])
@@ -47,6 +50,7 @@ def test_simulated_loss_measures_remaining_plant_visits_not_seedset():
     assert bee["n_spatial_blocks"]==1
     assert bee["n_networks_with_8_matched_Direct_morph_plants_after_loss"]==1
     assert bee["functional_diversity_claim_supported"] is False
+    assert bee["n_networks_with_equal_removed_visitor_species_null"]==1
     assert 0<bee["median_alternative_visitor_link_coverage_among_exposed_plants"]<1
     out=json.dumps(z)
     for x in ('"island_id"','"Study_id"','"Network_id"',
