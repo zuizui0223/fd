@@ -1,0 +1,67 @@
+name: fd independent EMLN spatial and temporal original pollination networks
+on:
+  push:
+    branches: [analysis/pollinator-loss-functional-assembly-20261113]
+    paths: ['.github/workflows/audit-emln-pollination-source.yml']
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  source-schema:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: r-lib/actions/setup-r@v2
+        with:
+          r-version: release
+      - uses: actions/checkout@v4
+        with:
+          repository: Ecological-Complexity-Lab/emln
+          ref: e66e8702910728358e71f7814d01afd3c7b00c30
+          path: original-emln
+          persist-credentials: false
+      - name: Examine only version-pinned source network structures
+        run: |
+          set -euo pipefail
+          mkdir -p /tmp/fd-emln
+          Rscript - <<'RS'
+          root='original-emln/data'
+          targets=c('emln60_spatial_trojelsgaard_2015.rda',
+            'emln71_temporal_perturbation_kaiser_bunbury_2009.rda',
+            'emln64_temporal_caradona_2020.rda',
+            'emln72_temporal_ponisio_2017.rda',
+            'descriptions.rda')
+          out=list()
+          for (file in targets) {
+            e=new.env(parent=emptyenv())
+            loaded=load(file.path(root,file),envir=e)
+            x=e[[loaded[1]]]
+            cat('=== FILE:',file,'OBJECT:',loaded[1],'\n')
+            cat('class',class(x),' top keys',paste(names(x),collapse=','),'\n')
+            if (is.list(x)) {
+              for (k in names(x)) {
+                a=x[[k]]
+                cat(k,'class',class(a),'dim',paste(dim(a),collapse='x'),'cols',paste(names(a),collapse=','),'\n')
+                if (is.data.frame(a) && nrow(a)>0) {
+                  cat('row1',paste(unlist(a[1,,drop=FALSE]),collapse='|'),'\n')
+                }
+              }
+            } else if(is.data.frame(x)){
+              cat('descriptions colnames',paste(names(x),collapse=','),'nrows',nrow(x),'\n')
+            }
+            out[[file]]=list(object=loaded[1],top_class=class(x),
+               top_keys=names(x),dims=dim(x),
+               components=if(is.list(x)) lapply(x,function(a)
+                 list(class=class(a),dim=dim(a),cols=names(a))) else list())
+          }
+          saveRDS(out,'/tmp/fd-emln/source_schema_receipt.rds')
+          RS
+          sha256sum original-emln/data/emln60_spatial_trojelsgaard_2015.rda
+          sha256sum original-emln/data/emln71_temporal_perturbation_kaiser_bunbury_2009.rda
+      - uses: actions/upload-artifact@v4
+        with:
+          name: fd-emln-original-source-schema-${{ github.run_id }}
+          path: /tmp/fd-emln/source_schema_receipt.rds
+          if-no-files-found: error
+          retention-days: 90
