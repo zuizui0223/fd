@@ -156,6 +156,48 @@ def canary_same_plant_partner_turnover(
         "strictly_matched_same_plant_within_site_jaccard",
         "strictly_matched_same_plant_island_mainland_jaccard",
     ]].mean()
+    # Geographically nearest alternative island: plant names must occur in
+    # all THREE source locations. Control island is picked on distance alone.
+    # This is a DESCRIPTIVE 6-location sensitivity, with only 2–5 plants per
+    # three-way match and one continental locality; not an evolutionary
+    # phylogenetic or independent source-region contrast.
+    centre=ll.groupby("place")[["latitude","longitude"]].first().astype(float)
+    aggregate={
+        place:g.groupby("plant").visitor.agg(set).to_dict()
+        for place,g in v.groupby("place")
+    }
+    def greatcircle(a,b):
+        ax=np.deg2rad(centre.loc[a,["latitude","longitude"]].to_numpy(float))
+        bx=np.deg2rad(centre.loc[b,["latitude","longitude"]].to_numpy(float))
+        h=(np.sin((ax[0]-bx[0])/2.)**2+
+           np.cos(ax[0])*np.cos(bx[0])*np.sin((ax[1]-bx[1])/2.)**2)
+        return float(6371.0088*2*np.arcsin(np.sqrt(np.clip(h,0,1))))
+    geo_sensitivity=[]
+    for place in sorted(CANARY_SITE_NAMES-{"Western_Sahara"}):
+        distance_mainland=greatcircle(place,"Western_Sahara")
+        alternatives=sorted(
+            (name for name in CANARY_SITE_NAMES
+             if name not in (place,"Western_Sahara")
+             and not (place.startswith("Tenerife_") and
+                      name.startswith("Tenerife_"))))
+        alternate=min(alternatives,key=lambda name:
+                      abs(greatcircle(place,name)-distance_mainland))
+        common=(set(aggregate[place])&
+                set(aggregate["Western_Sahara"])&
+                set(aggregate[alternate]))
+        jmain=np.mean([_jaccard(aggregate[place][plant],
+                     aggregate["Western_Sahara"][plant]) for plant in common])
+        jalt=np.mean([_jaccard(aggregate[place][plant],
+                     aggregate[alternate][plant]) for plant in common])
+        geo_sensitivity.append({
+           "place":place,"distance_matched_other_island":alternate,
+           "km_to_original_mainland":distance_mainland,
+           "km_to_distance_matched_other_island":greatcircle(place,alternate),
+           "n_same_plant_species_at_all_three_locations":len(common),
+           "same_plant_mean_visitors_jaccard_with_mainland":float(jmain),
+           "same_plant_mean_visitors_jaccard_with_other_island":float(jalt),
+           "other_island_partner_overlap_exceeds_mainland":bool(jalt>jmain),
+        })
     return {
         "status":"ORIGINAL_CANARY_SAME_PLANT_PARTNER_TURNOVER_ONLY",
         "source_reference":"Troejelsgaard_et_al_2015_EMLN60",
@@ -184,6 +226,14 @@ def canary_same_plant_partner_turnover(
             by_island.strictly_matched_same_plant_island_mainland_jaccard.mean()),
         "n_strict_plant_location_combinations":int(
             x.n_strict_same_plants_present_all_four_sites.sum()),
+        "n_distance_matched_three_source_locations_with_same_plant_species":int(
+            sum(v["n_same_plant_species_at_all_three_locations"]>=2
+                for v in geo_sensitivity)),
+        "n_distance_matched_island_location_triplets_where_mainland_visitor_overlap_lower":int(
+            sum(v["other_island_partner_overlap_exceeds_mainland"]
+                for v in geo_sensitivity)),
+        "distance_matched_island_island_vs_mainland_source_sensitivity":
+            geo_sensitivity,
         "locations":[{
             k:(int(row[k]) if k.startswith("n_") else
                float(row[k]) if k not in ("place","geographical_island") else row[k])
