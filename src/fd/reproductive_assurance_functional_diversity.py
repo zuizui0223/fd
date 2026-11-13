@@ -181,6 +181,17 @@ def audit_assurance_flora(
                 rec["block_mean_"+key]=mean
                 rec["block_ci025_"+key]=lo
                 rec["block_ci975_"+key]=hi
+        # Post-hoc source-signature sensitivity (distinct from spatial
+        # blocks, not independent evolutionary histories).
+        rec["n_nearest_mainland_source_signatures"]=pair.source_signature.nunique()
+        if len(pair)>=10 and pair.source_signature.nunique()>=5:
+            for j,key in enumerate(("delta_positive_share","delta_binary_Q","delta_morph_joint_Q")):
+                means=pair.groupby("source_signature")[key].mean().dropna().to_numpy(float)
+                rng=np.random.default_rng(seed+200+j)
+                sims=means[rng.integers(len(means),size=(draws,len(means)))].mean(axis=1)
+                rec["source_equal_mean_"+key]=float(means.mean())
+                rec["source_ci025_"+key]=float(np.quantile(sims,.025))
+                rec["source_ci975_"+key]=float(np.quantile(sims,.975))
         out.append(rec)
     cand=[]
     for (scope,trait),q in private.loc[private.candidate_bombus_bird].groupby(["scope","trait"]):
@@ -192,6 +203,35 @@ def audit_assurance_flora(
                 rec["block_mean_"+key],rec["block_ci025_"+key],rec["block_ci975_"+key]=(
                     _block_ci(pair,key,draws,seed+100+j))
         cand.append(rec)
+    # In exactly the SAME selected native-eligible islands, compare scope to
+    # avoid attributing different geography/coverage to island origin status.
+    paired=[]
+    for trait,sub in private.groupby("trait"):
+        all_=sub.loc[sub.scope.eq("all_recorded")].set_index("island_id")
+        native=sub.loc[sub.scope.eq("source_native")].set_index("island_id")
+        for regime,n in native.groupby("regime"):
+            common=n.index.intersection(all_.index)
+            if len(common)<10 or n.spatial_block.nunique()<5:
+                continue
+            a=all_.loc[common]
+            n=n.loc[common]
+            row=dict(trait=trait,regime=regime,n_matched_native_eligible_islands=len(common),
+                n_matched_spatial_blocks=n.spatial_block.nunique(),
+                compare_exact_same_island_not_independent_replication=True)
+            vals=n[["spatial_block"]].copy()
+            for j,key in enumerate(("island_positive_share","island_binary_Q",
+                                    "island_morph_joint_Q","delta_positive_share")):
+                vals["native_minus_all_"+key]=(n[key]-a[key]).to_numpy(float)
+                mean,lo,hi=_block_ci(vals,"native_minus_all_"+key,draws,seed+500+j)
+                row["block_mean_native_minus_all_"+key]=mean
+                row["block_ci025_native_minus_all_"+key]=lo
+                row["block_ci975_native_minus_all_"+key]=hi
+                if key=="delta_positive_share":
+                    row["median_same_island_all_source_delta"]=(
+                        float(a[key].median()) if a[key].notna().any() else None)
+                    row["median_same_island_native_source_delta"]=(
+                        float(n[key].median()) if n[key].notna().any() else None)
+            paired.append(row)
     return {
      "status":"DIRECT_REPRODUCTIVE_FUNCTIONAL_PROXIES_NOT_POLLINATION_SERVICE",
      "n_original_direct_triple_flora_islands":928,
@@ -200,6 +240,7 @@ def audit_assurance_flora(
         t:int(binary[t].notna().sum()) for t in REPRO},
      "reproductive_assurance_functional_assemblage_by_region":out,
      "candidate_potential_pollinator_shift_assurance_support":cand,
+     "same_island_native_vs_all_assurance_sensitivity":paired,
      "carrier_specific_support_min":sample_size,
      "rarefactions":repeats,
      "same_carrier_morphology_and_assurance_scoring":True,
