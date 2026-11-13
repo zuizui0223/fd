@@ -6,7 +6,8 @@ import pytest
 from fd.discrete_functional_volume import TRAITS
 from fd.rare_profile_decomposition import RarityReference,genus
 from fd.family_conditioned_rare_volume import (
-    matched_family_source_effect, _score, _compiled, _mask,
+    matched_family_source_effect, independent_family_richness_effect,
+    _score, _compiled, _mask,
     _shapley_family_scores, _families_with_different_genus_pairs
 )
 from fd.colxr_family_opportunity import group_by_family
@@ -61,6 +62,14 @@ def test_exact_matched_family_allows_genus_or_forces_different_genus():
         assert diff==matched_family_source_effect(ref,look,a,b,
               family_map=families,n=n,repeats=20,seed=7,
               must_change_genus=True)
+        free_identity=independent_family_richness_effect(
+             ref,look,a,b,family_map=families,
+             n=n,repeats=20,seed=17)
+        assert set(free_identity)==set(free)
+        assert free_identity==independent_family_richness_effect(
+             ref,look,a,b,family_map=families,
+             n=n,repeats=20,seed=17)
+        assert all(np.isfinite(v) for v in free_identity.values())
 
 
 def test_exact_original_30_species_family_shapley_additivity():
