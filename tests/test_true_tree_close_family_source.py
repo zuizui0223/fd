@@ -8,7 +8,7 @@ from fd.discrete_functional_volume import TRAITS
 from fd.rare_profile_decomposition import RarityReference
 from fd.family_conditioned_rare_volume import _compiled
 from fd.true_tree_close_family_source import (
-    _max_matching,_controlled_sample
+    _max_matching,_controlled_sample,_identical_focal_two_nonoverlapping_distance_bands
 )
 
 
@@ -44,6 +44,7 @@ def _original_like():
     for i in range(6):
         D[i,i]=30.
         D[i,6+i%2]=90.
+        D[i,(i+3)%6]=80.  # different donor, SAME family, medium distance
     return triple,local,donor,fam,D
 
 
@@ -85,3 +86,23 @@ def test_not_enough_close_real_tree_pairs_is_no_effect_not_zero():
     with pytest.raises(ValueError,match="excluded"):
         _controlled_sample(ref,lookup,donor,donor,D,fam,
              threshold=50.,same_genus=True,n=5,repeats=20)
+
+def test_same_five_real_focal_species_compared_across_two_nonoverlapping_source_bands():
+    triples,local,donor,fam,D=_original_like()
+    ref=RarityReference.from_original(triples,null_draws=199,seed=3)
+    lookup=_compiled(ref,triples)
+    result=_identical_focal_two_nonoverlapping_distance_bands(
+        ref,lookup,local,donor,D,fam,seed=17,repeats=20)
+    assert result["n_original_local_true_tip_species_with_two_donor_distance_bands"]==6
+    assert result["qualified_exact_focal_taxa_for_two_distance_bands"] is True
+    assert result["n_valid_fixed_same_focal_n5_repeats"]==20
+    assert result["average_near_original_tree_distance"]==pytest.approx(30.)
+    assert result["average_mid_original_tree_distance"]==pytest.approx(80.)
+    again=_identical_focal_two_nonoverlapping_distance_bands(
+        ref,lookup,local,donor,D,fam,seed=17,repeats=20)
+    assert result==again
+    D[2:,:]=300.
+    invalid=_identical_focal_two_nonoverlapping_distance_bands(
+        ref,lookup,local,donor,D,fam,seed=17,repeats=20)
+    assert invalid["qualified_exact_focal_taxa_for_two_distance_bands"] is False
+    assert "near_minus_mid_k_adjusted_rare_common" not in invalid
