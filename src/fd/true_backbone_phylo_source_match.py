@@ -106,6 +106,10 @@ def _strict_source_taxon_groups(
     geom=geo[["island_id","analysis_regime","spatial_block"]].drop_duplicates().set_index("island_id")
     if geom.index.has_duplicates or not eligible.issubset(set(geom.index)):
         raise ValueError("Original geography missing or duplicated")
+    donors=donors.copy()
+    donors["source_rank"]=pd.to_numeric(donors["source_rank"],errors="raise")
+    if donors["source_rank"].isna().any():
+        raise ValueError("Original GIFT donor source rank missing")
     assignments=donors.loc[
        donors.island_id.isin(eligible)&donors.source_mode.eq("geo_k5")&
        donors.source_rank.between(1,5),["island_id","source_rank","entity_ID"]]
