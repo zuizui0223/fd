@@ -47,3 +47,18 @@ These original-source results support a documented source-relative **floristic r
 - Source original tree runs: [#43448315502](https://github.com/zuizui0223/island/actions/runs/43448315502), [#43454436980](https://github.com/zuizui0223/island/actions/runs/43454436980). All source data rights stay in upstream authorized CI; no original accepted species or exact source region identifiers or copyrighted tree files redistributed.
 
 Keep fd PR #16 and island PR #326 **Draft**; no adaptive island syndrome causal claim.
+
+## Additional post-hoc exact-SAME-ISLAND threshold contrast (original 3 trees, all successful)
+
+The separate [original workflow #43455223738](https://github.com/zuizui0223/island/actions/runs/43455223738) ran the 0–50 and 0–100 within-family n5 donor pair tests and computed a directly paired contrast on the EXACT SAME original physical island IDs and GIFT source signatures, avoiding the different-island denominator. This does NOT fix the individual focal plant species sampled in each threshold comparison; those may still be different.
+
+| Tropical same-island comparison | TPL 90 islands / 38 blocks / 33 sources | LCVP 90 / 38 / 33 | WP 88 / 38 / 31 |
+| --- | --- | --- | --- |
+| **≤50 minus ≤100 k-conditioned rare−common gap**, block mean [95%] | **+0.05892 [+0.03297,+0.08728]** | **+0.06045 [+0.03590,+0.08654]** | **+0.06166 [+0.03579,+0.08939]** |
+| Same island **family-only random source** comparison, block | +0.03918 [+0.01115,+0.06665] | +0.04068 [+0.01820,+0.06235] | +0.04906 [+0.02584,+0.07190] |
+| Threshold-bounded minus family-only response, block | +0.01974 [+0.00469,+0.03398] | +0.01976 [+0.00575,+0.03318] | +0.01260 [−0.00078,+0.02607] |
+| Threshold-bounded minus family-only response, source-signature | +0.00601 [−0.01059,+0.02273] | +0.01666 [+0.00076,+0.03101] | +0.01123 [−0.00373,+0.02530] |
+
+The same-physical-island contrast does show greater recorded rare-category support in the <50 condition than in <100 on selected original tropical islands. However, even a source-matched FAMILY-only comparator shows a difference and **2/3 source-signature conditional intervals for the threshold-specific incremental effect cross zero**. Selection of WHICH focal species and GIFT donor species can still confound a branch-length effect.
+
+An additional posthoc source comparator requiring the EXACT SAME FIVE original island plant tips under non-overlapping donor path-distance windows (≤50 versus >50 and ≤100, same original accepted CoL candidate family) is executed and treated as a separate support gate; until completion no effect is inferred. Source family labels are unreviewed CoL candidate matches, the published tree tips are not necessarily newly sequenced, and no pollination service was measured.
