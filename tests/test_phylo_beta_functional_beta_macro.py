@@ -31,7 +31,7 @@ def test_source_bitset_jaccard_functional_beta_is_not_profile_count():
     assert functional_reference_beta(0b1011,0b1101)==pytest.approx(0.5)
     assert functional_reference_beta(0b1001,0b1001)==pytest.approx(0.)
     assert functional_reference_beta(0b0011,0b1100)==pytest.approx(1.)
-    with pytest.raises(ValueError,match="no actually observed"):
+    with pytest.raises(ValueError,match="No actually observed"):
         functional_reference_beta(0,0)
 
 
