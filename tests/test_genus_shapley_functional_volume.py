@@ -57,8 +57,10 @@ def test_shapley_sum_coverage_exact_even_with_full_overlap():
 def test_genus_decomposition_source_species_disjoint_and_exact():
     t=synthetic_original()
     ref=RarityReference.from_original(t,null_draws=199,seed=6)
-    local=set(t.index[::2])
-    source=set(t.index[1::2])
+    # Allocate names within every genus, not by global even/odd name index.
+    # The synthetic species generator cycles even-valued genus indices.
+    local={name for name in t.index if int(name.split("species_")[1])//34%2==0}
+    source=set(t.index)-local
     r=_sample_components(ref,t,local,source,n=30,repeats=20,seed=2)
     for key in ("rare","common","gap"):
         assert r[key+"_total"]==pytest.approx(
@@ -71,8 +73,10 @@ def test_genus_decomposition_source_species_disjoint_and_exact():
 def test_one_source_different_species_per_genus_at_five_and_eight():
     t=synthetic_original()
     ref=RarityReference.from_original(t,null_draws=199,seed=7)
-    local=set(t.index[::2])
-    source=set(t.index[1::2])
+    # Allocate names within every genus, not by global even/odd name index.
+    # The synthetic species generator cycles even-valued genus indices.
+    local={name for name in t.index if int(name.split("species_")[1])//34%2==0}
+    source=set(t.index)-local
     for n in (5,8):
         a=_match_unique_genera(ref,t,local,source,n=n,repeats=20,seed=4)
         b=_match_unique_genera(ref,t,local,source,n=n,repeats=20,seed=4)
