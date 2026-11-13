@@ -6,7 +6,8 @@ import pytest
 
 from fd.phylo_beta_functional_beta_macro import (
     OriginalTreeSubtree,functional_reference_beta,_weighted_slope,
-    _phylo_functional_draw,_family_stratified_flower_trait_shuffle
+    _phylo_functional_draw,_family_stratified_flower_trait_shuffle,
+    ProfileCountFunctionalBetaNull
 )
 
 
@@ -112,11 +113,22 @@ def test_same_fifteen_tree_tip_flower_triples_not_single_colour_strings():
     tip={name:i+1 for i,name in enumerate(names[:32])}
     cat={name:tuple(traits.loc[name].values) for name in names[:32]}
     family={name:"SameSyntheticFamily" for name in names[:32]}
-    r=_phylo_functional_draw(ref,tree,names[:15],names[15:30],tip,cat,family)
+    profile_k=ProfileCountFunctionalBetaNull(
+        ref,draws=199,seed=7,nmax=15)
+    r=_phylo_functional_draw(ref,tree,names[:15],names[15:30],
+                             tip,cat,family,k_profile_null=profile_k)
     assert 0<=r["phylosor_beta"]<=1
     assert 0<=r["functional_support_beta"]<=1
     assert 0<=r["exact_profile_jaccard_beta"]<=1
     assert np.isfinite(r["k_adjusted_rare_minus_common_source_gap"])
+    assert np.isfinite(r["functional_beta_excess_given_exact_profile_k"])
+    assert np.isfinite(r["functional_beta_excess_given_exact_profile_k_speciesfreq_null"])
+    assert 0<=profile_k.expect_uniform[15,15]<=1
+    assert profile_k.excess(
+        r["functional_support_beta"],
+        r["exact_original_island_profile_count_k"],
+        r["exact_original_source_profile_count_k"]
+    )[0]==pytest.approx(r["functional_beta_excess_given_exact_profile_k"])
     assert r["n_original_shared_families"]==1
 
 
