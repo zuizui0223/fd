@@ -116,10 +116,58 @@ def functional_reference_beta(mask_a:int,mask_b:int)->float:
     return 1-float((mask_a&mask_b).bit_count()/union.bit_count())
 
 
+class ProfileCountFunctionalBetaNull:
+    """Finite categorical geometry benchmark at EXACT (k island, k source).
+
+    Hold the number of unique actually recorded original floral profiles on
+    BOTH source floras fixed separately. A random reference replicate
+    samples k distinct original 100-profile centers from the frozen global
+    reference; then computes one-trait-radius reference-Jaccard beta.
+    Both uniform profile centers and species-frequency-weighted distinct
+    profile centers are frozen independent reference nulls.
+    No genus/family/source phylogenetic history is controlled by this null.
+    """
+    def __init__(self,reference:RarityReference,*,
+                 draws:int=199,seed:int=20261114,nmax:int=15):
+        if draws<199 or nmax!=15 or len(reference.volume.profiles)!=100:
+            raise ValueError("Exact-k categorical β reference model changed")
+        profiles=reference.volume.profiles
+        masks=[reference.volume.masks[p][1] for p in profiles]
+        frequencies=reference.profile_n_species.astype(float)
+        probabilities=frequencies/frequencies.sum()
+        self.expect_uniform={}
+        self.expect_speciesfreq={}
+        rng=np.random.default_rng(seed)
+        for ka in range(1,nmax+1):
+            for kb in range(1,nmax+1):
+                u=[]
+                w=[]
+                for _ in range(draws):
+                    for output,p in ((u,None),(w,probabilities)):
+                        first=rng.choice(len(masks),size=ka,replace=False,p=p)
+                        second=rng.choice(len(masks),size=kb,replace=False,p=p)
+                        x=y=0
+                        for j in first:x|=masks[int(j)]
+                        for j in second:y|=masks[int(j)]
+                        output.append(functional_reference_beta(x,y))
+                self.expect_uniform[ka,kb]=float(np.mean(u))
+                self.expect_speciesfreq[ka,kb]=float(np.mean(w))
+        self.draws=draws
+
+    def excess(self,observed_beta:float,ka:int,kb:int):
+        if (ka,kb) not in self.expect_uniform:
+            raise ValueError("Original floral distinct profile count k unsupported")
+        return (
+            float(observed_beta-self.expect_uniform[ka,kb]),
+            float(observed_beta-self.expect_speciesfreq[ka,kb])
+        )
+
+
 def _phylo_functional_draw(
     reference:RarityReference,tree:OriginalTreeSubtree,local:list[str],
     donor:list[str],tip_map:dict[str,int],taxon_profiles:dict[str,tuple],
     original_family:dict[str,str],
+    k_profile_null:ProfileCountFunctionalBetaNull|None=None,
 ):
     if len(local)!=N_RAREFY or len(donor)!=N_RAREFY:
         raise ValueError("Both source floras must have exactly 15 original taxa")
@@ -152,9 +200,15 @@ def _phylo_functional_draw(
     gensB={genus(x) for x in donor}
     famA={original_family[x] for x in local if original_family.get(x)}
     famB={original_family[x] for x in donor if original_family.get(x)}
+    k_excess=(k_profile_null.excess(functional,len(a),len(b))
+              if k_profile_null is not None else (None,None))
     return dict(
         phylosor_beta=phy,
         functional_support_beta=functional,
+        functional_beta_excess_given_exact_profile_k=k_excess[0],
+        functional_beta_excess_given_exact_profile_k_speciesfreq_null=k_excess[1],
+        exact_original_island_profile_count_k=len(a),
+        exact_original_source_profile_count_k=len(b),
         exact_profile_jaccard_beta=float(direct_profile_jaccard),
         signed_rare_minus_common_source_gap=signed,
         k_adjusted_rare_minus_common_source_gap=k_signed,
@@ -444,6 +498,8 @@ def macro_original_phylo_functional_beta(
         raise ValueError("Original island area and geographical isolation needed")
     geographic=geo.set_index("island_id")
     ref=RarityReference.from_original(triple,null_draws=reference_null_draws,seed=seed)
+    geometry_k_null=ProfileCountFunctionalBetaNull(
+        ref,draws=reference_null_draws,seed=seed+888,nmax=15)
     phen={
         str(name):tuple(row) for name,row in zip(
             triple.index,triple[list(TRAITS)].to_numpy(dtype=str))}
@@ -480,7 +536,8 @@ def macro_original_phylo_functional_beta(
                 A=random.choice(local,size=N_RAREFY,replace=False).tolist()
                 B=random.choice(donor,size=N_RAREFY,replace=False).tolist()
                 results=_phylo_functional_draw(
-                    ref,tree,A,B,exact_tip_node_map,phen,original_family)
+                    ref,tree,A,B,exact_tip_node_map,phen,original_family,
+                    k_profile_null=geometry_k_null)
                 reps.append(results)
                 if draw<5:
                     first5.append((A,B))
@@ -510,6 +567,8 @@ def macro_original_phylo_functional_beta(
     df=pd.DataFrame(store)
     reports=[]
     responses=("functional_support_beta",
+       "functional_beta_excess_given_exact_profile_k",
+       "functional_beta_excess_given_exact_profile_k_speciesfreq_null",
        "exact_profile_jaccard_beta",
        "k_adjusted_rare_minus_common_source_gap")
     for (scope,regime),g in df.groupby(["scope","regime"]):
@@ -561,6 +620,10 @@ def macro_original_phylo_functional_beta(
             "same_15_true_dated_plant_tips_on_island_and_GIFT_source":True,
             "n_per_island_original_source_random_rarefactions":repeats,
             "n_reference_observed_global_flower_profiles":100,
+            "functional_Jaccard_beta_exact_island_source_profile_k_nulls":True,
+            "functional_Jaccard_k_null_dissimilarity_reference_draws":reference_null_draws,
+            "null_reference_uniform_and_global_direct_species_frequency":True,
+            "null_does_not_preserve_source_taxonomy_or_phylogeny":True,
             "no_taxonomically_imputed_phylogenetic_plant_tips":True,
             "remove_all_same_island_species_from_source_GIFT_floras":True,
             "family_genus_source_area_isolation_adjusted_regressions":True,
