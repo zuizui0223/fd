@@ -121,7 +121,8 @@ def audit_original_direct_channel_opportunity(
 ) -> dict:
     """Return ONLY anonymized aggregates; private scores stay in local memory.
 
-    A channel-region comparison is nonidentifiable unless BOTH retained and
+    An *associational*, not causal, channel-region comparison is unsupported
+    unless BOTH retained and
     qualified-disrupted states have >=10 islands in >=10 spatial blocks EACH,
     AND at least 3 distinct nearest-GIFT-source signatures have both states.
     This predeclared gate is independent of measured floral diversity.
@@ -217,10 +218,29 @@ def audit_original_direct_channel_opportunity(
             continue
         obj=dict(scope=scope,regime=regime,n_islands=len(g),
                  n_spatial_blocks=g.spatial_block.nunique(),
+                 n_nearest_mainland_source_signatures=g.source_signature.nunique(),
                  n_source_comparable=int(g["source_delta_marginal_rao"].notna().sum()))
-        for metric in METRICS:
+        for j,metric in enumerate(METRICS):
             obj["median_"+metric]=float(g[metric].median())
-            obj["median_source_delta_"+metric]=float(g["source_delta_"+metric].median()) if g["source_delta_"+metric].notna().any() else None
+            key="source_delta_"+metric
+            sub=g.loc[g[key].notna()]
+            obj["median_source_delta_"+metric]=float(sub[key].median()) if len(sub) else None
+            # Two separate conservative descriptive uncertainty levels.
+            # Source signature and spatial block represent overlapping, NOT
+            # phylogenetically independent historical island replicates.
+            if len(sub)>=10 and sub.spatial_block.nunique()>=5:
+                mean,lo,hi=_block_ci(sub,key,draws=bootstrap,seed=seed+100+j)
+                obj["block_equal_mean_source_delta_"+metric]=mean
+                obj["block_bootstrap_lower_"+metric]=lo
+                obj["block_bootstrap_upper_"+metric]=hi
+            if len(sub)>=10 and sub.source_signature.nunique()>=5:
+                src_means=sub.groupby("source_signature")[key].mean().to_numpy(float)
+                rng=np.random.default_rng(seed+200+j)
+                rs=src_means[rng.integers(len(src_means),
+                    size=(bootstrap,len(src_means)))].mean(axis=1)
+                obj["source_equal_mean_source_delta_"+metric]=float(src_means.mean())
+                obj["source_bootstrap_lower_"+metric]=float(np.quantile(rs,.025))
+                obj["source_bootstrap_upper_"+metric]=float(np.quantile(rs,.975))
         region.append(obj)
     supports=[]
     for guild in GUILDS:
@@ -240,7 +260,7 @@ def audit_original_direct_channel_opportunity(
                 nearest_mainland_source_signatures_with_both=len(common),
                 source_comparable_retained=int(a["source_delta_marginal_rao"].notna().sum()),
                 source_comparable_nondetected=int(b["source_delta_marginal_rao"].notna().sum()),
-                causal_contrast_admissible=bool(status)))
+                qualified_observational_contrast_admissible=bool(status)))
     # Scientific candidate only; BOTH channels are documentary opportunity states,
     # NOT bird-pollinated flowers nor an observed historical shift.
     candidates=[]
@@ -273,7 +293,7 @@ def audit_original_direct_channel_opportunity(
       "n_island_scope_rows_privately_scored":len(private),
       "n_direct_triple_species":len(x),
       "n_direct_islands_with_native_30plus":int((private.scope=="source_native").sum()),
-      "n_primary_channel_region_contrasts_passed":sum(t["causal_contrast_admissible"] for t in supports),
+      "n_qualified_channel_region_contrasts_passed":sum(t["qualified_observational_contrast_admissible"] for t in supports),
       "support_by_guild_regime":supports,
       "floral_functional_assemblage_by_region":region,
       "source_relative_bombus_nondetected_bird_detected_candidates":candidates,
