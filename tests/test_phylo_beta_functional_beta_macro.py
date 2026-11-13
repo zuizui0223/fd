@@ -6,7 +6,7 @@ import pytest
 
 from fd.phylo_beta_functional_beta_macro import (
     OriginalTreeSubtree,functional_reference_beta,_weighted_slope,
-    _phylo_functional_draw
+    _phylo_functional_draw,_family_stratified_flower_trait_shuffle
 )
 
 
@@ -118,3 +118,44 @@ def test_same_fifteen_tree_tip_flower_triples_not_single_colour_strings():
     assert 0<=r["exact_profile_jaccard_beta"]<=1
     assert np.isfinite(r["k_adjusted_rare_minus_common_source_gap"])
     assert r["n_original_shared_families"]==1
+
+
+def test_family_preserving_null_shuffles_whole_three_trait_states_with_fixed_donors():
+    from fd.discrete_functional_volume import TRAITS
+    from fd.rare_profile_decomposition import RarityReference
+    profiles=list(product(
+       ("white","purple","yellow","red","blue","pink","green","orange","brown","cream"),
+       ("open_radial","tubular","brush","composite","zygomorphic"),
+       ("actinomorphic","zygomorphic")))
+    w=np.arange(1,101,dtype=float)**1.4
+    counts=np.floor(w/w.sum()*(2234-100)).astype(int)+1
+    for i in range(2234-int(counts.sum())):counts[i%100]+=1
+    rows=[p for p,c in zip(profiles,counts) for _ in range(int(c))]
+    names=[f"Genus{i%70} source_{i}" for i in range(2234)]
+    t=pd.DataFrame(rows,index=names,columns=TRAITS)
+    ref=RarityReference.from_original(t,null_draws=199)
+    subset=names[:1162]
+    p={name:tuple(t.loc[name].values) for name in subset}
+    fam={name:f"Family{i%40}" for i,name in enumerate(subset)}
+    original=[
+      dict(scope="all_recorded",regime="tropical",
+         spatial_block=f"b{i%10}",source_signature=f"s{i%12}",
+         log_source_exact_tip_candidates=5.,log_island_area_km2=3.,
+         log_distance_to_continent_km=2.,
+         phylosor_beta=float(i)/45.,
+         functional_support_beta=.3,
+         original_genus_jaccard_turnover=.5,
+         original_colxr_candidate_family_jaccard_turnover=.5,
+         species_pairs=[(subset[i:i+15],subset[i+400:i+415]) for _ in range(5)])
+      for i in range(30)
+    ]
+    null,audit=_family_stratified_flower_trait_shuffle(
+        ref,p,fam,original,seed=14,permutations=99)
+    assert len(null)==99 and len(null[0])==30
+    assert audit["n_original_source_families_permutable"]==40
+    assert audit["n_original_true_tip_species_in_permutable_families"]==1162
+    assert audit["preserve_exact_original_within_family_phenotype_counts"] is True
+    assert np.isfinite(np.asarray(null)).all()
+    assert np.array_equal(np.asarray(null),np.asarray(
+        _family_stratified_flower_trait_shuffle(
+          ref,p,fam,original,seed=14,permutations=99)[0]))
