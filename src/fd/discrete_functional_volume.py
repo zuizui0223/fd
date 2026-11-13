@@ -254,6 +254,7 @@ def original_categorical_flora_volume(
             rec["median_"+key]=float(p[key].median())
         for k,donor in enumerate(("source_all","source_excluding_same_island_species")):
             for j,metric in enumerate(("occupancy_r0","metric_volume_r1",
+                   "metric_volume_r1_weighted",
                    "metric_volume_r1_richness_residual",
                    "colour_architecture_pairing_excess_r1")):
                 col=donor+"_delta_"+metric
