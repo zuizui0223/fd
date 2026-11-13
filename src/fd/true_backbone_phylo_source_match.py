@@ -34,7 +34,8 @@ PHYLO_RESTRICTED_MIN_DONOR_SOURCES=10
 def _sample_original_phylogenetic_source(
     direct:pd.DataFrame,ref:RarityReference,lookup:dict,
     island_names:set[str],donor_names:set[str],tip_index:dict[str,int],
-    distances:np.ndarray,*,n:int=15,repeats:int=20,seed:int=20261113
+    distances:np.ndarray,*,n:int=15,repeats:int=20,seed:int=20261113,
+    original_accepted_family:dict[str,str]|None=None
 )->dict:
     if n not in (N_PRIMARY,N_SENSITIVITY) or repeats<10:
         raise ValueError("Frozen original phylogeny matching sampling contract changed")
@@ -68,10 +69,28 @@ def _sample_original_phylogenetic_source(
         orig=_score(ref,selected,lookup)
         matched=_score(ref,donors,lookup)
         arbitrary=_score(ref,random,lookup)
+        observed_selected_distances=matrix[left,right]
+        family=(original_accepted_family or {})
         row=dict(
             d_matched=d_match,
             d_random=d_random,
-            matched_minus_random_phylo_distance=d_match-d_random)
+            matched_minus_random_phylo_distance=d_match-d_random,
+            # POST-HOC descriptive branch-distance support diagnostics.
+            # The thresholds below are absolute units of the original
+            # dated source tree, NOT proof of close relatives/ancestry.
+            share_matched_pairs_le50_tree_length_units=float(
+                np.mean(observed_selected_distances<=50.)),
+            share_matched_pairs_le100_tree_length_units=float(
+                np.mean(observed_selected_distances<=100.)),
+            median_matched_pair_distance=float(np.median(observed_selected_distances)),
+            maximum_matched_pair_distance=float(np.max(observed_selected_distances)),
+            share_matched_pairs_same_original_accepted_genus=float(
+                np.mean([p.split()[0]==q.split()[0]
+                         for p,q in zip(selected,donors)])),
+            share_matched_pairs_same_original_COLXR_candidate_family=float(
+                np.mean([bool(family.get(p)) and family.get(p)==family.get(q)
+                         for p,q in zip(selected,donors)])),
+        )
         for j,k in enumerate(METRICS):
             row["matched_delta_"+k]=float(orig[j]-matched[j])
             row["random_delta_"+k]=float(orig[j]-arbitrary[j])
@@ -132,6 +151,7 @@ def original_true_phylogeny_match(
     tip_name_to_node_id:dict[str,int],tip_species_order:list[str],
     distance_matrix:np.ndarray,*,
     tree_version:str,seed:int=20261113,
+    original_accepted_family:dict[str,str]|None=None,
     rarefactions:int=20,reference_draws:int=399,bootstrap:int=1999
 )->dict:
     if rarefactions<15 or reference_draws<199 or bootstrap<999:
@@ -184,7 +204,8 @@ def original_true_phylogeny_match(
                 summary=_sample_original_phylogenetic_source(
                     direct,ref,lookup,local,donor,tip_index,distance_matrix,
                     n=n,repeats=rarefactions,
-                    seed=_seedstr(seed,tree_version,island,scope,n))
+                    seed=_seedstr(seed,tree_version,island,scope,n),
+                    original_accepted_family=original_accepted_family)
                 all_stats.append(dict(scope_status,**summary))
     summary=pd.DataFrame(all_stats)
     opportunities=pd.DataFrame(support)
@@ -211,6 +232,12 @@ def original_true_phylogeny_match(
             if len(p)!=len(eligible):
                 raise ValueError("True-tree-tip source sampling dropped a matched island")
             keys=("d_matched","d_random","matched_minus_random_phylo_distance",
+                  "share_matched_pairs_le50_tree_length_units",
+                  "share_matched_pairs_le100_tree_length_units",
+                  "median_matched_pair_distance",
+                  "maximum_matched_pair_distance",
+                  "share_matched_pairs_same_original_accepted_genus",
+                  "share_matched_pairs_same_original_COLXR_candidate_family",
                   "matched_delta_k_adjusted_rare_minus_common",
                   "random_delta_k_adjusted_rare_minus_common",
                   "matched_minus_random_delta_k_adjusted_rare_minus_common",
@@ -251,6 +278,8 @@ def original_true_phylogeny_match(
           "no_ancestral_source_proven_from_geographically_nearest_GIFT":True,
           "source_tree_tip_subset_is_geographically_selected":True,
           "rare_original_categories_may_not_be_in_tree_even_if_in_reference":True,
+          "matched_phylo_distance_50_100_thresholds_posthoc_diagnostics_only":True,
+          "original_colxr_family_and_genus_pair_support_diagnostics":True,
        },
        "demonstrated_phylogeny_caused_flower_loss_or_pollinator_shift":False,
        "original_tree_tip_island_taxon_or_source_name_exported":False,
