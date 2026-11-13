@@ -141,6 +141,68 @@ def _controlled_sample(
     return support
 
 
+def _identical_focal_two_nonoverlapping_distance_bands(
+    ref,lookup,local,source,dist,family,*,seed:int,repeats:int=20
+)->dict:
+    """Outcome-blind source taxon gate, same five focal original plant tips.
+
+    Each focal taxon has an original different-species source plant within
+    <=50 AND a distinct source plant with distance (50,100] in same family.
+    Both donor sets are independently one-to-one. This is posthoc and does
+    NOT keep source donor identities fixed between distance bands.
+    """
+    if dist.shape!=(len(local),len(source)) or set(local)&set(source):
+        raise ValueError("Original exact local taxa/source distance contract invalid")
+    a=np.asarray([family[x] for x in local],dtype=str)
+    b=np.asarray([family[x] for x in source],dtype=str)
+    same=a[:,None]==b[None,:]
+    near=same&(dist<=50)
+    mid=same&(dist>50)&(dist<=100)
+    possibilities=np.flatnonzero(near.any(axis=1)&mid.any(axis=1))
+    result=dict(
+       n_original_local_true_tip_species_with_two_donor_distance_bands=int(len(possibilities)),
+       n_valid_fixed_same_focal_n5_repeats=0,
+       qualified_exact_focal_taxa_for_two_distance_bands=False)
+    if len(possibilities)<5:
+        return result
+    rng=np.random.default_rng(seed)
+    z=[]
+    for attempt in range(repeats*10):
+        if len(z)>=repeats:
+            break
+        picked=rng.choice(possibilities,size=5,replace=False)
+        perm_a=rng.permutation(len(source))
+        perm_b=rng.permutation(len(source))
+        an=_max_matching(near[np.ix_(picked,perm_a)])
+        bm=_max_matching(mid[np.ix_(picked,perm_b)])
+        if np.any(an<0) or np.any(bm<0):
+            continue
+        own=[local[int(x)] for x in picked]
+        source_near=[source[int(perm_a[int(j)])] for j in an]
+        source_mid=[source[int(perm_b[int(j)])] for j in bm]
+        if len(set(source_near))!=5 or len(set(source_mid))!=5:
+            raise AssertionError("Source true tip reused within a distance band")
+        d1=dist[picked,perm_a[an]]
+        d2=dist[picked,perm_b[bm]]
+        if np.any(d1>50) or np.any(d2<=50) or np.any(d2>100):
+            raise AssertionError("Actual source original tree distance bands overlapped")
+        ownval=_score(ref,own,lookup)
+        nearval=_score(ref,source_near,lookup)
+        midval=_score(ref,source_mid,lookup)
+        z.append(dict(
+           local_minus_near_k_adjusted_rare_common=float(ownval[3]-nearval[3]),
+           local_minus_mid_k_adjusted_rare_common=float(ownval[3]-midval[3]),
+           near_minus_mid_k_adjusted_rare_common=float(midval[3]-nearval[3]),
+           near_minus_mid_rare_coverage=float(midval[0]-nearval[0]),
+           average_near_original_tree_distance=float(np.mean(d1)),
+           average_mid_original_tree_distance=float(np.mean(d2))))
+    result["n_valid_fixed_same_focal_n5_repeats"]=len(z)
+    result["qualified_exact_focal_taxa_for_two_distance_bands"]=len(z)>=10
+    if len(z)>=10:
+        result.update({k:float(v) for k,v in pd.DataFrame(z).mean().items()})
+    return result
+
+
 def run_close_phylo_family_source(
     triple:pd.DataFrame,floras:pd.DataFrame,geo:pd.DataFrame,
     sources:pd.DataFrame,mainland:pd.DataFrame,
@@ -164,6 +226,7 @@ def run_close_phylo_family_source(
     eligible_tips=set(tip_lookup)&set(original_family)
     byisland={z:x for z,x in original.groupby("island_id")}
     scored=[]
+    fixed_local_bands=[]
     for island in sorted(islands):
         site=byisland[island]
         allplants=set(site.accepted_species)
@@ -199,6 +262,10 @@ def run_close_phylo_family_source(
                    repeats=repeat,n=SAMPLE_N,
                    seed=_seedstr(seed,island,scope,criterion,tree_version))
                 scored.append(dict(common,criterion=criterion,**score))
+            dual=_identical_focal_two_nonoverlapping_distance_bands(
+                ref,lookup,original_names,donor,distances,original_family,
+                repeats=repeat,seed=_seedstr(seed,island,scope,tree_version,"same_focal"))
+            fixed_local_bands.append(dict(common,**dual))
     raw=pd.DataFrame.from_records(scored)
     regions=[]
     for (scope,regime,criterion),g in raw.groupby(
@@ -296,6 +363,41 @@ def run_close_phylo_family_source(
                     item[tier+"_ci025_"+change]=lo
                     item[tier+"_ci975_"+change]=hi
         threshold_paired.append(item)
+    # Further restriction: same IDENTICAL original island plant species
+    # under two non-overlapping source distance bands, NOT merely same
+    # island as in paired 50 versus 100 above. Do not output a numerical
+    # effect if the true original donor/source support is inadequate.
+    same_focal=[]
+    fixed=pd.DataFrame.from_records(fixed_local_bands)
+    for (scope,regime),q in fixed.groupby(["scope","regime"]):
+        good=q.loc[q.qualified_exact_focal_taxa_for_two_distance_bands]
+        supported=(len(good)>=MIN_REGIONAL_ISLANDS and
+                   good.spatial_block.nunique()>=MIN_REGIONAL_BLOCKS and
+                   good.first_source_signature.nunique()>=MIN_REGIONAL_SOURCES)
+        record=dict(scope=scope,regime=regime,
+            n_eligible_source_plant_record_islands=len(q),
+            n_islands_with_identical_focal_five_species_two_source_distance_bands=len(good),
+            n_physical_blocks=int(good.spatial_block.nunique()),
+            n_first_GIFT_source_signatures=int(good.first_source_signature.nunique()),
+            median_n_possible_focal_tree_tips_two_source_bands=float(
+                q.n_original_local_true_tip_species_with_two_donor_distance_bands.median()),
+            original_n5_same_focal_source_bands_adequately_supported=bool(supported))
+        if supported:
+            for j,key in enumerate((
+                "local_minus_near_k_adjusted_rare_common",
+                "local_minus_mid_k_adjusted_rare_common",
+                "near_minus_mid_k_adjusted_rare_common",
+                "near_minus_mid_rare_coverage",
+                "average_near_original_tree_distance",
+                "average_mid_original_tree_distance")):
+                for level,cluster in (
+                    ("block","spatial_block"),("source","first_source_signature")):
+                    mean,lo,hi=_resample_group(good,key,cluster,
+                        seed+2400+17*j+(level=="source"),draws=bootstrap)
+                    record[level+"_mean_"+key]=mean
+                    record[level+"_ci025_"+key]=lo
+                    record[level+"_ci975_"+key]=hi
+        same_focal.append(record)
     return dict(
        status="EXPLORATORY_TRUE_BRANCH_BOUNDED_WITHIN_FAMILY_PHYLOGENETIC_SOURCE",
        tree_version=tree_version,
@@ -304,6 +406,7 @@ def run_close_phylo_family_source(
        n_original_exact_backbone_tips=len(strict_tip_species),
        region_phylogenetic_close_family_source_evidence=regions,
        paired_same_island_50_vs_100_tree_cutoff_sensitivity=threshold_paired,
+       identical_focal_five_species_near_vs_mid_source_distance_bands=same_focal,
        design={
          "all_graft_and_taxonomy_inserted_species_excluded":True,
          "families_are_independent_exact_colxr_source_candidates":True,
@@ -320,6 +423,8 @@ def run_close_phylo_family_source(
          "bootstrap_resampling_geography_and_nearest_GIFT_source":bootstrap,
          "near_branch_length_not_verified_island_ancestral_species":True,
          "same_island_cutoff_pairing_keeps_geography_but_not_identical_plant_species":True,
+         "new_strict_nonoverlapping_d50_vs_d50to100_identical_five_focal_plant_species":True,
+         "new_strict_nonoverlapping_source_distance_cutoff_is_posthoc":True,
        },
        no_biological_pollen_delivery_or_effective_visitation_measured=True,
        not_phylogeny_or_evolution_causal_island_phenotype_change=True,
