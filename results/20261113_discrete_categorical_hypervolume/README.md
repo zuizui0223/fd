@@ -1,0 +1,85 @@
+# 13 November 2026 — 928-island categorical functional **metric volume**: real-data result
+
+**Computed and independently reseeded.** Primary original source-backed pipeline [island Actions #43370640980](https://github.com/zuizui0223/island/actions/runs/43370640980) SUCCESS; independent numerical repeat [#43371078718](https://github.com/zuizui0223/island/actions/runs/43371078718) **SUCCESS**, using a different fixed seed (20261114), **60 independent fixed-30 species thinnings/island**, 19 fixed original colour-label shuffles per thinning, 399 k-matched profile subset-null draws, and 1,999 conditional geography/source resampling draws. Fully anonymous raw JSON: [second original source aggregate artifact #14011894814](https://github.com/zuizui0223/island/actions/runs/43371078718/artifacts/14011894814). Code [fd new categorical volume method](../../src/fd/discrete_functional_volume.py), [methods and interpretation contract](../../docs/DISCRETE_CATEGORICAL_FUNCTIONAL_HYPERVOLUME.md), [original private source execution](https://github.com/zuizui0223/island/blob/analysis/fd-discrete-functional-volume-20261113/scripts/run_fd_discrete_functional_volume.py), independent [island workflow](https://github.com/zuizui0223/island/blob/analysis/fd-discrete-functional-volume-20261113/.github/workflows/run-fd-discrete-functional-volume.yml). Both pending PRs **Draft**.
+
+## What the earlier 17D KDE did — and did NOT do
+
+The older `fd` pipeline **did calculate** 17D 90%-HDR Gaussian KDE volume (496 recorded colour/form state-set profiles, first 17 positive PCoA axes retaining 80.49% positive inertia, bandwidths h=.55/.85, 2×12,000 Monte Carlo estimates per island). It is a numerically legitimate **smoothed PROJECTED Euclidean artificial embedding**, not the intrinsic volume of unordered flower-colour/form categorical space. At h=.55 many original profiles have little kernel overlap, making volume strongly a proxy for number of recorded distinct profiles; no original 37-pair geological contrast remains interval-separated from zero after profile-richness adjustment, and original pair geographic non-independence is severe (five connected blocks). The older 2D KDE area retained only 15.35% positive inertia. Original G1 Curveball held island×profile binary margins and tested Rao Q and nearest distance, **not** a valid controlled Gaussian volume statistic; no G1 comparisons survived BY FDR across 32 outcomes. **These previous results must not be presented as established biological hypervolume contraction.**
+
+## New estimator: a finite categorical metric support volume
+
+Original high/medium directly measured *species-specific*, nonambiguous `flower_primary_color × floral_form × floral_symmetry` evidence from **2,234 original species**, with **100 distinct ACTUALLY OBSERVED triple categorical profiles** in the frozen global reference. Of recorded island floras, **928** (743 northern midlat, 106 tropical, 53 northern highlat, 26 southern extratropics) have >=30 complete Direct plant species. Only **87** have >=30 complete Direct **strict-native** records. This is a different original trait sample and estimand from the older 496 colour/form multi-state category-reference dataset.
+
+Metric: every differing category costs 1/3 (equal categorical Hamming/Gower-simple-matching on three source traits). For each rarefied original island flower-flora `A` and fixed global DIRECT reference `R`:
+[
+V_r(A)={1\over 100}\sum_{x\in R}\mathbb{1}\{\min_{a\in A} d(x,a)\le r\}.
+]
+
+- `r=0` counts unique original triple profiles / 100: **only a measured profile richness baseline**, not a distinct geometry/functional response.
+- `r=1/3` counts original observed globally valid profiles reachable with **at most one trait category mismatch**, primary operational *metric support volume*. `r=2/3` is a saturation diagnostic; it is fully saturated on the complete 928-island macro cohort, and **must not be used for discovery**. At `r=1/3`, 0/928 eligible all-recorded islands reach >=98% of the original global reference, hence this radius can resolve meaningful source-relative support.
+- Each island and five-nearest GIFT **candidate native mainland-region** source pool gets the **same 30 species per thinning**, no genus/family imputations; all original plant species shared with the tested island are removed from the source pool for a **strict disjoint-species sensitivity**, retaining 736 of 743 northmid and all 106 tropical source-comparable islands.
+- Conditional on each observed thinned sample's **EXACT number k of distinct profiles**, subtract the reference volume expected from 399 random k-profile subsets of the original 100-profile reference. This is a geometric reference null controlling k, **NOT a source/lineage/phylogeny-conditional or single-trait-frequency null**.
+- Separately permute only original colour labels while leaving the true observed flower-form/symmetry PAIRS intact. This tests extra *colour–architecture pairing contribution* to the one-step reference coverage, not colonization or selection. No hypothetical permuted profile is counted as an originally observed source reference profile.
+- The uniform original-profile reference weighting is the declared primary and treats **every recorded original phenotype combination equally**. A globally **species-prevalence-weighted** reference measure supplies an equally important counter-estimand; 2,234 globally directly recorded plant species determine reference frequencies, not unverified pollinator utility.
+
+**This is an operational finite support-volume statistic, NOT continuous Euclidean Lebesgue volume, and NOT a measurement of actual nectar/UV/visit-mediated function.**
+
+## Original source-backed results: uniform reference support
+
+All units below are **fractions of the fixed global reference support space**, not log hypervolume or local species proportion. Values are *island minus independent geographically plausible GIFT mainland source*. Main columns = 1,999 **whole 10° spatial-block equal-weight conditional** mean and 95% interval.
+
+| Original all-recorded geographic regime | Source-comparable islands / physical blocks / first-nearest GIFT source signatures | `r=0` exact profile richness difference | `r=1/3` metric volume difference | **k-conditioned extra geometry difference** |
+| --- | --- | --- | --- | --- |
+| **Northern midlatitude** | **743 / 53 / 66** | **−0.00478 [−0.00880,−0.00086]** | **−0.01688 [−0.02636,−0.00735]** | **−0.00929 [−0.01715,−0.00143]** |
+| **Tropical** | **106 / 42 / 36** | **−0.00420 [−0.00879,+0.00053]** | **−0.02181 [−0.03047,−0.01330]** | **−0.01794 [−0.02506,−0.01128]** |
+| Northern high latitude | 53 / 7 / **3** | −0.00998 [−0.01518,−0.00501] | −0.03740 [−0.05119,−0.02255] | −0.01453 [−0.02704,−0.00155] |
+| Southern extratropical | 24 / 13 / 11 | +0.00214 [−0.00177,+0.00634] | +0.01112 [−0.00510,+0.02646] | +0.00751 [−0.00875,+0.02408] |
+
+North-high has only THREE first-rank reference mainland source signatures, so the block-only direction is *not* an independent source-generalizable positive test. Southern has just 24 source-comparable islands and lacks uniform-reference directional evidence.
+
+### Strict out-of-same-plant-source sensitivity
+
+When **all plant species recorded in the focal island** are excluded from its candidate native mainland lists **before drawing source Direct flower types**, the source-relative macro contrast remains:
+
+| All-recorded regime | Original sources with >=30 disjoint Direct species | `r=1/3` island−disjoint-source mean [95% block] | **k-controlled geometry island−disjoint-source** [95% block] |
+| --- | ---: | --- | --- |
+| Northern midlatitude | **736** | **−0.01482 [−0.02661,−0.00351]** | −0.00623 [−0.01417,+0.00214] |
+| **Tropical** | **106** | **−0.02679 [−0.03690,−0.01684]** | **−0.02469 [−0.03207,−0.01766]** |
+
+Tropical k-controlled residual also remains negative under **equal first-nearest GIFT source signature** resampling: **−0.02435 [−0.03257,−0.01638]**; 36 original source signatures, 42 physical spatial blocks. The earlier original source analysis using **25** rarefactions, 199 k-null draws and a different seed produced tropical source-all `r=1/3` **−0.02201**, k-controlled **−0.01806**, and disjoint-source k-controlled **−0.02242**. The new 60-draw/399-null experiment reproduces their direction and order of magnitude. Additional repeats only verify **numerical stability conditional on the same original data**, not independent biological replication.
+
+**The physically important distinction:** the primary uniform-reference geometry difference can persist even when `r=0` exact-profile richness differences have intervals including zero (tropical). Unlike 17D KDE, the reported tropical geometry result is **not simply the number of distinct flower profile types** under the declared k-conditioned reference model. Nevertheless, category-state frequencies and phylogeny remain potentially causal for the measured support differences.
+
+## Essential falsification: GLOBAL SPECIES-WEIGHTED reference does NOT support tropical contraction
+
+Under a different but equally sensible reference measure that weights each of the original 100 global colour×form×symmetry profiles by **how many of the 2,234 source Direct species actually carry it**, the tropical macro source-relative geometric result becomes:
+
+| Tropical reference measure | Whole-block equal-mean [95% conditional interval] | First-nearest-source-signature equal mean [95% conditional interval] |
+| --- | --- | --- |
+| All candidate native mainland source names retained | **−0.00165 [−0.00488,+0.00155]** | −0.00043 [−0.00402,+0.00299] |
+| All focal-island species removed from candidate source | **−0.00244 [−0.00580,+0.00060]** | −0.00145 [−0.00526,+0.00229] |
+
+**All weighted-reference intervals include zero.** Likewise northmid weighted-reference `r=1/3` source-disjoint mean **+0.00064 [−0.00277,+0.00424]**. Hence this result is **NOT a universal island "functional hypervolume shrinkage" finding**. Rather, the observable contrast concerns breadth when *globally less common recorded phenotype combinations count as much as frequent ones*. It is **consistent with rarity-dependent repertoire representation** but profile rarity itself has not been causally measured as special pollination function; a rarity-bin decomposition is a future posthoc descriptive exercise.
+
+The separate shuffle that preserves colour marginal frequencies and intact form/symmetry pairs does **not** show a tropical directional excess difference: tropical island−source colour-architecture pairing contribution **−0.00356 [−0.00835,+0.00128]** (or disjoint **−0.00365 [−0.00928,+0.00257]**). Thus the uniform-reference geometric deficit must **not** be advertised as an evolutionarily repeated, independent *pollination-syndrome phenotype-coupling* shift.
+
+## Native-origin support and ecological inference ceiling
+
+Strictly recorded *native* original island plant names reach the fixed 30-Direct-species floor on **87/928** islands: 67 northern midlatitude across 16 blocks, 17 tropical across 10 blocks, and three other islands that cannot support a region estimate. On identical **67** Northern midlat island IDs, all-versus-native `r=1/3` difference has 95% conditional block interval **[−0.00428,+0.01049]**; on 17 tropical native-qualified islands, the strict-native island−source `r=1/3` source-disjoint contrast **−0.01432 [−0.03554,+0.00539]**, and its source-equal interval also spans zero. The broad all-recorded effect therefore does **not** cleanly generalize to native-only sampled plants. Native-only is a nonrandom selected subset of flora, not a matched independent evolutionary validation.
+
+The global original species has **one fixed phenotype assignment per accepted taxon across island and mainland**, so this is an ecological **floristic composition/detection/lineage** contrast. It cannot measure within-species floral phenotype changes, adaptation, pollinator-induced evolution, actual bee decline or guild-shift effects. The original GIFT sources are geographically assigned potential native species pools, not genealogically proven ancestors. Colour, form and symmetry are three non-independent biological descriptors; categorical mismatch costs are equal by definition, not validated by actual pollinator visitation/UV/nectar function. Source-signature and spatial-block bootstraps overlap botanical histories. No new phylogenetic or study-provider-independent randomization was performed.
+
+## Decision and most valuable next falsification
+
+The 17D KDE is **properly computed as a mathematical projected density volume**, but **fails as a general, profile-richness-independent floral functional volume estimator**. The finite categorical geometry-volume approach **does measure** a predeclared, reproducible three-trait support volume with three controls: equal island/source species number, equal original exact-profile number k, and source removal of same taxon names. Its nontrivial **tropical uniform-reference** macro pattern survives independent numerical reseeding, source-disjoint name removal and two conditional geographic/source resampling schemes.
+
+**However:** species-frequency weighting (and restricted native status) removes support for a universal contraction. The appropriate descriptive ecological conclusion is **rare-category-sensitive source-relative floral repertoire compression**, not demonstrated island flower evolution or pollinator-driven functional degradation.
+
+Next strongest analysis, before biological generalization: stratify original reference support into globally infrequent/frequent categorical profiles, run a **source-genus/phylogeny-and-observation-conditioned** geometry null across independent region/source groups, and then seek actual original 3-trait individual-population phenotypes and pollinator service. Do not return to high-dimensional artificial Gaussian KDE as the headline estimator.
+
+## Rights-safe original reproducibility
+
+- Direct original traits/plant species/GIFT source ledgers supplied through pinned `island` artifact #10058653212 inside protected Actions only; no original taxon×source, mainland lists or geography row data copied to fd or user-facing report.
+- Original source script `island/scripts/run_fd_discrete_functional_volume.py` and GitHub workflow on `analysis/fd-discrete-functional-volume-20261113`.
+- Synthetic [five mathematical contract tests](../../tests/test_discrete_functional_volume.py) check fixed k geometry, impossible counterfactual null reference mass and no expansion of ambiguous states.
+- Main result original run [#43370640980](https://github.com/zuizui0223/island/actions/runs/43370640980), independent numerical replication [#43371078718](https://github.com/zuizui0223/island/actions/runs/43371078718), second numerical aggregate [artifact #14011894814](https://github.com/zuizui0223/island/actions/runs/43371078718/artifacts/14011894814). Main scientific [fd PR #16](https://github.com/zuizui0223/fd/pull/16) and source [island PR #326](https://github.com/zuizui0223/island/pull/326) remain Draft.
