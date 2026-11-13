@@ -1,0 +1,277 @@
+"""True-branch-length bounded, SAME-FAMILY source plant comparisons.
+
+This POST-HOC diagnostic addresses an important weakness of the n15/n10
+nearest-tree matching: in tropical islands only about 9% of pairs shared a
+genus and about 55% a family. Restrict plant pairs to source taxonomically
+matching original CoL XR candidate family AND <=50 or <=100 units along the
+REAL ORIGINAL GBOTB dated tree. A same-genus+<=100 stricter arm is separate.
+
+One maximum-cardinality bipartite matching is formed using ONLY taxa,
+family and dated path lengths BEFORE looking at floral profile states.
+Exactly 5 separate island taxa and 5 different source accepted plant taxa
+are then randomly sampled 20 times from that outcome-blind pairing. The
+control uses exactly the SAME 5 island taxa with independently selected
+different mainland accepted plants of the SAME FAMILIES (not necessarily
+<= distance cutoff), so it isolates phylogeny threshold sensitivity within
+candidate family rather than counting unrelated mainland species.
+
+No observed pollinator loss, actual ancestral source, within-species
+selection, genetic sequences newly produced or population floral shifts.
+"""
+from __future__ import annotations
+from collections import defaultdict
+import numpy as np
+import pandas as pd
+from scipy.sparse import csr_matrix
+from scipy.sparse.csgraph import maximum_bipartite_matching
+
+from .discrete_functional_volume import _resample_group
+from .family_conditioned_rare_volume import _score,_compiled
+from .rare_profile_decomposition import RarityReference,genus,_seedstr
+from .true_backbone_phylo_source_match import _strict_source_taxon_groups
+
+CRITERIA=(
+    ("same_family_d_le100",100.,False),
+    ("same_family_d_le50",50.,False),
+    ("same_genus_d_le100",100.,True),
+)
+SAMPLE_N=5
+MIN_REGIONAL_ISLANDS=20
+MIN_REGIONAL_BLOCKS=10
+MIN_REGIONAL_SOURCES=10
+
+
+def _max_matching(admissible:np.ndarray)->np.ndarray:
+    m=np.asarray(admissible,dtype=bool)
+    if m.ndim!=2:
+        raise ValueError("A genuine island×source bipartite graph is required")
+    if not m.size or m.shape[0]==0 or m.shape[1]==0:
+        return np.full(m.shape[0],-1,dtype=np.int32)
+    # True support only, no weighted edge score based on floral phenotype.
+    return maximum_bipartite_matching(csr_matrix(m.astype(np.int8)),
+                                      perm_type="column").astype(np.int32)
+
+
+def _controlled_sample(
+    reference:RarityReference,lookup:dict,source_plant_names:list[str],
+    island_plant_names:list[str],distance:np.ndarray,
+    original_family:dict[str,str], *,
+    threshold:float,same_genus:bool,
+    n:int=5,repeats:int=20,seed:int=20261113,
+)->dict:
+    if n!=5 or repeats<10 or threshold not in (50.,100.):
+        raise ValueError("Predeclared close phylogenetic source matching contract changed")
+    if len(set(island_plant_names))!=len(island_plant_names) or (
+        len(set(source_plant_names))!=len(source_plant_names)):
+        raise ValueError("Source accepted plant names not unique")
+    if set(island_plant_names)&set(source_plant_names):
+        raise ValueError("Focal island species must be excluded from source")
+    if distance.shape!=(len(island_plant_names),len(source_plant_names)):
+        raise ValueError("Source actual tree distance matrix does not match taxa")
+    if not np.isfinite(distance).all() or np.any(distance<0):
+        raise ValueError("Nonfinite or negative original tree path lengths")
+    a=np.asarray([original_family[z] for z in island_plant_names],dtype=str)
+    b=np.asarray([original_family[z] for z in source_plant_names],dtype=str)
+    same_fam=a[:,None]==b[None,:]
+    if same_genus:
+        ag=np.asarray([genus(z) for z in island_plant_names],dtype=str)
+        bg=np.asarray([genus(z) for z in source_plant_names],dtype=str)
+        valid=same_fam & (ag[:,None]==bg[None,:]) & (distance<=threshold)
+    else:
+        valid=same_fam & (distance<=threshold)
+    matched=_max_matching(valid)
+    eligible=np.flatnonzero(matched>=0)
+    support=dict(
+       n_original_island_exact_tip_plant_names=len(island_plant_names),
+       n_original_source_exact_tip_plant_names=len(source_plant_names),
+       n_matched_unique_pairs_meeting_original_phylo_bound=len(eligible),
+       n_distinct_original_families_in_admissible_pairs=int(
+           len(set(a[eligible]))),
+       strict_n5_phylogenetic_source_pairs_available=bool(len(eligible)>=n),
+    )
+    if len(eligible)<n:
+        return support
+    rng=np.random.default_rng(seed)
+    rows=[]
+    for _ in range(repeats):
+        picked=rng.choice(eligible,size=n,replace=False)
+        original=[island_plant_names[int(i)] for i in picked]
+        best_idx=matched[picked]
+        paired=[source_plant_names[int(j)] for j in best_idx]
+        if len(set(paired))!=n:
+            raise AssertionError("Unique true-tip source pair matched twice")
+        measured=distance[picked,best_idx]
+        if np.max(measured)>threshold+1e-8:
+            raise AssertionError("Original branch-length threshold violated")
+        # Same original island species AND family IDs control, but do not
+        # require the donor to fall inside the dated distance cutoff.
+        source_perm=rng.permutation(len(source_plant_names))
+        candidate=(same_fam[np.ix_(picked,source_perm)])
+        randomized=_max_matching(candidate)
+        if np.any(randomized<0):
+            raise ValueError("Strict family-matched no-distance source absent")
+        control=[source_plant_names[int(source_perm[int(j)])]
+                 for j in randomized]
+        if len(set(control))!=n:
+            raise AssertionError("Family-only donor reused in control")
+        ctrl_index={sp:j for j,sp in enumerate(source_plant_names)}
+        random_d=distance[picked,np.asarray(
+            [ctrl_index[z] for z in control],dtype=np.int32)]
+        own_score=_score(reference,original,lookup)
+        match_score=_score(reference,paired,lookup)
+        control_score=_score(reference,control,lookup)
+        row=dict(
+          matched_tree_distance=float(np.mean(measured)),
+          family_control_tree_distance=float(np.mean(random_d)),
+          matched_vs_same_family_control_distance=float(np.mean(measured-random_d)),
+          n_distinct_families_in_selected_true_tip_pairs=int(len(set(a[picked]))),
+        )
+        for j,key in enumerate((
+             "rare_coverage","common_coverage","raw_rare_minus_common",
+             "k_adjusted_rare_minus_common",
+             "frequency_k_adjusted_rare_minus_common")):
+            row["phylo_bounded_delta_"+key]=float(own_score[j]-match_score[j])
+            row["same_family_unbounded_delta_"+key]=float(
+                own_score[j]-control_score[j])
+            row["bounded_minus_family_delta_"+key]=float(
+                control_score[j]-match_score[j])
+        rows.append(row)
+    support.update({k:float(v) for k,v in pd.DataFrame(rows).mean(
+       numeric_only=True).to_dict().items()})
+    return support
+
+
+def run_close_phylo_family_source(
+    triple:pd.DataFrame,floras:pd.DataFrame,geo:pd.DataFrame,
+    sources:pd.DataFrame,mainland:pd.DataFrame,
+    strict_tip_species:list[str], true_dated_distance:np.ndarray,
+    original_family:dict[str,str], *,
+    tree_version:str,reference_draws:int=199,repeat:int=20,
+    bootstrap:int=999,seed:int=20261114,
+)->dict:
+    if tree_version not in ("TPL","LCVP","WP") or repeat<10 or bootstrap<999:
+        raise ValueError("Original published dated tree experiment contract changed")
+    if len(set(strict_tip_species))!=len(strict_tip_species):
+        raise ValueError("Duplicated original true phylogenetic tip")
+    if true_dated_distance.shape!=(len(strict_tip_species),len(strict_tip_species)):
+        raise ValueError("Actual original tree metric does not cover all true tips")
+    original,geo_map,nearest,gift,islands=_strict_source_taxon_groups(
+        triple,floras,geo,sources,mainland)
+    ref=RarityReference.from_original(
+        triple,null_draws=reference_draws,seed=seed)
+    lookup=_compiled(ref,triple)
+    tip_lookup={z:k for k,z in enumerate(strict_tip_species)}
+    eligible_tips=set(tip_lookup)&set(original_family)
+    byisland={z:x for z,x in original.groupby("island_id")}
+    scored=[]
+    for island in sorted(islands):
+        site=byisland[island]
+        allplants=set(site.accepted_species)
+        donor=(set().union(*(gift.get(z,set()) for z in nearest[island]))&
+               set(triple.index))-allplants
+        donor=sorted(donor & eligible_tips)
+        if len(donor)<SAMPLE_N:
+            continue
+        donor_arr=np.asarray([tip_lookup[s] for s in donor],dtype=np.int32)
+        for scope,names in (
+           ("all_recorded",allplants),
+           ("source_native",set(site.loc[
+               site.origin_status.eq("native"),"accepted_species"]))):
+            if len(names)<30:
+                continue
+            original_names=sorted(names & eligible_tips)
+            if len(original_names)<SAMPLE_N:
+                continue
+            local_idx=np.asarray([tip_lookup[z] for z in original_names],
+                                 dtype=np.int32)
+            distances=true_dated_distance[np.ix_(local_idx,donor_arr)]
+            common=dict(
+                original_island_id=island,
+                scope=scope,
+                regime=str(geo_map.at[island,"analysis_regime"]),
+                spatial_block=str(geo_map.at[island,"spatial_block"]),
+                first_source_signature=nearest[island][0])
+            for i,(criterion,cutoff,require_same_genus) in enumerate(CRITERIA):
+                score=_controlled_sample(
+                   ref,lookup,donor,original_names,distances,
+                   original_family,threshold=cutoff,
+                   same_genus=require_same_genus,
+                   repeats=repeat,n=SAMPLE_N,
+                   seed=_seedstr(seed,island,scope,criterion,tree_version))
+                scored.append(dict(common,criterion=criterion,**score))
+    raw=pd.DataFrame.from_records(scored)
+    regions=[]
+    for (scope,regime,criterion),g in raw.groupby(
+         ["scope","regime","criterion"]):
+        passed=g.loc[g.strict_n5_phylogenetic_source_pairs_available]
+        ok=(
+          len(passed)>=MIN_REGIONAL_ISLANDS and
+          passed.spatial_block.nunique()>=MIN_REGIONAL_BLOCKS and
+          passed.first_source_signature.nunique()>=MIN_REGIONAL_SOURCES)
+        report=dict(
+          scope=scope,regime=regime,criterion=criterion,
+          original_full_30species_flora_with_any_original_true_tips=len(g),
+          n_islands_with_5_real_tree_tip_close_pairs=int(len(passed)),
+          n_physical_blocks=int(passed.spatial_block.nunique()),
+          n_first_GIFT_source_signatures=int(passed.first_source_signature.nunique()),
+          n_islands_with_10_or_more_admissible_pairs=int(
+              g.n_matched_unique_pairs_meeting_original_phylo_bound.ge(10).sum()),
+          n_islands_with_15_or_more_admissible_pairs=int(
+              g.n_matched_unique_pairs_meeting_original_phylo_bound.ge(15).sum()),
+          median_max_admissible_true_tip_pairs=float(
+              g.n_matched_unique_pairs_meeting_original_phylo_bound.median()),
+          reportable_under_20_islands_10_blocks_10_sources=bool(ok))
+        if ok:
+            for j,key in enumerate((
+                 "phylo_bounded_delta_k_adjusted_rare_minus_common",
+                 "same_family_unbounded_delta_k_adjusted_rare_minus_common",
+                 "bounded_minus_family_delta_k_adjusted_rare_minus_common",
+                 "phylo_bounded_delta_rare_coverage",
+                 "same_family_unbounded_delta_rare_coverage",
+                 "matched_tree_distance","family_control_tree_distance",
+                 "matched_vs_same_family_control_distance",
+                 "n_distinct_families_in_selected_true_tip_pairs"
+            )):
+                for tier,cluster in (
+                    ("block","spatial_block"),
+                    ("source","first_source_signature")):
+                    mean,low,high=_resample_group(
+                        passed,key,cluster,seed+31*j+int(cutoff_from_name(criterion))
+                             +(tier=="source"),draws=bootstrap)
+                    report[tier+"_mean_"+key]=mean
+                    report[tier+"_ci025_"+key]=low
+                    report[tier+"_ci975_"+key]=high
+        regions.append(report)
+    return dict(
+       status="EXPLORATORY_TRUE_BRANCH_BOUNDED_WITHIN_FAMILY_PHYLOGENETIC_SOURCE",
+       tree_version=tree_version,
+       original_reference_Direct_species=len(triple),
+       n_original_source_eligible_full_islands=len(islands),
+       n_original_exact_backbone_tips=len(strict_tip_species),
+       region_phylogenetic_close_family_source_evidence=regions,
+       design={
+         "all_graft_and_taxonomy_inserted_species_excluded":True,
+         "families_are_independent_exact_colxr_source_candidates":True,
+         "within_family_5_distinct_original_tree_tip_matched_source_species":True,
+         "n_required_original_true_species_per_comparison":5,
+         "cutoffs_original_branch_length_50_100_are_posthoc":True,
+         "same_genus_within_100_support_is_a_distinct_more_restrictive_arm":True,
+         "source_selection_does_not_examine_flower_trait_phenotypes":True,
+         "source_all_identical_local_plant_species_names_removed":True,
+         "comparison_to_unrestricted_phylo_distance_same_family_donor":True,
+         "fixed_profile_count_k_null_reference_draws":reference_draws,
+         "original_global_Direct_flower_reference_100_triple_profiles":True,
+         "numerical_original_phylo_pairing_repetitions":repeat,
+         "bootstrap_resampling_geography_and_nearest_GIFT_source":bootstrap,
+         "near_branch_length_not_verified_island_ancestral_species":True,
+       },
+       no_biological_pollen_delivery_or_effective_visitation_measured=True,
+       not_phylogeny_or_evolution_causal_island_phenotype_change=True,
+       no_original_plant_family_genus_island_source_or_tree_ids_exported=True
+    )
+
+
+def cutoff_from_name(s:str)->int:
+    if "le50" in s:return 50
+    if "le100" in s:return 100
+    raise ValueError("Unknown original dated tree threshold")
