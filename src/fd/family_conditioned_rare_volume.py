@@ -131,6 +131,39 @@ def matched_family_source_effect(ref:RarityReference, lookup:dict,
     return dict(zip(METRICS,map(float,mean)))
 
 
+def independent_family_richness_effect(
+    ref:RarityReference, lookup:dict,
+    island_species:set[str], donor_species:set[str],*,
+    family_map:dict[str,str],n:int=5,
+    repeats:int=40,seed:int=20261113
+)->dict[str,float]:
+    """POST-HOC counter-estimand: equal number of families, not same IDs.
+
+    Explicitly distinct from original same-family identity matching;
+    its paired island-level comparison is an exploratory sensitivity, not
+    an independent confirmatory permutation test of family selection.
+    """
+    if n not in (PRIMARY,SENSITIVITY) or repeats<20:
+        raise ValueError("Independent original family richness sample contract")
+    if island_species&donor_species:
+        raise ValueError("Source and island accepted plant species must be disjoint")
+    a=group_by_family(island_species,family_map)
+    b=group_by_family(donor_species,family_map)
+    if len(a)<n or len(b)<n:
+        raise ValueError("Insufficient n different botanical families to draw")
+    rng=np.random.default_rng(seed)
+    draw=[]
+    for _ in range(repeats):
+        ia=sorted(rng.choice(sorted(a),size=n,replace=False).tolist())
+        sb=sorted(rng.choice(sorted(b),size=n,replace=False).tolist())
+        names_a=[str(rng.choice(a[fam])) for fam in ia]
+        names_b=[str(rng.choice(b[fam])) for fam in sb]
+        if len(set(names_a))!=n or len(set(names_b))!=n or set(names_a)&set(names_b):
+            raise AssertionError("Family count-only source species sample invalid")
+        draw.append(_score(ref,names_a,lookup)-_score(ref,names_b,lookup))
+    return dict(zip(METRICS,map(float,np.asarray(draw,float).mean(axis=0))))
+
+
 def _shapley_family_scores(ref:RarityReference,lookup:dict,
                            local:set[str],source:set[str],families:dict[str,str],
                            *,repeats:int=40,seed:int=20261113):
@@ -247,18 +280,28 @@ def original_family_rare_support(
                     seed=_seedstr(seed,island,scope,"family_shapley"))
                 shapley.append({**info,**sh})
             for n in (PRIMARY,SENSITIVITY):
-                for kind in ("same_family","same_family_different_genus"):
-                    present=(len(shared)>=n if kind=="same_family"
+                for kind in ("family_richness_only",
+                             "same_family","same_family_different_genus"):
+                    present=(len(family_island)>=n and len(family_source)>=n
+                             if kind=="family_richness_only"
+                             else len(shared)>=n if kind=="same_family"
                              else len(changed)>=n)
                     entry=dict(info,condition=kind,n_shared_family_units=n,
                                eligible_original_family_matched=bool(present))
                     if present:
-                        value=matched_family_source_effect(
-                            ref,lookup,local,donor,
-                            family_map=family_map,n=n,
-                            repeats=rarefactions,
-                            seed=_seedstr(seed,island,scope,"fam",kind,n),
-                            must_change_genus=(kind=="same_family_different_genus"))
+                        if kind=="family_richness_only":
+                            value=independent_family_richness_effect(
+                                ref,lookup,local,donor,family_map=family_map,n=n,
+                                repeats=rarefactions,
+                                seed=_seedstr(seed,island,scope,"family_count",n))
+                        else:
+                            value=matched_family_source_effect(
+                                ref,lookup,local,donor,
+                                family_map=family_map,n=n,
+                                repeats=rarefactions,
+                                seed=_seedstr(seed,island,scope,"fam",kind,n),
+                                must_change_genus=(
+                                   kind=="same_family_different_genus"))
                         entry.update(value)
                     rows.append(entry)
     private=pd.DataFrame(rows)
@@ -287,6 +330,42 @@ def original_family_rare_support(
                     result[level+"_ci025_"+key]=lo
                     result[level+"_ci975_"+key]=hi
         match_panels.append(result)
+    # A DIRECT paired, same-island difference of estimands:
+    # requiring same FAMILY IDs versus drawing just the same number
+    # of family units from either side. This is POST-HOC diagnostic
+    # after the original family-matched result was inspected; therefore
+    # conditional intervals, not confirmatory family-selection p values.
+    paired_panels=[]
+    for (scope,regime,n),q in private.groupby([
+        "scope","regime","n_shared_family_units"]):
+        allowed=q.loc[q.eligible_original_family_matched]
+        same=allowed.loc[allowed.condition.eq("same_family")].set_index("island_id")
+        free=allowed.loc[allowed.condition.eq("family_richness_only")].set_index("island_id")
+        common=same.index.intersection(free.index)
+        if len(common)<10:continue
+        a=same.loc[common]
+        b=free.loc[common]
+        if a.spatial_block.nunique()<5 or a.source_signature.nunique()<5:
+            continue
+        block=a[["spatial_block","source_signature"]].copy()
+        result=dict(scope=scope,regime=regime,
+            families_per_side=n,
+            n_same_island_comparable=len(common),
+            n_blocks=a.spatial_block.nunique(),
+            n_first_GIFT_source_signatures=a.source_signature.nunique(),
+            posthoc_difference_of_family_identity_and_family_count_estimands=True,
+            no_causal_family_effect_identified=True)
+        for j,metric in enumerate(METRICS):
+            key="id_matched_minus_count_only_"+metric
+            block[key]=(a[metric]-b[metric]).to_numpy(float)
+            for label,cluster in (("block","spatial_block"),
+                                  ("source","source_signature")):
+                mean,lo,hi=_resample_group(block,key,cluster,
+                    seed+910+n*10+j+(label=="source"),draws=bootstraps)
+                result[label+"_mean_"+key]=mean
+                result[label+"_ci025_"+key]=lo
+                result[label+"_ci975_"+key]=hi
+        paired_panels.append(result)
     sh_panels=[]
     if not shapley_private.empty:
         for (scope,regime),g in shapley_private.groupby(["scope","regime"]):
@@ -317,10 +396,13 @@ def original_family_rare_support(
        n_original_flora_families_source_shapley_eligible=len(shapley),
        family_shapley_rare_category_macro_panels=sh_panels,
        same_family_island_mainland_matched_panels=match_panels,
+       posthoc_paired_exact_family_identity_vs_family_count_panels=paired_panels,
        inference={
           "family_labels_are_unreviewed_exact_accepted_COL_XR_candidates":True,
           "family_ranks_not_a_resolved_phylogenetic_tree":True,
           "same_family_genus_may_differ_by_source_and_island":True,
+          "family_count_only_keeps_n_family_not_family_identity":True,
+          "paired_family_id_vs_count_sensitivity_is_posthoc":True,
           "different_genus_condition_restricts_to_different_genus_in_same_family":True,
           "original_island_species_excluded_from_all_nearest_GIFT_native_source_flora":True,
           "strict_plant_species_source_family_mapping_only":True,
