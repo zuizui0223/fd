@@ -206,42 +206,73 @@ def _weighted_slope(rows:pd.DataFrame,xcol:str,ycol:str,cluster:str,
 
 def _boot_beta(rows:pd.DataFrame,ycol:str,*,cluster:str,adjusted:bool,
                draws:int,seed:int):
-    if rows[cluster].nunique()<10:
+    """Efficient original-cluster-equal WLS via sufficient statistics.
+
+    Region's originally observed SD scaling is FROZEN during block bootstrap
+    so coefficients remain in the same units and resampling cannot recode an
+    apparent effect by changing the denominator.
+    """
+    n_groups=rows[cluster].nunique()
+    if len(rows)<20 or n_groups<10:
         return None
-    try:
-        observed=_weighted_slope(rows,"phylosor_beta",ycol,cluster,adjusted=adjusted)
-    except ValueError:
-        return None
-    groups={str(k):v for k,v in rows.groupby(cluster)}
-    keys=sorted(groups)
+    x=rows["phylosor_beta"].to_numpy(float)
+    y=rows[ycol].to_numpy(float)
+    if not np.isfinite(x).all() or not np.isfinite(y).all():
+        return dict(status="NONESTIMABLE_NONFINITE_SOURCE_OUTCOME")
+    sd=float(np.std(x))
+    if sd<1e-12:
+        return dict(status="NONESTIMABLE_CONSTANT_SOURCE_PHYLO_BETA")
+    predictors=[(x-float(x.mean()))/sd]
+    if adjusted:
+        for key in (
+            "original_genus_jaccard_turnover",
+            "original_colxr_candidate_family_jaccard_turnover",
+            "log_source_exact_tip_candidates",
+            "log_island_area_km2",
+            "log_distance_to_continent_km",
+        ):
+            v=rows[key].to_numpy(float)
+            s=np.std(v)
+            if not np.isfinite(v).all() or s<1e-12:
+                return dict(status="NONESTIMABLE_ADJUSTMENT_SOURCE_RANK")
+            predictors.append((v-v.mean())/s)
+    X=np.column_stack((np.ones(len(rows)),*predictors))
+    if np.linalg.matrix_rank(X)<X.shape[1]:
+        return dict(status="NONESTIMABLE_ADJUSTMENT_SOURCE_RANK")
+    levels=list(rows.groupby(cluster,sort=True).indices.values())
+    ps=X.shape[1]
+    xtx=[]
+    xty=[]
+    for ids in levels:
+        xx=X[ids]
+        yy=y[ids]
+        xtx.append(xx.T@xx/len(ids))
+        xty.append(xx.T@yy/len(ids))
+    a=np.asarray(xtx)
+    b=np.asarray(xty)
+    A=a.sum(axis=0)
+    B=b.sum(axis=0)
+    if np.linalg.matrix_rank(A)<ps:
+        return dict(status="NONESTIMABLE_SOURCE_CLUSTER_RANK")
+    observed=float(np.linalg.lstsq(A,B,rcond=None)[0][1])
     rng=np.random.default_rng(seed)
-    effects=[]
+    estimates=[]
     for _ in range(draws):
-        sampled=rng.choice(keys,size=len(keys),replace=True)
-        # resampled original independent clusters: maintain distinct
-        # bootstrap cluster IDs, not recompute weights against duplicate
-        # exact strings after a given source was sampled twice.
-        blocks=[]
-        for j,k in enumerate(sampled):
-            g=groups[str(k)].copy()
-            g["_bootstrap_cluster_id"]=j
-            blocks.append(g)
-        data=pd.concat(blocks,ignore_index=True)
-        try:
-            effects.append(_weighted_slope(
-                data,"phylosor_beta",ycol,"_bootstrap_cluster_id",
-                adjusted=adjusted))
-        except ValueError:
+        selected=rng.integers(len(levels),size=len(levels))
+        aa=a[selected].sum(axis=0)
+        if np.linalg.matrix_rank(aa)<ps:
             continue
-    if len(effects)<0.8*draws:
+        bb=b[selected].sum(axis=0)
+        estimates.append(float(np.linalg.lstsq(aa,bb,rcond=None)[0][1]))
+    if len(estimates)<0.8*draws:
         return dict(status="NONESTIMABLE_BOOTSTRAP_PREDICTOR_RANK",
-                    n_valid=len(effects),
+                    n_valid=len(estimates),
                     observed_std_phylo_beta_slope=observed)
-    lo,hi=np.quantile(effects,[.025,.975])
+    lo,hi=np.quantile(estimates,[.025,.975])
     return dict(status="EXPLORATORY_CLUSTER_CONDITIONAL_ASSOCIATION",
                 observed_std_phylo_beta_slope=observed,
                 cluster_025=float(lo),cluster_975=float(hi),
-                n_valid_block_resamples=len(effects))
+                n_valid_block_resamples=len(estimates))
 
 
 def macro_original_phylo_functional_beta(
