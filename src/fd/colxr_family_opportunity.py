@@ -25,11 +25,12 @@ REQUIRED=("submitted_name","submitted_family","candidate_family",
           "automatic_resolution_candidate","checklist_key")
 
 
-def strict_candidate_family_map(crosswalk:pd.DataFrame, names:set[str]):
+def strict_candidate_family_map(crosswalk:pd.DataFrame, names:set[str],*,
+                                expected_rows:int=115328):
     if not set(REQUIRED).issubset(crosswalk):
         raise ValueError("Col XR original source taxonomy schema unexpected")
-    if len(crosswalk)!=115328:
-        raise ValueError("Original 115,328 alpha2 source species universe drifted")
+    if len(crosswalk)!=expected_rows or expected_rows<5:
+        raise ValueError("Original pinned alpha2 source species universe drifted")
     raw=crosswalk[list(REQUIRED)].fillna("").astype(str)
     if raw.submitted_name.duplicated().any():
         raise ValueError("Taxonomic source has duplicate submitted names")
