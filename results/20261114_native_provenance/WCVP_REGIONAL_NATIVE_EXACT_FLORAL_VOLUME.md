@@ -64,8 +64,8 @@ To distinguish **cohort composition** from merely comparing different geographic
 
 | Exact same original islands, native-compatible minus all-recorded | Number of original islands / blocks / GIFT source signatures | k-adjusted rare-minus-common change, **BLOCK equal** [95%] | Same comparison, **GIFT SOURCE equal** [95%] |
 | --- | --- | --- | --- |
-| **Northern midlat** | **287 / 33 / 40** (285 have valid GIFT donor) | **+0.02256 [+0.01186,+0.03462]** | +0.01972 [+0.01057,+0.02888] |
-| **Tropical** | **36 / 20 / 16** | +0.01603 [−0.00013,+0.03547] | +0.01425 [−0.00450,+0.03547] |
+| **Northern midlat** | **287 / 33 / 40** (285 have valid GIFT donor) | **+0.02256 [+0.01186,+0.03462]** | +0.01971 [+0.01173,+0.02814] |
+| **Tropical** | **36 / 20 / 16** | +0.01603 [−0.00013,+0.03547] | +0.01438 [−0.00224,+0.03881] |
 
 For a second original independent numerical seed, midlat paired +0.02251 [0.01148,0.03397]; tropical paired +0.01612 [0.00081,0.03569]. Thus the northern-midlatitude **positive within-exact-island provenance sensitivity** is numerically and spatial/source-conditionally supported. The tropical same-island paired difference is positive in point estimate but **CI lower bound is near zero and crosses it under some valid resamples/seeds**: do NOT call the tropical paired provenance *difference* independently established.
 
