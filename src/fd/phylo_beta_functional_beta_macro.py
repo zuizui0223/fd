@@ -127,8 +127,8 @@ def _phylo_functional_draw(
         raise ValueError("Focal accepted island species not disjoint from GIFT source")
     if any(x not in tip_map or x not in taxon_profiles for x in local+donor):
         raise ValueError("One source floral species not an ORIGINAL published dated tree tip")
-    pA=[taxon_profiles[x][0] for x in local]
-    pB=[taxon_profiles[x][0] for x in donor]
+    pA=[taxon_profiles[x] for x in local]
+    pB=[taxon_profiles[x] for x in donor]
     a={z for z in pA}
     b={z for z in pB}
     ma=0
