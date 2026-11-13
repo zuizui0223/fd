@@ -41,8 +41,10 @@ def test_exact_matched_family_allows_genus_or_forces_different_genus():
     t,families=original_like()
     ref=RarityReference.from_original(t,null_draws=199,seed=2)
     look=_compiled(ref,t)
-    a=set(t.index[::2])
-    b=set(t.index[1::2])
+    # Split alternating species WITHIN each genus, not a global even/odd
+    # stream (global parity would give each genus to just one study site).
+    a={n for n in t.index if int(n.split("species_")[1])//70%2==0}
+    b=set(t.index)-a
     src=_families_with_different_genus_pairs(
         group_by_family(a,families),group_by_family(b,families))
     assert len(src)>=8
@@ -65,8 +67,10 @@ def test_exact_original_30_species_family_shapley_additivity():
     t,families=original_like()
     ref=RarityReference.from_original(t,null_draws=199)
     look=_compiled(ref,t)
-    a=set(t.index[::2])
-    b=set(t.index[1::2])
+    # Split alternating species WITHIN each genus, not a global even/odd
+    # stream (global parity would give each genus to just one study site).
+    a={n for n in t.index if int(n.split("species_")[1])//70%2==0}
+    b=set(t.index)-a
     score=_shapley_family_scores(ref,look,a,b,families,repeats=20,seed=7)
     for label in ("rare","common","gap"):
         assert score[label+"_total"]==pytest.approx(
