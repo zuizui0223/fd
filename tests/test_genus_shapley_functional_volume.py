@@ -44,6 +44,10 @@ def test_shapley_sum_coverage_exact_even_with_full_overlap():
     b=list(t.index[10:40])
     sh=_ball_mask(ref,a,t)
     un=_ball_mask(ref,b,t)
+    precompiled={str(n):ref.volume.masks[tuple(values)][1]
+                 for n,values in zip(t.index,t[list(TRAITS)].to_numpy(dtype=str))}
+    assert sh==_ball_mask(ref,a,t,original_species_mask=precompiled)
+    assert un==_ball_mask(ref,b,t,original_species_mask=precompiled)
     r=two_group_shapley(ref,sh,un)
     for rarity in ("rare","common"):
         assert r[f"{rarity}_total"]==pytest.approx(
