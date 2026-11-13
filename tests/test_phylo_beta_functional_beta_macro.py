@@ -1,10 +1,12 @@
 """True original branch PhyloSor beta and floral support Jaccard are separate metrics."""
+from itertools import product
 import numpy as np
 import pandas as pd
 import pytest
 
 from fd.phylo_beta_functional_beta_macro import (
-    OriginalTreeSubtree,functional_reference_beta,_weighted_slope
+    OriginalTreeSubtree,functional_reference_beta,_weighted_slope,
+    _phylo_functional_draw
 )
 
 
@@ -76,3 +78,38 @@ def test_not_enough_independent_blocks_is_not_a_zero_slope():
     with pytest.raises(ValueError,match="Insufficient"):
         _weighted_slope(z,"phylosor_beta","functional_support_beta",
                         "spatial_block",adjusted=False)
+
+
+def test_same_fifteen_tree_tip_flower_triples_not_single_colour_strings():
+    from fd.discrete_functional_volume import TRAITS
+    from fd.rare_profile_decomposition import RarityReference
+    profiles=list(product(
+       ("white","purple","yellow","red","blue","pink","green","orange","brown","cream"),
+       ("open_radial","tubular","brush","composite","zygomorphic"),
+       ("actinomorphic","zygomorphic")))
+    names=[f"Genus{i%35} species_{i}" for i in range(2234)]
+    rows=[profiles[i%100] for i in range(2234)]
+    traits=pd.DataFrame(rows,index=names,columns=TRAITS)
+    ref=RarityReference.from_original(traits,null_draws=199)
+    # Fully rooted binary 32-tip published-tree-like edge graph.
+    edges=[]
+    clusters=list(range(1,33))
+    parent=33
+    while len(clusters)>1:
+        new=[]
+        for i in range(0,len(clusters),2):
+            edges.extend([(parent,clusters[i]),(parent,clusters[i+1])])
+            new.append(parent)
+            parent+=1
+        clusters=new
+    tree=OriginalTreeSubtree(np.asarray(edges,int),
+                             np.ones(len(edges)),np.arange(1,33))
+    tip={name:i+1 for i,name in enumerate(names[:32])}
+    cat={name:tuple(traits.loc[name].values) for name in names[:32]}
+    family={name:"SameSyntheticFamily" for name in names[:32]}
+    r=_phylo_functional_draw(ref,tree,names[:15],names[15:30],tip,cat,family)
+    assert 0<=r["phylosor_beta"]<=1
+    assert 0<=r["functional_support_beta"]<=1
+    assert 0<=r["exact_profile_jaccard_beta"]<=1
+    assert np.isfinite(r["k_adjusted_rare_minus_common_source_gap"])
+    assert r["n_original_shared_families"]==1
