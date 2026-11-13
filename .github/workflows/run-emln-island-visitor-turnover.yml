@@ -1,0 +1,101 @@
+name: fd original Canary and Mauritius actual flower-visitor turnover
+
+on:
+  push:
+    branches:
+      - analysis/pollinator-loss-functional-assembly-20261113
+    paths:
+      - 'src/fd/emln_island_visitor_turnover.py'
+      - 'scripts/run_emln_island_visitor_turnover.py'
+      - 'tests/test_emln_island_visitor_turnover.py'
+      - '.github/workflows/run-emln-island-visitor-turnover.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  original-emln:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install open-source paired-network analytic dependencies
+        run: python -m pip install pandas numpy pytest
+      - uses: r-lib/actions/setup-r@v2
+        with:
+          r-version: release
+      - name: Checkout source-pinned original EMLN network evidence
+        uses: actions/checkout@v4
+        with:
+          repository: Ecological-Complexity-Lab/emln
+          ref: e66e8702910728358e71f7814d01afd3c7b00c30
+          path: source-emln
+          persist-credentials: false
+      - name: Verify immutable source network data and syntax
+        run: |
+          set -euo pipefail
+          echo 'e4f046f2cce1f84b4513e79611c731fe7cda37c94be1a0dab1726b901a30ddc2  source-emln/data/emln60_spatial_trojelsgaard_2015.rda' | sha256sum --check --strict
+          echo '89f5acf9a746975c42583a3cd329d5aa604a9b5e5f49534bdeb5168e4fa13e2b  source-emln/data/emln71_temporal_perturbation_kaiser_bunbury_2009.rda' | sha256sum --check --strict
+          PYTHONPATH=src python -m pytest -q tests/test_emln_island_visitor_turnover.py
+          python -m compileall -q src/fd/emln_island_visitor_turnover.py scripts/run_emln_island_visitor_turnover.py
+      - name: Extract original EMLN long node/site/link attributes (not imputations)
+        run: |
+          set -euo pipefail
+          mkdir -p /tmp/fd-emln-original-tables
+          Rscript - <<'RS'
+          for (i in c(60,71)) {
+            files=list.files('source-emln/data',pattern=paste0('^emln',i,'_.*\\.rda$'),full.names=TRUE)
+            stopifnot(length(files)==1)
+            env=new.env(parent=emptyenv())
+            obj=get(load(files,envir=env)[1],envir=env)
+            stopifnot(all(c('nodes','layers','interactions') %in% names(obj)))
+            for (name in c('nodes','layers','interactions')) {
+              write.csv(obj[[name]],file=paste0('/tmp/fd-emln-original-tables/emln',i,'_',name,'.csv'),row.names=FALSE)
+            }
+            cat('Original panel:',i,'source layers',length(unique(obj$layers$layer)),'node records',length(unique(obj$nodes$node_id)),'original visit-links',length(unique(obj$interactions$interaction_id)),'\\n')
+          }
+          RS
+      - name: Calculate equal-site exact-plant partnership and paired management-period contrast
+        run: |
+          set -euo pipefail
+          PYTHONPATH=src python scripts/run_emln_island_visitor_turnover.py \
+            --original-source-dir source-emln/data \
+            --source-csv-dir /tmp/fd-emln-original-tables \
+            --output /tmp/fd-emln-source-paired-visitor-turnover.json
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          p=Path('/tmp/fd-emln-source-paired-visitor-turnover.json')
+          r=json.loads(p.read_text())
+          c=r['canary_actual_plant_visitor_partner_turnover']
+          m=r['mauritius_native_plant_rewiring']
+          assert c['n_original_visitor_links']==969
+          assert c['n_source_plant_species']==39
+          assert c['n_source_visitor_taxa']==249
+          assert c['n_total_replicate_source_sites']==14
+          assert c['n_geographical_islands']==5
+          assert c['n_island_study_locations']==6
+          assert c['n_independent_mainland_study_locations']==1
+          assert c['n_strict_plant_location_combinations']>=12
+          assert m['n_original_visitor_links']==1953
+          assert m['n_two_week_periods_with_two_survey_sites']==12
+          assert m['n_independent_managed_sites']==1
+          assert m['n_independent_unmanaged_invaded_sites']==1
+          assert not r['no_historical_pollinator_population_decline_or_functional_rescue_proven'] is False
+          assert not c['historical_pollinator_decline_adaptation_or_effectiveness_measured']
+          assert not m['partner_guild_record_not_pollen_delivery_effectiveness'] is False
+          for key in ('"node_name"','"visitor"','"plant"','"node_id"','"layer_from"'):
+            assert key not in p.read_text()
+          print('Only anonymized source-verified species-rewiring and no causal-loss claims published')
+          PY
+      - name: Upload only aggregate original-source receipt
+        uses: actions/upload-artifact@v4
+        with:
+          name: fd-emln-canary-mauritius-original-${{ github.run_id }}
+          path: /tmp/fd-emln-source-paired-visitor-turnover.json
+          if-no-files-found: error
+          retention-days: 90
