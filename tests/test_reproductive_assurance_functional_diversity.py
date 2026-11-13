@@ -17,6 +17,7 @@ def test_unobserved_reproductive_states_are_missing_not_zero():
        ("A","autonomous_selfing_capacity","autonomous","species_direct","high"),
        ("B","autonomous_selfing_capacity","absent","species_direct","medium"),
        ("C","autonomous_selfing_capacity","facilitated","species_direct","high"),
+       ("C","mating_system","predominantly_outcrossing","species_direct","high"),
        ("A","mating_system","predominantly_outcrossing","species_direct","high"),
        ("B","mating_system","mixed_mating","species_direct","high"),
     ],columns=["accepted_species","trait_name","normalized_value","evidence_scope","evidence_quality"])
