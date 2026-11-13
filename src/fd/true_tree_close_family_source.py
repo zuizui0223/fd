@@ -242,6 +242,60 @@ def run_close_phylo_family_source(
                     report[tier+"_ci025_"+key]=low
                     report[tier+"_ci975_"+key]=high
         regions.append(report)
+    # POST-HOC matched-threshold sensitivity on the EXACT SAME original
+    # physical island IDs, same n=5 original source tip pair protocol. This
+    # removes geographic-cohort attrition between 50 and 100 cutoffs, but the
+    # actual focal plant species and donor pairs CAN still differ between
+    # these independent criteria. Never call this a measured phylogenetic
+    # evolutionary gradient or causal branch-length effect.
+    threshold_paired=[]
+    for (scope,regime),q in raw.groupby(["scope","regime"]):
+        restrictive=q.loc[
+            q.criterion.eq("same_family_d_le50")&
+            q.strict_n5_phylogenetic_source_pairs_available].set_index(
+                "original_island_id")
+        broad=q.loc[
+            q.criterion.eq("same_family_d_le100")&
+            q.strict_n5_phylogenetic_source_pairs_available].set_index(
+                "original_island_id")
+        same=restrictive.index.intersection(broad.index)
+        if len(same)<10:
+            continue
+        a=restrictive.loc[same]
+        b=broad.loc[same]
+        if (a.spatial_block!=b.spatial_block).any() or (
+              a.first_source_signature!=b.first_source_signature).any():
+            raise ValueError("Paired branch-length thresholds changed original island/source geography")
+        good=len(same)>=MIN_REGIONAL_ISLANDS and (
+            a.spatial_block.nunique()>=MIN_REGIONAL_BLOCKS) and (
+            a.first_source_signature.nunique()>=MIN_REGIONAL_SOURCES)
+        item=dict(
+            scope=scope,regime=regime,
+            n_exact_same_islands_with_50_and_100_source_tip_pairs=len(same),
+            n_physical_blocks=int(a.spatial_block.nunique()),
+            n_first_nearest_source_signatures=int(a.first_source_signature.nunique()),
+            result_reportable_under_20_islands_10_blocks_10_sources=bool(good),
+            same_island_but_not_necessarily_same_plant_tip_subset=True,
+            cutoff_effect_comparison_is_posthoc_not_causal=True)
+        if good:
+            df=a[["spatial_block","first_source_signature"]].copy()
+            for j,key in enumerate((
+                "phylo_bounded_delta_k_adjusted_rare_minus_common",
+                "same_family_unbounded_delta_k_adjusted_rare_minus_common",
+                "bounded_minus_family_delta_k_adjusted_rare_minus_common",
+                "phylo_bounded_delta_rare_coverage",
+                "matched_tree_distance")):
+                change="d50_minus_d100_"+key
+                df[change]=(a[key]-b[key]).to_numpy(float)
+                for tier,cluster in (
+                    ("block","spatial_block"),
+                    ("source","first_source_signature")):
+                    mean,lo,hi=_resample_group(df,change,cluster,
+                        seed+1200+21*j+(tier=="source"),draws=bootstrap)
+                    item[tier+"_mean_"+change]=mean
+                    item[tier+"_ci025_"+change]=lo
+                    item[tier+"_ci975_"+change]=hi
+        threshold_paired.append(item)
     return dict(
        status="EXPLORATORY_TRUE_BRANCH_BOUNDED_WITHIN_FAMILY_PHYLOGENETIC_SOURCE",
        tree_version=tree_version,
@@ -249,6 +303,7 @@ def run_close_phylo_family_source(
        n_original_source_eligible_full_islands=len(islands),
        n_original_exact_backbone_tips=len(strict_tip_species),
        region_phylogenetic_close_family_source_evidence=regions,
+       paired_same_island_50_vs_100_tree_cutoff_sensitivity=threshold_paired,
        design={
          "all_graft_and_taxonomy_inserted_species_excluded":True,
          "families_are_independent_exact_colxr_source_candidates":True,
@@ -264,6 +319,7 @@ def run_close_phylo_family_source(
          "numerical_original_phylo_pairing_repetitions":repeat,
          "bootstrap_resampling_geography_and_nearest_GIFT_source":bootstrap,
          "near_branch_length_not_verified_island_ancestral_species":True,
+         "same_island_cutoff_pairing_keeps_geography_but_not_identical_plant_species":True,
        },
        no_biological_pollen_delivery_or_effective_visitation_measured=True,
        not_phylogeny_or_evolution_causal_island_phenotype_change=True,
