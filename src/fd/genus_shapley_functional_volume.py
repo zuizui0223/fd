@@ -337,8 +337,8 @@ def original_genus_shapley_macro(
          "sampled_genus_matched_control_is_a_selected_subset":True,
          "block_and_nearest_GIFT_source_bootstrap_draws":bootstraps,
        },
-       source_genera_are_observed_assemblage_not_verified_phylogeny":True,
-       no_genetically_informed_within_species_adaptation_test":True,
-       no_actual_pollinator_service_or_historical_decline_tested":True,
-       no_original_island_taxon_species_genus_source_identity_released":True,
+       source_genera_are_observed_assemblage_not_verified_phylogeny=True,
+       no_genetically_informed_within_species_adaptation_test=True,
+       no_actual_pollinator_service_or_historical_decline_tested=True,
+       no_original_island_taxon_species_genus_source_identity_released=True,
     )
