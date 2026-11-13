@@ -59,6 +59,42 @@ def _group_remove(g: pd.DataFrame, *, group: str, direct: pd.DataFrame,
     retained=set(x.loc[~excluded,"Plant_accepted_name"])
     at_risk=len(all_plants-retained)
     overlap=len(lost_guild_plants&retained)
+    # Original sampled insect taxon identities, unlike record rows, allow a
+    # qualified random VISITOR-SPECIES deletion null matching the number
+    # of distinct targeted pollinator species in THIS network. This is not
+    # an ecological randomization experiment and lacks visit-effort controls.
+    target_visitor_names=set(x.loc[excluded,"Pollinator_accepted_name"])
+    visitor_plants={
+        str(k):set(z.Plant_accepted_name)
+        for k,z in x.groupby("Pollinator_accepted_name")
+    }
+    all_visitors=sorted(visitor_plants)
+    rand_risk=None
+    if 0<len(target_visitor_names)<len(all_visitors) and len(all_visitors)>=3:
+        fingerprint="|".join(map(str,sorted(set(zip(
+            x.Study_id,x.Network_id,x.Year,x.island_id)))))
+        digest=hashlib.sha256((
+             "FD-random-visitor:"+str(seed)+fingerprint+group).encode()).digest()
+        rng=np.random.default_rng(int.from_bytes(digest[:8],"big"))
+        universe=np.asarray(all_visitors,dtype=object)
+        risks=[]
+        for _ in range(199):
+            removed=set(rng.choice(universe,size=len(target_visitor_names),replace=False))
+            surviving=set().union(*(species for visitor,species in visitor_plants.items()
+                                    if visitor not in removed))
+            risks.append(len(all_plants-surviving)/len(all_plants))
+        rand_risk=float(np.mean(risks))
+    # Shares are nonexclusive, because a flower can have multiple
+    # alternative-guild documented visitor types.
+    alternative_shares={}
+    for alternate in ("other_bees","diptera","lepidoptera_pooled","coleoptera"):
+        alternate_plants=set(x.loc[
+           (~excluded)&x.visitor_guild.eq(alternate),
+           "Plant_accepted_name"])
+        alternative_shares[
+          "share_exposed_plants_with_alternative_"+alternate
+        ]=len(lost_guild_plants & alternate_plants)/len(lost_guild_plants)
+
     # Equal 8 Direct plants before and after, conditional on sufficient
     # exact same-island botanical source coverage. Not flower fitness.
     pre=sorted(all_plants&set(direct.index))
@@ -82,6 +118,12 @@ def _group_remove(g: pd.DataFrame, *, group: str, direct: pd.DataFrame,
         "n_same_original_direct_morph_species_before":len(pre),
         "n_same_original_direct_morph_species_after":len(post),
         "equal_8_direct_morph_joint_Q_post_minus_pre":qdelta,
+        "n_distinct_documented_visitor_species":len(all_visitors),
+        "n_removed_documented_visitor_species":len(target_visitor_names),
+        "mean_random_equal_visitor_species_deletion_plant_loss":rand_risk,
+        "extra_plant_loss_vs_random_equal_visitor_species_deletion":(
+           at_risk/len(all_plants)-rand_risk if rand_risk is not None else None),
+        **alternative_shares,
     }
 
 
@@ -159,6 +201,15 @@ def original_island_network_guild_ablation(
             values=group["share_guild_exposed_plant_species_with_other_visitor_records"]
             risk=group["fraction_of_all_documented_visited_plant_species_without_other_links"]
             q=group["equal_8_direct_morph_joint_Q_post_minus_pre"].dropna()
+            excess=group["extra_plant_loss_vs_random_equal_visitor_species_deletion"].dropna()
+            eq_island=group.groupby("island_id")[
+              ["share_guild_exposed_plant_species_with_other_visitor_records",
+               "fraction_of_all_documented_visited_plant_species_without_other_links"]
+            ].mean()
+            eq_study=group.groupby("study_id")[
+              ["share_guild_exposed_plant_species_with_other_visitor_records",
+               "fraction_of_all_documented_visited_plant_species_without_other_links"]
+            ].mean()
             results.append({
                 "scenario":scenario,
                 "n_within_study_site_year_networks":int(len(group)),
@@ -167,6 +218,25 @@ def original_island_network_guild_ablation(
                 "n_spatial_blocks":int(group.spatial_block.nunique()),
                 "median_alternative_visitor_link_coverage_among_exposed_plants":float(values.median()),
                 "median_fraction_all_plants_losing_all_documented_other_visitors":float(risk.median()),
+                "island_equal_mean_fraction_plant_links_lost":float(eq_island[
+                  "fraction_of_all_documented_visited_plant_species_without_other_links"].mean()),
+                "study_equal_mean_fraction_plant_links_lost":float(eq_study[
+                  "fraction_of_all_documented_visited_plant_species_without_other_links"].mean()),
+                "island_equal_mean_share_exposed_with_other_visitor_links":float(eq_island[
+                  "share_guild_exposed_plant_species_with_other_visitor_records"].mean()),
+                "study_equal_mean_share_exposed_with_other_visitor_links":float(eq_study[
+                  "share_guild_exposed_plant_species_with_other_visitor_records"].mean()),
+                "n_networks_with_equal_removed_visitor_species_null":int(len(excess)),
+                "median_extra_plant_loss_vs_random_equal_visitor_species":(
+                   float(excess.median()) if len(excess)>=10 else None),
+                "study_equal_mean_extra_loss_vs_random_visitor_species":(
+                   float(group.groupby("study_id")[
+                     "extra_plant_loss_vs_random_equal_visitor_species_deletion"
+                   ].mean().mean()) if len(excess)>=10 else None),
+                "median_study_network_alternative_guild_coverage_by_kind":{
+                   guild:float(group["share_exposed_plants_with_alternative_"+guild].median())
+                   for guild in ("other_bees","diptera","lepidoptera_pooled","coleoptera")
+                },
                 "n_networks_with_8_matched_Direct_morph_plants_after_loss":int(len(q)),
                 "median_equal_8_joint_morph_Q_change_if_supported":float(q.median()) if len(q)>=5 else None,
                 "functional_diversity_claim_supported":bool(
