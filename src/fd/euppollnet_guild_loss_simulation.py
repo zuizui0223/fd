@@ -7,6 +7,7 @@ effective pollen delivery or seed set. No raw island/source IDs may be emitted.
 """
 from __future__ import annotations
 
+from collections import Counter
 import hashlib
 import numpy as np
 import pandas as pd
@@ -26,7 +27,7 @@ def _q_joint(morph: pd.DataFrame, *, n: int, seed: int, draws: int=50) -> float:
     vals=[]
     for _ in range(draws):
         arr=codes[rng.choice(len(codes),size=n,replace=False)]
-        _, counts=np.unique(arr,axis=0,return_counts=True)
+        counts=np.asarray(list(Counter(map(tuple,arr)).values()),dtype=float)
         p=counts/n
         vals.append(1-float((p*p).sum()))
     return float(np.mean(vals))
