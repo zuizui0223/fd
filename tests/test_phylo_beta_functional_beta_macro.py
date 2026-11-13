@@ -87,8 +87,13 @@ def test_same_fifteen_tree_tip_flower_triples_not_single_colour_strings():
        ("white","purple","yellow","red","blue","pink","green","orange","brown","cream"),
        ("open_radial","tubular","brush","composite","zygomorphic"),
        ("actinomorphic","zygomorphic")))
-    names=[f"Genus{i%35} species_{i}" for i in range(2234)]
-    rows=[profiles[i%100] for i in range(2234)]
+    weights=np.arange(1,101,dtype=float)**1.4
+    counts=np.floor(weights/weights.sum()*(2234-100)).astype(int)+1
+    for i in range(2234-int(counts.sum())):
+        counts[i%100]+=1
+    rows=[prof for prof,num in zip(profiles,counts) for _ in range(int(num))]
+    names=[f"Genus{i%35} species_{i}" for i in range(len(rows))]
+    assert len(rows)==2234
     traits=pd.DataFrame(rows,index=names,columns=TRAITS)
     ref=RarityReference.from_original(traits,null_draws=199)
     # Fully rooted binary 32-tip published-tree-like edge graph.
