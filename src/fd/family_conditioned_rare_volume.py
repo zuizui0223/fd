@@ -246,6 +246,31 @@ def original_family_rare_support(
     byisland={i:q for i,q in flora.groupby("island_id")}
     ref=RarityReference.from_original(triple,null_draws=reference_draws,seed=seed)
     lookup=_compiled(ref,triple)
+    # Diagnose whether strict CoL family matching selectively loses rare
+    # original flower categories (only 44/2234 species lack exact source
+    # family candidates, but those could carry singleton rare profiles).
+    mapped_names=set(family_map)&set(triple.index)
+    mapped_profile_counts={}
+    for species in mapped_names:
+        profile=lookup[species][0]
+        mapped_profile_counts[profile]=mapped_profile_counts.get(profile,0)+1
+    lost_bin={}
+    for label,which in (("rare",lambda x:x<=ref.low_quartile_species_count),
+                         ("middle",lambda x:ref.low_quartile_species_count<x<ref.high_quartile_species_count),
+                         ("common",lambda x:x>=ref.high_quartile_species_count)):
+        profiles=[p for p,n in zip(ref.volume.profiles,ref.profile_n_species) if which(int(n))]
+        lost_bin[label]=dict(
+            n_original_reference_profiles=len(profiles),
+            n_original_reference_profiles_with_zero_mapped_carriers=sum(
+                mapped_profile_counts.get(p,0)==0 for p in profiles),
+            n_original_species_carriers=int(sum(
+                int(n) for p,n in zip(ref.volume.profiles,ref.profile_n_species)
+                if which(int(n)))),
+            n_original_carriers_lacking_strict_family=sum(
+                int(n)-int(mapped_profile_counts.get(p,0))
+                for p,n in zip(ref.volume.profiles,ref.profile_n_species)
+                if which(int(n))),
+        )
     rows=[]
     shapley=[]
     for island in sorted(eligible):
@@ -392,6 +417,7 @@ def original_family_rare_support(
        status="COL_XR_CANDIDATE_FAMILY_FD_RARITY_SUPPORT_V1",
        n_original_Direct_species=len(triple),
        n_strict_candidate_family_species=len(family_map),
+       original_source_family_mapping_ascertainment_by_global_profile_rarity=lost_bin,
        n_original_eligible_island_flora=928,
        n_original_flora_families_source_shapley_eligible=len(shapley),
        family_shapley_rare_category_macro_panels=sh_panels,
