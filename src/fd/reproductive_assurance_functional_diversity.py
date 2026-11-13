@@ -232,6 +232,73 @@ def audit_assurance_flora(
                     row["median_same_island_native_source_delta"]=(
                         float(n[key].median()) if n[key].notna().any() else None)
             paired.append(row)
+    # Post-hoc safeguard against comparing SC and mating system on different
+    # trait-known species: both binary states, morphology and island SOURCE
+    # comparison now use the EXACT SAME 20 accepted plant species per draw.
+    shared=binary[["self_compatibility","selfing_mating_system"]].dropna()
+    shared_names=set(shared.index)&set(morph.index)
+    matched_rows=[]
+    for island in sorted(elig):
+        group=byisland[island]
+        source_names=set().union(*(gift.get(entity,set()) for entity in src[island]))
+        source_names=source_names&shared_names
+        if len(source_names)<sample_size:
+            continue
+        local_all=set(group.accepted_species)
+        for scope in ("all_recorded","source_native"):
+            local_names=(
+                local_all if scope=="all_recorded"
+                else set(group.loc[group.origin_status.eq("native"),"accepted_species"])
+            ) & shared_names
+            if len(local_names)<sample_size:
+                continue
+            score={}
+            for label,names_ in (("island",sorted(local_names)),
+                                 ("source",sorted(source_names))):
+                state=shared.loc[names_].to_numpy(float)
+                rng=np.random.default_rng(_seed(island,scope+label+"joint_repro",seed))
+                sampled=[]
+                for _ in range(repeats):
+                    ids=rng.choice(len(names_),size=sample_size,replace=False)
+                    sampled.append(state[ids].mean(axis=0))
+                score[label]=np.mean(sampled,axis=0)
+            row=dict(island_id=island,scope=scope,
+               regime=g.loc[island,"analysis_regime"],
+               spatial_block=g.loc[island,"spatial_block"],
+               source_signature=src[island][0],
+               n_same_carrier_island=len(local_names),
+               n_same_carrier_mainland=len(source_names),
+               paired_delta_SC=float(score["island"][0]-score["source"][0]),
+               paired_delta_selfing=float(score["island"][1]-score["source"][1]))
+            row["paired_delta_selfing_minus_SC"]=(
+                row["paired_delta_selfing"]-row["paired_delta_SC"])
+            matched_rows.append(row)
+    matched_private=pd.DataFrame(matched_rows)
+    matched_summary=[]
+    if not matched_private.empty:
+        for (scope,regime),part in matched_private.groupby(["scope","regime"]):
+            if len(part)<10 or part.spatial_block.nunique()<5:
+                continue
+            entry=dict(scope=scope,regime=regime,
+                n_islands_with_20_same_species_each_population=len(part),
+                n_spatial_blocks=part.spatial_block.nunique(),
+                n_nearest_mainland_sources=part.source_signature.nunique(),
+                same_carrier_both_traits_and_same_source=True)
+            for j,key in enumerate(("paired_delta_SC","paired_delta_selfing",
+                                    "paired_delta_selfing_minus_SC")):
+                mean,lo,hi=_block_ci(part,key,draws,seed+700+j)
+                entry["block_mean_"+key]=mean
+                entry["block_ci025_"+key]=lo
+                entry["block_ci975_"+key]=hi
+                if part.source_signature.nunique()>=5:
+                    source_means=part.groupby("source_signature")[key].mean().to_numpy(float)
+                    rng=np.random.default_rng(seed+900+j)
+                    boot=source_means[rng.integers(len(source_means),
+                                    size=(draws,len(source_means)))].mean(axis=1)
+                    entry["source_mean_"+key]=float(source_means.mean())
+                    entry["source_ci025_"+key]=float(np.quantile(boot,.025))
+                    entry["source_ci975_"+key]=float(np.quantile(boot,.975))
+            matched_summary.append(entry)
     return {
      "status":"DIRECT_REPRODUCTIVE_FUNCTIONAL_PROXIES_NOT_POLLINATION_SERVICE",
      "n_original_direct_triple_flora_islands":928,
@@ -241,6 +308,7 @@ def audit_assurance_flora(
      "reproductive_assurance_functional_assemblage_by_region":out,
      "candidate_potential_pollinator_shift_assurance_support":cand,
      "same_island_native_vs_all_assurance_sensitivity":paired,
+     "same_plant_carrier_SC_and_mating_system_source_control":matched_summary,
      "carrier_specific_support_min":sample_size,
      "rarefactions":repeats,
      "same_carrier_morphology_and_assurance_scoring":True,
