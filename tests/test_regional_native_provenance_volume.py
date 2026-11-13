@@ -14,10 +14,11 @@ def source_direct():
         ("white","purple","yellow","red","blue","pink","green","orange","brown","cream"),
         ("open_radial","tubular","brush","composite","zygomorphic"),
         ("actinomorphic","zygomorphic")))
-    counts=np.arange(1,101,dtype=float)**1.6
-    counts=np.floor(counts/counts.sum()*(2234-100)).astype(int)+1
-    for j in range(2234-int(counts.sum())):
-        counts[j%100]+=1
+    # Synthetic original-pattern reference: exactly 29 rare (1–2),
+    # 46 middle (3–25) and 25 common (>=26), totaling 2234 species.
+    counts=np.asarray([2]*29+[10]*46+[68]*25,dtype=int)
+    counts[75:91]+=1
+    assert counts.sum()==2234
     rows=[c for c,n in zip(combos,counts) for _ in range(int(n))]
     assert len(rows)==2234
     return pd.DataFrame(
@@ -46,7 +47,7 @@ def test_wcvp_regional_native_does_not_override_introduced_and_unknown():
     assert bool(sel.at[("i1","Alpha c"),"regional_WCVP_upgrade_only"])
     assert not bool(sel.at[("i2","Alpha c"),"regional_WCVP_upgrade_only"])
     assert not bool(sel.at[("i1","Alpha d"),"regional_native_compatible"])
-    with pytest.raises(ValueError,match="Contradictory"):
+    with pytest.raises(ValueError,match="contradict"):
         regional_native_candidates(original,mapping,pd.concat([
             ranges,ranges.iloc[[2]].assign(native_l3_codes="SEA")]))
 
