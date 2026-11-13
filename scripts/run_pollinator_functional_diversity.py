@@ -50,7 +50,7 @@ def main():
           result["floral_functional_assemblage_by_region"]
           if r["scope"]=="all_recorded"},
        "n_guild_region_contrasts_admissible":
-         result["n_primary_channel_region_contrasts_passed"],
+         result["n_qualified_channel_region_contrasts_passed"],
        "n_Bombus_candidate_cohorts":len(
          result["source_relative_bombus_nondetected_bird_detected_candidates"]),
     },sort_keys=True))
