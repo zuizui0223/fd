@@ -19,7 +19,7 @@ The pilot selected **20 islands per each of the four predeclared geographic regi
 
 ## Original-data support results (not a biological treatment effect)
 
-| Broad region | Original sampled islands | Both period searches exhaustive | Islands with actual same-dataset repeated years | Early raw record pages examined* | Recent raw record pages examined* |
+| Broad region | Original sampled islands | Both period searches exhaustive | Islands with actual same-dataset repeated years | Early raw records examined* | Recent raw records examined* |
 | --- | ---: | ---: | ---: | ---: | ---: |
 | Northern high latitude | 20 | 17 | **0** | 9 | 70 |
 | Northern midlatitude | 20 | 15 | **2** | 1,034 | 2,323 |
