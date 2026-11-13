@@ -282,6 +282,36 @@ def audit_original_direct_channel_opportunity(
             rec["block_bootstrap_lower_"+metric]=lower
             rec["block_bootstrap_upper_"+metric]=upper
         candidates.append(rec)
+    # Strict native sensitivity MUST compare the SAME ISLANDS before attempting
+    # an interpretation; the 67 eligible native islands are a selected subset
+    # of all 743 northern midlatitude islands, not an independent sample.
+    paired_native=[]
+    all_scope=private.loc[private.scope.eq("all_recorded")].set_index("island_id")
+    nat_scope=private.loc[private.scope.eq("source_native")].set_index("island_id")
+    for regime,native in nat_scope.groupby("analysis_regime"):
+        common=native.index.intersection(all_scope.index)
+        if len(common)<10 or native.spatial_block.nunique()<5:
+            continue
+        same_all=all_scope.loc[common]
+        equal_native=native.loc[common]
+        rec=dict(regime=regime,n_paired_islands=len(common),
+                 n_paired_spatial_blocks=native.spatial_block.nunique(),
+                 same_islands_and_fixed_30_species_each=True,
+                 not_an_experiment_on_species_introduction=True)
+        frame=equal_native[["spatial_block","source_signature"]].copy()
+        for j,metric in enumerate(METRICS):
+            rec["median_all_same_islands_source_delta_"+metric] = float(
+                same_all["source_delta_"+metric].median())
+            rec["median_native_same_islands_source_delta_"+metric] = float(
+                equal_native["source_delta_"+metric].median())
+            frame["paired_native_minus_all_"+metric]=(
+                equal_native[metric]-same_all[metric]).to_numpy(float)
+            mean,lo,hi=_block_ci(frame,"paired_native_minus_all_"+metric,
+                                 draws=bootstrap,seed=seed+300+j)
+            rec["block_mean_native_minus_all_"+metric]=mean
+            rec["block_ci025_native_minus_all_"+metric]=lo
+            rec["block_ci975_native_minus_all_"+metric]=hi
+        paired_native.append(rec)
     return {
       "status":"OPPORTUNITY_AND_FUNCTIONAL_DIVERSITY_NOT_HISTORICAL_LOSS",
       "population_trait_evolution_tested":False,
@@ -297,6 +327,7 @@ def audit_original_direct_channel_opportunity(
       "support_by_guild_regime":supports,
       "floral_functional_assemblage_by_region":region,
       "source_relative_bombus_nondetected_bird_detected_candidates":candidates,
+      "same_island_direct_native_status_sensitivity":paired_native,
       "sampling":{"equal_species_per_island_or_source":standardized_n,"rarefactions":repeats,
                   "exact_colour_label_shuffle_null":True,
                   "block_bootstrap_draws":bootstrap},
