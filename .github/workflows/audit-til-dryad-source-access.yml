@@ -1,0 +1,69 @@
+name: fd Dryad 41-island source access audit
+on:
+  push:
+    branches: [analysis/pollinator-loss-functional-assembly-20261113]
+    paths: ['.github/workflows/audit-til-dryad-source-access.yml']
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  source-probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      ROOT: /tmp/fd-dryad-access
+    steps:
+      - uses: actions/checkout@v4
+      - name: Audit public Dryad source access at three official endpoints
+        run: |
+          set -euo pipefail
+          mkdir -p "$ROOT"
+          API='https://datadryad.org/api/v2/datasets/doi%3A10.5061%2Fdryad.612jm64gq'
+          curl --fail --location --max-time 40 "$API" -o "$ROOT/dataset.json"
+          curl --location --silent --max-time 40 "$API/versions" -o "$ROOT/versions.json" || true
+          curl --location --silent --max-time 40 'https://datadryad.org/api/v2/files/4450810' -o "$ROOT/file.json" || true
+          for endpoint in \
+            'https://datadryad.org/downloads/file_stream/4450810' \
+            'https://datadryad.org/api/v2/files/4450810/download' \
+            'https://datadryad.org/api/v2/datasets/doi%3A10.5061%2Fdryad.612jm64gq/download'; do
+            status=$(curl --location --silent --max-time 55 -A 'Mozilla/5.0 (academic public-source provenance)' "$endpoint" -o "$ROOT/candidate.zip" -w '%{http_code}') || status=NETWORK_ERROR
+            echo "Official source download HTTP: $status"
+            if unzip -tq "$ROOT/candidate.zip" 2>/dev/null; then
+              cp "$ROOT/candidate.zip" "$ROOT/accessible_source_bundle.zip"
+              break
+            fi
+          done
+      - name: Emit only original source access and provenance receipt
+        run: |
+          python - <<'PY'
+          import json,zipfile,hashlib,os
+          from pathlib import Path
+          root=Path(os.environ["ROOT"])
+          meta=json.loads((root/'dataset.json').read_text())
+          bundle=root/'accessible_source_bundle.zip'
+          data={
+            'status':'ORIGINAL_41_ISLAND_DATA_READY' if bundle.is_file() else 'DRYAD_PUBLIC_METADATA_ONLY_BINARY_ACCESS_DENIED',
+            'source_doi':'10.5061/dryad.612jm64gq',
+            'official_metadata_retrieved':True,
+            'source_bundle_available':bundle.is_file(),
+            'source_bundle_sha256':hashlib.sha256(bundle.read_bytes()).hexdigest() if bundle.is_file() else None,
+            'n_island_sites_described':41,
+            'n_mainland_sites_described':16,
+            'new_effect_estimate_computed':False
+          }
+          if bundle.is_file():
+            with zipfile.ZipFile(bundle) as z:
+              data['archive_file_basenames']=[Path(x).name for x in z.namelist() if not x.endswith('/')]
+          (root/'source_access_receipt.json').write_text(json.dumps(data,indent=2)+'\n')
+          print(json.dumps(data,sort_keys=True))
+          print('Official metadata keys:',list(meta)[:25])
+          print('Official links:',json.dumps(meta.get('_links',{}))[:2200])
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: fd-dryad-41-island-source-${{ github.run_id }}
+          path: |
+            /tmp/fd-dryad-access/source_access_receipt.json
+            /tmp/fd-dryad-access/accessible_source_bundle.zip
+          if-no-files-found: error
+          retention-days: 90
