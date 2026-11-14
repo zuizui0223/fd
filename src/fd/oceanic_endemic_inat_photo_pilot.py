@@ -32,7 +32,7 @@ SALT="fd-genuine-oc-endemic-photos-first-8-paired-genera-20261114"
 LICENSES={"cc0","cc-by","cc-by-sa","cc-by-nc","cc-by-nc-sa"}
 API_ROOT="https://api.inaturalist.org/v1"
 QUALIFIED_MAX_ACCURACY=5000
-MAX_PAIRED_GENERA=8
+MAX_PAIRED_GENERA=13
 
 
 def _genus(taxon:str)->str:
@@ -50,7 +50,7 @@ def select_original_endemic_colour_pairs(
     max_pairs:int=MAX_PAIRED_GENERA
 )->tuple[list[dict],dict]:
     if not 1<=max_pairs<=MAX_PAIRED_GENERA:
-        raise ValueError("First source-only original pilot exceeds frozen 8 paired genera")
+        raise ValueError("Original bounded first wave exceeds frozen 13 original shared genera")
     needed={"accepted_species","trait_name","normalized_value",
             "evidence_scope","evidence_quality"}
     if not needed.issubset(ledger):
@@ -128,6 +128,8 @@ def select_original_endemic_colour_pairs(
         if by[0]["plant"]==by[1]["plant"]:
             continue
         available.append((genus,by))
+    # Historical SALT from first eight remains unchanged: selecting 13
+    # keeps exactly the same first eight source pairs and adds five more.
     # Freeze selection by original source opportunity, not provider-photo
     # availability or the actual direct flower colour category.
     available.sort(key=lambda x:_seed("genus",x[0]))
@@ -239,7 +241,7 @@ def original_photo_pair_pilot(
     client:Callable[[str,dict],dict]=official_api_json
 )->dict:
     if len(selected)<2 or len(selected)>2*MAX_PAIRED_GENERA:
-        raise ValueError("Original bounded 8-genus/two-geology pilot source size invalid")
+        raise ValueError("Original bounded 13-genus/two-geology pilot source size invalid")
     if len({x["plant"] for x in selected})!=len(selected):
         raise ValueError("Selected botanical accepted plant names duplicated")
     private=[]
