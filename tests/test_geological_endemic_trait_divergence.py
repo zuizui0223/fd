@@ -55,6 +55,9 @@ def test_provenance_and_paired_same_island_support_and_small_n_suppression():
         z=next(x for x in r["endemic_vs_native_same_island_congener_support"]
             if x["geological_origin"]==origin and x["trait"]=="flower_primary_color")
         assert z["n_islands_with_both_ge3_congener_comparisons"]==2
+        assert z["n_islands_with_at_least_two_same_genus_endemic_nonendemic_pairs"]==2
+        assert z["n_common_endemic_nonendemic_genus_units_in_this_group"]==6
+        assert not z["same_genus_endemic_native_comparison_reportable"]
         assert not z["paired_status_comparison_reportable"]
     assert all(not x["origin_comparison_identifiable_in_supported_cohort"]
                for x in r["geological_origin_difference_of_endemic_status_effect"])
