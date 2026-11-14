@@ -89,6 +89,21 @@ def matched_oceanic_continental_source_audit(
                     "cost":float(np.linalg.norm((xc[i]-xo[j])/sd)),
                 })
             row["n_candidate_pairs_before_archipelago_and_source_independence"]=len(edges)
+            # Fixed maximum 6 opportunity-based candidate pairs PER endpoint,
+            # not trait-score-driven pruning, prevents huge MILP graphs.
+            if len(edges)>500:
+                selected=set()
+                for key in ("continental_id","oceanic_id"):
+                    grouped={}
+                    for pos,e in enumerate(edges):
+                        grouped.setdefault(e[key],[]).append(pos)
+                    for ids in grouped.values():
+                        selected.update(sorted(ids,key=lambda pos:(
+                            edges[pos]["cost"],
+                            edges[pos]["continental_id"],
+                            edges[pos]["oceanic_id"]))[:6])
+                edges=[e for k,e in enumerate(edges) if k in selected]
+            row["n_edges_after_outcome_blind_pair_pruning"]=len(edges)
             if not edges:
                 res.append(row);continue
             eligible=[e for e in edges if
