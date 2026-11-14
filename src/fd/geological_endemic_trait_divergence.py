@@ -81,25 +81,48 @@ def plant_source_discordance(
             accepted_species=taxon,
             source_genus_congener_count=len(v),
             discordance=float(np.mean([x!=s for s in v])),
+            _private_original_state=x,
         ))
     return out
 
 
-def _status_contrast_within_identical_genus(endemic:list[dict],
-                                          native_nonendemic:list[dict])->tuple[int,float]:
-    """Per-genus matched status contrast with the SAME original GIFT source genus pool."""
+def _status_contrast_within_identical_genus(
+        endemic:list[dict],native_nonendemic:list[dict]
+)->tuple[int,int,int,float]:
+    """Pre-donor trait-information audit for common source-genus contrasts.
+
+    The original species-direct phenotype exists once per accepted plant
+    species. Under same-genus matching, a zero contrast can be a deterministic
+    consequence of zero within-genus floral-category variation; count that
+    inability to falsify as support loss, not biological equivalence.
+
+    Each shared genus is equally weighted, regardless of number of island
+    species; original source conspecifics are excluded upstream.
+    """
     e=defaultdict(list)
     n=defaultdict(list)
     for row in endemic:
-        e[_genus(row["accepted_species"])].append(float(row["discordance"]))
+        e[_genus(row["accepted_species"])].append(row)
     for row in native_nonendemic:
-        n[_genus(row["accepted_species"])].append(float(row["discordance"]))
+        n[_genus(row["accepted_species"])].append(row)
     common=sorted((set(e)&set(n))-{""})
-    if len(common)<2:
-        return len(common),float("nan")
-    return len(common),float(np.mean([
-        np.mean(e[g])-np.mean(n[g]) for g in common
-    ]))
+    n_status_variable=0
+    n_nonzero_source_discordance=0
+    paired=[]
+    for genus in common:
+        e_states={p["_private_original_state"] for p in e[genus]}
+        n_states={p["_private_original_state"] for p in n[genus]}
+        # A genus with only one total state is STRICTLY uninformative:
+        # source-relative discordance must be the same in both status groups.
+        if len(e_states|n_states)>1:
+            n_status_variable+=1
+        local_delta=(np.mean([p["discordance"] for p in e[genus]])-
+                     np.mean([p["discordance"] for p in n[genus]]))
+        if abs(local_delta)>1e-12:
+            n_nonzero_source_discordance+=1
+        paired.append(float(local_delta))
+    diff=float(np.mean(paired)) if len(common)>=2 else float("nan")
+    return len(common),n_status_variable,n_nonzero_source_discordance,diff
 
 
 def geological_endemic_state_discordance(
@@ -188,8 +211,11 @@ def geological_endemic_state_discordance(
                     np.median([q["source_genus_congener_count"] for q in b]))
                     if b else np.nan,
             )
-            common_genus_count,common_genus_diff=_status_contrast_within_identical_genus(a,b)
+            (common_genus_count,informative_genus_count,
+             nonzero_genus_count,common_genus_diff)=_status_contrast_within_identical_genus(a,b)
             row["n_same_island_same_source_genus_endemic_native_groups"]=common_genus_count
+            row["n_same_island_genus_with_status_group_floral_state_variation"]=informative_genus_count
+            row["n_same_island_genus_with_nonzero_endemic_native_source_discordance"]=nonzero_genus_count
             row["same_island_same_genus_endemic_minus_native_discordance"]=common_genus_diff
             row["same_island_endemic_minus_native_discordance"]=(
                 row["endemic_mean_discordance"]-
@@ -224,6 +250,12 @@ def geological_endemic_state_discordance(
             n_sources_with_same_genus_pairs=int(matched.source_signature.nunique()),
             n_common_endemic_nonendemic_genus_units_in_this_group=int(
                 g.n_same_island_same_source_genus_endemic_native_groups.sum()),
+            n_status_variable_endemic_nonendemic_genus_island_units=int(
+                g.n_same_island_genus_with_status_group_floral_state_variation.sum()),
+            n_genus_island_units_with_nonzero_source_discordance=int(
+                g.n_same_island_genus_with_nonzero_endemic_native_source_discordance.sum()),
+            n_islands_with_any_within_genus_status_flower_variation=int(
+                g.n_same_island_genus_with_status_group_floral_state_variation.gt(0).sum()),
             n_independent_blocks_with_both=int(paired.spatial_block.nunique()),
             n_source_signatures_with_both=int(paired.source_signature.nunique()),
             n_recorded_genus_opportunity_less_than_3_endemic_sites=int(
@@ -292,6 +324,7 @@ def geological_endemic_state_discordance(
             source_genus_congeners_selected_without_trait_outcome_matching=True,
             plant_state_once_per_accepted_species_not_island_population=True,
             donor_state_frequency_discordance_is_not_adaptation=True,
+            same_genus_zero_contrast_power_audited_with_original_focal_state_variation=True,
             original_source_GIFT_nearest_five_not_ancestral=True,
             regional_clustering_is_not_phylogenetic_replication=True,
             geological_origin_is_not_LGM_connectivity=True,
