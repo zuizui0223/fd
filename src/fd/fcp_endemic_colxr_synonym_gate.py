@@ -106,8 +106,8 @@ def original_endemic_fcp_taxonomy_sensitivity(
     if geology.island_id.duplicated().any():
         raise ValueError("Independent geological type labels duplicated")
     typed=geology.loc[geology.geological_origin.isin(("oceanic","continental"))]
-    if len(typed)<4:
-        raise ValueError("No independent geological island taxon scope")
+    if len(typed)<2 or set(typed.geological_origin)!={"oceanic","continental"}:
+        raise ValueError("Both independent geological island types are required")
     direct,alias,audit=original_candidate_fcp_name_map(fcp_species,colxr)
     orig=original_flora.loc[
         original_flora.island_id.isin(typed.island_id)&
