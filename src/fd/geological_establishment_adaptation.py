@@ -24,6 +24,10 @@ SCOPES=("all_recorded","regional_WCVP_compatible","strict_source_native")
 RESULT_METRICS=tuple(METRICS)+(
     "shared_source_genus_fraction",
     "source_genus_explains_local_fraction",
+    "source_genus_jaccard",
+    "source_genus_sorensen",
+    "expected_10genus_share",
+    "source_plant_genus_pair_match_probability",
 )
 GROUP_MIN=(10,5,5)
 
@@ -131,6 +135,10 @@ def geology_origin_flora_pilot(
         source_states=np.asarray([profiles[t] for t in sorted(source)],dtype=object)
         source_score=exact_rarefied_flora_fd(source_states,n=30)
         sg={species_genus(t) for t in source}
+        source_count={}
+        for t in source:
+            genus=species_genus(t)
+            source_count[genus]=source_count.get(genus,0)+1
         endemic=candidate_endemic_divergence(flora,roster,source,profiles)
         for scope,names in (
             ("all_recorded",roster),
@@ -143,6 +151,19 @@ def geology_origin_flora_pilot(
             score=exact_rarefied_flora_fd(
                 np.asarray([profiles[t] for t in sorted(names)],dtype=object),n=30)
             gn={species_genus(t) for t in names}
+            local_count={}
+            for t in names:
+                genus=species_genus(t)
+                local_count[genus]=local_count.get(genus,0)+1
+            shared=len(gn & sg)
+            # Exactly ten distinct genera drawn independently without
+            # replacement from each island and source genus roster:
+            # E[#shared]/10 = 10*|intersection|/(|local|*|source|).
+            expected_ten=(10*shared/(len(gn)*len(sg))
+                          if min(len(gn),len(sg))>=10 else float("nan"))
+            plant_genus_pair_probability=sum(
+                (local_count[gx]/len(names))*(source_count[gx]/len(source))
+                for gx in gn & sg)
             row=dict(
                 island_id=island,
                 origin=g.at[island,"geological_origin"],
@@ -155,8 +176,13 @@ def geology_origin_flora_pilot(
                 scope=scope,n_original_direct_species=len(names),
                 n_donor_direct_species=len(source),
                 n_local_distinct_genera=len(gn),n_source_genera=len(sg),
-                shared_source_genus_fraction=len(sg&gn)/len(sg),
-                source_genus_explains_local_fraction=len(sg&gn)/len(gn),
+                n_shared_genera=shared,
+                shared_source_genus_fraction=shared/len(sg),
+                source_genus_explains_local_fraction=shared/len(gn),
+                source_genus_jaccard=shared/(len(sg|gn)),
+                source_genus_sorensen=2*shared/(len(sg)+len(gn)),
+                expected_10genus_share=expected_ten,
+                source_plant_genus_pair_match_probability=plant_genus_pair_probability,
             )
             for metric in METRICS:
                 row["source_relative_"+metric]=score[metric]-source_score[metric]
@@ -177,7 +203,11 @@ def geology_origin_flora_pilot(
                n_distinct_labelled_archipelagos=q.archipelago.dropna().replace("",np.nan).nunique(),
                n_Roeble_geological_source_islands=int(q.geology_source.eq("Roeble_2024_510_island_geology").sum()),
                n_Zizka_supplement_geological_source_islands=int(q.geology_source.eq("Zizka_2022_missing_geology_additions").sum()),
-               median_direct_flora_species=float(q.n_original_direct_species.median()))
+               median_direct_flora_species=float(q.n_original_direct_species.median()),
+               median_source_direct_species=float(q.n_donor_direct_species.median()),
+               median_local_distinct_genera=float(q.n_local_distinct_genera.median()),
+               median_source_distinct_genera=float(q.n_source_genera.median()),
+               median_shared_genera=float(q.n_shared_genera.median()))
         enabled=(len(q)>=GROUP_MIN[0] and
                 q.spatial_block.nunique()>=GROUP_MIN[1] and
                 q.source_signature.nunique()>=GROUP_MIN[2])
@@ -190,6 +220,12 @@ def geology_origin_flora_pilot(
                         q,key,cluster,draws=boots,
                         seed=_seed(seed,"group",regime,scope,origin,metric,label))
         if scope=="all_recorded":
+            r["n_source_endemic_direct_species"]=int(
+                q.n_endemic_original_direct.sum())
+            r["n_source_native_direct_species"]=int(
+                q.n_native_original_direct.sum())
+            r["n_islands_with_any_Direct_endemic"]=int(
+                q.n_endemic_original_direct.gt(0).sum())
             r["n_source_congener_comparable_endemic_species"]=int(
                 q.n_endemic_source_genus_comparable.sum())
             r["n_source_congener_comparable_native_species"]=int(
