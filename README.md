@@ -2,6 +2,16 @@
 
 **Status:** independent exploratory analysis line, migrated from [island PR #321](https://github.com/zuizui0223/island/pull/321). This repository contains new analyses, **not** a new copy of the original plant-trait database. Its first runnable stage is implemented; no new global significance or evolutionary result is implied by creating the pipeline.
 
+## Current global primary sample — 14 November 2026
+
+**The main unit is the original 4,505 GIFT island botanical floras—not the old 928 three-flower-trait complete-case subset.** The distinct GSHHG physical geography has 8,264 islands, but not all have corresponding original botanical floras. Independently published Roeble/Zizka geological origin is verified for 434 geographic islands, **425** of which have source botanical floras. The original source records are kept in the protected island Actions; fd exports only anonymous region/guild/trait aggregates.
+
+The original 10 high/medium directly documented flower/reproductive traits each use **all available individual trait source species** (e.g. 3,132 islands have >=5 Direct flower-colour species; 2,806 floral form; 3,145 floral symmetry), and colour+form pairwise coupling requires only those two traits (2,324 islands with >=5 source-Direct pairwise plants). The 928 islands with >=30 complete Direct colour+form+symmetry species remain a nested **sensitivity**, never the default eligibility filter. All-recorded flora and original provenance-verified native flora are reported separately; absent trait records are not trait-state zero.
+
+[Global 4,505-island ten-trait study](results/20261114_global_partial_traits/MAIN_GLOBAL_NO_COMPLETE_CASE_4505.md) · [Original five GBIF guild source documentation bridge](results/20261114_global_partial_traits/GLOBAL_4505_GUILD_OBSERVATION_PARTIAL_TRAIT_BRIDGE.md) · [Identical-island GIFT source, physical-block and exploratory multiplicity audit](results/20261114_global_partial_traits/ORIGINAL_GUILD_SAME_COHORT_WITHIN_BLOCK_MULTIPLICITY_AUDIT.md) · [Original GBIF background effort × plant Direct coverage audit](results/20261114_global_partial_traits/ORIGINAL_GBIF_BACKGROUND_EFFORT_OBSERVATION_BIAS.md).
+
+**Important guild inference limit:** GBIF channel detection does not prove a real flower visit or pollination. Even qualified non-detection is NOT historical pollinator loss, and it is rare (e.g. Bombus 23 islands, Lepidoptera zero). Earlier global separately block-weighted associations do NOT survive the stronger same-cohort/within-mixed-block source audit as confirmed findings: source-comparable Bombus colour+form has **zero blocks** containing both states; in full original raw data only four physical blocks mix. Requiring adequate non-detection also changes recorded background effort dramatically (Bombus median 107 background records vs14 detected), and trait documentation covaries with GBIF recording intensity. The work remains an observational island floral functional-diversity analysis, NOT an established adaptive pollinator shift or historical replacement study.
+
 ## Research question
 
 **Can island floras occupy locally constrained combinations of recorded floral traits while remaining functionally differentiated from other islands?**
