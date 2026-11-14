@@ -27,7 +27,7 @@ Each original accepted species×trait must have unambiguous one-valued high/medi
 | Mating system | **3,003** | **2,376** |
 | Cleistogamy | **1,323** | **2,024** |
 
-Counts above use **all-recorded floras** (native, introduced and currently unresolved plant statuses are NOT silently treated as indigenous). Strict original GIFT source-native subsets are reported separately, but considerably smaller and geographically uneven. No WCVP regional-native record is promoted to native status on a specific island without independent source evidence.
+Counts above use **all-recorded floras** (native, introduced and currently unresolved plant statuses are NOT silently treated as indigenous). Strict original GIFT source-native subsets are reported separately, but considerably smaller and geographically uneven: they have **397** islands with >=5 original source-native/direct colour species, **396** with >=5 symmetry, and **327** with >=5 source-native/direct colour+form species. This is a major independent **native-provenance evidence bottleneck**, NOT a reason to make missing native statuses indigenous. No WCVP regional-native record is promoted to native status on a specific island without independent source evidence.
 
 ## True pairwise evidence — NO THIRD trait required
 
