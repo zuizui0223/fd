@@ -199,6 +199,19 @@ def source_cohort_and_guild_robustness(
                         if count_full["sufficient_independent_support"]:
                             row["original_raw_full_group_block_difference"]=group_status_contrast(
                                 full,raw_metric,"spatial_block")
+                            # IMPORTANT: previous global contrasts average
+                            # detected/adequately-nondetected BLOCKS SEPARATELY.
+                            # They do NOT ensure any block is observed in
+                            # BOTH states. Test mixed block overlap BEFORE
+                            # attributing the difference to a GBIF guild.
+                            row["physical_block_within_full_raw"]=matched_block_delta(
+                                full,raw_metric,"spatial_block",bootstrap=draws,
+                                seed=_seed(seed,region,scope,guild,trait,
+                                           raw_metric,"full_block"))
+                            row["GIFT_first_source_within_full_raw"]=matched_block_delta(
+                                full,raw_metric,"source_signature",bootstrap=draws,
+                                seed=_seed(seed,region,scope,guild,trait,
+                                           raw_metric,"full_source"))
                         if count_same["sufficient_independent_support"]:
                             for label,col in (
                                 ("physical_block","spatial_block"),
@@ -264,6 +277,8 @@ def source_cohort_and_guild_robustness(
             exploratory_posthoc_eight_slots_not_hypotheses_pre_registered_before_previous_results=True,
             exact_same_islands_raw_and_source_reference_compared=True,
             block_cluster_must_contain_BOTH_GBIF_statuses=True,
+            previous_separately_clustered_comparisons_do_not_prove_any_within_block_overlap=True,
+            full_original_raw_cohort_and_source_comparable_subcohort_both_receive_mixed_block_diagnostic=True,
             GIFT_first_nearest_region_must_contain_BOTH_GBIF_statuses=True,
             original_source_GBIF_qualified_nondetection_not_historical_loss=True,
             original_native_flora_status_not_imputed=True,
