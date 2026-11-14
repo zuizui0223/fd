@@ -60,7 +60,10 @@ def test_928_geology_joins_never_promote_unknown_origin_or_local_native():
             "island_id":t,"geological_origin":geological_origin,
             "weigelt_archipelago":f"arch{i%80}",
             "geological_class_source":"Roeble_2024_510_island_geology",
-            "LGM_connectivity":"lgm_unconnected" if i%2 else "lgm_connected"
+            "LGM_connectivity":"lgm_unconnected" if i%2 else "lgm_connected",
+            "area_km2":str(100+((i%7)*10)),
+            "distance_to_continent_km":str(60+((i%7)*20)),
+            **{f"climate_pc{k}":str((i%9)*0.1+k*0.02) for k in range(1,5)},
         })
     geological=pd.DataFrame(original_geo)
     first={f"s{k}":set(names[35:]) for k in range(35)}
