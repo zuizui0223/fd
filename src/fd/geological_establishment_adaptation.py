@@ -73,14 +73,15 @@ def candidate_endemic_divergence(
     for taxon,status in zip(eligible.accepted_species,eligible.floristic_status):
         # Endemic is a separate source layer; origin='native' alone is NOT
         # evidence of either endemic or non-endemic status.
-        if status not in recorded:
+        category={"endemic":"endemic","native_nonendemic":"native"}.get(status)
+        if category is None:
             continue
-        totals[status]+=1
+        totals[category]+=1
         candidates=donor_by_genus.get(species_genus(taxon),())
         if candidates:
             d=min(_dist(original_profiles[taxon],original_profiles[y])
                   for y in candidates)
-            recorded[status].append(d)
+            recorded[category].append(d)
     out={}
     for k,ds in recorded.items():
         out["n_"+k+"_original_direct"]=totals[k]
