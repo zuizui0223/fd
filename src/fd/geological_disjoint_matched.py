@@ -55,9 +55,23 @@ def matched_oceanic_continental_source_audit(
         frame=source_rows.loc[source_rows.scope.eq(scope)]
         for region in ("northern_midlatitude","tropical"):
             q=frame.loc[frame.regime.eq(region)].copy()
+            # Missing historical climate PC values cannot be fabricated; drop
+            # only for outcome-blind matched geographic eligibility.
+            covariates=("area_km2","distance_to_continent_km",
+                        "n_original_direct_species","n_source_genera",
+                        "climate_pc1","climate_pc2","climate_pc3","climate_pc4")
+            for key in covariates:
+                q[key]=pd.to_numeric(q[key],errors="coerce")
+            finite=np.isfinite(q[list(covariates)].to_numpy(dtype=float)).all(axis=1)
+            positive=(q.area_km2.gt(0)&q.distance_to_continent_km.ge(0)&
+                      q.n_original_direct_species.ge(30)&q.n_source_genera.ge(1))
+            before=len(q)
+            q=q.loc[finite&positive].copy()
             c=q.loc[q.origin.eq("continental")].sort_values("island_id")
             o=q.loc[q.origin.eq("oceanic")].sort_values("island_id")
             row=dict(scope=scope,region=region,
+                     n_source_eligible_islands_before_geography_complete_case=before,
+                     n_source_eligible_islands_complete_geo_covariates=len(q),
                      n_eligible_continental_islands=len(c),
                      n_eligible_oceanic_islands=len(o),
                      n_candidate_pairs_before_archipelago_and_source_independence=0,
