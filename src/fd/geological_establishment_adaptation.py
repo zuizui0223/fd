@@ -53,10 +53,26 @@ def candidate_endemic_divergence(
     donor_by_genus=defaultdict(list)
     for x in source:
         donor_by_genus[species_genus(x)].append(x)
+    required={"accepted_species","origin_status","endemic_status","floristic_status"}
+    if not required.issubset(island_rows):
+        raise ValueError("Original separate GIFT endemic-status evidence missing")
+    original=island_rows[list(required)].copy()
+    if original.endemic_status.isna().any() or not original.endemic_status.isin(
+        ("endemic","nonendemic","unresolved")).all():
+        raise ValueError("Original endemicity unknown or invalid source category")
+    if ((original.floristic_status.eq("endemic") &
+         (~original.origin_status.eq("native") |
+          ~original.endemic_status.eq("endemic"))).any() or
+        (original.floristic_status.eq("native_nonendemic") &
+         (~original.origin_status.eq("native") |
+          ~original.endemic_status.eq("nonendemic"))).any()):
+        raise ValueError("Separate original origin and endemism evidence conflicts")
     eligible=island_rows.loc[island_rows.accepted_species.isin(local)]
     recorded={"endemic":[],"native":[]}
     totals={"endemic":0,"native":0}
-    for taxon,status in zip(eligible.accepted_species,eligible.origin_status):
+    for taxon,status in zip(eligible.accepted_species,eligible.floristic_status):
+        # Endemic is a separate source layer; origin='native' alone is NOT
+        # evidence of either endemic or non-endemic status.
         if status not in recorded:
             continue
         totals[status]+=1
@@ -241,6 +257,13 @@ def geology_origin_flora_pilot(
                 q.n_native_source_genus_comparable.sum())
             r["n_islands_with_3_endemic_and_3_native_congeneric_source_comparisons"]=int(
                 q.endemic_minus_native_source_congener_mismatch.notna().sum())
+            qq=q.loc[q.endemic_minus_native_source_congener_mismatch.notna()]
+            r["n_native_endemic_paired_islands_within_geology"]=len(qq)
+            if len(qq)>=10 and qq.spatial_block.nunique()>=5 and qq.source_signature.nunique()>=5:
+                for weight,key in (("block","spatial_block"),("source","source_signature")):
+                    r[weight+"_endemic_minus_native_original_congener_mismatch"]=cluster_equal_bootstrap(
+                        qq,"endemic_minus_native_source_congener_mismatch",key,
+                        draws=boots,seed=_seed(seed,"endemic",regime,origin,weight))
         aggregate.append(r)
     between=[]
     for (regime,scope),q in data.groupby(["regime","scope"],sort=True):
