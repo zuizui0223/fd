@@ -133,4 +133,9 @@ def test_full_4000_islands_main_trait_gate_not_full_three_evidence():
     # Of the 3560 unresolved-geology islands, 488 have all three traits,
     # but 3072 have colour ONLY; pairwise cannot invent their missing form.
     assert pair["n_islands_with_at_least_five_direct_species"]==488
+    missing=[x for x in result["oceanic_minus_continental_conditional_traits"]
+             if x["metric"]=="observed_direct_coverage"]
+    assert missing
+    assert result["source_design"]["original_direct_trait_observation_fraction_by_island_and_scope"]
+    assert result["source_design"]["native_status_scope_without_original_native_species_is_NA_not_zero"]
     assert result["source_design"]["original_island_complete_case_gate_removed_for_main_analysis"]
