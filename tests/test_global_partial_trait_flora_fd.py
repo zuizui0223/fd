@@ -130,5 +130,7 @@ def test_full_4000_islands_main_trait_gate_not_full_three_evidence():
     one=next(x for x in records if x["trait_name"]=="flower_primary_color")
     pair=next(x for x in records if x["trait_name"]=="flower_primary_color__floral_form")
     assert one["n_islands_with_at_least_five_direct_species"]==3560
-    assert pair["n_islands_with_at_least_five_direct_species"]==0
+    # Of the 3560 unresolved-geology islands, 488 have all three traits,
+    # but 3072 have colour ONLY; pairwise cannot invent their missing form.
+    assert pair["n_islands_with_at_least_five_direct_species"]==488
     assert result["source_design"]["original_island_complete_case_gate_removed_for_main_analysis"]
