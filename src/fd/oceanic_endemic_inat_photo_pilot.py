@@ -176,7 +176,8 @@ def photo_observation_qualifies(obs:dict,exact_taxon_id:int,accepted_name:str)->
         str(t.get("name") or "").casefold()!=accepted_name.casefold() or
         str(t.get("rank") or "")!="species" or
         obs.get("quality_grade")!="research" or obs.get("obscured") or
-        obs.get("geoprivacy") not in (None,"","open")):
+        obs.get("geoprivacy") not in (None,"","open") or
+        obs.get("taxon_geoprivacy") not in (None,"","open")):
         return False
     coordinates=(obs.get("geojson") or {}).get("coordinates")
     if (not isinstance(coordinates,list) or len(coordinates)!=2):
