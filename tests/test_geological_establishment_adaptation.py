@@ -20,7 +20,9 @@ def test_endemic_distance_is_not_imputed_as_adaptation():
     }
     flora=pd.DataFrame({
         "accepted_species":names,
-        "origin_status":["native","endemic","native","endemic"],
+        "origin_status":["native"]*4,
+        "endemic_status":["nonendemic","endemic","nonendemic","endemic"],
+        "floristic_status":["native_nonendemic","endemic","native_nonendemic","endemic"],
     })
     z=candidate_endemic_divergence(flora,set(names),source,traits)
     assert z["n_endemic_original_direct"]==2
@@ -41,10 +43,13 @@ def test_928_geology_joins_never_promote_unknown_origin_or_local_native():
     flora=[]
     for i in range(928):
         for j,name in enumerate(names[:35]):
-            status="endemic" if j<5 else "native"
+            endemic=(j<5)
             flora.append({
                 "island_id":island_ids[i],"accepted_species":name,
-                "origin_status":status,"strict_source_native":status=="native",
+                "origin_status":"native",
+                "endemic_status":"endemic" if endemic else "nonendemic",
+                "floristic_status":"endemic" if endemic else "native_nonendemic",
+                "strict_source_native":True,
                 "regional_native_compatible":True
             })
     classified=pd.DataFrame(flora)
