@@ -205,10 +205,10 @@ def source_guild_partial_traits(
                     # coverage always uses all original island plant members.
                     mean_GBIF_observed_direct_record_coverage=float(
                         sub.loc[observed,"observed_direct_coverage"].mean())
-                        if observed.any() else None,
+                        if sub.loc[observed,"observed_direct_coverage"].notna().any() else None,
                     mean_GBIF_qualified_nondetection_direct_record_coverage=float(
                         sub.loc[nondetected,"observed_direct_coverage"].mean())
-                        if nondetected.any() else None,
+                        if sub.loc[nondetected,"observed_direct_coverage"].notna().any() else None,
                     source_count_not_true_pollinator_richness=True,
                 )
                 if trait in PRIMARY:
