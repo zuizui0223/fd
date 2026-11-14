@@ -68,7 +68,7 @@ def test_original_source_pairing_uses_both_geologies_without_colour_value():
     source_data=source()
     x,a=select_original_endemic_colour_pairs(*source_data,max_pairs=3)
     assert len(x)==6 and a["n_original_distinct_source_pair_eligible_genera"]==4
-    assert a["n_original_distinct_endemic_plant_names"] if False else True
+    assert a["n_selected_original_accepted_endemic_plant_names"]==6
     assert len({r["genus"] for r in x})==3
     assert {r["origin"] for r in x}=={"oceanic","continental"}
     copied=source_data[0].copy()
