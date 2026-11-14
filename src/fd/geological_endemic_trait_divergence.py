@@ -85,6 +85,23 @@ def plant_source_discordance(
     return out
 
 
+def _status_contrast_within_identical_genus(endemic:list[dict],
+                                          native_nonendemic:list[dict])->tuple[int,float]:
+    """Per-genus matched status contrast with the SAME original GIFT source genus pool."""
+    e=defaultdict(list)
+    n=defaultdict(list)
+    for row in endemic:
+        e[_genus(row["accepted_species"])].append(float(row["discordance"]))
+    for row in native_nonendemic:
+        n[_genus(row["accepted_species"])].append(float(row["discordance"]))
+    common=sorted((set(e)&set(n))-{""})
+    if len(common)<2:
+        return len(common),float("nan")
+    return len(common),float(np.mean([
+        np.mean(e[g])-np.mean(n[g]) for g in common
+    ]))
+
+
 def geological_endemic_state_discordance(
     direct:pd.DataFrame,raw:pd.DataFrame,geology:pd.DataFrame,
     candidate_assignments:pd.DataFrame,mainland:pd.DataFrame,*,
@@ -171,6 +188,9 @@ def geological_endemic_state_discordance(
                     np.median([q["source_genus_congener_count"] for q in b]))
                     if b else np.nan,
             )
+            common_genus_count,common_genus_diff=_status_contrast_within_identical_genus(a,b)
+            row["n_same_island_same_source_genus_endemic_native_groups"]=common_genus_count
+            row["same_island_same_genus_endemic_minus_native_discordance"]=common_genus_diff
             row["same_island_endemic_minus_native_discordance"]=(
                 row["endemic_mean_discordance"]-
                 row["native_nonendemic_mean_discordance"]
@@ -186,6 +206,7 @@ def geological_endemic_state_discordance(
     for (region,origin,trait),g in all_data.groupby(
         ["regime","geological_origin","trait"],sort=True):
         paired=g.loc[g.same_island_endemic_minus_native_discordance.notna()]
+        matched=g.loc[g.same_island_same_genus_endemic_minus_native_discordance.notna()]
         support=dict(
             regime=region,geological_origin=origin,trait=trait,
             n_original_islands_with_5_source_regions=len(g),
@@ -198,6 +219,11 @@ def geological_endemic_state_discordance(
             n_native_nonendemic_island_taxon_source_congener_rows=int(
                 g.n_native_nonendemic_direct_source_congener_rows.sum()),
             n_islands_with_both_ge3_congener_comparisons=int(len(paired)),
+            n_islands_with_at_least_two_same_genus_endemic_nonendemic_pairs=int(len(matched)),
+            n_blocks_with_same_genus_pairs=int(matched.spatial_block.nunique()),
+            n_sources_with_same_genus_pairs=int(matched.source_signature.nunique()),
+            n_common_endemic_nonendemic_genus_units_in_this_group=int(
+                g.n_same_island_same_source_genus_endemic_native_groups.sum()),
             n_independent_blocks_with_both=int(paired.spatial_block.nunique()),
             n_source_signatures_with_both=int(paired.source_signature.nunique()),
             n_recorded_genus_opportunity_less_than_3_endemic_sites=int(
@@ -207,6 +233,15 @@ def geological_endemic_state_discordance(
               paired.spatial_block.nunique()>=MIN_BLOCKS_PER_ORIGIN and
               paired.source_signature.nunique()>=MIN_SOURCES_PER_ORIGIN)
         support["paired_status_comparison_reportable"]=bool(okay)
+        same_genus_ok=(len(matched)>=MIN_ISLANDS_PER_ORIGIN and
+                       matched.spatial_block.nunique()>=MIN_BLOCKS_PER_ORIGIN and
+                       matched.source_signature.nunique()>=MIN_SOURCES_PER_ORIGIN)
+        support["same_genus_endemic_native_comparison_reportable"]=bool(same_genus_ok)
+        if same_genus_ok:
+            for label,group in (("block","spatial_block"),("source","source_signature")):
+                support[label+"_matched_genus_endemic_minus_native_discordance"]=cluster_equal_bootstrap(
+                    matched,"same_island_same_genus_endemic_minus_native_discordance",group,
+                    draws=boots,seed=_seed(seed,"within_genus",region,origin,trait,label))
         if okay:
             for label,group in (("block","spatial_block"),("source","source_signature")):
                 support[label+"_endemic_minus_native_discordance"]=cluster_equal_bootstrap(
@@ -223,7 +258,11 @@ def geological_endemic_state_discordance(
                  q.spatial_block.nunique()>=MIN_BLOCKS_PER_ORIGIN and
                  q.source_signature.nunique()>=MIN_SOURCES_PER_ORIGIN
                  for q in (left,right))
+        within_left=left.loc[left.same_island_same_genus_endemic_minus_native_discordance.notna()]
+        within_right=right.loc[right.same_island_same_genus_endemic_minus_native_discordance.notna()]
         row=dict(regime=region,trait=trait,primary_trait=bool(trait in PRIMARY_TRAITS),
+            n_oceanic_same_genus_paired_islands=int(len(within_right)),
+            n_continental_same_genus_paired_islands=int(len(within_left)),
             n_oceanic_paired_islands=int(len(right)),
             n_continental_paired_islands=int(len(left)),
             n_oceanic_blocks=int(right.spatial_block.nunique()),
