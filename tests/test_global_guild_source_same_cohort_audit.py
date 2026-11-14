@@ -70,6 +70,7 @@ def test_raw_and_reference_are_same_physical_islands_with_block_mixing():
     assert p["exact_same_island_source"]["n_GBIF_detected"]==36
     assert p["full_raw"]["n_qualified_nondetection"]==60
     assert p["exact_same_island_source"]["n_qualified_nondetection"]==36
+    assert p["physical_block_within_full_raw"]["n_mixed_clusters"]==12
     assert p["physical_block_within_raw"]["n_mixed_clusters"]==12
     assert p["physical_block_within_raw"]["mean"]>0
     assert np.isclose(p["physical_block_within_source_relative"]["mean"],0)
