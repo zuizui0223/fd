@@ -147,8 +147,9 @@ def pair_trait_fd(left:dict[str,str],right:dict[str,str],
 def original_global_partial_traits(
     ledger:pd.DataFrame,flora:pd.DataFrame,geology:pd.DataFrame,
     assignments:pd.DataFrame,mainland:pd.DataFrame,*,
-    seed:int=20261114,bootstrap_draws:int=999
-)->dict:
+    seed:int=20261114,bootstrap_draws:int=999,
+    return_private_island_rows:bool=False,
+)->dict|tuple[dict,pd.DataFrame]:
     """Full original GIFT island frame plus independent geological subset.
 
     Unlike former >=30-triple flora, ALL islands and ALL per-trait
@@ -457,4 +458,8 @@ def original_global_partial_traits(
             source_species_island_geography_IDs_never_public=True,
         )
     )
+    # Available ONLY to rights-protected original-source local CI workflows.
+    # This DataFrame contains island IDs and never belongs in JSON artifacts.
+    if return_private_island_rows:
+        return out,data
     return out
