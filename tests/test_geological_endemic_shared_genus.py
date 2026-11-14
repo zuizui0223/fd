@@ -4,7 +4,7 @@ import numpy as np
 import pytest
 
 from fd.geological_endemic_shared_genus import (
-    calculate_endemic_shared_genus_geology,
+    calculate_endemic_shared_genus_geology, _exact_signed_genus_sensitivity,
 )
 
 
@@ -71,3 +71,14 @@ def test_no_outcome_driven_decision_when_nonvariable():
            if z["region"]=="tropical" and z["trait"]=="flower_primary_color")
     assert x["n_shared_genera_with_different_original_endemic_trait_categories"]==0
     assert not x["qualified_to_compare_source_endemic_discordance_within_shared_genera"]
+
+
+def test_exact_2_pow_n_signed_genus_and_loo_are_finite():
+    z=_exact_signed_genus_sensitivity(np.array([1., 1., 1., 1., 1.]))
+    assert z["n_exact_sign_reassignments"]==32
+    assert z["exact_two_sided_genus_label_sign_flip_p"]==2/32
+    assert z["leave_one_genus_out_effect_range"]==[1.0,1.0]
+    assert z["leave_one_genus_out_same_direction_fraction"]==1.0
+    zero=_exact_signed_genus_sensitivity(np.zeros(5))
+    assert zero["exact_two_sided_genus_label_sign_flip_p"]==1.0
+    assert zero["n_genus_pairs_with_nonzero_difference"]==0
