@@ -36,9 +36,10 @@ def _fixture():
             spatial_block=f"block{i%30}"))
         if i<500:
             for guild in CHANNELS:
-                state=("disrupted" if i%7==0 else "retained"
-                       if guild=="bombus" else
-                       "retained" if i%2==0 else "unresolved")
+                if guild=="bombus":
+                    state="disrupted" if i%7==0 else "retained"
+                else:
+                    state="retained" if i%2==0 else "unresolved"
                 channels.append(dict(island_id=island,channel_id=guild,
                          channel_state=state,source_state="available"))
     return pd.DataFrame(flora),ledger,pd.DataFrame(geography),pd.DataFrame(channels)
