@@ -174,8 +174,13 @@ def original_global_partial_traits(
     geokeys={"island_id","geological_origin","analysis_regime","spatial_block"}
     if not geokeys.issubset(geology) or geology.island_id.duplicated().any():
         raise ValueError("Original independent Roeble/Zizka GSHHG geography invalid")
-    if set(flora.island_id)-set(geology.island_id):
-        raise ValueError("Original global island flora cannot attach independent GSHHG source geometry")
+    # The independent GSHHG crosswalk intentionally excludes a continental
+    # split/Eurasian component, while the original plant membership may still
+    # contain that source key. NEVER drop the island/plant records just
+    # because geological classification or geography is unavailable.
+    missing_geometry=set(flora.island_id)-set(geology.island_id)
+    if len(missing_geometry)>max(30,.01*flora.island_id.nunique()):
+        raise ValueError("Too many original flora islands lack independent GSHHG geography")
     if not {"island_id","source_mode","source_rank","entity_ID"}.issubset(assignments):
         raise ValueError("Original five-source GIFT native candidate IDs absent")
     nearby=assignments.loc[assignments.source_mode.eq("geo_k5")].copy()
@@ -202,10 +207,16 @@ def original_global_partial_traits(
     for island,original in flora.groupby("island_id",sort=True):
         island=str(island)
         own=set(original.accepted_species)
-        g=geo.loc[island]
-        tropical_region=str(g["analysis_regime"])
-        block=str(g["spatial_block"])
-        geology_origin=str(g["geological_origin"])
+        if island in geo.index:
+            g=geo.loc[island]
+            tropical_region=str(g["analysis_regime"])
+            block=str(g["spatial_block"])
+            geology_origin=str(g["geological_origin"])
+        else:
+            # A missing geomorphic source is NOT botanical trait absence.
+            tropical_region="geography_unresolved"
+            block="unclassified_GSHHG_source"
+            geology_origin="unresolved"
         g5=near.get(island,())
         five_source=(len(g5)==5 and len(set(g5))==5)
         # This candidate source GIFT region is NOT the historical ancestor.
@@ -409,6 +420,7 @@ def original_global_partial_traits(
     out=dict(
         status="GLOBAL_8K_ISLAND_PARTIAL_DIRECT_TRAIT_FD_WITHOUT_COMPLETE_CASE",
         n_original_global_distinct_island_floras=n_original,
+        n_original_flora_islands_without_independent_GSHHG_geography=len(missing_geometry),
         n_original_distinct_islands_with_geological_origin_typed=int(
             original_islands_count.geological_origin.isin(
                 GEOGRAPHIC_ORIGINS).sum()),
