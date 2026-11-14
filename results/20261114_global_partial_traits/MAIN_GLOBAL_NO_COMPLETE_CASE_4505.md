@@ -1,6 +1,6 @@
 # 14 November 2026 — Global island flora WITHOUT floral complete-case selection
 
-**Original full GIFT island-flora source actually executed**: [island Actions #43586493511](https://github.com/zuizui0223/island/actions/runs/43586493511) both numerical seeds SUCCESS. Original anonymous aggregate artifacts #14110797789 (20261114), #14110252694 (20261115). This supersedes the obsolete practice of treating only 928 triple-complete floras as the global macro baseline.
+**Original full GIFT island-flora source actually executed**: [island Actions #43586493511](https://github.com/zuizui0223/island/actions/runs/43586493511) both numerical seeds SUCCESS (anonymous artifacts #14110797789 and #14110252694). Original trait-OBSERVATION-COVERAGE extension [island Actions #43586977772](https://github.com/zuizui0223/island/actions/runs/43586977772) also **both original-data seeds SUCCESS**, anonymous artifacts #14111060570 and #14110359835. All source original island/taxon identifiers remain within original source protected CI. This supersedes the obsolete practice of treating only 928 triple-complete floras as the global macro baseline.
 
 ## The actual global population and why 8,264 != 4,505 != 928
 
@@ -42,7 +42,7 @@ Pairwise association is the exact categorical one-pair source-shuffle departure,
 
 ## Geological origin — post hoc source-relative exploratory patterns, NOT confirmed adaptation
 
-Geological-type subset has 425 botanical floras, not 148 triple+30 source-restricted floras; 999 physical spatial-block and first-GIFT source-region cluster-bootstrap repeats were computed in TWO numerical seeds. These are the SAME original species and island observations (not independent biological replications). 624 strongly correlated post-hoc origin/outcome/scope and cluster comparisons were explored: **do not treat unadjusted intervals excluding zero as genome-wide familywise evidence or biological causal effects**.
+Geological-type subset has 425 botanical floras, not 148 triple+30 source-restricted floras; 999 physical spatial-block and first-GIFT source-region cluster-bootstrap repeats were computed in TWO numerical seeds. These are the SAME original species and island observations (not independent biological replications). 728 strongly correlated post-hoc origin/outcome/scope/metric contrasts including added observation-coverage endpoints were explored: **do not treat unadjusted intervals excluding zero as genome-wide familywise evidence or biological causal effects**.
 
 Examples that retained the same sign in BOTH independent numerical seeds, under BOTH cluster groupings:
 
@@ -52,11 +52,28 @@ Examples that retained the same sign in BOTH independent numerical seeds, under 
 
 The broader geology-original null of morphology and pollinator niches remains uncertain: smaller independent-geography origin-matched island pair comparisons previously yielded only 3 pairs per major regime. Source-relative floristic contrasts show observational botanical *assemblage composition*, not real dispersal arrival or historical extinction.
 
-## Mandatory next audit: data coverage and missingness
+## Empirical direct trait observation COVERAGE — completed, important selection bias
 
-Reported original species-wide Direct trait coverage is uneven by class and geographic background. Record-rate differences may induce the appearance of floral category changes. The follow-up version expands the same source run to geological origin contrasts in **observed Direct record fraction per eligible island flora**, including zero observed Direct traits only when that island contains actual recorded plants, and NA when native-subset denominator is absent; 0 must never be imputed for missing true phenotype.
+The strict original follow-up **actually executed successfully in two original numerical seeds**: [#43586977772](https://github.com/zuizui0223/island/actions/runs/43586977772). Every island/scope/trait and pairwise combination now records the ratio of exact high/medium single-state source-Direct plant names to ALL original accepted plant species recorded in the relevant island/status scope. If no native plant species are documented for a scope, the native-coverage denominator is NA, NOT zero. Genuine island botanical flora without trait evidence has coverage zero, not a fabricated trait state or a zero diversity outcome.
 
-It will be necessary to show whether the exploratory associations survive taxonomic source/coverage weighting, geographic robustness, suitable multiplicity control and independent native source. The current descriptive results do not prove adaptation, selection, causal pollinator reduction or the island syndrome.
+**Conditional origin differences in original recorded trait COVERAGE**, oceanic minus continental (physical 10-degree block weighting; independent GIFT first-region source-weighted interval also shown), exploratory 95% cluster-bootstrap from the original data:
+
+| Tropical endpoint, all-recorded botanical flora | Oceanic minus continental Direct observed trait-coverage ratio, physical block equal | 95% CI by physical block | 95% CI by GIFT nearest-source |
+| --- | ---: | --- | --- |
+| Floral form | **+0.07619** (~+7.6 percentage points) | [+0.04473,+0.10687] | [+0.03241,+0.10391] |
+| Floral symmetry | **+0.05708** | [+0.02553,+0.09054] | [+0.02293,+0.11566] |
+| Autonomous selfing capacity | **+0.05522** | [+0.03838,+0.07202] | [+0.02954,+0.06943] |
+| Inflorescence display | **+0.11546** | [+0.05464,+0.18068] | [+0.03001,+0.16383] |
+| Primary flower colour | +0.01907 | [−0.03227,+0.07329] | [−0.02425,+0.09968] |
+| Colour × floral form combined direct evidence | +0.01897 | [+0.00691,+0.03045] | [−0.00016,+0.02791] |
+
+All-recorded tropical physical island denominators are 160 oceanic and 43 continental, irrespective of trait completeness. Source candidate group counts and nonzero mainland availability are separately reported. Two numerical bootstrap seeds reproduce every original coverage point estimate and the qualitative interval interpretation above.
+
+**Critical implication:** recorded trait completeness is clearly NOT uniform by geological origin. The apparently lower source-relative tropical oceanic diversity of documented autonomous selfing categories (~−0.060 in genus-equal Rao) coexists with *higher* source-Direct observation coverage of that category on oceanic floras (~+0.055): this does NOT prove the Rao result is unbiased or the missingness generates its sign. Different source/literature/phylogenetic mechanisms can drive both. The interpretation of any negative/positive form, selfing or display category difference must now acknowledge nonrandom direct-trait sampling as a serious rival.
+
+Under the original STRICT source-native status subset, tropical autonomous-selfing record coverage is still higher on oceanic by ~+0.046 (block 95% [+0.02258,+0.07191], GIFT source [+0.01738,+0.06823]), but that native-documented status frame is much smaller and not comparable with original all-recorded global flora. It is a source-scope robustness/availability check, not truth about all indigenous plants.
+
+**Next checks BEFORE a manuscript-level causal direction:** independently corroborate taxon-native status, source/time/observer detection effort and botanical genus/family composition; introduce missingness uncertainty bounds and multiple-comparison correction or pre-register a small primary hypothesis family. Source-direct high/medium labels are species-wide, not island-local photographs. Without an independently checked missingness/selection model, IPW or model-imputed missing traits would be assumptions, not direct measurement.
 
 ## Scope and reproducibility
 
