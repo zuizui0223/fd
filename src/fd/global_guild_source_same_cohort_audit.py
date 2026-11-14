@@ -14,7 +14,6 @@ matched cases are a transparent additional *analysis opportunity* stratum.
 from __future__ import annotations
 
 from hashlib import sha256
-from itertools import product
 
 import numpy as np
 import pandas as pd
@@ -34,14 +33,7 @@ PAIR_METRICS=(
 MIN_EACH=10
 MIN_BLOCKS=5
 MIN_SOURCES=5
-PRIMARY_SPECS=tuple(product(
-    ("bombus","flower_visiting_birds"),
-    ("flower_primary_color__floral_form","floral_form"),
-    (("observed_finite5","source_relative_finite5"),
-     ("observed_two_trait_pairing","source_relative_pairing"))
-))
-# Inapplicable floral_form + pairing pair is intentionally skipped in the
-# fixed eight-slot family; replace it with source-qualified floral symmetry.
+# Fixed source-qualified eight-slot family is exploratory post-hoc, not confirmatory.
 PRIMARY_SPECS=(
   ("bombus","flower_primary_color__floral_form","observed_finite5","source_relative_finite5"),
   ("bombus","flower_primary_color__floral_form","observed_two_trait_pairing","source_relative_pairing"),
