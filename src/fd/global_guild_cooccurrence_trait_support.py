@@ -53,6 +53,10 @@ def guild_cooccurrence_global(
     if n<4000:
         raise ValueError("Global trait denominator collapsed into old 928 complete case")
     states=strict_single_trait_original(ledger)
+    # Construct source opportunity sets ONCE, not 4505 times per trait.
+    names_by_trait={key:set(src) for key,src in states.items()}
+    names_by_pair={a+"__"+b:names_by_trait[a]&names_by_trait[b]
+                   for a,b in PAIR_TRAITS}
     keys=original_flora.groupby("island_id").accepted_species.agg(set).to_dict()
     native=original_flora.loc[
         original_flora.origin_status.eq("native")].groupby(
@@ -75,12 +79,12 @@ def guild_cooccurrence_global(
         is_native=native.get(island,set())
         row=dict(island_id=island)
         for t in TRAITS:
-            roster=set(states[t])
+            roster=names_by_trait[t]
             row["n_all_direct__"+t]=len(full&roster)
             row["n_native_direct__"+t]=len(is_native&roster)
         for first,second in PAIR_TRAITS:
             tag=first+"__"+second
-            roster=set(states[first])&set(states[second])
+            roster=names_by_pair[tag]
             row["n_all_direct__"+tag]=len(full&roster)
             row["n_native_direct__"+tag]=len(is_native&roster)
         cnt.append(row)
