@@ -246,7 +246,7 @@ def original_true_tip_native_pairing(
             if len(own)<30:
                 continue
             local,source,D,samefam,samegenus=_original_pool_matrices(
-                own,donor,families=families,tip_index=name_to_tip,distance=distance)
+                own,donor,families=families,tip_index=name_to_tip,D=distance)
             for label,max_distance,genus_required in CONDITIONS:
                 mask=samefam&(D<=max_distance)&(samegenus if genus_required else True)
                 match=_matched_rows(mask)
