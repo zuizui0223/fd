@@ -251,7 +251,7 @@ def geological_endemic_state_discordance(
             source_genus_congeners_selected_without_trait_outcome_matching=True,
             plant_state_once_per_accepted_species_not_island_population=True,
             donor_state_frequency_discordance_is_not_adaptation=True,
-            original_source_GIFT_nearest_five_not_ancestral=true if False else True,
+            original_source_GIFT_nearest_five_not_ancestral=True,
             regional_clustering_is_not_phylogenetic_replication=True,
             geological_origin_is_not_LGM_connectivity=True,
             conditional_intervals_not_adjusted_for_multiple_exploratory_traits=True,
