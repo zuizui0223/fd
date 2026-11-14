@@ -87,6 +87,12 @@ def original_global_flora_guild_effort_audit(
     if not req.issubset(channel):
         raise ValueError("Original NEE background evidence fields unavailable")
     original=normalize_guild_evidence(channel, set(flora.island_id))
+    # Previous provenance gate intentionally keeps ONLY state fields.
+    # Reattach independently audited effort columns without inventing
+    # background counts for original islands not covered by a source row.
+    effort_fields=channel[["island_id","channel_id",*EFFORT]].copy()
+    original=original.merge(effort_fields,on=["island_id","channel_id"],
+                            how="left",validate="one_to_one")
     for e in EFFORT:
         original[e]=pd.to_numeric(original[e],errors="coerce")
         if (original[e].dropna()<0).any():
