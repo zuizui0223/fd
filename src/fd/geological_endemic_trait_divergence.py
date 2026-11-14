@@ -258,8 +258,10 @@ def geological_endemic_state_discordance(
                  q.spatial_block.nunique()>=MIN_BLOCKS_PER_ORIGIN and
                  q.source_signature.nunique()>=MIN_SOURCES_PER_ORIGIN
                  for q in (left,right))
-        within_left=left.loc[left.same_island_same_genus_endemic_minus_native_discordance.notna()]
-        within_right=right.loc[right.same_island_same_genus_endemic_minus_native_discordance.notna()]
+        within_left=g.loc[g.geological_origin.eq("continental")&
+                    g.same_island_same_genus_endemic_minus_native_discordance.notna()]
+        within_right=g.loc[g.geological_origin.eq("oceanic")&
+                    g.same_island_same_genus_endemic_minus_native_discordance.notna()]
         row=dict(regime=region,trait=trait,primary_trait=bool(trait in PRIMARY_TRAITS),
             n_oceanic_same_genus_paired_islands=int(len(within_right)),
             n_continental_same_genus_paired_islands=int(len(within_left)),
