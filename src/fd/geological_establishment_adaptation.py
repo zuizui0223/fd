@@ -258,6 +258,9 @@ def geology_origin_flora_pilot(
                                       ("source","source_signature")):
                     a=c.groupby(cluster)[k].mean().dropna().to_numpy(float)
                     b=o.groupby(cluster)[k].mean().dropna().to_numpy(float)
+                    if min(len(a),len(b))<5:
+                        row[label+"_oceanic_minus_continental"]=None
+                        continue
                     rng=np.random.default_rng(_seed(seed,"contrast",regime,scope,metric,label))
                     contrast=b.mean()-a.mean()
                     boots_o=b[rng.integers(len(b),size=(boots,len(b)))].mean(axis=1)
