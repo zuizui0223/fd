@@ -78,7 +78,7 @@ def single_trait_fd(states:dict[str,str],eligible_names:set[str])->dict:
 
     The unbiased pair mismatch of the entire observed island flora is
     multiplied by 4/5 to equal the EXPECTED five-species finite-sample
-    with-replacement Rao Q using distinct species without replacement.
+    categorical Rao Q under sampling WITHOUT replacement.
     n>=5 is a trait-SPECIFIC reporting threshold, not a complete-case gate.
     """
     names=sorted(set(states)&set(eligible_names))
