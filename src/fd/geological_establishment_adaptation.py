@@ -18,6 +18,7 @@ import pandas as pd
 from .regional_native_flora_fd import TRAITS, METRICS, exact_rarefied_flora_fd
 from .regional_native_provenance_volume import cluster_equal_bootstrap
 from .native_taxon_matched_pairing import species_genus
+from .geological_disjoint_matched import matched_oceanic_continental_source_audit
 
 ORIGINS=("continental","oceanic")
 SCOPES=("all_recorded","regional_WCVP_compatible","strict_source_native")
@@ -115,7 +116,9 @@ def geology_origin_flora_pilot(
     # Join geology ONLY by original island_id; not region centroid approximation here.
     g=geography.merge(
         independent_geology[["island_id","geological_origin","LGM_connectivity",
-              "weigelt_archipelago","geological_class_source"]],
+              "weigelt_archipelago","geological_class_source",
+              "area_km2","distance_to_continent_km",
+              "climate_pc1","climate_pc2","climate_pc3","climate_pc4"]],
         on="island_id",validate="one_to_one",how="left")
     g=g.set_index("island_id")
     profiles={str(k):tuple(map(str,row))
@@ -177,6 +180,12 @@ def geology_origin_flora_pilot(
                 n_donor_direct_species=len(source),
                 n_local_distinct_genera=len(gn),n_source_genera=len(sg),
                 n_shared_genera=shared,
+                area_km2=g.at[island,"area_km2"],
+                distance_to_continent_km=g.at[island,"distance_to_continent_km"],
+                climate_pc1=g.at[island,"climate_pc1"],
+                climate_pc2=g.at[island,"climate_pc2"],
+                climate_pc3=g.at[island,"climate_pc3"],
+                climate_pc4=g.at[island,"climate_pc4"],
                 shared_source_genus_fraction=shared/len(sg),
                 source_genus_explains_local_fraction=shared/len(gn),
                 source_genus_jaccard=shared/(len(sg|gn)),
@@ -295,5 +304,7 @@ def geology_origin_flora_pilot(
         ),
         groups=aggregate,
         geological_origin_associations=between,
+        geology_matched_geography_and_archipelago_diagnostics=(
+            matched_oceanic_continental_source_audit(data)),
         no_raw_island_species_or_geological_row_exported=True,
     )
