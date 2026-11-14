@@ -120,7 +120,7 @@ def original_endemic_centroid_vs_GIFT_mainland_global_photo(
             for x in private)
         for geo in ("oceanic","continental")) for genus in expected)
     return dict(
-        status="ORIGINAL_ENDMIC_CENTROID_NEAR_PLUS_SOURCE_CONGENER_GLOBAL_PHOTO_FEASIBILITY",
+        status="ORIGINAL_ENDEMIC_CENTROID_NEAR_PLUS_SOURCE_CONGENER_GLOBAL_PHOTO_FEASIBILITY",
         original_source_matching_metadata=source_audit,
         original_protected_13_genus_26_paired_plants=26,
         n_original_different_accepted_GIFT_source_congener_species_queried=len(source),
