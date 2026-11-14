@@ -134,7 +134,7 @@ def sample_true_tip_pairing(
             mean_original_bounded_tree_distance=float(np.mean(distance[picked,donor_i])),
             mean_original_family_control_tree_distance=float(np.mean(distance[picked,donor_c])),
             fraction_bounded_pairs_same_genus=float(np.mean(same_genus[picked,donor_i])),
-            n_distinct_original_families_focal=int(len(set(
+            n_distinct_original_genera_focal=int(len(set(
                 np.asarray([_genus(x) for x in focal],dtype=object)))),
         )
         for m in METRICS:
