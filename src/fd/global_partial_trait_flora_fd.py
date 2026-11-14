@@ -244,6 +244,8 @@ def original_global_partial_traits(
                     source_signature=g5[0] if five_source else None,
                     outcome=trait,outcome_type="single",
                     n_original_flora_species=n_scope,
+                    observed_direct_coverage=float(own_fd["n_direct_species"]/n_scope)
+                        if n_scope else float("nan"),
                     n_recorded_direct_species=own_fd["n_direct_species"],
                     n_recorded_genera=own_fd["n_distinct_recorded_genera"],
                     source_available=five_source,
@@ -278,6 +280,9 @@ def original_global_partial_traits(
                     source_signature=g5[0] if five_source else None,
                     outcome=tag,outcome_type="pair",
                     n_original_flora_species=n_scope,
+                    observed_direct_coverage=float(
+                        local_fd["n_two_trait_original_species"]/n_scope)
+                        if n_scope else float("nan"),
                     n_recorded_direct_species=local_fd["n_two_trait_original_species"],
                     n_recorded_genera=None,source_available=five_source,
                     observed_finite5=local_fd["finite_5_joint_rao"],
@@ -363,15 +368,13 @@ def original_global_partial_traits(
         b=q.loc[q.geological_origin.eq("continental")]
         n_a=int(a.island_id.nunique())
         n_b=int(b.island_id.nunique())
-        for metric in ("observed_finite5","observed_genus_equal_finite5",
+        for metric in ("observed_direct_coverage","observed_finite5","observed_genus_equal_finite5",
                        "observed_two_trait_pairing","source_relative_finite5",
                        "source_relative_genus_equal_finite5","source_relative_pairing"):
             x=a.loc[a[metric].notna()]
             y=b.loc[b[metric].notna()]
             blocks=[x.spatial_block.nunique(),y.spatial_block.nunique()]
             sources=[x.source_signature.nunique(),y.source_signature.nunique()]
-            is_estimate=metric in ("observed_finite5","observed_genus_equal_finite5",
-                                   "observed_two_trait_pairing")
             # Raw metric also requires physical and GIFT-source cluster
             # opportunity for conservative comparable-block claims.
             report=(min(len(x),len(y))>=10 and min(blocks)>=5
@@ -418,7 +421,7 @@ def original_global_partial_traits(
     original_islands_count=(
         data[["island_id","regime","geological_origin"]].drop_duplicates())
     out=dict(
-        status="GLOBAL_8K_ISLAND_PARTIAL_DIRECT_TRAIT_FD_WITHOUT_COMPLETE_CASE",
+        status="GLOBAL_GIFT_FLORA_PARTIAL_DIRECT_TRAITS_NO_COMPLETE_CASE",
         n_original_global_distinct_island_floras=n_original,
         n_original_flora_islands_without_independent_GSHHG_geography=len(missing_geometry),
         n_original_distinct_islands_with_geological_origin_typed=int(
@@ -446,6 +449,8 @@ def original_global_partial_traits(
             original_full_flora_taxa_removed_from_candidate_mainland_sources=True,
             genus_equal_weighting_does_not_control_lineage_history=True,
             missingness_could_be_taxonomically_and_geographically_nonrandom=True,
+            original_direct_trait_observation_fraction_by_island_and_scope=True,
+            native_status_scope_without_original_native_species_is_NA_not_zero=True,
             independent_block_and_nearest_GIFT_source_group_CIs_unadjusted_for_many_tests=True,
             historical_928_three_trait_sample_is_sensitivity_ONLY=True,
             no_pollinator_effect_or_adaptive_evolution_observed=True,
