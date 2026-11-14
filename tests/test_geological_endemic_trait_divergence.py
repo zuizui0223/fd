@@ -3,7 +3,8 @@ import pandas as pd
 import numpy as np
 import pytest
 from fd.geological_endemic_trait_divergence import (
-    plant_source_discordance, geological_endemic_state_discordance
+    plant_source_discordance, geological_endemic_state_discordance,
+    _status_contrast_within_identical_genus
 )
 
 def test_source_congener_frequency_not_favorable_match():
@@ -41,7 +42,7 @@ def synthetic():
     x=[]
     for nm in names+[f"{g} mainland" for g in base]:
         x.append(dict(accepted_species=nm,trait_name="flower_primary_color",
-            normalized_value="red" if "endemic" in nm else "blue",
+            normalized_value="red" if nm.endswith(" endemic") else "blue",
             evidence_scope="species_direct",evidence_quality="high"))
     return pd.DataFrame(x),pd.DataFrame(flora),pd.DataFrame(geo),pd.DataFrame(nearest),pd.DataFrame(donor)
 
@@ -59,6 +60,11 @@ def test_provenance_and_paired_same_island_support_and_small_n_suppression():
         assert z["n_common_endemic_nonendemic_genus_units_in_this_group"]==6
         assert not z["same_genus_endemic_native_comparison_reportable"]
         assert not z["paired_status_comparison_reportable"]
+    x=next(x for x in r["endemic_vs_native_same_island_congener_support"]
+        if x["geological_origin"]=="oceanic" and x["trait"]=="flower_primary_color")
+    assert x["n_status_variable_endemic_nonendemic_genus_island_units"]==6
+    assert x["n_genus_island_units_with_nonzero_source_discordance"]==6
+    assert x["n_islands_with_any_within_genus_status_flower_variation"]==2
     assert all(not x["origin_comparison_identifiable_in_supported_cohort"]
                for x in r["geological_origin_difference_of_endemic_status_effect"])
 
@@ -68,3 +74,16 @@ def test_endemic_native_origin_conflict_refuses_source():
     args[1].loc[0,"origin_status"]="introduced"
     with pytest.raises(ValueError,match="Endemic source"):
         geological_endemic_state_discordance(*args,boots=999)
+
+def test_categorical_zero_needs_focal_variation_support_audit():
+    e=[dict(accepted_species="A endemic",discordance=0.2,_private_original_state="radial"),
+       dict(accepted_species="B endemic",discordance=0.7,_private_original_state="bilateral")]
+    n=[dict(accepted_species="A native",discordance=0.2,_private_original_state="radial"),
+       dict(accepted_species="B native",discordance=0.7,_private_original_state="bilateral")]
+    number,varies,nonzero,delta=_status_contrast_within_identical_genus(e,n)
+    assert (number,varies,nonzero,delta)==(2,0,0,0.0)
+    n[1]["_private_original_state"]="radial"
+    # If donor reference has equal frequencies, status state variation need
+    # not produce a nonzero discordance: separate those two audit concepts.
+    number,varies,nonzero,delta=_status_contrast_within_identical_genus(e,n)
+    assert number==2 and varies==1 and nonzero==0 and delta==0.0
