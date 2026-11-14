@@ -36,6 +36,36 @@ def _genus(name):
     return a[0] if len(a)>=2 else ""
 
 
+def _exact_signed_genus_sensitivity(differences:np.ndarray)->dict:
+    """Exact 2^N paired-genus sign sensitivity, noncausal observational null.
+
+    The original 10-degree geographic/source grouping remains potentially
+    shared, so this is a descriptive stress test, not an island-formation
+    treatment-randomization p-value.
+    """
+    a=np.asarray(differences,dtype=float)
+    if a.ndim!=1 or len(a)<5 or len(a)>16 or not np.isfinite(a).all():
+        raise ValueError("Signed genus audit requires 5..16 finite matched genera")
+    n=len(a)
+    indicators=np.arange(1<<n,dtype=np.uint32)[:,None]
+    bits=np.arange(n,dtype=np.uint32)[None,:]
+    signed=np.where(((indicators >> bits)&1)==1,1.,-1.)
+    null=np.abs(signed@a/n)
+    observed=abs(float(np.mean(a)))
+    loo=(np.sum(a)-a)/(n-1)
+    return dict(
+        exact_two_sided_genus_label_sign_flip_p=float(
+            np.mean(null >= observed-1e-12)),
+        n_exact_sign_reassignments=int(1<<n),
+        leave_one_genus_out_effect_range=[
+            float(np.min(loo)),float(np.max(loo))],
+        leave_one_genus_out_same_direction_fraction=float(
+            np.mean(np.sign(loo)==np.sign(np.mean(a)))),
+        n_genus_pairs_with_nonzero_difference=int(np.count_nonzero(
+            np.abs(a)>1e-12)),
+    )
+
+
 def calculate_endemic_shared_genus_geology(
     ledger:pd.DataFrame,
     original_status:pd.DataFrame,
@@ -213,6 +243,9 @@ def calculate_endemic_shared_genus_geology(
                 n_original_independent_genus_units=len(differences),
                 n_independent_shared_state_variable_genera=n_variable,
             )
+            if len(differences)<=16:
+                rec["descriptive_exact_genus_sign_and_loo_sensitivity"]=(
+                    _exact_signed_genus_sensitivity(differences))
         contrasts.append(rec)
     return dict(
         status="ORIGINAL_GEOLOGICAL_ENDEMIC_SHARED_GENUS_SOURCE_PAIRING_AUDIT",
