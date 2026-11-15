@@ -2,6 +2,14 @@
 
 **Status:** independent exploratory analysis line, migrated from [island PR #321](https://github.com/zuizui0223/island/pull/321). This repository contains new analyses, **not** a new copy of the original plant-trait database. Its first runnable stage is implemented; no new global significance or evolutionary result is implied by creating the pipeline.
 
+## Global island-to-island functional composition — 15 November 2026
+
+**Main outcome is island-to-island floral compositional similarity, not island-mainland intraspecific change.** [Original rights-protected island Actions #43667950263](https://github.com/zuizui0223/island/actions/runs/43667950263) completed SUCCESS on the 4,505-source-flora universe, with independent species-composition and 10 individual Direct trait plus 3 true two-trait analyses. The legacy 928 triple-complete island set remains sensitivity only.
+
+Among 2,324 islands with 5+ actual Direct colour+form plant records, all 2,699,326 unique pairs have mean categorical total-variation overlap **0.3869**; 842,058 zero-shared-species pairs retain mean **0.2472**. Observed no-shared squared composition distance **0.2297** exceeds genus-label-exchange reference **0.2078**, not a multi-cluster significance test or evidence of pollinator-mediated selection. A previous independent source graph [#43662732106](https://github.com/zuizui0223/island/actions/runs/43662732106) likewise found lower, not higher than genus-null Hellinger affinity; the original same-mask joint structure [#43663415375](https://github.com/zuizui0223/island/actions/runs/43663415375) describes common categories without attributing real pollinators.
+
+[Original full-population beta analysis and ecological interpretation](results/20261115_global_island_functional_beta/README.md) · [Exact source code](src/fd/island_functional_beta.py) · [Original numerical tests](tests/test_island_functional_beta.py). Pair comparisons reuse islands and geological-type differences need geographic/recording/phylogenetic controls. Keep Draft.
+
 ## Current global primary sample — 14 November 2026
 
 **The main unit is the original 4,505 GIFT island botanical floras—not the old 928 three-flower-trait complete-case subset.** The distinct GSHHG physical geography has 8,264 islands, but not all have corresponding original botanical floras. Independently published Roeble/Zizka geological origin is verified for 434 geographic islands, **425** of which have source botanical floras. The original source records are kept in the protected island Actions; fd exports only anonymous region/guild/trait aggregates.
