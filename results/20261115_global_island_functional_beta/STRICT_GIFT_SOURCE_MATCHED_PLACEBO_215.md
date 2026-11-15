@@ -37,7 +37,26 @@ The score is **mean over original candidate island** of difference `pseudo-sourc
 
 These two supported match policies reuse the SAME focal original flora and original mainland donor files, and **are NOT independent positive replications**. The stronger matched-source effect is small. The proper log-loss interval **crosses zero**, while the Brier interval is positive but near zero. The difference from the earlier unplacebo +0.008866 (215 original focal islands) is **not a percentage of geographic association causally explained**: one contrast is against the global genus benchmark on all 215, while this comparison uses the 208 island cohort with matched alternative source assignments. A positive effect on 56% of islands is **not a universal plant functional syndrome**.
 
-The two source assignment alternatives are not drawn from physically or phylogenetically independent plant evolutionary histories. Some islands from different 10-degree spatial blocks reuse the SAME first-ranked GIFT source mainland entity or botanical source group. The source-class robustness check must therefore also group by **independently ranked first GIFT mainland source entity**, separate from the original 28 10-degree spatial blocks. Until that dependency is audited, Brier block-CI excluding zero must NOT be promoted as a robust geographically source-independent result.
+The two source assignment alternatives are not drawn from physically or phylogenetically independent plant evolutionary histories. Some islands from different 10-degree spatial blocks reuse the SAME first-ranked GIFT source mainland entity or botanical source group. The independent first-ranked source-cluster grouping check is now completed below; it gives a conditional positive source-group-equal advantage, while the geographically block-equal log-loss interval still crosses zero. Neither grouping proves independent ancestral histories or causal ecological effects.
+
+## Additional first-ranked GIFT source-cluster dependence test — original source complete
+
+A new authenticated original biological-data replay [island Actions #43675942547](https://github.com/zuizui0223/island/actions/runs/43675942547) **SUCCESS** and published only anonymous [artifact #14146386684](https://github.com/zuizui0223/island/actions/runs/43675942547/artifacts/14146386684), extracted JSON SHA256 `9dda4664fd7c00d7106d989ee73fff0494917bc45832a5f97c734432be24ab6f`. It leaves the **original 208 focal islands**, actual native-GIFT assignments, two donor-support-matched placebos and proper score observations exactly unchanged. The only change is the independent accounting/weighting unit: **the first-ranked original GIFT mainland source entity**, whose labels are kept private.
+
+| Same original 208 strict ±2pp focal islands | Physical 10-degree block equal | First-ranked GIFT source entity equal |
+|---|---:|---:|
+| Number of distinct group identifiers | **28** | **34** |
+| Actual-vs-placebo full joint colour×form proper log-loss benefit | +0.004534 | **+0.006223** |
+| Conditional 1,999-resample 95% log-loss interval | **[−0.000026,+0.009206]** | **[+0.002740,+0.009912]** |
+| Actual-vs-placebo full-profile Brier benefit | +0.001562 | **+0.002433** |
+| Conditional 1,999-resample 95% Brier interval | [+0.000043,+0.003222] | **[+0.001209,+0.003757]** |
+| Delete-one-group-out original proper log-loss mean range | Not separately promoted | **[+0.005426,+0.006705]** |
+
+The weaker 5pp alternative maintains **35 first-source groups**, log-loss source-group mean +0.006621 with conditional bootstrap [0.003282,0.010281], and Brier +0.002514 [0.001290,0.003869]. The two policies are overlapping posthoc sensitivity cohorts, **not independent confirmations**.
+
+**Interpret carefully:** first-source group weighting and physical-block weighting answer **different population-averaged questions** and can differ because some first-source groups or geographical blocks have many more sampled islands. The first-GIFT-source grouping's conditional intervals are positive, while the physically blocked **log-loss** interval still includes zero. A candidate source region is not an independently verified ancestral plant history. Some source clusters may share the other four of five candidate regions, plant genera, floristic survey programs or phylogenetic ancestors. This does not turn the two group bootstraps into independent evolutionary replication or prove geological selection, local floral adaptation or pollinator functional replacement.
+
+**Revised claim ceiling:** the strictly source-name-held-out, genus-conditioned focal flower-category prediction on the selected northern-midlatitude 215-island endpoints shows a **small and partly robust geographic source-assignment signal beyond simple genus donor coverage and donor list size**. It persists under equal first-GIFT-source grouping, but physical-block log-loss support is borderline and target selection is posthoc. A source-specific *observational predictive association*, not a historical/causal floral syndrome or independent external mainland flower phenotype effect, is the strongest defensible statement.
 
 ## Current inference decision
 
