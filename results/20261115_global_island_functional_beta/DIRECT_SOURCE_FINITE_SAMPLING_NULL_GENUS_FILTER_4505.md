@@ -30,7 +30,7 @@ These group-resampled intervals are **descriptive conditional geographical-block
 
 The original source genus presence expectation under Null A keeps **the same original accepted source name universe, number of native/candidate directly labelled species in each GIFT breadth bin, and observed genus identity per accepted plant**. It differs only in assignment of those source names to native or unrecorded candidate sides. Real original native-listed and candidate-source botanists' genus sets show less overlap than that random name allocation:
 
-| Original tropical sector-island comparison cohort | Actually shared source genus count per island (island-equal) | Exact source random expected shared genus count (island-equal) | **Observed−expected shared genera**, original block-equal [5–95%? NO: 2.5–97.5% conditional resampling] |
+| Original tropical sector-island comparison cohort | Actually shared source genus count per island (island-equal) | Exact source random expected shared genus count (island-equal) | **Observed−expected shared genera**, original block-equal [95% conditional block-resampling interval] |
 |---|---:|---:|---|
 | Zygomorphic, 98 original islands | **39.7** | **49.0** | **−11.87 [−17.80,−7.06]** |
 | Tubular/bell, 88 | 16.7 | 20.4 | **−4.33 [−6.35,−2.54]** |
