@@ -21,6 +21,28 @@ Within each cohort remove the **UNION of all names recorded anywhere in its enti
 
 These are three **different overlapping evaluation species and island sets**, **not three independent confirmations**. The n≥10 northern-midlatitude cohort of 1,055 target islands includes MANY islands not selected into the earlier **456 fully species-disjoint 500–2,000km dyads**; its proper prediction scores cannot be asserted to validate that selected 456-dyad effect.
 
+## Strongest IDENTICAL 456-pair source opportunity cohort — separate original run
+
+[Exact original 456-pair/215-focal-flora source replay #43675163265](https://github.com/zuizui0223/island/actions/runs/43675163265) **SUCCESS**, anonymous [artifact #14145738062](https://github.com/zuizui0223/island/actions/runs/43675163265/artifacts/14145738062), extracted JSON SHA256 `99744cb97b93265f43681825ecd33129e7b9dc13b10489f43943508adaf02a5e`. It reconstructs the same 215 physical island endpoints of the **456 original 500–2,000km, no-shared-full-flora-species, different-10-degree-block pairs**, using NO floral outcome categories to select endpoints. The 215 floras span **29 original spatial blocks**. Relative to the broader 1,055 n≥10/coverage10 northern-midlatitude source cohort, fewer distinct original test species names are held out, giving much better but still incomplete source donor opportunity:
+
+| Original SAME 456-pair floral endpoint universe | Number |
+|---|---:|
+| Original botanical focal island floras | **215** |
+| Full-flora names globally excluded from all 748 mainland source entities | **4,903** |
+| Original Direct pair-trait island×plant carrier observations scored | **9,735** |
+| Distinct original GIFT candidate native-mainland Direct pair-trait species before target holdout | 3,606 |
+| Distinct GIFT native-mainland Direct pair-trait species after strict global 215-flora name holdout | **2,899** |
+| Test carrier names with any heldout global GIFT donor congener | **69.74%** |
+| Test carrier names with a nearest-five-GIFT-source congener | **33.24%** |
+| Focal islands without any nearest-five-source donor congener | **3/215** |
+| Original island-equal **local source minus global genus proper log-loss improvement** | **+0.008866** |
+| Original island-equal Brier improvement | **+0.005444** |
+| Percentage focal islands where local source scores better | **74.42%** |
+
+**Major inference boundary:** this is a **POSTHOC selected target island set with known genera**. Removing 4,903 original focal names leaves many more genus donor opportunities than removing the 26,739 original full-flora names from the larger 1,055 island source set, so it does not validate a universal island source effect. A category probability model that changes its donor population with its evaluated target islands cannot be compared across these two cohorts as though the difference were biological treatment or an independent replication.
+
+The within-215-focal-island predictor is a real original category-likelihood comparison on **species names absent from ALL candidate GIFT donor lists after holdout**, but trait labels still came from the global original island-derived Direct ledger, and the geographic source assignment could benefit from unequal donor numbers or genus coverage. The 74.42%-positive island fraction and source advantage are **not yet compared with a source-assignment placebo matched for genus-level training opportunities** and cannot substantiate source-specific geography, colonization, or evolutionary selection. The next original falsification explicitly tests donor coverage-/pool-size-matched pseudo-source assignments on this SAME 215-island target set. If it lacks at least 30 evaluated islands and 10 original physical blocks, withhold an inferential source claim.
+
 ### Critical additional support diagnostics
 
 - Broad 2,324-island all-flora test sees **130,451 island×flower Direct carrier occurrences**, but only **9 distinct source-only donors** after strict target union holdout; no genus has multiple full profile categories. Of 2,324 focal islands, **2,282** have no locally comparable same-genus direct trait donor at all. A loss value computed on this source reference is technically finite after strong smoothing, but **has no source-specific explanatory power**.
