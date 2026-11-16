@@ -35,7 +35,7 @@ MIN_BLOCKS=10
 
 def _genus(sp:str)->str:
     bits=str(sp).split()
-    return bits[0] if len(bits)>=2 else "single_accepted_name:"+str(sp)
+    return bits[0] if len(bits)>=2 else "single_source_name:"+str(sp)
 
 
 def _carrier(sp:str,profile:dict)->tuple[int,int,int]:
