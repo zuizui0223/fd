@@ -68,10 +68,6 @@ def _group_summary(q,group,seed,bootstrap):
     if len(q)<MIN_ISLANDS or n<MIN_BLOCKS:
         o["status"]="NOT_IDENTIFIABLE_INDEPENDENT_CLUSTER_SUPPORT"
         return o
-    fields=[]
-    for mode in ("geo5","climate10"):
-        fields += [f"{mode}__observed_difference",
-                   f"{mode}__{z}" for z in ()]
     # Explicitly preserve every signed (potentially cancelling) term.
     cols=[f"{mode}__{key}" for mode in ("geo5","climate10")
           for key in ("observed_difference",*TERMS)]
