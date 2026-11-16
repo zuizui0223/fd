@@ -10,6 +10,7 @@ bird/butterfly pollination syndrome.
 from __future__ import annotations
 
 from collections import defaultdict
+from functools import lru_cache
 from hashlib import sha256
 
 import numpy as np
@@ -82,6 +83,71 @@ def fit_source_only_length_calibrator(
     )
 
 
+def make_genus_heldout_length_calibrator(
+    external_cm:dict[str,float],depth:dict[str,str],
+    mainland_names:set[str],
+):
+    """Build a *cached* exact leave-one-BOTANICAL-GENUS-out calibration.
+
+    Source-only species entirely absent from ALL GIFT islands had zero
+    numeric×ordinal overlap in original data. Do not silently relax that
+    failed preflight and claim an island-species-free global fit. Instead,
+    omit the ENTIRE target genus (including any species found on other
+    islands) from the logistic calibration on each prediction. All input
+    observations to this calibration remain independent released NHM numeric
+    records paired to the original Direct ordinal species labels, possibly
+    provider-related; this is NOT an independent study.
+    """
+    names=sorted(
+        (set(external_cm)&set(depth)&mainland_names)
+    )
+    names=[x for x in names if depth[x] in ("shallow","intermediate","deep")]
+    X=np.array([np.log1p(float(external_cm[x])) for x in names],float)
+    Y=np.array([int(depth[x]=="deep") for x in names],float)
+    GEN=np.array([botanical_genus(x) for x in names],dtype=str)
+    if len(names)<100 or min(Y.sum(),len(Y)-Y.sum())<30 or (
+            not np.isfinite(X).all()) or (X<=0).any():
+        raise ValueError("source-wide genus-heldout numeric length calibration insufficient")
+    all_counts=(int(len(names)),int(Y.sum()),int(len(Y)-Y.sum()))
+    @lru_cache(maxsize=None)
+    def calibrate(heldout_genus:str)->dict:
+        mask=GEN!=heldout_genus
+        x=X[mask];y=Y[mask]
+        if len(x)<100 or min(y.sum(),len(y)-y.sum())<30:
+            raise ValueError("no independent botanical genera for heldout tube calibration")
+        def objective(beta):
+            eta=beta[0]+beta[1]*x
+            resid=expit(eta)-y
+            return (
+                float(np.logaddexp(0.,eta).sum()-y@eta+.05*beta[1]**2),
+                np.array([resid.sum(),resid@x+.1*beta[1]]),
+            )
+        p=y.mean()
+        fit=minimize(
+            objective,x0=np.array([np.log(p/(1-p)),0.]),
+            jac=True,method="L-BFGS-B",
+            options={"maxiter":1000,"ftol":1e-12}
+        )
+        if not fit.success or fit.x[1]<=0 or not np.isfinite(fit.x).all():
+            raise ValueError("leave-one-genus-out length calibration not monotone")
+        return dict(
+            intercept=float(fit.x[0]),
+            log1p_cm_slope=float(fit.x[1]),
+            n_calibration_distinct_original_accepted_species=int(mask.sum()),
+            heldout_target_genus_never_in_calibration=True,
+        )
+    metadata=dict(
+        calibration_strategy="leave_entire_target_genus_out",
+        n_source_accepted_species_with_NHM_numeric_and_Direct_depth=all_counts[0],
+        n_source_deep_direct_categories=all_counts[1],
+        n_source_non_deep_direct_categories=all_counts[2],
+        complete_source_only_calibration_absent_any_original_island_is_not_available=True,
+        every_prediction_excludes_its_own_genus_from_all_original_direct_training=True,
+        possible_shared_botanical_study_documentation_not_excluded=True,
+    )
+    return calibrate,metadata
+
+
 def calibrated_prob(cm:float,cal:dict)->float:
     if not (np.isfinite(cm) and 0<float(cm)<=100):
         raise ValueError("unknown/unreliable original NHM numeric tube cm")
@@ -91,7 +157,7 @@ def calibrated_prob(cm:float,cal:dict)->float:
 def source_predict_same_island(
     *, full_island:set[str],plant_scopes:dict[str,set[str]],
     source_geo5:set[str],source_climate10:set[str],
-    target_depth:dict[str,str],length_cm:dict[str,float],cal:dict
+    target_depth:dict[str,str],length_cm:dict[str,float],cal
 )->dict:
     """Estimate original Direct deep for same observed island species.
 
@@ -103,16 +169,27 @@ def source_predict_same_island(
     if any(not z<=full_island for z in plant_scopes.values()):
         raise ValueError("target plant provenance outside original checklist")
     donor_sets={"geo5":source_geo5,"climate10":source_climate10}
+    # Never calibrate unrelated source genera that have no original target
+    # botanical accepted species in this island.
+    needed_genera={botanical_genus(x) for x in full_island
+                   if x in target_depth}
     source_genus_numeric={}
     source_genus_all={}
     for mode,source in donor_sets.items():
         any_genus=defaultdict(int)
         donor=defaultdict(list)
         for sp in source:
-            any_genus[botanical_genus(sp)]+=1
+            g=botanical_genus(sp)
+            if g not in needed_genera:continue
+            any_genus[g]+=1
             if sp in length_cm:
-                donor[botanical_genus(sp)].append(calibrated_prob(
-                    float(length_cm[sp]),cal
+                genus_model=(cal(g) if callable(cal) else cal)
+                if callable(cal) and not genus_model[
+                    "heldout_target_genus_never_in_calibration"
+                ]:
+                    raise AssertionError("heldout genus leakage")
+                donor[g].append(calibrated_prob(
+                    float(length_cm[sp]),genus_model
                 ))
         source_genus_numeric[mode]=donor
         source_genus_all[mode]=any_genus
