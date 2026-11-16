@@ -70,9 +70,13 @@ def _prediction_on_fixed_target(
               n_source_matched_total=None,
               joint_observed=np.nan,coupling_observed=np.nan,
               joint_genus_predicted=np.nan,coupling_genus_predicted=np.nan,
-              joint_pooled_predicted=np.nan,coupling_pooled_predicted=np.nan,
+              joint_factorized_predicted=np.nan,coupling_factorized_predicted=np.nan,
+               n_source_genera_with_both_traits_variable=0,
+               n_target_carriers_on_variable_source_genera=0,
+               joint_pooled_predicted=np.nan,coupling_pooled_predicted=np.nan,
               joint_global_predicted=np.nan,coupling_global_predicted=np.nan,
-              brier_genus=np.nan,brier_pooled=np.nan,brier_global=np.nan,
+              brier_genus=np.nan,brier_factorized=np.nan,
+               brier_pooled=np.nan,brier_global=np.nan,
               n_target_positive=0,
               target_species_per_source_genus_support=None)
     if not n:
@@ -92,13 +96,26 @@ def _prediction_on_fixed_target(
     target_means=np.mean(observed_state,axis=0)
     pred=np.zeros(3)
     brier=0.
+    joint_factorized=0.
+    brier_factorized=0.
+    informative_genera=0
+    informative_carriers=0
     for g,sp in target_by_genus.items():
         n_g=len(sp)
         p=np.mean(source_by_target[g],axis=0)
         pred += p*n_g/n
+        factorized=float(p[0]*p[1])
+        joint_factorized+=factorized*n_g/n
+        if 0<p[0]<1 and 0<p[1]<1:
+            informative_genera+=1
+            informative_carriers+=n_g
         positive=sum(int(s in profile["joint"]) for s in sp)
         brier += (positive*(1.-p[2])**2+
                   (n_g-positive)*p[2]**2)/n
+        brier_factorized += (
+            positive*(1.-factorized)**2+
+            (n_g-positive)*factorized**2
+        )/n
     obsJ=target_means[2]
     def c(x):
         return float(x[2]-x[0]*x[1])
@@ -107,16 +124,23 @@ def _prediction_on_fixed_target(
         coupling_observed=c(target_means),
         joint_genus_predicted=float(pred[2]),
         coupling_genus_predicted=c(pred),
+        joint_factorized_predicted=float(joint_factorized),
+        coupling_factorized_predicted=float(
+            joint_factorized-pred[0]*pred[1]),
+        n_source_genera_with_both_traits_variable=informative_genera,
+        n_target_carriers_on_variable_source_genera=informative_carriers,
         joint_pooled_predicted=float(ppool[2]),
         coupling_pooled_predicted=c(ppool),
         joint_global_predicted=float(pglobal[2]),
         coupling_global_predicted=c(pglobal),
         brier_genus=float(brier),
+        brier_factorized=float(brier_factorized),
         brier_pooled=float(obsJ*(1-ppool[2])**2+(1-obsJ)*ppool[2]**2),
         brier_global=float(obsJ*(1-pglobal[2])**2+(1-obsJ)*pglobal[2]**2),
         n_target_positive=int(target_means[2]*n+1e-9),
     )
     if not (0<=base["brier_genus"]<=1 and
+            0<=base["brier_factorized"]<=1 and
             0<=base["brier_pooled"]<=1 and
             0<=base["brier_global"]<=1):
         raise AssertionError("invalid species name held-out source-only predictions")
