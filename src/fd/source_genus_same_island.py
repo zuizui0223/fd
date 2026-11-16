@@ -94,25 +94,11 @@ def _subset_result(
     }
 
 
-def compare_island_source_genera(
-    *, full_island_names: set[str], scope_names: set[str],
-    geo5_candidates: set[str], climate10_candidates: set[str],
-    species_states: dict[str, int],
+def _compare_with_original_source_maps(
+    scope_names: set[str], species_states: dict[str, int],
+    geo_total: Counter, geo_direct: dict,
+    clim_total: Counter, clim_direct: dict,
 ) -> dict:
-    """Fixed target plants, independently distinct mainland congener donors.
-
-    "matched" is restricted to observed island species in genera represented
-    by at least one Direct candidate species in BOTH source definitions.
-    A stricter >=2 distinct mainland species per genus/mode is secondary.
-    """
-    if not scope_names <= full_island_names:
-        raise ValueError("scope is not part of original full botanical flora")
-    if (geo5_candidates | climate10_candidates) & full_island_names:
-        raise ValueError("leakage: donor accepted species already on focal island")
-    if any(v not in (0, 1) for v in species_states.values()):
-        raise ValueError("only genuinely Direct binary sector states permitted")
-    geo_total, geo_direct = _donor_map(geo5_candidates, species_states)
-    clim_total, clim_direct = _donor_map(climate10_candidates, species_states)
     all_scored = {sp for sp in scope_names if sp in species_states}
     eligible1 = {g for g in set(geo_direct) & set(clim_direct)
                  if geo_direct[g] and clim_direct[g]}
@@ -123,8 +109,8 @@ def compare_island_source_genera(
     strict = _subset_result(all_scored, eligible2, scope_names, species_states,
                             geo_total, geo_direct, clim_total, clim_direct)
     n_scope = len(all_scored)
-    geo_names_direct = sorted(geo5_candidates & set(species_states))
-    clim_names_direct = sorted(climate10_candidates & set(species_states))
+    geo_vals = [v for group in geo_direct.values() for _, v in group]
+    clim_vals = [v for group in clim_direct.values() for _, v in group]
     return {
         "n_scope_total": int(len(scope_names)),
         "n_scope_direct": int(n_scope),
@@ -133,18 +119,56 @@ def compare_island_source_genera(
             if n_scope else np.nan
         ),
         "unrestricted_source_geo5_direct_fraction": (
-            float(np.mean([species_states[s] for s in geo_names_direct]))
-            if geo_names_direct else np.nan
+            float(np.mean(geo_vals)) if geo_vals else np.nan
         ),
         "unrestricted_source_climate10_direct_fraction": (
-            float(np.mean([species_states[s] for s in clim_names_direct]))
-            if clim_names_direct else np.nan
+            float(np.mean(clim_vals)) if clim_vals else np.nan
         ),
-        "n_unrestricted_geo5_candidate_direct": len(geo_names_direct),
-        "n_unrestricted_climate10_candidate_direct": len(clim_names_direct),
+        "n_unrestricted_geo5_candidate_direct": len(geo_vals),
+        "n_unrestricted_climate10_candidate_direct": len(clim_vals),
         "shared_genus_one_donor_each": main,
         "shared_genus_two_donors_each": strict,
     }
+
+
+def compare_island_source_genera_scopes(
+    *, full_island_names: set[str], scope_names: dict[str, set[str]],
+    geo5_candidates: set[str], climate10_candidates: set[str],
+    species_states: dict[str, int],
+) -> dict[str, dict]:
+    """Compute original genus references once, for fixed nested plant scopes.
+
+    The exact SAME GIFT/Direct reference cohort is reused across scopes;
+    each scope's *original island plant names* remain unaltered between modes.
+    """
+    if (geo5_candidates | climate10_candidates) & full_island_names:
+        raise ValueError("leakage: donor accepted species already on focal island")
+    if any(v not in (0, 1) for v in species_states.values()):
+        raise ValueError("only genuinely Direct binary sector states permitted")
+    if any(not names <= full_island_names for names in scope_names.values()):
+        raise ValueError("scope is not part of original full botanical flora")
+    gt,gd=_donor_map(geo5_candidates,species_states)
+    ct,cd=_donor_map(climate10_candidates,species_states)
+    return {
+        scope: _compare_with_original_source_maps(
+            names, species_states, gt, gd, ct, cd
+        ) for scope, names in scope_names.items()
+    }
+
+
+def compare_island_source_genera(
+    *, full_island_names: set[str], scope_names: set[str],
+    geo5_candidates: set[str], climate10_candidates: set[str],
+    species_states: dict[str, int],
+) -> dict:
+    """Single-scope adapter for tests and independent source checks."""
+    return compare_island_source_genera_scopes(
+        full_island_names=full_island_names,
+        scope_names={"selected_original_scope": scope_names},
+        geo5_candidates=geo5_candidates,
+        climate10_candidates=climate10_candidates,
+        species_states=species_states,
+    )["selected_original_scope"]
 
 
 def _support(x: pd.DataFrame, gate: str) -> pd.Series:
