@@ -53,7 +53,7 @@ def _build_source_donors(source:set[str],profile:dict)->dict:
 
 def _prediction_on_fixed_target(
     observed:set[str],source_by_genus:dict,all_source_states:list,
-    *,min_donor_per_genus:int,
+    profile:dict, *,min_donor_per_genus:int,
 )->dict:
     """Same target species for all three baseline models within each mode."""
     eligible={g for g,x in source_by_genus.items()
@@ -160,7 +160,7 @@ def predict_joint_by_source_scopes(
             item={}
             for mode in MODES:
                 result=_prediction_on_fixed_target(
-                    fixed,source[mode],global_pool[mode],
+                    fixed,source[mode],global_pool[mode],profile,
                     min_donor_per_genus=threshold,
                 )
                 # Per-source trait documentation fraction in exactly the
@@ -187,7 +187,9 @@ def aggregate_source_congener_prediction(
 )->dict:
     keys={"island_id","regime","scope","sector","donor_gate",
           "spatial_block","source_signature","n_target_direct",
-          "n_target_genera"}
+          "n_target_genera", "island_direct_coverage_supported",
+          "geo5_direct_coverage_supported",
+          "climate10_direct_coverage_supported"}
     for mode in MODES:
         keys |= {
             f"{mode}__n_source_matched_direct",
@@ -330,7 +332,7 @@ def aggregate_source_congener_prediction(
             all_methods_evaluated_on_exact_same_supported_island_plants=True,
             no_true_out_of_lineage_or_independent_trait_provider=True,
             no_true_effective_pollination_guild_measured=True,
-            source_coverage_and_nativenes_nonrandomly_missing=True,
+            source_coverage_and_nativeness_nonrandomly_missing=True,
             global_original_4505_denominator_retained=True,
         )
     )
