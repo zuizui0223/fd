@@ -1,6 +1,6 @@
 # FD source-cited exact island visitation × true morphological conjunction: 17 November 2026 audit contract
 
-**Status:** Original GloBI source rerun [island Actions #43897406592](https://github.com/zuizui0223/island/actions/runs/43897406592), source/geometry/species test stage passed; exact true morphological trait×same-locality visitor counts are **NOT reported as an outcome until original GloBI TSV source replay has succeeded**. This is a prospective audit specification added after earlier 2026-11-12 local GloBI and 2026-11-16 floral-pair positive outcomes. It is NOT preregistered or independent sampling.
+**Status:** Original GloBI source replay [island Actions #43900792018](https://github.com/zuizui0223/island/actions/runs/43900792018) **SUCCESS**, 23 tests passed, exactly 24,577,183 original GloBI v0.9 rows and all original island/plant/geometry provenance checks verified. Actual anonymized source-pair×guild support is now numerically available in [completed original report](../results/20261117_GloBI_real_flower_visitors/README.md). This is a prospective audit specification added after earlier 2026-11-12 local GloBI and 2026-11-16 floral-pair positive outcomes. It is NOT preregistered or independent sampling.
 
 ## Core contrast and observational limits
 
@@ -27,6 +27,10 @@ Pre-outcome source-archive omission: select largest reference/record source-arch
 - Original 2026 June GloBI v0.9 `interactions.tsv.gz` SHA256 `095e57398420d1e0746e61233c796beedcfb8e03bd0c6a732aa17ae62043bd17` (as source-pinned in prior completed runs), DOI `10.5281/zenodo.20546682`.
 - Exact historical GSHHG source polygons restored from source run #43162949729 and validated against original geometry file SHA/receipt, no centroid approximation.
 - [Original privacy-safe Python aggregation](../src/fd/globi_local_real_syndrome_gate.py), [synthetic source/missingness tests](../tests/test_globi_local_real_syndrome_gate.py), [source GloBI streaming runner](https://github.com/zuizui0223/island/blob/analysis/fd-discrete-functional-volume-20261113/scripts/run_fd_globi_real_joint_species_locality.py), and [Actions workflow](https://github.com/zuizui0223/island/blob/analysis/fd-discrete-functional-volume-20261113/.github/workflows/run-fd-globi-real-joint-species-locality.yml).
+
+## Actual completed original bird-versus-Lepidoptera evidence gate
+
+In the original 928 Direct colour/form/symmetry observation subset (not the full 4,505 botanical population), genuine SAME-species morphology `actinomorphic×deep` has **1** source-cited bird and **14** pooled Lepidoptera island×plant pairs (strict GIFT literal `native`: **0 bird, 3 Lepidoptera**); `zygomorphic×deep` has **5 bird, 2 Lepidoptera** (literal native **3 bird, 0 Lepidoptera**); and `tube/bell×deep` **1 bird, 2 Lepidoptera** (literal native **0 bird, 2 Lepidoptera**). The globally preselected dominant GloBI source-archive omission removes **ALL** bird and Lepidoptera documented matches within ALL three exact deep-tube morphological classes. No plant×guild negative visitation evidence is estimated, and no effective pollen transfer/seed set is observed. The bird/Lepidoptera citation rows therefore CANNOT be interpreted as a demonstrated bird-versus-butterfly syndrome shift, despite separate source-relative tropical positive floral form patterns. See [completed report](../results/20261117_GloBI_real_flower_visitors/README.md).
 
 ## Claim ceiling
 
