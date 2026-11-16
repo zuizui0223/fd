@@ -94,6 +94,9 @@ def test_genus_conditional_source_relative_coupling_adds_exactly():
            x["genuine_joint_sector"]=="actinomorphic_deep")
     assert r["n_both_real_source_mode_qualified_islands"]==40
     assert r["n_both_informative_and_documentation_balanced"]==40
+    assert r["n_islands_with_informative_genus_on_island"]==40
+    assert r["n_islands_with_informative_genus_in_geo5_source"]==40
+    assert r["n_islands_with_informative_genus_in_climate10_source"]==40
     q=r["both_balanced_and_informative__spatial_block"]
     assert q["status"]=="DESCRIPTIVE_GENUS_CONDITIONAL_COUPLING_NOT_CAUSAL"
     assert np.isclose(q["geo5__source_relative_original_coupling_group_equal_mean"],.1)
