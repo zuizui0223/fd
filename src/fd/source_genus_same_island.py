@@ -8,6 +8,7 @@ from __future__ import annotations
 
 from collections import Counter, defaultdict
 from hashlib import sha256
+from functools import lru_cache
 
 import numpy as np
 import pandas as pd
@@ -31,6 +32,7 @@ MIN_INDEPENDENT_ISLANDS = 30
 MIN_SPATIAL_BLOCKS = 10
 
 
+@lru_cache(maxsize=250000)
 def genus(name: str) -> str:
     x = str(name).strip().split()
     if len(x) < 2:
