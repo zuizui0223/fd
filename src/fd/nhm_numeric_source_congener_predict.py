@@ -321,7 +321,9 @@ def aggregate_external_source_numeric_prediction(
         panels=panels,
         limitations=dict(
             real_original_NHM_numeric_length_not_local_island_population=True,
-            calibration_source_only_original_any_island_names_excluded=True,
+            initial_all_island_name_excluded_calibration_failed_due_to_zero_overlap=True,
+            each_predicted_genus_direct_ordinal_labels_excluded_from_its_calibration=True,
+            other_genera_from_island_floras_can_be_in_calibration=True,
             original_island_ordinal_target_never_used_in_calibration=True,
             same_island_focal_species_across_two_source_modes=True,
             observed_island_genus_roster_given_not_predicted=True,
