@@ -13,7 +13,7 @@ def sample(n=40, mixed=True):
             island_id=f"synthetic{i}", regime="tropical", guild="bombus",
             channel_state=state, source_state="available",
             spatial_block=f"block{i // 2}",
-            source_signature=f"source{i % 6}" if mixed else f"source{int(i % 2)}",
+            source_signature=f"source{(i // 2) % 6}" if mixed else f"source{int(i % 2)}",
             sector="zygomorphic", source_sector_share=.1 + (i // 2) / 100,
             n_direct_carriers=8,
         ))
