@@ -11,10 +11,10 @@ import pandas as pd
 REQUIRED = {
     "island_id", "regime", "guild", "channel_state", "source_state",
     "spatial_block", "source_signature", "sector", "source_sector_share",
-    "n_direct_carriers",
+    "n_direct_carriers", "n_source_direct_carriers",
 }
 RETAINED = "retained"
-NONDETECTED = "adequately_nondetected"
+NONDETECTED = "disrupted"  # Original NEE qualified non-detection, NOT historical loss
 UNRESOLVED = "unresolved"
 
 
@@ -31,13 +31,19 @@ def audit_source_guild_support(rows: pd.DataFrame) -> dict:
         raise ValueError(f"missing fields: {sorted(missing)}")
     if rows.duplicated(["island_id", "guild", "sector"]).any():
         raise ValueError("duplicate island×guild×sector records")
-    allowed = {RETAINED, NONDETECTED, UNRESOLVED}
+    allowed = {RETAINED, NONDETECTED, UNRESOLVED, "structurally_absent"}
     if not rows.channel_state.isin(allowed).all():
         raise ValueError("invalid channel_state; do not recode missing as absence")
-    if not rows.source_state.isin(["available", "unavailable", "unresolved"]).all():
+    if not rows.source_state.isin(["available", "unresolved", "structurally_absent"]).all():
         raise ValueError("invalid source_state")
+    if (rows.channel_state.eq(NONDETECTED) & ~rows.source_state.eq("available")).any():
+        raise ValueError("qualified non-detection requires actual source availability")
+    if (rows.channel_state.eq("structurally_absent") & ~rows.source_state.eq("structurally_absent")).any():
+        raise ValueError("source structurally absent state inconsistent")
     if (pd.to_numeric(rows.n_direct_carriers, errors="coerce").dropna() < 0).any():
         raise ValueError("negative carrier counts")
+    if (pd.to_numeric(rows.n_source_direct_carriers, errors="coerce").dropna() < 0).any():
+        raise ValueError("negative mainland source carrier counts")
     share = pd.to_numeric(rows.source_sector_share, errors="coerce")
     if ((share.dropna() < 0) | (share.dropna() > 1)).any():
         raise ValueError("source sector shares must be probabilities")
@@ -56,8 +62,12 @@ def audit_source_guild_support(rows: pd.DataFrame) -> dict:
         valid["n_direct_carriers"] = pd.to_numeric(
             valid.n_direct_carriers, errors="coerce"
         )
+        valid["n_source_direct_carriers"] = pd.to_numeric(
+            valid.n_source_direct_carriers, errors="coerce"
+        )
         valid = valid.loc[
             valid.n_direct_carriers.ge(5)
+            & valid.n_source_direct_carriers.ge(10)
             & valid.source_sector_share.notna()
             & np.isfinite(valid.source_sector_share)
         ]
@@ -91,6 +101,7 @@ def audit_source_guild_support(rows: pd.DataFrame) -> dict:
             n_source_available=int(sub.source_state.eq("available").sum()),
             n_retained=n_a, n_adequately_nondetected=n_b,
             n_unresolved=int(valid.channel_state.eq(UNRESOLVED).sum()),
+            source_pool_condition="GIFT_source_only_distinct_Direct_species_n_ge_10",
             retained_blocks=blocks_a, nondetected_blocks=blocks_b,
             mixed_source_signatures=both_sources,
             status="ELIGIBLE_FOR_EXPLORATORY_ASSOCIATION" if not reasons
