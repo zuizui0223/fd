@@ -40,10 +40,10 @@ def _validate(frame, population):
         raise ValueError(f"missing original exact genus parts: {sorted(missing)}")
     if frame.island_id.nunique()!=population:
         raise ValueError("all original botanical island IDs must remain")
-    if len(frame)!=population*len(SCOPES)*len(MORPHOLOGY):
-        raise ValueError("original plant statuses or direct floral categories collapsed")
     if frame.duplicated(["island_id","scope","sector"]).any():
         raise ValueError("duplicate island scope sector")
+    if len(frame)!=population*len(SCOPES)*len(MORPHOLOGY):
+        raise ValueError("original plant statuses or direct floral categories collapsed")
     if not frame.regime.isin(REGIMES).all() or not frame.scope.isin(SCOPES).all() or not frame.sector.isin(MORPHOLOGY).all():
         raise ValueError("unknown source regime/provenance/real floral category")
     for mode in ("geo5","climate10"):
