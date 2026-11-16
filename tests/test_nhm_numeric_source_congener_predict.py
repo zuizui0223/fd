@@ -5,7 +5,8 @@ import pytest
 
 from fd.nhm_numeric_source_congener_predict import (
     SCOPES,TIERS,fit_source_only_length_calibrator,
-    calibrated_prob,source_predict_same_island,
+    calibrated_prob,make_genus_heldout_length_calibrator,
+    source_predict_same_island,
     aggregate_external_source_numeric_prediction,
 )
 
@@ -160,3 +161,45 @@ def test_duplicate_study_original_island_does_not_pass():
     with pytest.raises(ValueError,match="duplicate"):
         aggregate_external_source_numeric_prediction(
             pd.concat([v,v.iloc[:1]]),population=40,bootstrap=299)
+
+
+def test_exact_genus_out_calibration_never_uses_test_genus_original_depth():
+    numerical,deep,mainland=training()
+    get_cal,meta=make_genus_heldout_length_calibrator(
+        numerical,deep,mainland
+    )
+    assert meta["n_source_accepted_species_with_NHM_numeric_and_Direct_depth"]==240
+    assert meta["every_prediction_excludes_its_own_genus_from_all_original_direct_training"]
+    a=get_cal("Source0")
+    b=get_cal("Source1")
+    assert a["heldout_target_genus_never_in_calibration"]
+    assert a["n_calibration_distinct_original_accepted_species"]==236
+    assert b["n_calibration_distinct_original_accepted_species"]==236
+    assert a["log1p_cm_slope"]>0
+    assert calibrated_prob(4.0,a)>calibrated_prob(.3,a)
+
+
+def test_genus_specific_calibrator_used_for_source_species_without_target_genus_label():
+    numerical,deep,mainland=training()
+    getter,meta=make_genus_heldout_length_calibrator(
+        numerical,deep,mainland
+    )
+    full,scopes,target,geo,climate,lengths=example_roster()
+    out=source_predict_same_island(
+        full_island=full,plant_scopes=scopes,
+        source_geo5=geo,source_climate10=climate,
+        target_depth=target,length_cm=lengths,cal=getter,
+    )
+    p=out["all_recorded"]
+    assert p["n_same_island_direct_target_species"]==6
+    assert p["geo5"]["brier_length_genus"]<p["geo5"]["brier_length_pooled"]
+    assert getter("Alpha")["n_calibration_distinct_original_accepted_species"]==240
+
+
+def test_no_false_genus_heldout_calibration_when_corolla_ordinal_overlap_absent():
+    with pytest.raises(ValueError,match="insufficient"):
+        make_genus_heldout_length_calibrator(
+            {"Alpha a":1.},
+            {"Alpha a":"deep"},
+            {"Alpha a"},
+        )
