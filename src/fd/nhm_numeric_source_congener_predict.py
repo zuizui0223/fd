@@ -184,6 +184,10 @@ def source_predict_same_island(
             any_genus[g]+=1
             if sp in length_cm:
                 genus_model=(cal(g) if callable(cal) else cal)
+                if genus_model is None:
+                    # Failed single-genus provider-disjoint model support:
+                    # explicit source-donor omission, NEVER a zero phenotype.
+                    continue
                 if callable(cal) and not genus_model[
                     "heldout_target_genus_never_in_calibration"
                 ]:
