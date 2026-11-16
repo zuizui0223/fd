@@ -93,8 +93,9 @@ def test_source_carrier_zero_does_not_qualify():
     df.loc[ix,"n_geo5_direct"]=0
     df.loc[ix,"geo5_sector_share"]=np.nan
     q=same_island_source_mode_summary(df,expected_islands=40,draws=299)
-    z=next(x for x in q["panels"] if x["scope"]=="all_recorded" and
-           x["regime"]=="tropical") if False else next(
-        x for x in q["panels"] if x["region"]=="tropical" and
-        x["scope"]=="all_recorded" and x["morphological_sector"]=="zygomorphic")
+    z=next(
+        x for x in q["panels"]
+        if x["region"]=="tropical" and x["scope"]=="all_recorded"
+        and x["morphological_sector"]=="zygomorphic"
+    )
     assert z["n_same_islands_eligible_both_source_definitions"]==39
