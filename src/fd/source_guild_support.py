@@ -77,6 +77,10 @@ def audit_source_guild_support(rows: pd.DataFrame) -> dict:
             valid.channel_state.isin([RETAINED, NONDETECTED])
         ].groupby("source_signature", dropna=True).channel_state.nunique()
         both_sources = int(source_states.eq(2).sum())
+        block_states = valid.loc[
+            valid.channel_state.isin([RETAINED, NONDETECTED])
+        ].groupby("spatial_block", dropna=True).channel_state.nunique()
+        both_blocks = int(block_states.eq(2).sum())
         n_a, n_b = len(a), len(b)
         blocks_a = int(a.spatial_block.nunique())
         blocks_b = int(b.spatial_block.nunique())
@@ -94,6 +98,8 @@ def audit_source_guild_support(rows: pd.DataFrame) -> dict:
             reasons.append("INSUFFICIENT_BLOCKS")
         if both_sources < 3:
             reasons.append("INSUFFICIENT_MIXED_SOURCES")
+        if both_blocks < 5:
+            reasons.append("INSUFFICIENT_WITHIN_BLOCK_OVERLAP")
         if not (varied_a and varied_b and overlap):
             reasons.append("SOURCE_SHARE_NO_COMMON_SUPPORT")
         out.append(dict(
@@ -104,6 +110,7 @@ def audit_source_guild_support(rows: pd.DataFrame) -> dict:
             source_pool_condition="GIFT_source_only_distinct_Direct_species_n_ge_10",
             retained_blocks=blocks_a, nondetected_blocks=blocks_b,
             mixed_source_signatures=both_sources,
+            mixed_spatial_blocks=both_blocks,
             status="ELIGIBLE_FOR_EXPLORATORY_ASSOCIATION" if not reasons
                    else "NOT_IDENTIFIABLE",
             failed_gates=reasons,
