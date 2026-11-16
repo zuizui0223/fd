@@ -23,8 +23,8 @@ def synthetic_states():
             "plant5":"open_radial",
         },
         "flower_primary_color":{
-            "plant1":"red", "plant2":"white", "plant3":"red",
-            "plant4":"orange", "plant5":"white",
+            "plant1":"red_pink", "plant2":"white", "plant3":"red_pink",
+            "plant4":"yellow_orange", "plant5":"white",
         },
     }
 
@@ -43,11 +43,13 @@ def test_real_pair_never_multiplies_marginal_species():
 
 def test_colour_and_tube_are_same_species_and_not_effective_guild():
     x=make_joint_species(synthetic_states())
-    assert x["red_orange_deep"]["joint"]==frozenset({"plant3"})
-    assert x["white_cream_deep"]["joint"]==frozenset({"plant2","plant5"})
-    assert x["red_orange_tubular_bell"]["joint"]==frozenset({"plant3"})
-    assert x["white_cream_tubular_bell"]["joint"]==frozenset({"plant2"})
-    assert len(x)==len(JOINT_SPECS)==9
+    assert x["red_pink_deep"]["joint"]==frozenset({"plant3"})
+    assert x["white_deep"]["joint"]==frozenset({"plant2","plant5"})
+    assert x["red_pink_tubular_bell"]["joint"]==frozenset({"plant3"})
+    assert x["white_tubular_bell"]["joint"]==frozenset({"plant2"})
+    assert len(x)==len(JOINT_SPECS)==11
+    assert x["yellow_orange_deep"]["joint"]==frozenset()
+    assert x["yellow_orange_tubular_bell"]["joint"]==frozenset()
 
 
 def test_missing_direct_pair_means_unknown_not_zero():
@@ -91,8 +93,8 @@ def sample(n=40):
 
 def test_same_island_both_source_modes_separate_pair_prevalence_and_coupling():
     d=same_island_pair_source_frame(sample(),population=40,bootstrap=299)
-    assert d["n_real_two_trait_pairs"]==9
-    assert d["n_source_mode_provenance_region_panels"]==5*3*9
+    assert d["n_real_two_trait_pairs"]==11
+    assert d["n_source_mode_provenance_region_panels"]==5*3*11
     z=next(a for a in d["panels"] if a["region"]=="tropical"
            and a["plant_scope"]=="all_recorded"
            and a["documented_joint_sector"]=="actinomorphic_deep")
