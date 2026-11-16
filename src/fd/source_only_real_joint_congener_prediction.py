@@ -201,6 +201,8 @@ def _columns(prefix:str):
     return [
         f"{prefix}__bias_genus",f"{prefix}__bias_pooled",
         f"{prefix}__bias_global",f"{prefix}__brier_gain_vs_pooled",
+        f"{prefix}__brier_gain_joint_vs_factorized",
+        f"{prefix}__bias_factorized",
         f"{prefix}__brier_gain_vs_global",
         f"{prefix}__coupling_residual_congener",
     ]
@@ -221,11 +223,15 @@ def aggregate_source_congener_prediction(
             f"{mode}__n_target_positive",
             f"{mode}__joint_observed",
             f"{mode}__joint_genus_predicted",
+            f"{mode}__joint_factorized_predicted",
+            f"{mode}__n_source_genera_with_both_traits_variable",
+            f"{mode}__n_target_carriers_on_variable_source_genera",
             f"{mode}__joint_pooled_predicted",
             f"{mode}__joint_global_predicted",
             f"{mode}__coupling_observed",
             f"{mode}__coupling_genus_predicted",
-            f"{mode}__brier_genus",f"{mode}__brier_pooled",
+            f"{mode}__brier_genus",f"{mode}__brier_factorized",
+            f"{mode}__brier_pooled",
             f"{mode}__brier_global",
         }
     if missing:=keys-set(frame):
@@ -251,7 +257,7 @@ def aggregate_source_congener_prediction(
         if (frame[f"{mode}__n_source_matched_direct"]<0).any():
             raise ValueError("negative original congener donor count")
         defined=frame.n_target_direct.gt(0)
-        for kind in ("genus","pooled","global"):
+        for kind in ("genus","factorized","pooled","global"):
             b=frame.loc[defined,f"{mode}__brier_{kind}"]
             if b.isna().any() or not b.between(0,1).all():
                 raise ValueError("invalid source-only Brier metric")
@@ -279,6 +285,12 @@ def aggregate_source_congener_prediction(
                             valid[f"{mode}__bias_genus"]=(
                                 valid[f"{mode}__joint_observed"]-
                                 valid[f"{mode}__joint_genus_predicted"])
+                            valid[f"{mode}__bias_factorized"]=(
+                                valid[f"{mode}__joint_observed"]-
+                                valid[f"{mode}__joint_factorized_predicted"])
+                            valid[f"{mode}__brier_gain_joint_vs_factorized"]=(
+                                valid[f"{mode}__brier_factorized"]-
+                                valid[f"{mode}__brier_genus"])
                             valid[f"{mode}__bias_pooled"]=(
                                 valid[f"{mode}__joint_observed"]-
                                 valid[f"{mode}__joint_pooled_predicted"])
@@ -318,8 +330,24 @@ def aggregate_source_congener_prediction(
                         median_supported_original_island_genera=(
                             float(valid.n_target_genera.median()) if len(valid) else None
                         ),
+                        n_islands_with_source_genus_variable_in_both_axes_and_modes=int((
+                            valid.geo5__n_source_genera_with_both_traits_variable.ge(1)&
+                            valid.climate10__n_source_genera_with_both_traits_variable.ge(1)
+                        ).sum()),
                     )
-                    for name,sub in (("all",valid),("coverage10",valid.loc[coverage])):
+                    informative=(
+                        valid.geo5__n_source_genera_with_both_traits_variable.ge(1)&
+                        valid.climate10__n_source_genera_with_both_traits_variable.ge(1)
+                    )
+                    item["n_islands_both_informative_and_coverage10"]=int(
+                        (informative&coverage).sum()
+                    )
+                    for name,sub in (
+                        ("all",valid),("coverage10",valid.loc[coverage]),
+                        ("source_trait_variation_both",valid.loc[informative]),
+                        ("source_trait_variation_and_coverage10",
+                         valid.loc[informative&coverage]),
+                    ):
                         for cluster in ("spatial_block","source_signature"):
                             group=sub.dropna(subset=[cluster]).groupby(cluster,sort=True)
                             a=dict(n_original_islands=int(len(sub)),
@@ -357,6 +385,8 @@ def aggregate_source_congener_prediction(
             no_true_out_of_lineage_or_independent_trait_provider=True,
             no_true_effective_pollination_guild_measured=True,
             source_coverage_and_nativeness_nonrandomly_missing=True,
+            prediction_increment_of_true_joint_over_independent_marginal_products_tested=True,
+            within_source_genus_both_traits_variable_support_explicit=True,
             global_original_4505_denominator_retained=True,
         )
     )
