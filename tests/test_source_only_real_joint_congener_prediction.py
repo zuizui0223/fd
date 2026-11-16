@@ -47,6 +47,8 @@ def test_source_names_not_target_species_and_genus_is_true_forecast():
     assert np.isclose(a["geo5"]["joint_observed"],6/11)
     assert np.isclose(a["geo5"]["joint_genus_predicted"],6/11)
     assert a["geo5"]["brier_genus"]==0.
+    assert a["geo5"]["brier_factorized"]==0.
+    assert a["geo5"]["n_source_genera_with_both_traits_variable"]==0
     assert a["geo5"]["brier_pooled"]>0
     assert a["geo5"]["brier_global"]>0
     assert np.isclose(a["geo5"]["coupling_genus_predicted"],6/11-(6/11)**2)
@@ -172,3 +174,46 @@ def test_documentation_imbalance_is_reported_not_treated_as_source_absence():
     assert z["n_same_islands_with_both_source_congeners"]==40
     assert z["n_coverage_balanced_10pp"]==0
     assert z["coverage10__spatial_block"]["status"]=="NOT_IDENTIFIABLE_GEOGRAPHICAL_SOURCE_SUPPORT"
+
+
+def test_genuine_source_joint_label_linkage_adds_predictive_skill_over_factorized_marginals():
+    full,rosters,geo,climate,profile=build()
+    observed_A=set(profile["A"])
+    observed_B=set(profile["B"])
+    for source in (geo,climate):
+        alpha=sorted(sp for sp in source if sp.startswith("Alpha"))
+        # Independently recorded donor A/B marginals are both variable;
+        # 3 of 5 and 3 of 6 sources have both positive states, so
+        # P(A and B)>P(A)*P(B) is a genuine different-name donor pattern.
+        for sp in alpha[3:]:
+            observed_A.remove(sp)
+            observed_B.remove(sp)
+    prof=dict(profile)
+    prof["A"]=frozenset(observed_A)
+    prof["B"]=frozenset(observed_B)
+    prof["joint"]=prof["A"]&prof["B"]
+    results=predict_joint_by_source_scopes(
+        full_island=full,scope_rosters=rosters,
+        geo5_source=geo,climate10_source=climate,profile=prof,
+    )
+    for mode in ("geo5","climate10"):
+        p=results["all_recorded"]["any_congener"][mode]
+        assert p["n_source_genera_with_both_traits_variable"]>=1
+        assert p["n_target_carriers_on_variable_source_genera"]>=6
+        assert p["joint_genus_predicted"]>p["joint_factorized_predicted"]
+        assert p["brier_factorized"]>p["brier_genus"]
+
+
+def test_no_syndrome_predictive_increment_when_source_genus_margins_are_constant():
+    full,rosters,geo,climate,profile=build()
+    q=predict_joint_by_source_scopes(
+        full_island=full,scope_rosters=rosters,
+        geo5_source=geo,climate10_source=climate,profile=profile
+    )["all_recorded"]["any_congener"]
+    for mode in ("geo5","climate10"):
+        assert q[mode]["n_source_genera_with_both_traits_variable"]==0
+        assert np.isclose(q[mode]["brier_factorized"],q[mode]["brier_genus"])
+        assert np.isclose(
+            q[mode]["joint_factorized_predicted"],
+            q[mode]["joint_genus_predicted"]
+        )
