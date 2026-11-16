@@ -32,7 +32,7 @@ For each of the three admitted tropical visitor-bird slots, define actual island
 | tubular/bell | 9 | −3.74 | [−13.81, +6.14] | −3.32 [−12.07, +3.97] | −3.73 [−14.70, +7.03] |
 | open-radial | 9 | +1.46 | [−5.38, +8.45] | −0.58 [−6.28, +5.93] | +2.71 [−5.52, +10.10] |
 
-**All 9 independently grouped source-relative intervals cross zero**. The archive also separately reports the actual island-share and the source-share component for every grouping, exact diagnostic block sign flips, and leave-one-mixed-group ranges. These post-selection block sign diagnostics are not randomized treatment p-values; no source×guild *interaction coefficient* was fit and no claim of absence of ecological effect is licensed. Three correlated selected endpoints among 125 screened slots preclude picking nominal unadjusted p-values as discovery. Nondetected islands are too sparse for a reliable multi-guild or historical mechanism interpretation.
+**All 9 conditional, mutually nonindependent source-relative intervals cross zero**. The archive also separately reports the actual island-share and the source-share component for every grouping, exact diagnostic block sign flips, and leave-one-mixed-group ranges. These post-selection block sign diagnostics are not randomized treatment p-values; no source×guild *interaction coefficient* was fit and no claim of absence of ecological effect is licensed. Three correlated selected endpoints among 125 screened slots preclude picking nominal unadjusted p-values as discovery. Nondetected islands are too sparse for a reliable multi-guild or historical mechanism interpretation.
 
 ## Descriptive SOURCE-ONLY morphological supply versus island composition (all recorded provenance)
 
