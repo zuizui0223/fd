@@ -218,11 +218,12 @@ def audit_genus_concentration(
                         sets[k]=base
                 # Top global genera are selected from ORIGINAL carrier counts
                 # only, without inspecting response traits, predictions or scores.
+                baseids=set(base.island_id) if len(base) else set()
                 for k in (1,5):
                     forbidden=set(top[:k])
                     survivors=[]
                     for island,q in grouped.items():
-                        if len(base)==0 or island not in set(base.island_id):
+                        if island not in baseids:
                             continue
                         stats=score_genus_sufficient_stats(
                             q.loc[~q.genus.isin(forbidden)]
