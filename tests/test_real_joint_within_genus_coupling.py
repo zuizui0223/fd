@@ -133,7 +133,7 @@ def test_fails_closed_for_bad_species_or_reference_accounting():
         summarize_original_genus_joint_coupling(
             pd.concat([x,x.iloc[:1]]),population=40,boots=299
         )
-    with pytest.raises(ValueError,match="source-relative|per-island"):
+    with pytest.raises(AssertionError,match="per-island"):
         x=_frame()
         x.loc[0,"island_excess_coupling_beyond_genus_null"]=.4
         summarize_original_genus_joint_coupling(x,population=40,boots=299)
