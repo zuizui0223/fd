@@ -95,3 +95,15 @@ def test_mainland_source_documentation_gate():
     x = audit_source_guild_support(df)["strata"][0]
     assert x["n_adequately_nondetected"] == 0
     assert x["status"] == "NOT_IDENTIFIABLE"
+
+
+def test_both_states_in_separate_blocks_are_not_an_interaction_support():
+    df = sample(n=40)
+    df["spatial_block"] = [f"state_{z}_{i}" for i, z in enumerate(df.channel_state)]
+    x = audit_source_guild_support(df)["strata"][0]
+    assert x["retained_blocks"] == 20
+    assert x["nondetected_blocks"] == 20
+    assert x["mixed_source_signatures"] >= 3
+    assert x["mixed_spatial_blocks"] == 0
+    assert x["status"] == "NOT_IDENTIFIABLE"
+    assert "INSUFFICIENT_WITHIN_BLOCK_OVERLAP" in x["failed_gates"]
