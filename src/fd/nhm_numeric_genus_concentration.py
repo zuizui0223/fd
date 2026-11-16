@@ -266,7 +266,7 @@ def audit_genus_concentration(
                             }
                         else:
                             out[f"{label}__{grouping}"]=_cluster_summary(
-                                frame,group=group,
+                                frame,group=grouping,
                                 seed=f"{region}|{scope}|{tier}|{label}|{grouping}",
                                 bootstrap=bootstrap,
                             )
