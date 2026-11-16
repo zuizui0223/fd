@@ -28,22 +28,34 @@ JOINT_SPECS = {
     "zygomorphic_tubular_bell": (
         "floral_symmetry", frozenset({"zygomorphic"}),
         "floral_form", frozenset({"tubular", "bell_campanulate"})),
-    "red_orange_deep": (
-        "flower_primary_color", frozenset({"red", "orange"}),
+    # The original accepted Direct colour ledger does NOT have standalone
+    # red/orange/cream labels. It has red_pink, yellow_orange and white.
+    # This factual source-ontology repair follows an initial pilot in which
+    # literal red/orange led to all-zero targets. Colour analyses below are
+    # exploratory and cannot discriminate bird from butterfly/moth guilds.
+    "red_pink_deep": (
+        "flower_primary_color", frozenset({"red_pink"}),
         "tube_depth_class", frozenset({"deep"})),
-    "white_cream_deep": (
-        "flower_primary_color", frozenset({"white", "cream"}),
+    "yellow_orange_deep": (
+        "flower_primary_color", frozenset({"yellow_orange"}),
         "tube_depth_class", frozenset({"deep"})),
-    "red_orange_tubular_bell": (
-        "flower_primary_color", frozenset({"red", "orange"}),
+    "white_deep": (
+        "flower_primary_color", frozenset({"white"}),
+        "tube_depth_class", frozenset({"deep"})),
+    "red_pink_tubular_bell": (
+        "flower_primary_color", frozenset({"red_pink"}),
         "floral_form", frozenset({"tubular", "bell_campanulate"})),
-    "white_cream_tubular_bell": (
-        "flower_primary_color", frozenset({"white", "cream"}),
+    "yellow_orange_tubular_bell": (
+        "flower_primary_color", frozenset({"yellow_orange"}),
+        "floral_form", frozenset({"tubular", "bell_campanulate"})),
+    "white_tubular_bell": (
+        "flower_primary_color", frozenset({"white"}),
         "floral_form", frozenset({"tubular", "bell_campanulate"})),
 }
-PRIMARY = ("actinomorphic_deep", "zygomorphic_deep",
-           "tubular_bell_deep", "red_orange_tubular_bell",
-           "white_cream_deep")
+PRIORITIZED_MORPHOLOGY = (
+    "actinomorphic_deep", "zygomorphic_deep", "tubular_bell_deep",
+    "actinomorphic_tubular_bell", "zygomorphic_tubular_bell"
+)
 MODES=("geo_k5","geo50_climate10")
 SCOPES=("all_recorded","strict_native","strict_native_nonendemic")
 REGIMES=("northern_midlatitude","tropical","southern_extratropical",
@@ -178,7 +190,7 @@ def same_island_pair_source_frame(rows: pd.DataFrame,
                 result=dict(
                     region=region, plant_scope=scope,
                     documented_joint_sector=sector,
-                    primary_pre_outcome_morphological_conjunction=sector in PRIMARY,
+                    prioritized_morphological_conjunction_exploratory=sector in PRIORITIZED_MORPHOLOGY,
                     n_original_botanical_islands=int(len(pool)),
                     n_both_source_modes_and_joint_carriers=int(len(q)),
                     n_original_documentation_balanced_le10pp=int(balanced.sum()),
@@ -229,5 +241,8 @@ def same_island_pair_source_frame(rows: pd.DataFrame,
             "strict_native_is_selected_nonrandom_status_subset":True,
             "entire_4505_flora_frame_retained":True,
             "morphological_conjunction_not_pollinator_syndrome_classification":True,
+            "color_bins_originally_red_pink_yellow_orange_white_not_separate_red_orange":True,
+            "original_first_pilot_zero_color_was_invalid_ontology_not_null_evidence":True,
+            "color_ontology_mapping_corrected_after_pilot_and_results_exploratory":True,
         },
     }
