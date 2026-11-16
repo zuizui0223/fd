@@ -65,7 +65,7 @@ def test_real_direct_pair_original_island_guild_documentation():
     assert x["n_source_guild_trait_plant_origin_support_cells"]==3*3*2*2*5
     q=row(x,"actinomorphic_deep","strict_native","joint_true",
           "original_citations","flower_visiting_birds")
-    assert q["n_original_morphology_eligible_island_plant_pairs"]>0
+    assert q["n_original_island_plant_pairs_with_both_direct_traits"]>0
     assert q["n_cited_island_plant_pairs"]==1
     assert q["n_islands_with_source_cited_exact_plant_and_guild"]==1
     assert q["n_source_archive_labels"]==1
