@@ -225,12 +225,25 @@ def summarize_original_genus_joint_coupling(
                 else:
                     balanced=pd.Series(False,index=q.index)
                     informative=pd.Series(False,index=q.index)
+                # The genuinely informative part of the genus null requires
+                # variation in BOTH focal traits inside a genus. Report
+                # opportunity separately on island and both source lists:
+                # a near-zero residual can otherwise be mechanically fixed.
+                inform_count={
+                    mode: int((
+                        q[f"{mode}_n_genus_with_both_marginals_variable"].ge(1)&
+                        q[f"{mode}_n_carriers_in_variable_genera"].ge(3)
+                    ).sum()) for mode in NAMES
+                }
                 panel=dict(
                     region=regime,scope=scope,
                     genuine_joint_sector=sector,
                     n_original_region_flora=len(p),
                     n_both_real_source_mode_qualified_islands=int(len(q)),
                     n_with_both_source_and_island_informative_genera=int(informative.sum()),
+                    n_islands_with_informative_genus_on_island=inform_count["island"],
+                    n_islands_with_informative_genus_in_geo5_source=inform_count["geo5"],
+                    n_islands_with_informative_genus_in_climate10_source=inform_count["climate10"],
                     n_direct_documentation_gap_both_le10pp=int(balanced.sum()),
                     n_both_informative_and_documentation_balanced=int((balanced&informative).sum()),
                     # Null cannot identify a within-genus effect in monomorphic
