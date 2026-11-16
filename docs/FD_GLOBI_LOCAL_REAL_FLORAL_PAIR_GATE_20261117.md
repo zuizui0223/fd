@@ -24,7 +24,7 @@ Pre-outcome source-archive omission: select largest reference/record source-arch
 ## Source and reconstruction
 
 - Original GIFT botanical flora SHA256 `6b5006322d15dd87aa3aad3b4dd050d4c6420485521be314ae511f39e05b859a`; strict species-Direct trait ledger SHA256 `9ddac1cedf2bf6235f3b426f37688550391ee8d96586e8d6a095ea3150bbe745`; original archived run #34232450884.
-- Original 2026 June GloBI v0.9 `interactions.tsv.gz` SHA256 `095e57398420d1e0746e61233c796beedcfb8e03bd17` (as source-pinned in prior completed runs), DOI `10.5281/zenodo.20546682`.
+- Original 2026 June GloBI v0.9 `interactions.tsv.gz` SHA256 `095e57398420d1e0746e61233c796beedcfb8e03bd0c6a732aa17ae62043bd17` (as source-pinned in prior completed runs), DOI `10.5281/zenodo.20546682`.
 - Exact historical GSHHG source polygons restored from source run #43162949729 and validated against original geometry file SHA/receipt, no centroid approximation.
 - [Original privacy-safe Python aggregation](../src/fd/globi_local_real_syndrome_gate.py), [synthetic source/missingness tests](../tests/test_globi_local_real_syndrome_gate.py), [source GloBI streaming runner](https://github.com/zuizui0223/island/blob/analysis/fd-discrete-functional-volume-20261113/scripts/run_fd_globi_real_joint_species_locality.py), and [Actions workflow](https://github.com/zuizui0223/island/blob/analysis/fd-discrete-functional-volume-20261113/.github/workflows/run-fd-globi-real-joint-species-locality.yml).
 
