@@ -98,7 +98,6 @@ def test_original_same_accepted_species_two_axes_not_cartesian_product():
     assert real_same_species_morphologies("Impatiens balsamina",traits)[
         "zygomorphic_deep"] is True
     assert real_same_species_morphologies("Ipomoea pes-caprae",traits) is None
-    return traits
 
 
 def test_real_network_plant_guild_audit_preserves_full_original_population():
@@ -142,7 +141,7 @@ def test_real_network_plant_guild_audit_preserves_full_original_population():
 def test_no_flora_genus_imputation_or_fabricated_island_link():
     flora=pd.DataFrame([dict(island_id="island1",accepted_species="Impatiens balsamina",
                              origin_status="unresolved")])
-    with pytest.raises(ValueError,match="population reduced"):
+    with pytest.raises(ValueError,match="frame reduced"):
         source_bounded_site_plant_audit(
             pd.DataFrame(columns=["network_id","island_id","plant","guild"]),
             flora,{},global_original_islands=300)
