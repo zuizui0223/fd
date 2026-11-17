@@ -94,6 +94,8 @@ def _agg_frame(n=40,eligible=True):
                             f"{mode}__relative_gain_delta":.1 if eligible else np.nan,
                             f"{mode}__prevalence_radial":.5 if eligible else np.nan,
                             f"{mode}__prevalence_tubular":.6 if eligible else np.nan,
+                            f"{mode}__brier_pooled_radial":.4 if eligible else np.nan,
+                            f"{mode}__brier_pooled_tubular":.2 if eligible else np.nan,
                         })
                     rows.append(row)
     return pd.DataFrame(rows)
@@ -112,6 +114,10 @@ def test_aggregate_preserves_original_population_and_common_source_support():
     assert eligible["n_supported"]==40
     assert eligible["status"]=="DESCRIPTIVE_TRIPLE_DIRECT_MATCHED_SOURCE"
     assert eligible["block__gain_delta"]==pytest.approx(.3)
+    assert eligible["block__normalized_status"]=="SAME_COHORT_BASELINE_RISK_NORMALIZED"
+    assert eligible["block__skill_radial"]==pytest.approx(.5)
+    assert eligible["block__skill_tubular"]==pytest.approx(-.5)
+    assert eligible["block__skill_delta"]==pytest.approx(1.0)
 
 
 def test_unsupported_never_imputed_as_no_effect():
