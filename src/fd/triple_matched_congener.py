@@ -54,6 +54,7 @@ def _empty(n: int, genera: int, target_coverage: float) -> dict:
                        "prevalence_tubular", "pooled_probability_radial",
                        "pooled_probability_tubular", "brier_pooled_radial",
                        "brier_pooled_tubular",
+                       "island_gain_radial","island_gain_tubular",
                        "source_loo_gain_radial","source_loo_gain_tubular",
                        "island_gain_difference","source_loo_gain_difference",
                        "island_excess_over_source_loo"):
