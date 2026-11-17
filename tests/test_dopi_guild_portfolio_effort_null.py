@@ -130,7 +130,9 @@ def test_nonpollination_grade4_and_missing_source_time_not_inferred():
             row["pollination"]="4"
     index=run(rows)
     out=guild_richness_motif_audit(index,motifs=traits(),draws=199)
-    assert single(out)["study_site"]["status"]=="NOT_IDENTIFIABLE_REAL_MULTIGUILD_DOCUMENTATION"
+    # Once grade 4 non-pollinating interactions are removed, focal plants
+    # lack enough comparable observed visitor species: no study controls.
+    assert single(out)["study_site"]["status"]=="NOT_IDENTIFIABLE_INDEPENDENT_PUBLICATIONS"
 
     bad=original_visitors()
     for row in bad:
