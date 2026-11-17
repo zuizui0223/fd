@@ -40,6 +40,7 @@ PRIMARY=(
 )
 MIN_STUDIES=10
 MIN_DIRECT_PLANTS_EACH_GUILD=2
+MIN_POSITIVE_MOTIF_STUDIES_PER_GUILD=3
 
 
 def _s(value)->str:
@@ -130,10 +131,17 @@ def screen_positive_dopi_rows(rows, *,columns:set[str],
 
 
 def _aggregate_studies(values: list[float], *,
-                       seed: str,draws:int)->dict:
+                       seed: str,draws:int,
+                       n_motif_hits_a:int,n_motif_hits_b:int,
+                       n_motif_hits_either:int)->dict:
     v=np.asarray(values,float)
     if len(v)<MIN_STUDIES:
         return {"status":"NOT_IDENTIFIABLE_INDEPENDENT_STUDIES"}
+    # All-zero combinations must NEVER masquerade as a precise zero
+    # preference/syndrome result merely because known trait records exist.
+    if (n_motif_hits_either<MIN_STUDIES or
+        min(n_motif_hits_a,n_motif_hits_b)<MIN_POSITIVE_MOTIF_STUDIES_PER_GUILD):
+        return {"status":"NOT_IDENTIFIABLE_MOTIF_POSITIVE_STUDY_SUPPORT"}
     rng=np.random.default_rng(int.from_bytes(sha256(seed.encode()).digest()[:8],"big"))
     boot=v[rng.integers(len(v),size=(draws,len(v)))].mean(axis=1)
     return dict(status="DESCRIPTIVE_POSITIVE_VISITORS_WITHIN_PUBLICATION",
@@ -158,6 +166,8 @@ def summarize_study_guild_motifs(index:dict, *,motifs:dict,draws:int=999)->dict:
                 positive=set(motif["joint"])
                 values=[]
                 shared_values=[]
+                hits_a=hits_b=hits_either=0
+                shared_hits_a=shared_hits_b=shared_hits_either=0
                 unique_scored_a=set()
                 unique_scored_b=set()
                 n_common_species_studies=0
@@ -166,6 +176,11 @@ def summarize_study_guild_motifs(index:dict, *,motifs:dict,draws:int=999)->dict:
                     b=units[(study,gb,scope)]&known
                     if len(a)<MIN_DIRECT_PLANTS_EACH_GUILD or len(b)<MIN_DIRECT_PLANTS_EACH_GUILD:
                         continue
+                    motif_a=bool(a&positive)
+                    motif_b=bool(b&positive)
+                    hits_a+=int(motif_a)
+                    hits_b+=int(motif_b)
+                    hits_either+=int(motif_a or motif_b)
                     values.append(len(a&positive)/len(a)-len(b&positive)/len(b))
                     unique_scored_a|=a
                     unique_scored_b|=b
@@ -177,6 +192,11 @@ def summarize_study_guild_motifs(index:dict, *,motifs:dict,draws:int=999)->dict:
                         aa={x for x in a if botanical_genus(x) in shared_genera}
                         bb={x for x in b if botanical_genus(x) in shared_genera}
                         if len(aa)>=2 and len(bb)>=2:
+                            smotif_a=bool(aa&positive)
+                            smotif_b=bool(bb&positive)
+                            shared_hits_a+=int(smotif_a)
+                            shared_hits_b+=int(smotif_b)
+                            shared_hits_either+=int(smotif_a or smotif_b)
                             shared_values.append(
                                 len(aa&positive)/len(aa)-len(bb&positive)/len(bb)
                             )
@@ -188,11 +208,21 @@ def summarize_study_guild_motifs(index:dict, *,motifs:dict,draws:int=999)->dict:
                           n_publications_with_any_shared_accepted_plant=n_common_species_studies,
                           n_distinct_trait_scored_positive_plants_guild_a=len(unique_scored_a),
                           n_distinct_trait_scored_positive_plants_guild_b=len(unique_scored_b),
-                          n_shared_genus_conditioned_publications=len(shared_values))
+                          n_shared_genus_conditioned_publications=len(shared_values),
+                          n_studies_with_positive_motif_guild_a=hits_a,
+                          n_studies_with_positive_motif_guild_b=hits_b,
+                          n_studies_with_positive_motif_either=hits_either,
+                          n_shared_genus_studies_with_motif_guild_a=shared_hits_a,
+                          n_shared_genus_studies_with_motif_guild_b=shared_hits_b,
+                          n_shared_genus_studies_with_motif_either=shared_hits_either)
                 cell["all_study"]= _aggregate_studies(values,
-                    seed=f"{scope}|{ga}|{gb}|{motif_name}|all",draws=draws)
+                    seed=f"{scope}|{ga}|{gb}|{motif_name}|all",draws=draws,
+                    n_motif_hits_a=hits_a,n_motif_hits_b=hits_b,
+                    n_motif_hits_either=hits_either)
                 cell["shared_genus_study"]= _aggregate_studies(shared_values,
-                    seed=f"{scope}|{ga}|{gb}|{motif_name}|genus",draws=draws)
+                    seed=f"{scope}|{ga}|{gb}|{motif_name}|genus",draws=draws,
+                    n_motif_hits_a=shared_hits_a,n_motif_hits_b=shared_hits_b,
+                    n_motif_hits_either=shared_hits_either)
                 panels.append(cell)
     return dict(status="EXTERNAL_DOPI_V2_GIFT_REAL_MOTIF_WITHIN_PUBLICATION_GUILD_SCREEN",
                 n_original_GIFT_botanical_islands=4505,
@@ -220,6 +250,8 @@ def summarize_study_guild_motifs(index:dict, *,motifs:dict,draws:int=999)->dict:
                     source_publications_not_proven_independent_of_GloBI=True,
                     same_study_positive_guilds_not_preference_or_fitness=True,
                     genus_conditioning_requires_two_shared_documented_genera=True,
+                    minimum_positive_motif_source_studies_enforced=True,
+                    all_zero_motif_per_guild_not_reported_as_no_association=True,
                     no_named_bird_pollination_calibration_from_European_DoPI=True,
                     no_syndrome_label_created_from_plant_morphology=True,
                     no_exact_accepted_plant_name_or_study_identity_exported=True))
