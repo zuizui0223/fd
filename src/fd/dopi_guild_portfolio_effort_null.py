@@ -17,6 +17,7 @@ from __future__ import annotations
 from collections import Counter,defaultdict
 from hashlib import sha256
 import math
+import re
 import numpy as np
 
 from .dopi_site_period_guild import _site, _time
@@ -28,6 +29,17 @@ MIN_VISITOR_TAXA_PER_PLANT=2
 MIN_POSITIVE_AND_NEGATIVE_PER_SITE=2
 MIN_STUDIES=10
 MIN_INFORMATIVE_MULTIGUILD_STUDIES=10
+_BINOMIAL=re.compile(r"^([A-Z][A-Za-z-]+)\\s+([a-z][a-z-]+)(?=\\s|[.,;()]|$)")
+_UNRESOLVED_EPITHETS=frozenset({"sp","spp","cf","aff","indet","unknown","nr"})
+
+
+def accepted_visitor_binomial(raw:str)->str|None:
+    """Keep only real binomial visitor IDs, never inflate 'Bombus sp' breadth."""
+    q=str(raw or "").strip().replace("_"," ")
+    m=_BINOMIAL.match(q)
+    if not m or m.group(2) in _UNRESOLVED_EPITHETS:
+        return None
+    return (m.group(1)+" "+m.group(2)).casefold()
 
 
 def expected_positive_guild_richness(n:int,counts:dict[str,int])->float:
@@ -86,8 +98,8 @@ def positive_visitor_effort_index(rows,*,fields:set[str],
         if grade not in ("1","2","3"):
             continue
         animal=_s(row.get("pollinator_species"))
-        words=animal.split()
-        if len(words)<2 or not words[0][0:1].isalpha() or not words[1][0:1].isalpha():
+        accepted=accepted_visitor_binomial(animal)
+        if accepted is None:
             counters["original_visitor_taxon_not_resolved_to_species"]+=1
             continue
         guild=visitor_classifier(row.get("pollinator_order"),
@@ -95,7 +107,7 @@ def positive_visitor_effort_index(rows,*,fields:set[str],
         if guild not in GUILDS:
             continue
         study_key=(study,site,when[0],when[1])
-        edges[study_key].add((plant,animal.casefold(),guild))
+        edges[study_key].add((plant,accepted,guild))
         counters["original_evidence_qualified_source_rows"]+=1
     return dict(private_positive_edges=edges,
                 n_original_source_studies_qualified=len({k[0] for k in edges}),
