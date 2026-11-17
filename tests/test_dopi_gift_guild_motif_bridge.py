@@ -120,3 +120,23 @@ def test_publication_bootstrap_support_not_interaction_row_pseudoreplication():
        x["evidence_scope"]=="positive_visitor_or_pollen_123")
     assert p["n_within_publication_trait_scored_contrasts"]==1
     assert p["all_study"]["status"]=="NOT_IDENTIFIABLE_INDEPENDENT_STUDIES"
+
+
+
+def test_genuinely_unseen_flower_motif_cannot_look_like_precise_null():
+    rows=source_rows()
+    motif={"white_radial_tubular_deep":{
+        "known":{"Alpha a","Alpha b","Beta a","Beta b"},
+        "joint":set(),
+    }}
+    idx=screen_positive_dopi_rows(rows,columns=set(rows[0]),
+        island_plant_names={"Alpha a","Alpha b","Beta a","Beta b"},
+        motifs=motif,visitor_classifier=fake_guild)
+    out=summarize_study_guild_motifs(idx,motifs=motif,draws=199)
+    q=next(p for p in out["panels"] if p["guild_a"]=="butterfly_family"
+        and p["guild_b"]=="Bombus" and
+        p["evidence_scope"]=="positive_visitor_or_pollen_123")
+    assert q["n_within_publication_trait_scored_contrasts"]==12
+    assert q["n_studies_with_positive_motif_either"]==0
+    assert q["all_study"]["status"]=="NOT_IDENTIFIABLE_MOTIF_POSITIVE_STUDY_SUPPORT"
+    assert "mean_guildA_minus_guildB" not in q["all_study"]
