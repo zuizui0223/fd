@@ -152,7 +152,7 @@ def test_true_visitor_species_not_bombus_sp_unresolved_or_author_variants():
     rows=original_visitors()
     row=dict(rows[0]);row["pollinator_species"]="Bombus sp."
     rows.append(row)
-    row2=dict(rows[1]);row2["pollinator_species"]="Bombus terrestris (Linnaeus)"
+    row2=dict(rows[0]);row2["pollinator_species"]="Bombus terrestris (Linnaeus)"
     rows.append(row2)
     idx=run(rows)
     assert idx["source_row_counts"]["original_visitor_taxon_not_resolved_to_species"]==1
