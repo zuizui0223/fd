@@ -58,7 +58,7 @@ def source_metadata(record:dict)->dict:
     files=record.get("files",[])
     matches=[f for f in files if
              str(f.get("key","")).lower() in {
-                 "dopi_dataset.csv","dopi_dataset.csv.gz","dopi_dataset.zip"}]
+                 "dopi_dataset_2.0.csv","dopi_dataset_2.0.csv.gz","dopi_dataset.csv","dopi_dataset.csv.gz","dopi_dataset.zip"}]
     if len(matches)!=1:
         names=sorted(str(f.get("key","")) for f in files)
         raise ValueError("expected single original DoPI_dataset release file; actual public file names: "+repr(names))
