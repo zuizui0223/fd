@@ -111,8 +111,9 @@ def audit_positive_visitor_rows(rows, *,fields:set[str])->dict:
         sample_effort[(_norm(row.get("pollinator_survey")).lower(),
                        _norm(row.get("plant_survey")).lower())]+=1
         methods[_norm(row.get("methodology")).lower()]+=1
-        if 1800<=int(row.get("year") or 0)<=2100:
-            years.add(int(row["year"]))
+        y=_norm(row.get("year"))
+        if y.isdecimal() and 1800<=int(y)<=2100:
+            years.add(int(y))
     return dict(
         n_original_raw_records=int(counts["raw_rows"]),
         n_positive_taxon_study_rows=int(counts["positive_taxon_study_rows"]),
