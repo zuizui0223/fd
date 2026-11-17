@@ -11,7 +11,9 @@ def cohort(n=40):
         "trait_provider":[f"P{i%2}" for i in range(n)],
         "n_target":[10]*n,"n_positive":[8]*n,
         "p_baseline":[.2]*n,"p_genus":[.7]*n,
-        "p_guild":[.8]*n,"guild_supported":[True]*n})
+        "p_guild":[.8]*n,"guild_supported":[True]*n,
+        "target_species_heldout":[True]*n,"archipelago_heldout":[True]*n,
+        "source_provider_heldout":[True]*n})
 
 def test_exact_brier_and_grouped_cv():
     z=evaluate(cohort(),draws=299)
@@ -38,5 +40,11 @@ def test_invalid_inputs(col,val):
 
 def test_duplicate_islands():
     d=cohort();d.loc[1,"island_id"]=d.loc[0,"island_id"]
+    with pytest.raises(ValueError):
+        evaluate(d,draws=299)
+
+@pytest.mark.parametrize("flag",["target_species_heldout","archipelago_heldout","source_provider_heldout"])
+def test_unproven_out_of_fold_is_rejected(flag):
+    d=cohort();d.loc[0,flag]=False
     with pytest.raises(ValueError):
         evaluate(d,draws=299)
