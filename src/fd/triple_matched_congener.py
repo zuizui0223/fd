@@ -189,7 +189,8 @@ def aggregate_triple(frame: pd.DataFrame, *, population: int=4505,
                    f"{mode}__donor_direct_coverage"}
         for col in ("gain_radial","gain_tubular","gain_delta",
                     "relative_gain_delta","prevalence_radial",
-                    "prevalence_tubular"):
+                    "prevalence_tubular","brier_pooled_radial",
+                    "brier_pooled_tubular"):
             needed.add(f"{mode}__{col}")
     if missing := needed-set(frame):
         raise ValueError(f"missing true triple-source fields: {sorted(missing)}")
@@ -239,7 +240,9 @@ def aggregate_triple(frame: pd.DataFrame, *, population: int=4505,
                                       f"{mode}__gain_tubular",
                                       f"{mode}__gain_delta",
                                       f"{mode}__prevalence_radial",
-                                      f"{mode}__prevalence_tubular"]
+                                      f"{mode}__prevalence_tubular",
+                                      f"{mode}__brier_pooled_radial",
+                                      f"{mode}__brier_pooled_tubular"]
                             blocks = x.groupby("spatial_block",sort=True)[fields].mean()
                             sources = x.groupby("source_signature",sort=True)[fields].mean()
                             item = dict(
@@ -282,6 +285,33 @@ def aggregate_triple(frame: pd.DataFrame, *, population: int=4505,
                                             float(v) for v in np.quantile(
                                                 bootstrap[:,j],[.025,.975])
                                         ]
+                                    # Relative Brier gain: divide both gains by
+                                    # their OWN baseline risk. This is computed
+                                    # after equal-block averaging, not by
+                                    # selectively dropping zero-loss islands.
+                                    if vals[5]<=0 or vals[6]<=0:
+                                        item[f"{unit}__normalized_status"]=(
+                                            "NOT_IDENTIFIABLE_ZERO_BASELINE_RISK")
+                                    else:
+                                        skill_r=vals[0]/vals[5]
+                                        skill_t=vals[1]/vals[6]
+                                        valid=(bootstrap[:,5]>0)&(bootstrap[:,6]>0)
+                                        item[f"{unit}__n_normalized_bootstrap_valid"]=int(valid.sum())
+                                        if valid.sum()<int(draws*.99):
+                                            item[f"{unit}__normalized_status"]=(
+                                                "NOT_IDENTIFIABLE_BOOTSTRAP_ZERO_BASELINE")
+                                        else:
+                                            norm_r=bootstrap[valid,0]/bootstrap[valid,5]
+                                            norm_t=bootstrap[valid,1]/bootstrap[valid,6]
+                                            item[f"{unit}__skill_radial"]=float(skill_r)
+                                            item[f"{unit}__skill_tubular"]=float(skill_t)
+                                            item[f"{unit}__skill_delta"]=float(skill_r-skill_t)
+                                            item[f"{unit}__skill_delta_ci95"]=[
+                                                float(v) for v in np.quantile(
+                                                    norm_r-norm_t,[.025,.975])
+                                            ]
+                                            item[f"{unit}__normalized_status"]=(
+                                                "SAME_COHORT_BASELINE_RISK_NORMALIZED")
                             results.append(item)
     return {
         "status":"ORIGINAL_ISLAND_SAME_SPECIES_THREE_DIRECT_TRAIT_SENSITIVITY",
