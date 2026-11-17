@@ -184,7 +184,7 @@ def summarize_positive_coaccess(index:dict,*,motifs:dict,
         n_original_DoPI_records=index["source_scan_counts"].get(
             "n_original_source_rows",0),
         n_original_positive_site_guild_units=index[
-            "n_original_positive_site_guild_units"],
+            "n_original_site_guild_positive_units"],
         n_original_source_publications_with_site_and_time=index[
             "n_original_source_publication_keys"],
         n_original_motifs=len(motifs),
