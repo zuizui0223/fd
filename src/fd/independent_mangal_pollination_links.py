@@ -108,6 +108,16 @@ def extract_mangal_positive_plant_links(
         family=other.get("family",family)
         order=other.get("order",order)
         guild=visitor_guild(order,family)
+        gbif_key=partner_taxonomy.get("gbif")
+        if gbif_key is not None and str(gbif_key).strip():
+            try:
+                gbif_key=int(gbif_key)
+            except (TypeError,ValueError):
+                gbif_key=None
+            if gbif_key is not None and gbif_key<=0:
+                gbif_key=None
+        else:
+            gbif_key=None
         records.append(dict(
             plant=names[p],
             guild=guild,
@@ -116,11 +126,17 @@ def extract_mangal_positive_plant_links(
             interaction_type=k,
             original_partner_rank=rank,
             original_method=str(t.get("method") or ""),
+            original_partner_gbif_key=gbif_key,
+            original_partner_scientific_name=str(
+                partner_taxonomy.get("name") or
+                other.get("original_name") or ""
+            ),
         ))
         possible_edges+=1
     table=pd.DataFrame(records,columns=[
         "plant","guild","network_id","interaction_id",
         "interaction_type","original_partner_rank","original_method",
+        "original_partner_gbif_key","original_partner_scientific_name",
     ])
     if len(table) and table.interaction_id.duplicated().any():
         # Distinct positive source interactions are uniquely identified.
@@ -133,6 +149,12 @@ def extract_mangal_positive_plant_links(
         n_original_interactions_with_unresolved_endpoints_or_strength=int(unknown_nodes),
         n_partner_taxonomy_classified_to_family_or_order=int(
             table.guild.ne("unresolved_visitor_taxonomy").sum()
+        ),
+        n_original_positive_animal_links_with_GBIF_key=int(
+            table.original_partner_gbif_key.notna().sum()
+        ),
+        n_distinct_original_partner_GBIF_keys=int(
+            table.original_partner_gbif_key.dropna().nunique()
         ),
         negative_or_zero_mangal_strength_not_a_positive_visit=True,
         source_interaction_type_not_effective_pollination=True,
