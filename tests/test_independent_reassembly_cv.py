@@ -21,7 +21,7 @@ def test_exact_brier_and_grouped_cv():
     assert z["guild_subset"]["gain_guild"]==pytest.approx(.01)
 
 def test_guild_nondetection_not_zero_effect():
-    d=cohort();d["guild_supported"]=False
+    d=cohort();d["guild_supported"]=False;d["p_guild"]=float("nan")
     z=evaluate(d,draws=299)
     assert z["guild_subset"]["status"]=="NOT_IDENTIFIABLE_INDEPENDENT_SUPPORT"
     assert "gain_guild" not in z["guild_subset"]
@@ -48,3 +48,16 @@ def test_unproven_out_of_fold_is_rejected(flag):
     d=cohort();d.loc[0,flag]=False
     with pytest.raises(ValueError):
         evaluate(d,draws=299)
+
+def test_unsupported_guild_predictions_fail_closed():
+    d=cohort();d["guild_supported"]=False
+    with pytest.raises(ValueError):
+        evaluate(d,draws=299)
+
+def test_partly_supported_guild_no_fabricated_absences():
+    d=cohort()
+    d.loc[0:19,"guild_supported"]=False
+    d.loc[0:19,"p_guild"]=float("nan")
+    z=evaluate(d,draws=299)
+    assert z["source_genus"]["status"]=="DESCRIPTIVE_HELDOUT_PREDICTIVE_COMPARISON"
+    assert z["guild_subset"]["status"]=="NOT_IDENTIFIABLE_INDEPENDENT_SUPPORT"
