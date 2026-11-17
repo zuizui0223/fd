@@ -172,7 +172,8 @@ def triple_matched_island(
                         row[f"{mode}__gain_radial"] -
                         row[f"{mode}__gain_tubular"]
                     )
-                    if threshold >= 2:
+                    if (threshold >= 2 and len(observed_genera) >= 2
+                            and len(matched_source) >= 10):
                         source_placebo = heldout_source_placebo(
                             targets=targets,
                             donors_by_genus={
