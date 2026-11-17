@@ -78,6 +78,20 @@ def _norm(value):
     return str(value or "").strip()
 
 
+POLLINATION_GRADES={
+    "1":"confirmed_pollen_transfer_or_seed_set",
+    "2":"pollen_carriage_inferred",
+    "3":"flower_visit_only_unconfirmed_pollen",
+    "4":"robbery_herbivory_predation_or_nonpollinating",
+}
+def pollination_evidence_grade(value):
+    """DoPI stated four-level observation quality, never infer true guild absence."""
+    raw=_norm(value)
+    if raw in POLLINATION_GRADES:
+        return POLLINATION_GRADES[raw]
+    return "missing_or_unrecognized_evidence_grade"
+
+
 def audit_positive_visitor_rows(rows, *,fields:set[str])->dict:
     minimum={"plant_species","pollinator_species",
              "pollinator_family","pollinator_order"}
@@ -87,6 +101,9 @@ def audit_positive_visitor_rows(rows, *,fields:set[str])->dict:
     if not pubs:
         raise ValueError("DoPI independent original-study identity absent")
     by_guild=Counter()
+    by_guild_grade=Counter()
+    grade_raw=Counter()
+    study_plant_guild_grades=defaultdict(set)
     by_pub=defaultdict(set)
     by_plant=defaultdict(set)
     by_plant_pub_guild=defaultdict(set)
@@ -104,8 +121,12 @@ def audit_positive_visitor_rows(rows, *,fields:set[str])->dict:
             continue
         guild=identify_visitor_group(row.get("pollinator_order"),
                                      row.get("pollinator_family"),animal)
+        grade=pollination_evidence_grade(row.get("pollination"))
         counts["positive_taxon_study_rows"]+=1
         by_guild[guild]+=1
+        by_guild_grade[(guild,grade)]+=1
+        grade_raw[_norm(row.get("pollination"))]+=1
+        study_plant_guild_grades[(source,plant,guild)].add(grade)
         by_pub[guild].add(source)
         by_plant[guild].add(plant)
         by_plant_pub_guild[guild].add((source,plant))
@@ -123,6 +144,25 @@ def audit_positive_visitor_rows(rows, *,fields:set[str])->dict:
         n_plants_by_positive_guild={g:len(by_plant[g]) for g in sorted(by_plant)},
         n_study_plant_positive_units={g:len(by_plant_pub_guild[g]) for g in sorted(by_plant_pub_guild)},
         n_rows_by_positive_guild=dict(sorted(by_guild.items())),
+        n_rows_by_guild_and_pollination_evidence=[
+            dict(guild=g,evidence_grade=grade,n_records=int(count))
+            for (g,grade),count in sorted(by_guild_grade.items())
+        ],
+        n_original_pollination_raw_code_counts=dict(sorted(grade_raw.items())),
+        n_study_plant_guild_units_by_best_documented_evidence=dict(
+            sorted(Counter(
+                ("confirmed_pollen_transfer_or_seed_set" if
+                   "confirmed_pollen_transfer_or_seed_set" in grades else
+                 "pollen_carriage_inferred" if
+                   "pollen_carriage_inferred" in grades else
+                 "flower_visit_only_unconfirmed_pollen" if
+                   "flower_visit_only_unconfirmed_pollen" in grades else
+                 "robbery_herbivory_predation_or_nonpollinating" if
+                   "robbery_herbivory_predation_or_nonpollinating" in grades else
+                 "missing_or_unrecognized_evidence_grade")
+                for grades in study_plant_guild_grades.values()
+            ).items())
+        ),
         n_original_survey_scope_codes=len(sample_effort),
         top_survey_scope_labels=[[list(k),v] for k,v in sample_effort.most_common(12)],
         top_methods=[[k,v] for k,v in methods.most_common(12)],
@@ -132,7 +172,10 @@ def audit_positive_visitor_rows(rows, *,fields:set[str])->dict:
                    distinct_studies_not_proven_independent_of_GloBI=True,
                    visit_records_not_effective_pollination=True,
                    Europe_scope_not_global_tropical_bird_calibration=True,
-                   do_not_use_study_plant_guild_positive_as_negative_labels=True))
+                   do_not_use_study_plant_guild_positive_as_negative_labels=True,
+                   pollination_grades_direct_evidence_not_effect_size=True,
+                   category_4_not_a_pollination_event=True,
+                   no_grade_imputation_and_no_negative_guild_inference=True))
 
 
 def _get_json(url:str)->dict:
