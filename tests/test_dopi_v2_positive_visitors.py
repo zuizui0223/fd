@@ -77,3 +77,34 @@ def test_missing_plant_or_pub_fields_fail_closed():
     with pytest.raises(ValueError,match="study"):
         audit_positive_visitor_rows([],fields={
             "plant_species","pollinator_species","pollinator_family","pollinator_order"})
+
+def test_pollination_evidence_grades_and_source_study_deduplication():
+    from audit_dopi_v2_positive_visitors import pollination_evidence_grade
+    assert pollination_evidence_grade("1")=="confirmed_pollen_transfer_or_seed_set"
+    assert pollination_evidence_grade("2")=="pollen_carriage_inferred"
+    assert pollination_evidence_grade("3")=="flower_visit_only_unconfirmed_pollen"
+    assert pollination_evidence_grade("4")=="robbery_herbivory_predation_or_nonpollinating"
+    assert pollination_evidence_grade("unknown")=="missing_or_unrecognized_evidence_grade"
+    rows=[]
+    for study,plant,animal,fam,order,grade in [
+        ("ref1","Plant a","Bombus terrestris","Apidae","Hymenoptera","1"),
+        ("ref1","Plant a","Bombus terrestris","Apidae","Hymenoptera","3"),
+        ("ref2","Plant b","Bombus lucorum","Apidae","Hymenoptera","2"),
+        ("ref2","Plant c","Apis mellifera","Apidae","Hymenoptera","4"),
+        ("ref3","Plant d","Vanessa atalanta","Nymphalidae","Lepidoptera","3"),
+        ("ref3","Plant e","Macroglossum stellatarum","Sphingidae","Lepidoptera",""),
+    ]:
+        rows.append(dict(doi=study,publication=study,plant_species=plant,
+                         pollinator_species=animal,pollinator_family=fam,
+                         pollinator_order=order,pollination=grade))
+    from audit_dopi_v2_positive_visitors import audit_positive_visitor_rows
+    z=audit_positive_visitor_rows(rows,fields=set(rows[0]))
+    gr=z["n_study_plant_guild_units_by_best_documented_evidence"]
+    assert gr["confirmed_pollen_transfer_or_seed_set"]==1
+    assert gr["pollen_carriage_inferred"]==1
+    assert gr["flower_visit_only_unconfirmed_pollen"]==1
+    assert gr["robbery_herbivory_predation_or_nonpollinating"]==1
+    assert gr["missing_or_unrecognized_evidence_grade"]==1
+    assert z["n_original_pollination_raw_code_counts"]["1"]==1
+    assert z["n_original_pollination_raw_code_counts"]["3"]==2
+    assert z["flags"]["category_4_not_a_pollination_event"]
