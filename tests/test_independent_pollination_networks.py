@@ -111,9 +111,9 @@ def test_real_network_plant_guild_audit_preserves_full_original_population():
     }
     flora=pd.DataFrame([
         dict(island_id="strict_geo_original",accepted_species="Impatiens balsamina",
-             origin_status="native"),
+             origin_status="native",endemic_status="endemic"),
         dict(island_id="strict_geo_original",accepted_species="Camellia japonica",
-             origin_status="unresolved"),
+             origin_status="unresolved",endemic_status="unresolved"),
     ])
     edges=pd.DataFrame([
         dict(network_id="M_PL_044",island_id="strict_geo_original",
@@ -136,11 +136,16 @@ def test_real_network_plant_guild_audit_preserves_full_original_population():
            and z["verified_real_joint_morphology"]=="actinomorphic_deep"
            and z["source_network_visitor_taxonomy"]=="bird_family_supported")
     assert b["n_plant_guild_network_documented_units"]==0
+    endemic=next(z for z in q["cells"] if
+        z["botanical_scope"]=="endemic_label" and
+        z["verified_real_joint_morphology"]=="zygomorphic_deep" and
+        z["source_network_visitor_taxonomy"]=="bees_family_supported")
+    assert endemic["n_plant_guild_network_documented_units"]==1
 
 
 def test_no_flora_genus_imputation_or_fabricated_island_link():
     flora=pd.DataFrame([dict(island_id="island1",accepted_species="Impatiens balsamina",
-                             origin_status="unresolved")])
+                             origin_status="unresolved",endemic_status="unresolved")])
     with pytest.raises(ValueError,match="frame reduced"):
         source_bounded_site_plant_audit(
             pd.DataFrame(columns=["network_id","island_id","plant","guild"]),
