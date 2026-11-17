@@ -20,7 +20,7 @@ def test_morphology_never_infers_effective_bird_butterfly_pollination():
 def metadata():
     return {"metadata":{"title":"DoPI The Database of Pollinator Interactions",
                         "doi":DOI,"version":"2.0"},
-            "files":[{"key":"DoPI_dataset.csv","size":1000,
+            "files":[{"key":"DoPI_dataset_2.0.csv","size":1000,
                       "checksum":"md5:xxxx",
                       "links":{"self":"https://zenodo.org/api/records/22876365/files/DoPI_dataset.csv/content"}}]}
 
@@ -28,7 +28,7 @@ def metadata():
 def test_metadata_is_version_qualified_and_exact_download():
     q=source_metadata(metadata())
     assert q["doi"]==DOI
-    assert q["dataset_file"]=="DoPI_dataset.csv"
+    assert q["dataset_file"]=="DoPI_dataset_2.0.csv"
     assert q["version"]=="2.0"
 
 
