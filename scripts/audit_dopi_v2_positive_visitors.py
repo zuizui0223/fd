@@ -60,7 +60,8 @@ def source_metadata(record:dict)->dict:
              str(f.get("key","")).lower() in {
                  "dopi_dataset.csv","dopi_dataset.csv.gz","dopi_dataset.zip"}]
     if len(matches)!=1:
-        raise ValueError("expected single original DoPI_dataset original public release file")
+        names=sorted(str(f.get("key","")) for f in files)
+        raise ValueError("expected single original DoPI_dataset release file; actual public file names: "+repr(names))
     f=matches[0]
     url=f.get("links",{}).get("self")
     if not isinstance(url,str) or not url.startswith("https://"):
