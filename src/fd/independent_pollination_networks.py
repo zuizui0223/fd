@@ -233,13 +233,13 @@ def source_bounded_site_plant_audit(
     req={"network_id","island_id","plant","guild"}
     if not req <= set(eligible_network_edges):
         raise ValueError("network polygon/name matched edge fields missing")
-    if not {"island_id","accepted_species","origin_status"}<=set(original_flora):
+    if not {"island_id","accepted_species","origin_status","endemic_status"}<=set(original_flora):
         raise ValueError("original GIFT flora native status missing")
     if original_flora.duplicated(["island_id","accepted_species"]).any():
         raise ValueError("original GIFT accepted flora duplicated")
     names=original_flora.rename(columns={"accepted_species":"plant"})
     merged=eligible_network_edges.merge(
-        names[["island_id","plant","origin_status"]],
+        names[["island_id","plant","origin_status","endemic_status"]],
         on=["island_id","plant"],how="inner",validate="many_to_one"
     ).drop_duplicates(["network_id","island_id","plant","guild"])
     if not merged.empty:
@@ -253,7 +253,7 @@ def source_bounded_site_plant_audit(
     for scope in ("all_recorded","native_label","endemic_label","origin_unresolved"):
         if scope=="all_recorded":sub=merged
         elif scope=="native_label":sub=merged.loc[merged.origin_status.eq("native")]
-        elif scope=="endemic_label":sub=merged.loc[merged.origin_status.eq("endemic")]
+        elif scope=="endemic_label":sub=merged.loc[merged.origin_status.eq("native") & merged.endemic_status.eq("endemic")]
         else:sub=merged.loc[merged.origin_status.eq("unresolved")]
         for shape in MORPHOLOGY:
             for guild in GUILDS:
