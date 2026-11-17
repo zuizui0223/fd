@@ -1,4 +1,7 @@
 import pytest
+import sys
+from pathlib import Path
+sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'scripts'))
 from audit_dopi_v2_positive_visitors import (
     audit_positive_visitor_rows,identify_visitor_group,source_metadata,DOI
 )
