@@ -8,7 +8,7 @@ source botanical records are not an independent field-phenotype provider.
 """
 from __future__ import annotations
 
-from collections import defaultdict
+from collections import Counter, defaultdict
 from hashlib import sha256
 
 import numpy as np
@@ -82,6 +82,10 @@ def triple_matched_island(
         raise AssertionError("true directly recorded tube-depth states disagree")
     known_deep = triple & set(radial["B"])
     source_all = {"geo5": set(geo5_source), "climate10": set(climate10_source)}
+    # Cache original source genus opportunities ONCE, not 24 full-source
+    # scans per island across status/gate/depth/endpoint sensitivity.
+    source_genus_counts = {m: Counter(map(genus,v)) for m,v in source_all.items()}
+    source_triple_counts = {m: Counter(map(genus,v & triple)) for m,v in source_all.items()}
     donor_by_stratum = {}
     for stratum in STRATA:
         scored = triple if stratum == "triple_direct" else known_deep
@@ -90,6 +94,8 @@ def triple_matched_island(
             mode: _donor_genera(donors[mode]) for mode in MODES
         })
 
+    scope_genus_counts = {s: Counter(map(genus,roster)) for s,roster in scope_rosters.items()}
+    scope_triple_counts = {s: Counter(map(genus,roster & triple)) for s,roster in scope_rosters.items()}
     rows = []
     for scope in SCOPES:
         roster = scope_rosters[scope]
@@ -109,10 +115,8 @@ def triple_matched_island(
                 observed_genera = {genus(sp) for sp in targets}
                 # Counts of accepted plant names in matched genera, whether
                 # or not their THREE traits were directly documented.
-                target_total = sum(genus(sp) in observed_genera for sp in roster)
-                direct_total = sum(
-                    genus(sp) in observed_genera for sp in (roster & triple)
-                )
+                target_total = sum(scope_genus_counts[scope][g] for g in observed_genera)
+                direct_total = sum(scope_triple_counts[scope][g] for g in observed_genera)
                 target_coverage = (
                     direct_total / target_total if target_total else np.nan
                 )
@@ -123,7 +127,6 @@ def triple_matched_island(
                     rows.append(row)
                     continue
 
-                counts = {g: targets.count(g) for g in ()}  # no dependence on order
                 target_by_g = defaultdict(list)
                 for sp in targets:
                     target_by_g[genus(sp)].append(sp)
@@ -132,13 +135,8 @@ def triple_matched_island(
                     matched_source = set().union(
                         *(source_by_g[g] for g in observed_genera)
                     )
-                    source_unscored = sum(
-                        genus(sp) in observed_genera for sp in source_all[mode]
-                    )
-                    source_direct = sum(
-                        genus(sp) in observed_genera
-                        for sp in (source_all[mode] & triple)
-                    )
+                    source_unscored = sum(source_genus_counts[mode][g] for g in observed_genera)
+                    source_direct = sum(source_triple_counts[mode][g] for g in observed_genera)
                     row[f"{mode}__n_donor"] = len(matched_source)
                     row[f"{mode}__donor_direct_coverage"] = (
                         source_direct/source_unscored if source_unscored else np.nan
