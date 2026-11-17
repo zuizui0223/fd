@@ -125,3 +125,28 @@ def test_unsupported_never_imputed_as_no_effect():
     assert all(x["status"]=="NOT_IDENTIFIABLE_TRIPLE_DIRECT_SUPPORT"
                for x in z["panels"])
     assert all("block__gain_delta" not in x for x in z["panels"])
+
+
+def test_source_loo_negative_control_is_scored_only_when_donors_sufficient():
+    d=fixture()
+    new_donors={"Alpha e","Alpha f","Alpha g",
+                "Beta e","Beta f","Beta g"}
+    d["geo5_source"]=set(d["geo5_source"]) | new_donors
+    d["climate10_source"]=set(d["climate10_source"]) | new_donors
+    for prof in d["profiles"].values():
+        prof["known"] = set(prof["known"]) | new_donors
+        prof["B"] = set(prof["B"]) | new_donors
+        prof["A"] = set(prof["A"]) | {"Alpha e","Alpha f","Beta e"}
+        prof["joint"] = set(prof["A"]) & set(prof["B"])
+    z=triple_matched_island(**d)
+    q=next(x for x in z if x["scope"]=="all_recorded"
+           and x["donor_gate"]=="at_least_two_congeners"
+           and x["stratum"]=="triple_direct")
+    assert q["geo5__n_donor"]==10
+    assert np.isfinite(q["geo5__island_excess_over_source_loo"])
+    assert np.isfinite(q["climate10__source_loo_gain_difference"])
+    inadequate=triple_matched_island(**fixture())
+    q0=next(x for x in inadequate if x["scope"]=="all_recorded"
+            and x["donor_gate"]=="at_least_two_congeners"
+            and x["stratum"]=="triple_direct")
+    assert np.isnan(q0["geo5__island_excess_over_source_loo"])
