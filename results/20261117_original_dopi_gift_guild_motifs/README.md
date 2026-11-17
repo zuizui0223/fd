@@ -1,6 +1,8 @@
 # DoPI v2 × original GIFT 4,505-island flower traits: real visitor-guild validation (2026-11-17)
 
-**Status: original source-protected empirical European visitor evidence, not observed visits ON original GIFT islands and not a causal pollinator shift.** Retain fd PR #16 DRAFT. Initial 12 strict same-accepted-plant 3/4-trait diagnostic is complete. Wider partial 1/2-axis follow-up is separately in progress.
+**Completed expansion:** [27 original true 1–4-axis morphology × DoPI v2 study-guild validation](MULTIRESOLUTION_GUILD_VALIDATION.md) is now source-run SUCCESS [#44082152065](https://github.com/zuizui0223/island/actions/runs/44082152065). The current file documents only the earlier strict 12-profile gate; do not mistake it for the final broader trait-supported external validation.
+
+**Status: original source-protected empirical European visitor evidence, not observed visits ON original GIFT islands and not a causal pollinator shift.** Retain fd PR #16 DRAFT. Initial 12 strict same-accepted-plant 3/4-trait diagnostic is complete. Wider partial 1/2-axis source follow-up is completed and linked above.
 
 ## Original provenance and support
 
