@@ -163,6 +163,8 @@ def make_island_motif_rows(*,island_id:str,region:str,spatial_block:str|None,
         raise ValueError("island native status outside botanical flora")
     if any(set(sources[k])&full for k in MODES):
         raise ValueError("source donor plant is on original focal island flora")
+    source_genus_full={mode:Counter(map(_genus,sources[mode])) for mode in MODES}
+    scope_genus_full={scope:Counter(map(_genus,scope_rosters[scope])) for scope in SCOPES}
     rows=[]
     for name,motif in motifs.items():
         src={mode:_stat(sources[mode],motif) for mode in MODES}
@@ -170,6 +172,7 @@ def make_island_motif_rows(*,island_id:str,region:str,spatial_block:str|None,
         for scope in SCOPES:
             roster=scope_rosters[scope]
             island=_stat(roster,motif)
+            island_direct_genera=Counter(map(_genus,roster & motif["known"]))
             item=dict(island_id=island_id,region=region,scope=scope,motif=name,
                       spatial_block=spatial_block,first_source=first_source,
                       n_axes=motif["n_axes"],
@@ -180,10 +183,21 @@ def make_island_motif_rows(*,island_id:str,region:str,spatial_block:str|None,
                       island_coupling=island["coupling"])
             for mode in MODES:
                 s=src[mode]
+                shared_annotated_genera=(
+                    set(island_direct_genera) & set(source_cache[mode]["counts"])
+                )
+                num_island=sum(island_direct_genera[g] for g in shared_annotated_genera)
+                num_source=sum(source_cache[mode]["counts"][g] for g in shared_annotated_genera)
+                den_island=sum(scope_genus_full[scope][g] for g in shared_annotated_genera)
+                den_source=sum(source_genus_full[mode][g] for g in shared_annotated_genera)
+                doc_gap=(abs(num_island/den_island-num_source/den_source)
+                         if den_island and den_source else np.nan)
                 item.update({mode+"__n_source_total":len(sources[mode]),
                              mode+"__n_source_direct":s["n"],
                              mode+"__source_frequency":s["freq"],
-                             mode+"__source_coupling":s["coupling"]})
+                             mode+"__source_coupling":s["coupling"],
+                             mode+"__n_shared_direct_genera":len(shared_annotated_genera),
+                             mode+"__genus_conditioned_documentation_gap":doc_gap})
                 if island["n"] and s["n"]:
                     item[mode+"__difference"]=island["freq"]-s["freq"]
                     item[mode+"__coupling_difference"]=(
@@ -210,7 +224,9 @@ def aggregate_motifs(frame:pd.DataFrame,*,population:int=4505,
     for mode in MODES:
         need|={mode+"__n_source_total",mode+"__n_source_direct",
                mode+"__difference",mode+"__coupling_difference",
-               mode+"__source_frequency"}
+               mode+"__source_frequency",
+               mode+"__n_shared_direct_genera",
+               mode+"__genus_conditioned_documentation_gap"}
         need|={mode+"__"+k for k in PARTS}
         fields.extend([mode+"__difference",mode+"__coupling_difference",
                        *(mode+"__"+k for k in PARTS)])
@@ -244,15 +260,22 @@ def aggregate_motifs(frame:pd.DataFrame,*,population:int=4505,
                 for mode in MODES:
                     good&=p[mode+"__n_source_direct"].ge(MIN_SOURCE)&p[mode+"__difference"].notna()
                 q=p.loc[good].copy()
-                i=q.n_island_direct/q.n_island_total.replace(0,np.nan)
+                # Compare trait recording WITHIN genera with actual independently
+                # Direct-scored plants on both sides. Full-flora fractions
+                # can both be near zero and falsely pass a 10pp gap check.
                 balanced=pd.Series(True,index=q.index)
                 for mode in MODES:
-                    s=q[mode+"__n_source_direct"]/q[mode+"__n_source_total"].replace(0,np.nan)
-                    balanced&=i.sub(s).abs().le(.10)
+                    balanced&=(
+                        q[mode+"__n_shared_direct_genera"].ge(2)
+                        &q[mode+"__genus_conditioned_documentation_gap"].le(.10)
+                    )
                 panel=dict(region=region,scope=scope,motif=motif,
                            n_original_region_islands=len(p),
                            n_islands_two_source_supported=len(q),
                            n_documentation_balanced=int(balanced.sum()),
+                           n_islands_with_at_least_two_shared_annotated_genera_both_modes=int((
+                               q.geo5__n_shared_direct_genera.ge(2)&
+                               q.climate10__n_shared_direct_genera.ge(2)).sum()),
                            n_positive_island_trait_occurrences=int(q.n_island_positive.sum()),
                            median_known_target_species=float(q.n_island_direct.median()) if len(q) else None)
                 for sample,sub in (("all",q),("doc_gap_le10pp",q.loc[balanced])):
@@ -292,4 +315,6 @@ def aggregate_motifs(frame:pd.DataFrame,*,population:int=4505,
                     visitor_effectiveness_not_measured=True,
                     candidate_source_not_true_seed_arrivals=True,
                     no_global_complete_trait_requirement=True,
+                    genus_conditioned_direct_documentation_balance_both_sources=True,
+                    requires_two_shared_annotated_genera_for_strict_documentation=True,
                     original_4505_islands_preserved=True))
