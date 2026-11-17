@@ -29,7 +29,7 @@ MIN_VISITOR_TAXA_PER_PLANT=2
 MIN_POSITIVE_AND_NEGATIVE_PER_SITE=2
 MIN_STUDIES=10
 MIN_INFORMATIVE_MULTIGUILD_STUDIES=10
-_BINOMIAL=re.compile(r"^([A-Z][A-Za-z-]+)\\s+([a-z][a-z-]+)(?=\\s|[.,;()]|$)")
+_BINOMIAL=re.compile(r"^([A-Z][A-Za-z-]+)\s+([a-z][a-z-]+)(?=\s|[.,;()]|$)")
 _UNRESOLVED_EPITHETS=frozenset({"sp","spp","cf","aff","indet","unknown","nr"})
 
 
