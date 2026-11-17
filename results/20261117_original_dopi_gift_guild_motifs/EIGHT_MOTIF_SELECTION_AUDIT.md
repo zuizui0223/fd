@@ -1,5 +1,7 @@
 # Full eight-motif GIFT×DoPI pollination-syndrome compatibility / selection audit — 17 November 2026
 
+> **Follow-up taxonomic-identification audit:** The [source-verified equal-genus DoPI analysis](GENUS_EQUAL_WITHIN_STUDY_AUDIT.md) shows much of the visitor-guild versus floral profile association can result from different **weights of botanical genera within the same publication**; the previous shared-genus restriction was not genus-frequency standardization. The original eight motif sign test is not a causal or lineage-independent pollination syndrome result.
+
 **Status: COMPLETED source-verified original anonymous aggregates; exploratory, NOT a validated guild shift or effective island pollination.** This audit **supersedes use of the three selected 3/3 direction concordances** as evidence of transferability. Original GIFT parent population remains 4,505 accepted botanical island floras; the animal evidence is European DoPI source-positive visitation of the same accepted botanical species, not visits observed locally on the island.
 
 ## Source verification and reproducibility
