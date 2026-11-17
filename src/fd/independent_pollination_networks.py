@@ -141,8 +141,7 @@ def mangal_location_metadata(raw_networks:list[dict],datasets:list[dict]
 
 def _plants_role(v:object)->bool:
     q=str(v or "").lower().strip()
-    return q in ("plant","plants","plantae","flower","flowers",
-                 "resource","row","lower")
+    return q in ("plant","plants","plantae","flower","flowers")
 
 
 def identify_actual_plant_edges(edges:pd.DataFrame,
