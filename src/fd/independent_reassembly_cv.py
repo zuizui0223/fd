@@ -36,8 +36,12 @@ def evaluate(frame: pd.DataFrame, *, draws: int=999, min_islands: int=30,
     d=frame.copy()
     for c in ("p_baseline","p_genus","p_guild"):
         p=pd.to_numeric(frame[c],errors="coerce").to_numpy(float)
-        if not np.isfinite(p).all() or np.any(p<0) or np.any(p>1):
-            raise ValueError("invalid probability")
+        # No guild measurement means no guild model, not a zero effect.
+        eligible=d.guild_supported.to_numpy(dtype=bool) if c=="p_guild" else np.ones(len(d),bool)
+        if not np.isfinite(p[eligible]).all() or np.any(p[eligible]<0) or np.any(p[eligible]>1):
+            raise ValueError("invalid probability on supported model rows")
+        if c=="p_guild" and np.isfinite(p[~eligible]).any():
+            raise ValueError("unsupported guild rows must not contain predictions")
         d[c+"_brier"]=(k*(1-p)**2+(n-k)*p**2)/n
     d["gain_genus"]=d.p_baseline_brier-d.p_genus_brier
     d["gain_guild"]=d.p_genus_brier-d.p_guild_brier
