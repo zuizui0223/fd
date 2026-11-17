@@ -119,15 +119,25 @@ def _stat(roster:set[str], motif:dict)->dict:
                 coupling=float(observed-product))
 
 
-def fourpart(island:set[str],mainland:set[str],motif:dict)->tuple[float,...]:
+def _donor_cache(mainland:set[str],motif:dict)->dict:
+    known=mainland & motif["known"]
+    return dict(n=len(known),
+                counts=Counter(map(_genus,known)),
+                positives=Counter(map(_genus,known & motif["joint"])),
+                total_positive=len(known & motif["joint"]))
+
+
+def fourpart(island:set[str],mainland:set[str],motif:dict,
+             *,source_cache:dict|None=None)->tuple[float,...]:
     """Exact signed four-component source genus identity, NOT causal shares."""
     I=island & motif["known"]
-    S=mainland & motif["known"]
-    if not I or not S: return (np.nan,)*4
-    count_i=Counter(map(_genus,I));count_s=Counter(map(_genus,S))
+    source_cache=source_cache if source_cache is not None else _donor_cache(mainland,motif)
+    if not I or not source_cache["n"]: return (np.nan,)*4
+    count_i=Counter(map(_genus,I))
+    count_s=source_cache["counts"]
     pos_i=Counter(map(_genus,I & motif["joint"]))
-    pos_s=Counter(map(_genus,S & motif["joint"]))
-    ni=len(I);ns=len(S)
+    pos_s=source_cache["positives"]
+    ni=len(I);ns=source_cache["n"]
     shared=set(count_i)&set(count_s)
     a=sum((count_i[g]/ni-count_s[g]/ns)*(pos_s[g]/count_s[g])
           for g in shared)
@@ -135,7 +145,7 @@ def fourpart(island:set[str],mainland:set[str],motif:dict)->tuple[float,...]:
           for g in shared)
     c=sum(pos_i[g]/ni for g in set(count_i)-set(count_s))
     d=-sum(pos_s[g]/ns for g in set(count_s)-set(count_i))
-    observed=len(I & motif["joint"])/ni-len(S & motif["joint"])/ns
+    observed=len(I & motif["joint"])/ni-source_cache["total_positive"]/ns
     if abs(a+b+c+d-observed)>1e-10:
         raise AssertionError("genuine 3/4-axis genus identity failed")
     return tuple(map(float,(a,b,c,d)))
@@ -156,6 +166,7 @@ def make_island_motif_rows(*,island_id:str,region:str,spatial_block:str|None,
     rows=[]
     for name,motif in motifs.items():
         src={mode:_stat(sources[mode],motif) for mode in MODES}
+        source_cache={mode:_donor_cache(sources[mode],motif) for mode in MODES}
         for scope in SCOPES:
             roster=scope_rosters[scope]
             island=_stat(roster,motif)
@@ -177,7 +188,8 @@ def make_island_motif_rows(*,island_id:str,region:str,spatial_block:str|None,
                     item[mode+"__difference"]=island["freq"]-s["freq"]
                     item[mode+"__coupling_difference"]=(
                         island["coupling"]-s["coupling"])
-                    for k,v in zip(PARTS,fourpart(roster,sources[mode],motif)):
+                    for k,v in zip(PARTS,fourpart(roster,sources[mode],motif,
+                                                   source_cache=source_cache[mode])):
                         item[mode+"__"+k]=v
                 else:
                     item[mode+"__difference"]=np.nan
