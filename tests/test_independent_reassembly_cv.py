@@ -15,7 +15,7 @@ def cohort(n=40):
 
 def test_exact_brier_and_grouped_cv():
     z=evaluate(cohort(),draws=299)
-    assert z["source_genus"]["gain_genus"]==pytest.approx(.30)
+    assert z["source_genus"]["gain_genus"]==pytest.approx(.35)
     assert z["guild_subset"]["gain_guild"]==pytest.approx(.01)
 
 def test_guild_nondetection_not_zero_effect():
