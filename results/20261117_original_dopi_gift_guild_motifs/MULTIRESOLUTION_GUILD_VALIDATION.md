@@ -1,5 +1,7 @@
 # Original GIFT 4,505 islands × DoPI v2 visitor guilds: TRUE 1–4 trait evidence and study-matched contrasts (2026-11-17)
 
+> **Important updated source inference:** The later [equal-genus within-publication audit](GENUS_EQUAL_WITHIN_STUDY_AUDIT.md), based on original verified [island run #44090688441](https://github.com/zuizui0223/island/actions/runs/44090688441), demonstrates that the earlier +16.3 pp Bombus–hoverfly zygomorphic difference collapses to +0.027 pp after giving each common botanical genus equal weight (with only FOUR actually within-genus-variable eligible studies). Do not use this page's shared-genus-pooled results as full genus control or island-adaptive pollination evidence.
+
 **Actual original botanical source and external European visitor analyses COMPLETED / SUCCESS. Exploratory, observational, NOT an island-local historical pollinator switch or measured pollen-transfer function on islands.** Keep fd PR #16 DRAFT.
 
 ## Source-verified numerical provenance
