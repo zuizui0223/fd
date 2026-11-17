@@ -40,7 +40,6 @@ PRIMARY=(
 )
 MIN_STUDIES=10
 MIN_DIRECT_PLANTS_EACH_GUILD=2
-MIN_POSITIVE_MOTIF_STUDIES_PER_GUILD=3
 
 
 def _s(value)->str:
@@ -139,8 +138,10 @@ def _aggregate_studies(values: list[float], *,
         return {"status":"NOT_IDENTIFIABLE_INDEPENDENT_STUDIES"}
     # All-zero combinations must NEVER masquerade as a precise zero
     # preference/syndrome result merely because known trait records exist.
-    if (n_motif_hits_either<MIN_STUDIES or
-        min(n_motif_hits_a,n_motif_hits_b)<MIN_POSITIVE_MOTIF_STUDIES_PER_GUILD):
+    # A true exclusive guild motif may have zero among the competing guild.
+    # Require observations of the motif in >=10 independent studies on
+    # EITHER side; never require both guilds to contain that motif.
+    if n_motif_hits_either<MIN_STUDIES:
         return {"status":"NOT_IDENTIFIABLE_MOTIF_POSITIVE_STUDY_SUPPORT"}
     rng=np.random.default_rng(int.from_bytes(sha256(seed.encode()).digest()[:8],"big"))
     boot=v[rng.integers(len(v),size=(draws,len(v)))].mean(axis=1)
