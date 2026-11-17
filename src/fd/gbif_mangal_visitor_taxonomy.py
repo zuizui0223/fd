@@ -67,36 +67,47 @@ def summarize_gbif_resolved_source(
     if total_original_islands!=4505:
         raise ValueError("original full botanical island population changed")
     required={"network_id","island_id","plant","partner_gbif_key",
+              "origin_status","endemic_status",
               "actinomorphic_deep_true","zygomorphic_deep_true",
               "tube_bell_deep_true"}
     if required-set(rows):
         raise ValueError("original true pair partner source not supplied")
     out=[]
-    for pair in ("actinomorphic_deep","zygomorphic_deep",
-                 "tube_bell_deep"):
-        matches=rows.loc[rows[pair+"_true"].eq(True)].copy()
-        matches["guild"]=matches.partner_gbif_key.map(
-            lambda q:gbif_taxonomy_visitor_guild(
-                gbif_responses.get(int(q),{}),int(q)
-            ) if pd.notna(q) else "unresolved_visitor_taxonomy"
-        )
-        for guild in (
-            "bird_family_supported","butterfly_family_supported",
-            "sphingidae_moth","other_lepidoptera",
-            "bees_family_supported","flies_order_supported",
-            "unresolved_visitor_taxonomy",
-        ):
-            q=matches.loc[matches.guild.eq(guild)].copy()
-            out.append(dict(
-                same_accepted_plant_true_flower_pair=pair,
-                GBIF_verified_partner_guild=guild,
-                n_source_positive_network_island_plant_partner_units=int(len(q)),
-                n_source_networks_with_positive_guild=int(q.network_id.nunique()),
-                n_original_islands_with_source_positive_guild=int(q.island_id.nunique()),
-                n_source_network_plant_pairs_with_guild=int(
-                    len(q[["network_id","plant"]].drop_duplicates())),
-                no_unobserved_taxon_or_absence_imputed=True,
-            ))
+    all_sources=[
+        ("all_recorded",rows),
+        ("strict_native",rows.loc[rows.origin_status.eq("native")]),
+        ("strict_native_endemic",rows.loc[
+            rows.origin_status.eq("native")&rows.endemic_status.eq("endemic")
+        ]),
+        ("origin_unresolved",rows.loc[rows.origin_status.eq("unresolved")]),
+    ]
+    for scope,eligible in all_sources:
+        for pair in ("actinomorphic_deep","zygomorphic_deep",
+                     "tube_bell_deep"):
+            matches=eligible.loc[eligible[pair+"_true"].eq(True)].copy()
+            matches["guild"]=matches.partner_gbif_key.map(
+                lambda q:gbif_taxonomy_visitor_guild(
+                    gbif_responses.get(int(q),{}),int(q)
+                ) if pd.notna(q) else "unresolved_visitor_taxonomy"
+            )
+            for guild in (
+                "bird_family_supported","butterfly_family_supported",
+                "sphingidae_moth","other_lepidoptera",
+                "bees_family_supported","flies_order_supported",
+                "unresolved_visitor_taxonomy",
+            ):
+                q=matches.loc[matches.guild.eq(guild)].copy()
+                out.append(dict(
+                    botanical_scope=scope,
+                    same_accepted_plant_true_flower_pair=pair,
+                    GBIF_verified_partner_guild=guild,
+                    n_source_positive_network_island_plant_partner_units=int(len(q)),
+                    n_source_networks_with_positive_guild=int(q.network_id.nunique()),
+                    n_original_islands_with_source_positive_guild=int(q.island_id.nunique()),
+                    n_source_network_plant_pairs_with_guild=int(
+                        len(q[["network_id","plant"]].drop_duplicates())),
+                    no_unobserved_taxon_or_absence_imputed=True,
+                ))
     return dict(
         status="ORIGINAL_MANGAL_SAME_PLANT_FLORAL_PAIR_GBIF_TAXONOMY_EVIDENCE",
         n_original_GIFT_botanical_islands=4505,
