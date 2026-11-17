@@ -135,3 +135,18 @@ def test_missing_signed_genus_terms_fail_closed():
     d.loc[0,"geo5__island_only_recorded_genus"]=np.nan
     with pytest.raises(ValueError,match="incomplete signed"):
         aggregate_motifs(d,population=40,draws=199)
+
+def test_no_false_documentation_balance_from_small_overall_annotation_fractions():
+    # A giant unannotated mainland source and island can both appear 0% documented;
+    # that is not valid support for a shared-genus matched trait comparison.
+    d=frame()
+    d.loc[d.motif.eq("red_pink_radial_deep"),"geo5__n_shared_direct_genera"]=0
+    d.loc[d.motif.eq("red_pink_radial_deep"),"geo5__genus_conditioned_documentation_gap"]=np.nan
+    z=aggregate_motifs(d,population=40,draws=199)
+    x=next(p for p in z["panels"] if p["region"]=="tropical"
+           and p["scope"]=="all_recorded"
+           and p["motif"]=="red_pink_radial_deep")
+    assert x["n_islands_two_source_supported"]==40
+    assert x["n_documentation_balanced"]==0
+    assert x["doc_gap_le10pp__spatial_block"]["status"]==(
+        "NOT_IDENTIFIABLE_DIRECT_SOURCE_OR_BLOCK_SUPPORT")
