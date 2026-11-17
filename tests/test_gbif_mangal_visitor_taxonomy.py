@@ -74,6 +74,8 @@ def test_only_original_true_same_species_both_direct_morphological_axes():
 def test_unresolved_gbif_key_does_not_erase_original_positive_visit_record():
     src,trait=original_source()
     original=target_original_morphology_partner_keys(src,trait)
+    original["origin_status"]="native"
+    original["endemic_status"]="nonendemic"
     gbif={
         123:dict(key=123,kingdom="Animalia",
                  family="Sphingidae",order="Lepidoptera"),
@@ -84,6 +86,7 @@ def test_unresolved_gbif_key_does_not_erase_original_positive_visit_record():
     assert result["n_original_GIFT_botanical_islands"]==4505
     assert result["n_original_direct_flower_pair_partner_source_interactions"]==3
     assert result["n_GBIF_keys_retrieved_from_public_backbone"]==2
+    assert result["n_source_guild_support_cells"]==4*3*7
     a=next(z for z in result["support"] if
            z["same_accepted_plant_true_flower_pair"]=="actinomorphic_deep"
            and z["GBIF_verified_partner_guild"]=="sphingidae_moth")
@@ -97,5 +100,7 @@ def test_unresolved_gbif_key_does_not_erase_original_positive_visit_record():
 def test_no_fabricated_full_GIFT_study_population():
     src,trait=original_source()
     r=target_original_morphology_partner_keys(src,trait)
+    r["origin_status"]="native"
+    r["endemic_status"]="nonendemic"
     with pytest.raises(ValueError,match="full botanical"):
         summarize_gbif_resolved_source(r,{},total_original_islands=40)
