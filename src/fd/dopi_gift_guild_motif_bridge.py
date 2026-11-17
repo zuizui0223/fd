@@ -202,6 +202,8 @@ def summarize_study_guild_motifs(index:dict, *,motifs:dict,draws:int=999)->dict:
                                 len(aa&positive)/len(aa)-len(bb&positive)/len(bb)
                             )
                 cell=dict(guild_a=ga,guild_b=gb,motif=motif_name,
+                          n_recorded_flower_axes=motif.get("axis_count",
+                              motif.get("n_axes",len(motif.get("trait_axes",())))),
                           evidence_scope=scope,
                           predeclared_hypothesis=(ga,gb,motif_name) in PRIMARY,
                           n_publications_with_both_positive_guilds=len(paired_studies),
@@ -240,6 +242,10 @@ def summarize_study_guild_motifs(index:dict, *,motifs:dict,draws:int=999)->dict:
                 source_join_coverage=index["original_source_row_counts"],
                 n_visitor_guild_pairs=len(PAIRS),
                 n_motif_profiles=len(motifs),
+                n_motifs_by_number_of_observed_axes=dict(sorted(
+                    Counter(p.get("axis_count",p.get("n_axes",
+                      len(p.get("trait_axes",())))) for p in motifs.values()).items()
+                )),
                 n_qualification_panels=len(panels),
                 panels=panels,
                 limits=dict(
