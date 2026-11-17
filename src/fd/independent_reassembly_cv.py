@@ -5,7 +5,8 @@ import pandas as pd
 
 COLUMNS = ("island_id","archipelago","spatial_block","first_source",
            "trait_provider","n_target","n_positive","p_baseline",
-           "p_genus","p_guild","guild_supported")
+           "p_genus","p_guild","guild_supported",
+           "target_species_heldout","archipelago_heldout","source_provider_heldout")
 
 def evaluate(frame: pd.DataFrame, *, draws: int=999, min_islands: int=30,
              min_groups: int=10) -> dict:
@@ -23,6 +24,9 @@ def evaluate(frame: pd.DataFrame, *, draws: int=999, min_islands: int=30,
             raise ValueError("missing independent group")
     if not frame.guild_supported.map(lambda x:isinstance(x,(bool,np.bool_))).all():
         raise ValueError("guild_supported must be an explicit boolean")
+    for c in ("target_species_heldout","archipelago_heldout","source_provider_heldout"):
+        if not frame[c].map(lambda x:isinstance(x,(bool,np.bool_)) and bool(x)).all():
+            raise ValueError(f"out-of-fold provenance not proven: {c}")
     if draws<199 or min_islands<1 or min_groups<2:
         raise ValueError("invalid support thresholds")
     n=pd.to_numeric(frame.n_target,errors="coerce").to_numpy(float)
