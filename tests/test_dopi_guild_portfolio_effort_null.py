@@ -1,7 +1,7 @@
 import pytest
 
 from fd.dopi_guild_portfolio_effort_null import (
-    expected_positive_guild_richness,
+    accepted_visitor_binomial,expected_positive_guild_richness,
     positive_visitor_effort_index,
     guild_richness_motif_audit,
 )
@@ -139,3 +139,24 @@ def test_nonpollination_grade4_and_missing_source_time_not_inferred():
         row["month"]="NA"
     with pytest.raises(ValueError,match="no original study-site"):
         guild_richness_motif_audit(run(bad),motifs=traits(),draws=199)
+
+
+def test_true_visitor_species_not_bombus_sp_unresolved_or_author_variants():
+    assert accepted_visitor_binomial("Bombus terrestris")=="bombus terrestris"
+    assert accepted_visitor_binomial("Bombus terrestris (Linnaeus)")=="bombus terrestris"
+    assert accepted_visitor_binomial("Bombus_terrestris")=="bombus terrestris"
+    assert accepted_visitor_binomial("Episyrphus balteatus")=="episyrphus balteatus"
+    for label in ("Bombus sp.","Bombus spp.","Bombus cf. terrestris",
+                  "Bombus aff. terrestris","Bombus", "unidentified Syrphidae"):
+        assert accepted_visitor_binomial(label) is None
+    rows=original_visitors()
+    row=dict(rows[0]);row["pollinator_species"]="Bombus sp."
+    rows.append(row)
+    row2=dict(rows[1]);row2["pollinator_species"]="Bombus terrestris (Linnaeus)"
+    rows.append(row2)
+    idx=run(rows)
+    assert idx["source_row_counts"]["original_visitor_taxon_not_resolved_to_species"]==1
+    # The original and the author-suffixed accepted visitor name must be
+    # identical positive-plant/source-site degree records.
+    assert len(idx["private_positive_edges"])==12
+    assert sum(len(v) for v in idx["private_positive_edges"].values())==12*8
