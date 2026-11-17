@@ -25,6 +25,24 @@ Equal **first-source group** sensitivity (not independent sample replication): t
 
 Northern high latitude all-recorded has **89** paired geo5 floras, **17** geographical blocks but **only eight** first-source groups; southern extratropical **16** geo5 floras /six blocks/nine first sources. Both are explicitly **NOT_IDENTIFIABLE_COMMON_ISLAND_SUPPORT**, NOT zero morphological asymmetry. Geographic unresolved one flora has no paired support.
 
+
+## NEW original same-island endpoint decomposition (2026-11-17)
+
+Follow-up protected original source [run #44025078142](https://github.com/zuizui0223/island/actions/runs/44025078142) **SUCCESS** including synthetic aggregator tests; anonymous [artifact #14303140157](https://github.com/zuizui0223/island/actions/runs/44025078142), extracted `paired_anonymous.json` SHA256 `f517368ce36d83ff6d976fe137d205ac9c17903975f1057b3590194305c461db`. The source runner now independently exports both component Brier gains and their within-island difference, each with whole-geographical-block bootstrap intervals. This is a new original-data breakdown on the **same** geo5 matched-island cohorts; no additional new floral observations were collected.
+
+| Same-island region/plant scope | Number of original supported islands | Gain for **actinomorphic×deep** genus vs pooled [95% block] | Gain for **tubular/bell×deep** genus vs pooled [95% block] | Their exact signed difference |
+|---|---:|---|---|---:|
+| Tropical all-recorded | **248** | **+0.115652 [+0.101069,+0.130290]** | **−0.042077 [−0.056185,−0.028884]** | **+0.157729** |
+| Tropical strict native | **42** | **+0.087745 [+0.041415,+0.129707]** | −0.013141 [−0.030702,+0.001402] | +0.100887 |
+| Tropical native/nonendemic | **41** | **+0.090416 [+0.043503,+0.132771]** | −0.011529 [−0.033350,+0.002642] | +0.101945 |
+| Northern midlatitude all-recorded | **1166** | **+0.047145 [+0.031709,+0.064129]** | −0.002761 [−0.008887,+0.002921] | +0.049906 |
+| Northern midlatitude strict native | **139** | **+0.037312 [+0.020111,+0.058001]** | **−0.012504 [−0.025733,−0.002233]** | +0.049816 |
+| Northern midlatitude native/nonendemic | **138** | **+0.022280 [+0.004199,+0.042728]** | **−0.011980 [−0.025985,−0.001928]** | +0.034259 |
+
+For original all-recorded tropical `climate10` same-island n267, positive actinomorphic×deep **+0.119269** and negative tubular/bell×deep **−0.038698**, difference **+0.157967**. For northern midlatitude `climate10` n1189, actinomorphic×deep **+0.047449**, tubular/bell×deep **−0.001024**, difference **+0.048473**. This demonstrates that the signed difference is **not merely an unexplained arithmetic subtraction of separate old cohort means**. The all-recorded tropical tubular/bell loss of source genus predictive skill is negative under both candidate source modes; it is less secure in the sparse strict native subset, where both signed intervals span zero.
+
+**Claim:** real documented island flower morphologies show **phenotype-specific conditional genus predictability** relative to mainland candidate congener states. **Not claim:** shared target plant species across both endpoints, independent information-source validation, source provider out-of-fold generalization, adaptive selection, effective pollinator turnover, or cross-region contrast significance. Equal blocks and bootstrap intervals condition on original spatial/source group assignments; ecological historical processes and observational annotation biases are not thereby identified.
+
 ## Scientific interpretation and explicit claim ceiling
 
 **Positive:** in independently validated original GIFT botanical source-name-excluded source-prediction comparisons, the association of real joint floral architecture with **observed island genus membership is phenotype-specific**, not a universally positive predictive help. The new same-island contrast eliminates *different island selection* as a complete explanation for the previous radial/deep versus tubular/deep sign difference, though endpoints can still have different sets of documented target species. Tropical effect is descriptively larger than northern-midlatitude, but a *formal interregional paired-source spatial test* was not performed, and this analysis was designed after seeing source-only pilot results. The tropical strict-native panel has 42 supported islands, not 4,505 fully eligible independent trait comparisons.
