@@ -9,6 +9,8 @@ source botanical records are not an independent field-phenotype provider.
 from __future__ import annotations
 
 from collections import Counter, defaultdict
+
+from .source_loo_flower_placebo import heldout_source_placebo
 from hashlib import sha256
 
 import numpy as np
@@ -51,7 +53,10 @@ def _empty(n: int, genera: int, target_coverage: float) -> dict:
                        "relative_gain_delta", "prevalence_radial",
                        "prevalence_tubular", "pooled_probability_radial",
                        "pooled_probability_tubular", "brier_pooled_radial",
-                       "brier_pooled_tubular"):
+                       "brier_pooled_tubular",
+                       "source_loo_gain_radial","source_loo_gain_tubular",
+                       "island_gain_difference","source_loo_gain_difference",
+                       "island_excess_over_source_loo"):
             row[f"{mode}__{metric}"] = np.nan
     return row
 
@@ -166,6 +171,15 @@ def triple_matched_island(
                         row[f"{mode}__gain_radial"] -
                         row[f"{mode}__gain_tubular"]
                     )
+                    if threshold >= 2:
+                        source_placebo = heldout_source_placebo(
+                            targets=targets,
+                            donors_by_genus={
+                                g:source_by_g[g] for g in observed_genera
+                            }, radial=radial,tubular=tubular,
+                        )
+                        for name,value in source_placebo.items():
+                            row[f"{mode}__{name}"]=value
                     r0 = row[f"{mode}__relative_gain_radial"]
                     r1 = row[f"{mode}__relative_gain_tubular"]
                     row[f"{mode}__relative_gain_delta"] = (
