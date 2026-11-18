@@ -75,7 +75,8 @@ def summarize_public_euppollnet(interaction_data:bytes,
              qualify_original_blob("Metadata.csv",metadata)]
     try:
         first=pd.read_csv(BytesIO(interaction_data),compression="gzip",
-                          nrows=30,low_memory=False)
+                          nrows=30,low_memory=False,encoding="utf-8",
+                          encoding_errors="replace")
         meta=pd.read_csv(BytesIO(metadata),low_memory=False)
     except (ValueError,UnicodeError,EOFError) as exc:
         raise ValueError("Frozen EuPPollNet source CSV not readable") from exc
