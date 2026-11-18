@@ -63,7 +63,7 @@ def _four_cell_adjusted(q:pd.DataFrame,*,cluster:str,seed:str,
     clusters=sorted(q[cluster].dropna().unique())
     X=np.full((len(clusters),4,len(COLUMNS)),np.nan)
     for i,k in enumerate(clusters):
-        for j,(geol,l)=enumerate(CELLS):
+        for j,(geol,l) in enumerate(CELLS):
             if (k,geol,l) in g.index:
                 X[i,j,:]=g.loc[(k,geol,l)].to_numpy(float)
     if not np.isfinite(X).any():
