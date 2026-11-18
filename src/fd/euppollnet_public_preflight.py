@@ -87,21 +87,32 @@ def summarize_public_euppollnet(interaction_data:bytes,
     names=set();networks=set(); sites=set();st=set();animals=set()
     species=set(); years=set();countries=set()
     nrows=0;nvalid_geo=0;nunknown_sites=0;valid_plant=0
+    n_unusable_plant_encoding=0
+    n_unusable_pollinator_encoding=0
     latc=columns["latitude"];lonc=columns["longitude"]
     for chunk in pd.read_csv(BytesIO(interaction_data),
             compression="gzip",dtype=str,chunksize=150000,
-            low_memory=False):
+            low_memory=False,encoding="utf-8",encoding_errors="replace"):
         nrows+=len(chunk)
         if chunk[[study_id,network_id]].isna().any().any():
             raise ValueError("Public source has original study/network ID missing")
+        if chunk[[study_id,network_id]].astype(str).apply(
+                lambda c:c.str.contains("\ufffd",regex=False)).any().any():
+            raise ValueError("Source study/network ID contains unrecoverable text encoding")
         st.update(chunk[study_id].unique())
         networks.update(zip(chunk[study_id],chunk[network_id]))
         if columns["plant_name"]:
-            good=chunk[columns["plant_name"]].dropna()
+            candidates=chunk[columns["plant_name"]].dropna()
+            invalid=candidates.str.contains("\ufffd",regex=False)
+            n_unusable_plant_encoding+=int(invalid.sum())
+            good=candidates[~invalid]
             valid_plant+=len(good)
             species.update(good.unique())
         if columns["pollinator_name"]:
-            animals.update(chunk[columns["pollinator_name"]].dropna().unique())
+            visitor=chunk[columns["pollinator_name"]].dropna()
+            invalid=visitor.str.contains("\ufffd",regex=False)
+            n_unusable_pollinator_encoding+=int(invalid.sum())
+            animals.update(visitor[~invalid].unique())
         if columns["country"]:
             countries.update(chunk[columns["country"]].dropna().unique())
         if columns["date"]:
@@ -130,6 +141,9 @@ def summarize_public_euppollnet(interaction_data:bytes,
         n_distinct_geographic_coordinate_pairs=len(sites) if latc else None,
         n_ungeoreferenced_source_rows=nunknown_sites if latc else None,
         n_original_rows_with_plant_name=valid_plant,
+        n_original_plant_name_rows_quarantined_invalid_UTF8=n_unusable_plant_encoding,
+        n_original_pollinator_name_rows_quarantined_invalid_UTF8=n_unusable_pollinator_encoding,
+        raw_csv_UTF8_invalid_bytes_not_silently_cast_to_taxonomy=True,
         source_interaction_headers=list(map(str,first.columns)),
         source_metadata_headers=list(map(str,meta.columns)),
         original_metadata_rows=len(meta),
