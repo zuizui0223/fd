@@ -1,5 +1,7 @@
 # Original GIFT 4,505 floras × DoPI v2: **BOTH plant and insect species degrees fixed** — 18 November 2026
 
+> **Stricter completed original source replay, 18 Nov 2026:** [Four-chain ×80-snapshot, source-publication leave-one-out and four-motif simultaneous bootstrap](FOUR_CHAIN_PUBLICATION_ROBUSTNESS.md), original source [island CI #44215563059](https://github.com/zuizui0223/island/actions/runs/44215563059) **SUCCESS**. The earlier 2-chain ×40-snapshot numbers below are a distinct, looser source-support cohort and remain historical. In the stricter original run, open radial stays negative: **−0.19455 recorded guilds**, four-motif simultaneous selected-family 95% [−0.32078,−0.06832], 60 papers; 44/60 source studies negative, selected-four Holm publication sign p=.001576, LOPO means [−0.21686,−0.18071]. Tubular/bell has a marginal positive CI but **simultaneous four-motif CI crosses zero**; no independent within-genus plant-guild or effective pollination inference. These four profiles were previously selected from the 27 examined, so selected-four adjustment does not control original search multiplicity.
+
 **RESULT: original-data network-null SUCCESS, exploratory European positive visitor documentation, NOT a measured island-local pollinator-guild shift or effective pollen-transfer result.** Source-protected GIFT accepted island-flora parent remains all **4,505** island floras (not 63 European study papers, and not a triple-complete plant subset).
 
 ## Reproducible source receipt
