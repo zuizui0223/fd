@@ -70,7 +70,6 @@ def test_four_cell_partial_adjustment_not_confounded_by_other_history():
     for unit in ("spatial_block","first_source"):
         q=p["simultaneous_origin_and_LGM_equal_strata_adjustment"][unit]
         assert q["status"]=="DESCRIPTIVE_FULL_FOUR_CELL_GEOL_LGM_OVERLAP"
-        assert q["geo5__delta_joint__category_b_minus_a"] if False else True
         assert q["oceanic_minus_continental_equal_LGM_strata__geo5__delta_joint"]==pytest.approx(.05)
         assert q["LGM_unconnected_minus_connected_equal_geology_strata__geo5__delta_joint"]==pytest.approx(.04)
         assert q["geology_by_LGM_interaction__geo5__delta_joint"]==pytest.approx(.04)
