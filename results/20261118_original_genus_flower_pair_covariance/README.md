@@ -1,5 +1,7 @@
 # Global 4,505 GIFT island floras: exact botanical GENUS decomposition of genuine SAME-PLANT floral architecture coupling — 18 Nov 2026
 
+**FINAL STRONGER common-genus source replay, 18 Nov 2026:** [protected original GIFT CI #44235884651](https://github.com/zuizui0223/island/actions/runs/44235884651) **SUCCESS**, original source commit \`d229732281460616314df3e955fb63773d227c67\` and tested fd model \`693569ae7571035408b61c4dababc26463c4dbe1\`. Anonymous artifact ID **14396344700**, extracted JSON SHA256 **b24e0e0faffb4034556655d9c227c78d356b15693ba1e55ca1200359470de05c** (693,257 bytes). The exact source global 4,505 island flora, n666 tropical radial/deep +10.98858pp and +4.01790pp coupling, 165 panels, 88 original source-supported and 14 each-side-variation-supported panels are unchanged. But a STRICT SAME VARIABLE BOTANICAL GENUS on the island and BOTH mainland candidate modes yields only **2/165** independently geographically supported panels, both northern midlatitude all-recorded, **zero tropical** and zero strictly native. This directly prevents a common-lineage adaptive floral syndrome claim. See section below.
+
 **Original protected numerical evidence completed and SUCCESS.** A genuine accepted botanical plant species has both flower traits directly documented; no missing traits are assigned negative, and no accepted plants from the focal island can leak into the potential mainland source candidate pool. Preserve global **4,505** flora population, 748 original potential mainland GIFT regions and GSHHG source-linked island geography. This is **botanical assemblage structure**, NOT an effective-pollinator guild classification, genus-independent in situ evolution or colonization causal identification.
 
 ## Source verification and exact interpretation of pairing excess
@@ -45,7 +47,24 @@ Examples of selected sensitivities:
 - Northern midlatitude **white × tubular/bell**, 504 informative floras across 58 blocks: selected within-term **+0.861 pp [+0.249,+1.423]**, while the full 1,463 original comparable floras have within-term +0.389 pp. Neither is an identified effective-pollination syndrome or within-population evolutionary change.
 - Strict known-native all species cohort in tropical source still has too little within-genus structural variation for the primary radial/deep true flower conjunction. Native origin-status documentation is nonrandom, not a causal comparison with introduced species.
 
-**Key necessary stronger check:** the existing 14 supported conditional source comparisons ONLY require some variable genus on each of island and two source rosters; the variable genus NAMES might differ. A separate same-variable-genus on ALL THREE rosters gate (in the following source revision) is therefore needed before describing cross-source common-lineage trait-pairing contrasts. This did not diminish the genuine n666 / 4505 source decomposition but restricts evolutionary interpretation. Do not imply that any of the 14 panels already directly identifies adaptation.
+### Stronger SAME variable botanical genus qualification: now actually executed
+
+The new original #44235884651 freezes each genuine accepted-species Direct pair and additionally checks the **intersection of variable genus identifiers on the focal island, geo5 and climate10 candidate sources**. A genus is variable only if both individual floral axes have at least one positive and one negative accepted species within that very genus. An island with variation only in genus A and source with variation only in genus B is NOT qualified as common-genus variation.
+
+| Region/status and true same-species Direct flower pair | Original source-eligible island floras | Islands with SOME within-genus variation independently on all three rosters | **Islands with the SAME informative genus in all three rosters / independent 10° blocks** | Geo5 difference in within-genus pairing [95% source group interval], pp |
+|---|---:|---:|---:|---|
+| **Northern midlatitude / all-recorded / tubular-bell × deep** | 1,424 | 196 | **34 /19** | **+0.355 [−0.278,+0.977]** |
+| **Northern midlatitude / all-recorded / white × tubular-bell** | 1,463 | 504 | **39 /15** | **+0.096 [−0.974,+0.851]** |
+| Tropical / all-recorded / radial × deep | 666 | **0** | **0** | NOT_IDENTIFIABLE |
+| Tropical / all-recorded / tubular-bell × deep | 598 | 53 | **4 /4** | NOT_IDENTIFIABLE |
+| Tropical / all-recorded / yellow_orange × tubular-bell | 582 | 52 | **2 /2** | NOT_IDENTIFIABLE |
+| Tropical / all-recorded / white × tubular-bell | 582 | 62 | **14 /10** | NOT_IDENTIFIABLE (n<30) |
+
+**Only 2 of 165** region×status×trait-pair reporting panels pass n≥30 islands AND ≥10 independent geographic blocks after SAME informative genus matching; both original 95% intervals INCLUDE ZERO. None of the strictly known-native or native-nonendemic panels qualifies. Even a number such as n52 'variable genus on both sides' does NOT support the same botanical lineage being compared: the true common-genus source count may be as few as **two islands**. Thus the selective +0.524 pp yellow/orange×tube/bell within-source result in the less stringent n52 cohort must NOT be represented as within-lineage island adaptation.
+
+This is a **failure to identify** genuinely comparable congeneric-flower source transitions, not a proof that no island floral trait evolved. A shared genus is not a full plant phylogeny, species-wide original Direct labels do not measure any island plant's local flower evolution, and different original species carrying the same genus on mainland and island are not necessarily ancestral pairs. Our previous simple source annotation-rate ≤10-point check used whole-flora phenotypic coverage and is NOT a strong missing-at-random control; no strong undocumented-source or observer-bias inference is asserted.
+
+The genuine n666 / full 4,505-island global source-relative botanical composition results remain valid and central: **between-genus structure accounts for essentially all of the tropical radial×deep pairing excess**, while the historical pollinator and evolutionary mechanism remains unidentifiable under currently source-verified plant/visitor data.
 
 ## Manuscript placement
 
