@@ -32,7 +32,7 @@ A different 2× test additionally requires G0 and G1 DONORS to be in distinct or
 
 ## New outcome-blind disjoint three-block hypergraph stress
 
-To eliminate reused physical blocks **within each reselected subset**, each selected source triple must use THREE distinct block IDs and no original 10° block may appear in ANY other selected triple. Random selection priorities are set *before floral responses*; 199 independently seeded **numerical** greedy re-selections, each choosing one block-disjoint subset, are **not 199 biological experiments**. The 5%–95% spread is a **reselection sensitivity range, not a confidence interval or permutation p-value**.
+To eliminate reused physical blocks **within each reselected subset**, each selected source triple must use THREE distinct block IDs and no original 10° block may appear in ANY other selected triple. Random selection priorities are set *before floral responses*; 199 seeded **numerical** greedy re-selections, each choosing one block-disjoint subset, are **not 199 biological experiments**. The 5%–95% spread is a **reselection sensitivity range, not a confidence interval or permutation p-value**.
 
 | Source/matched geography and primary 2× match mode | Three-block-eligible candidate triplets | Physically disjoint triplets per reselection (min / median / max) | Median observed G0−G1 overlap | 5%–95% outcome-blind reselection spread |
 | --- | ---: | --- | ---: | --- |
@@ -46,6 +46,18 @@ To eliminate reused physical blocks **within each reselected subset**, each sele
 | Tropical, climate PC1 donor caliper | 105 | **8 / 11 / 13** | +0.00256 | [−0.07448,+0.06682] |
 
 The truly block-disjoint matching opportunities drop from 1,112 focal comparisons to only 19–26 retained triplets per global draw, 8–13 tropical: the region-level **geographically independent support is thin**, even if original pair counts seem massive. Full selection requires matching true source-region/archipelago histories before calling them independent evolutionary realizations.
+
+## Complete source-mask/caliper/native sensitivity, verified follow-up
+
+A new source-protected, same-code re-execution [island #44296122505](https://github.com/zuizui0223/island/actions/runs/44296122505) **SUCCESS** (17 synthetic tests; independent CI artifact **14423576816**, SHA256 \`7ab06ddfee363ed754ae1f286b1950dbd6168b604ec29edf90929f8e44227951\`), printed **all 36** original matched numerical panels meeting >=10 focal islands and >=5 blocks, including frozen 4× broad calipers and independently status-known native cohorts. Original 4,505/2,324/327 botanical population and trait-mask checks remain unchanged. The 3 successful source re-runs are numerically identical when the selection mode is identical, not separate biological replications.
+
+**Broader 4× primary donor caliper** (same within-focal outcome-blind design) changes the all-recorded global matched focal count from 1,112 to **1,123**, primary focal-equal genus-disjoint minus genus-sharing overlap from **−0.018260** to **−0.015773**, and block-equal value from **−0.006463** to **−0.000246** [exploratory focal-block 95% **−0.017542,+0.016936**]. The 3-block-disjoint global median remains **21 triplets**, effect median **−0.012011**, with 5%–95% outcome-blind reselection spread **[−0.060282,+0.038178]**. These are **different donor matches of the SAME data**, not replication.
+
+**Tropical caliper sensitivity:** primary 2× **128** focal islands, focal-equal difference **−0.005147**; primary 4× **139** focal islands, focal-equal difference **+0.007939**. Yet 4× geographic focal-block-equal difference is still near zero **−0.002098** with exploratory interval **[−0.037998,+0.031983]**; 4× three-block-disjoint median 10 independent triples, median effect **+0.001620**, outcome-blind 5%–95% **[−0.067005,+0.069752]**. **The raw focal-equal tropical sign reverses when loosening the prespecified covariate caliper**, contradicting any stable directional tropical G0–G1 ecological effect.
+
+**Strict original known-native** is much narrower even though it uses the independent native-reported GIFT status rather than declaring unresolved plants native. Globally all eligible native-known Direct **327** islands remain the source parent, but only **71 focal islands / 19 focal blocks** support a 2× G0 vs G1 matched comparison; all source-qualified focal matches in this output come from **northern midlatitude**. Native 2× primary focal-equal contrast **−0.024396**, focal-block-equal **−0.055031** [exploratory **−0.109765,+0.001263**]. Physically nonoverlapping three-block matchings retain a median only **3 independent triplets**, with outcome-blind selection 5%–95% effect span **[−0.25,+0.1465]**. There is **no tropical strict-native matched effect to report**. Thus first-pass tropical all-recorded category overlaps must not be transformed into native flora adaptive-guild conclusions.
+
+The strict donor-block-only 2× focal-block bootstrap occasionally excludes zero, but its connected-source network and the very small geographically disjoint subsets fail to establish independent causal geology or pollinator effects. Do not select that one conditional interval over the full preregistered caliper/independence sensitivity family.
 
 ## Scientific interpretation and main manuscript treatment
 
