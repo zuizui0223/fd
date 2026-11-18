@@ -203,6 +203,7 @@ def evaluate_original_european_island_visits(
         n_original_source_study_network_date_positive_units=int(
             source[["Study_id","Network_id","Date"]].drop_duplicates().shape[0]),
         source_exact_site_polygon_eligibility=site_report,
+        source_verified_site_opportunity=site_report,
         n_original_source_positive_recorded_rows_matching_same_island_GIFT_plant=int(len(linked)),
         n_original_source_distinct_islands_with_matched_flora_plant=int(
             linked.island_id.nunique()),
