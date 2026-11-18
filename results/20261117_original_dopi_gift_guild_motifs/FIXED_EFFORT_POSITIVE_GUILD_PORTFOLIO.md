@@ -1,5 +1,7 @@
 # Effort-normalized positive visitor-guild portfolios and floral motifs — 2026-11-17
 
+> **Stricter actual insect-species-degree source null (18 Nov 2026):** [Original 4505 GIFT × DoPI degree-fixed bipartite network result](../20261118_degree_fixed_dopi_visitor_network_null/README.md), original source [run #44213550467](https://github.com/zuizui0223/island/actions/runs/44213550467) SUCCESS. The new null preserves both every real insect species' observed plant degree and every plant's observed real visitor degree, beyond the looser guild-label marginal benchmark below. Open radial source guild-documentation residual remains negative **−0.188 [−0.305,−0.071]** but on 63 eligible source studies rather than 73, so the two samples cannot be treated as independent replications. The apparent insect guild breadth is not an effective pollen-guild or island-specialization estimate.
+
 **Completed original source numerical analysis. Exploratory European positive flower-visitation data, not observed pollination on GIFT islands, effective pollen deposition, or island-specific evolution.**
 
 ## Original source and reproducibility
