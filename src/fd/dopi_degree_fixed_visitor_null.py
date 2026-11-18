@@ -16,6 +16,7 @@ from __future__ import annotations
 
 from collections import defaultdict
 from hashlib import sha256
+from math import comb
 import numpy as np
 
 from .dopi_gift_guild_motif_bridge import botanical_genus
@@ -26,12 +27,12 @@ MIN_MOTIF_PLANTS=2
 MIN_DISTINCT_VISITORS=2
 MIN_SITE_GUILDS=2
 MAX_EDGES_PER_SITE=400
-N_CHAINS=2
-N_SNAPSHOTS_PER_CHAIN=40
+N_CHAINS=4
+N_SNAPSHOTS_PER_CHAIN=80
 BURN_EDGE_MULTIPLIER=25
 STEP_EDGE_MULTIPLIER=4
 MIN_ACCEPTED_SWAPS_PER_CHAIN=10
-MAX_CHAIN_DISAGREEMENT_GUILDS=.35
+MAX_CHAIN_DISAGREEMENT_GUILDS=.20
 
 
 def bipartite_degree_swap(edges:set[tuple[str,str]],rng:np.random.Generator,
@@ -144,7 +145,7 @@ def site_degree_preserving_null(
     result={}
     for name,(a,b) in eligible.items():
         vals=chain_means[name]
-        disagreement=abs(vals[0]-vals[1])
+        disagreement=float(max(vals)-min(vals))
         rec=dict(n_positive_motif_plants=len(a),
                  n_negative_motif_plants=len(b),
                  n_original_visitor_species=len(dv),
@@ -170,6 +171,83 @@ def site_degree_preserving_null(
                 n_visitor_species=len(dv),
                 n_guilds=len(guilds),
                 motif_profiles=result)
+
+
+def _publication_sign_pvalue(values:list[float])->dict:
+    """Exact signed *publication*-median test; not a causal or prespecified p."""
+    npos=sum(x>1e-12 for x in values)
+    nneg=sum(x<-1e-12 for x in values)
+    ntie=len(values)-npos-nneg
+    n=npos+nneg
+    if n==0:
+        return dict(n_positive=0,n_negative=0,n_exact_zero_ties=ntie,
+                    two_sided_sign_p=None)
+    tail=sum(comb(n,j) for j in range(min(npos,nneg)+1))/2**n
+    return dict(n_positive=npos,n_negative=nneg,n_exact_zero_ties=ntie,
+                two_sided_sign_p=float(min(1,2*tail)))
+
+
+def _familywise_study_bootstrap(by_motif:dict,draws:int)->dict:
+    """Correlated max-t bootstrap over shared original study labels.
+
+    Align support by original publication, not by individual network edges.
+    Each motif's statistic remains conditional on its own study availability.
+    Family is these FOUR explicitly selected exploratory morphology profiles,
+    not the 27 earlier searched, so DO NOT claim globally corrected evidence.
+    """
+    good=[name for name in FOCAL_MOTIFS if len(by_motif[name])>=MIN_STUDIES]
+    if not good:return dict(status="NOT_IDENTIFIABLE_FOUR_PROFILE_FAMILY")
+    keys=sorted(set().union(*(set(by_motif[m]) for m in good)))
+    if len(keys)<MIN_STUDIES:return dict(status="NOT_IDENTIFIABLE_SOURCE_STUDIES")
+    # Critical: missing original paper/motif observations are *missing*,
+    # never manufactured source-negative visitor observations.
+    rows=np.full((len(keys),len(good)),np.nan)
+    for i,pub in enumerate(keys):
+        for j,motif in enumerate(good):
+            if pub in by_motif[motif]:
+                rows[i,j]=float(np.mean([z["excess_over_network_degree_null"]
+                                          for z in by_motif[motif][pub]]))
+    original=np.nanmean(rows,axis=0)
+    seed=int.from_bytes(sha256(b"fd|DoPI|degree-fixed|source-pub|maxT").digest()[:8],"big")
+    rng=np.random.default_rng(seed)
+    sampled=rng.integers(len(keys),size=(draws,len(keys)))
+    # All resampled studies must include >=1 actual original source paper
+    # with available data for each eligible morphology; otherwise resample
+    # cannot estimate the same target and must be excluded.
+    bs=np.empty((draws,len(good)),float)
+    bs[:]=np.nan
+    for d,ix in enumerate(sampled):
+        x=rows[ix,:]
+        good_cols=np.isfinite(x).any(axis=0)
+        if good_cols.all():
+            bs[d,:]=np.nanmean(x,axis=0)
+    valid=np.isfinite(bs).all(axis=1)
+    if int(valid.sum())<int(draws*.99):
+        return dict(status="NOT_IDENTIFIABLE_STUDY_FAMILY_RESAMPLING",
+                    n_resamples_valid=int(valid.sum()))
+    bs=bs[valid]
+    std=bs.std(axis=0,ddof=1)
+    if np.any(std<=0):
+        return dict(status="NOT_IDENTIFIABLE_ZERO_STUDY_VARIANCE",
+                    n_resamples_valid=int(valid.sum()))
+    max_t=np.max(np.abs((bs-original)/std),axis=1)
+    threshold=float(np.quantile(max_t,.95))
+    out={}
+    for j,m in enumerate(good):
+        out[m]=dict(
+            estimate=float(original[j]),
+            simultaneous_selected_four_profiles_ci95=[
+                float(original[j]-threshold*std[j]),
+                float(original[j]+threshold*std[j])],
+            bootstrap_sd=float(std[j]),
+            n_studies=int(np.isfinite(rows[:,j]).sum()))
+    return dict(status="EXPLORATORY_FOUR_PROFILE_STUDY_MAXT_INTERVALS",
+                n_unique_source_publications=len(keys),
+                n_valid_publication_resamples=int(valid.sum()),
+                max_studentized_threshold95=threshold,
+                profiles=out,
+                four_selected_profiles_not_global_multiplicity=True,
+                nonexchangeable_source_studies_and_lineages=True)
 
 
 def audit_original_degree_fixed_networks(index:dict,*,motifs:dict,
@@ -251,9 +329,39 @@ def audit_original_degree_fixed_networks(index:dict,*,motifs:dict,
             item[k]=float(arr[:,j].mean())
             item[k+"_bootstrap95"]=[
                 float(x) for x in np.quantile(boot[:,j],[.025,.975])]
+        pub_residuals=arr[:,2].tolist()
+        item["publication_sign_test"]=_publication_sign_pvalue(pub_residuals)
+        item["source_publication_loo_residual_min"]=float(
+            min((sum(pub_residuals)-v)/(n-1) for v in pub_residuals))
+        item["source_publication_loo_residual_max"]=float(
+            max((sum(pub_residuals)-v)/(n-1) for v in pub_residuals))
+        site_counts=[len(by_pub[pub]) for pub in sorted(by_pub)]
+        item["largest_one_publication_share_of_source_sites"]=float(
+            max(site_counts)/sum(site_counts))
+        item["n_source_papers_with_opposite_direction_than_full_mean"]=int(
+            sum(np.sign(v)!=np.sign(item["residual_over_degree_fixed_network_null"])
+                for v in pub_residuals))
         panels.append(item)
+    # A transparent 4-profile family check, preserving overlapping
+    # publication identities across *different* available motif cohorts.
+    family=_familywise_study_bootstrap(by_motif,draws)
+    # Holm over exact source-paper sign tests is another descriptive control.
+    available=[(p["motif"],p["publication_sign_test"]["two_sided_sign_p"])
+        for p in panels if p.get("status")==
+        "DESCRIPTIVE_SOURCE_VISITOR_DEGREE_FIXED_FLORAL_GUILD_ASSOCIATION"
+        and p["publication_sign_test"]["two_sided_sign_p"] is not None]
+    ordered=sorted(available,key=lambda pair:pair[1])
+    adjusted={}
+    running=0.
+    for i,(name,p) in enumerate(ordered):
+        running=max(running,min(1.,float(p)*(len(ordered)-i)))
+        adjusted[name]=float(running)
+    for p in panels:
+        if p["motif"] in adjusted:
+            p["holm_four_focal_publication_sign_p"]=adjusted[p["motif"]]
     return dict(
         status="DOPI_GIFT_4505_SOURCE_VISITOR_SPECIES_DEGREE_FIXED_NETWORK_NULL",
+        selected_four_profile_familywise_source_study_bootstrap=family,
         original_GIFT_botanical_island_population=4505,
         original_DoPI_raw_source_rows=index["source_row_counts"].get(
             "original_DoPI_v2_source_rows",0),
@@ -276,4 +384,6 @@ def audit_original_degree_fixed_networks(index:dict,*,motifs:dict,
             original_plant_abundance_and_visit_intensity_unknown=True,
             original_4505_islands_parent_not_visitor_study_sites=True,
             European_visitors_not_tropical_island_guilds=True,
-            no_original_site_study_accepted_plant_or_insect_names_exported=True))
+            no_original_site_study_accepted_plant_or_insect_names_exported=True,
+            four_profile_study_cluster_multiplicity_only_not_full_prior_search=True,
+            publication_leave_one_out_is_influence_not_cross_dataset_replication=True))
