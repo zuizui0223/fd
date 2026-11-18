@@ -97,6 +97,18 @@ def partition_genus_coupling(roster:set[str],profile:dict)->dict:
                 finite_within_genus_joint_variance=variance_count/N**2)
 
 
+def _genera_with_real_within_variation(roster:set[str],profile:dict)->frozenset:
+    """Private genus identifiers; source-safe output contains COUNTS ONLY."""
+    known=set(roster)&set(profile["known"])
+    A=set(profile["A"]);B=set(profile["B"])
+    by_g=defaultdict(lambda:[0,0,0])
+    for sp in known:
+        v=by_g[_genus(sp)]
+        v[0]+=1;v[1]+=int(sp in A);v[2]+=int(sp in B)
+    return frozenset(g for g,(n,a,b) in by_g.items()
+                     if n>1 and 0<a<n and 0<b<n)
+
+
 def partition_island_source(*,full_flora:set[str],
                             scope_rosters:dict[str,set[str]],
                             source_rosters:dict[str,set[str]],
@@ -111,16 +123,24 @@ def partition_island_source(*,full_flora:set[str],
     if any(set(source_rosters[m])&full_flora for m in MODES):
         raise ValueError("mainland donor accepted plant leaked into focal GIFT flora")
     src={}
+    source_var={}
     for p in JOINT_SPECS:
         profile=pairs[p]
         src[p]={m:partition_genus_coupling(source_rosters[m],profile)
                 for m in MODES}
+        source_var[p]={m:_genera_with_real_within_variation(source_rosters[m],profile)
+                       for m in MODES}
     rows=[]
     for scope in SCOPES:
         for name,p in JOINT_SPECS.items():
             island=partition_genus_coupling(scope_rosters[scope],pairs[name])
+            island_var=_genera_with_real_within_variation(scope_rosters[scope],
+                                                              pairs[name])
+            common_var=(island_var & source_var[name]["geo5"] &
+                        source_var[name]["climate10"])
             z=dict(scope=scope,sector=name,
-                   island_total=len(scope_rosters[scope]))
+                   island_total=len(scope_rosters[scope]),
+                   n_shared_informative_genera_both_source_modes=len(common_var))
             z.update({f"island__{k}":v for k,v in island.items()})
             for mode in MODES:
                 m=src[name][mode]
@@ -147,7 +167,8 @@ def aggregate_pair_genus_partition(frame:pd.DataFrame, *,
     """Source-block / first-GIFT-source bootstrap, fail-closed infovar cohort."""
     needed={"island_id","regime","spatial_block","first_source",
             "scope","sector","island__n_direct","island__n_genera",
-            "island__n_variable_genera","island_total"}
+            "island__n_variable_genera","island_total",
+            "n_shared_informative_genera_both_source_modes"}
     for mode in MODES:
         needed|={f"{mode}__total",f"{mode}__n_direct",
                  f"{mode}__n_variable_genera"}
@@ -183,6 +204,11 @@ def aggregate_pair_genus_partition(frame:pd.DataFrame, *,
                 informative=(q.island__n_variable_genera.gt(0)&
                     q.geo5__n_variable_genera.gt(0)&
                     q.climate10__n_variable_genera.gt(0))
+                common_informative=q.n_shared_informative_genera_both_source_modes.gt(0)
+                # This is a TRUE source/genus-matched follow-up; the previous
+                # broad "variation on either side" cohort may have completely
+                # different botanical genera on island and mainland.
+                # No missing phenotype value is replaced by a source zero.
                 # Additional documentation-imbalance check, scored separately.
                 balanced=(q.island__n_direct.div(q.island_total.replace(0,np.nan))
                     .sub(q.geo5__n_direct.div(q.geo5__total.replace(0,np.nan)))
@@ -194,13 +220,16 @@ def aggregate_pair_genus_partition(frame:pd.DataFrame, *,
                        n_original_region_islands=int(len(pool)),
                        n_both_mainland_source_supported=int(len(q)),
                        n_islands_with_true_variation_on_all_three_rosters=int(informative.sum()),
+                       n_islands_with_same_variable_genus_on_island_and_both_sources=int(common_informative.sum()),
                        n_annotation_rate_le10pp=int(balanced.sum()),
                        n_informative_and_annotation_rate_le10pp=int((informative&balanced).sum()))
                 cols=[f"{m}__delta_{metric}" for m in MODES for metric in (
                     "joint","coupling","between_genus_coupling",
                     "within_genus_coupling")]
                 for mask,sub in (("all",q),("genuine_within_genus_var",q.loc[informative]),
-                                 ("genus_var_and_doc_le10pp",q.loc[informative&balanced])):
+                                 ("genus_var_and_doc_le10pp",q.loc[informative&balanced]),
+                                 ("same_variable_genus_across_island_and_sources",
+                                   q.loc[common_informative])):
                     for group,threshold in (("spatial_block",MIN_BLOCKS),
                                             ("first_source",MIN_FIRST_SOURCES)):
                         grouped=sub.dropna(subset=[group]).groupby(group,sort=True)
@@ -244,6 +273,8 @@ def aggregate_pair_genus_partition(frame:pd.DataFrame, *,
             within_genus_expectation_conditions_on_real_species_fixed_margins=True,
             between_genus_component_is_flora_compositional_not_evolution=True,
             strict_variation_requires_original_trait_variation_on_island_and_both_sources=True,
+            matched_same_variable_genus_required_for_strongest_contrast=True,
+            previous_simple_full_flora_10pp_documentation_gate_is_not_proven_missing_at_random=True,
             high_missingness_weakens_identification_not_zero_effect=True,
             potential_mainland_sources_not_actual_historical_propagules=True,
             genus_not_phylogeny_and_original_source_provider_not_independent=True,
