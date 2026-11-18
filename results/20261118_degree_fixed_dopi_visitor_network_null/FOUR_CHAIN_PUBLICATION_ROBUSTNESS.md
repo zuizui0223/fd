@@ -1,5 +1,7 @@
 # Original source-verified GIFT–DoPI four-chain, study-clustered, degree-fixed visitor-network sensitivity — 18 November 2026
 
+> **New stricter same-network alternative-algorithm audit:** [Curveball versus edge swap, exactly matched original paper×site×month](CURVEBALL_PAIRED_ORIGINAL_SOURCE.md), original run #44221323430 PASS. On the **same 59 papers**, edge-swap residual −0.18457 and independent Curveball −0.18377 (paired method difference +0.00080 [−0.00579,+0.00692]); **42/59** Curveball paper-level residuals negative. Your original 60-paper source subset in this page differs because both chain gates are now required, and the method comparison is NOT a second independent ecological replication. Source plant genus, effort and true effective pollen transfer still unresolved.
+
 **Original source numerical analysis completed successfully. This is a post hoc sensitivity of recorded European positive visitor guild breadth for real botanical species also listed on GIFT islands; it does NOT identify island-local guild replacements or effective pollination. Original 4,505-island botanical population preserved.**
 
 ## Source receipts and reproducible model
