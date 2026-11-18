@@ -29,6 +29,22 @@ CATEGORIES=("bombus","other_bees","butterfly_family",
             "flies_order","other_animals","unresolved")
 
 
+def strict_original_accepted_plant(name:object)->str|None:
+    """Do not reinterpret genus-only or infraspecific labels as source species.
+
+    Botanical authorities after genuine accepted binomial are allowed, but
+    subsp./var./f./cf./aff. qualifiers are NOT promoted to an observed
+    accepted species-level visitor relationship without an original match.
+    """
+    if not isinstance(name,str) or not name.strip():
+        return None
+    tokens=name.strip().lower().replace(",", " ").split()
+    if set(tokens) & {"subsp.","subsp","ssp.","ssp","var.","var",
+                      "f.","forma","cf.","cf","aff.","aff","sp.","spp."}:
+        return None
+    return original_binomial(name)
+
+
 def original_guild(order:str,family:str,animal:str)->str:
     raw=visitor_guild(order,family)
     animal=str(animal or "").strip()
@@ -126,7 +142,7 @@ def evaluate_original_european_island_visits(
         how="inner",validate="many_to_one")
     normalize={}
     for value in linked.Plant_accepted_name.dropna().unique():
-        name=original_binomial(value)
+        name=strict_original_accepted_plant(value)
         normalize[value]=name
     linked["plant"]=linked.Plant_accepted_name.map(normalize)
     # No subspecific imputation, invalid name or synonym crosswalk.
