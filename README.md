@@ -1,5 +1,15 @@
 # fd — functional differentiation of island floral assemblages
 
+
+## 2026-11-18: curated verified positive evidence and next falsification
+
+**[Verified 4,505-island floral functional assembly evidence ledger](results/20261118_positive_evidence/README.md)** · **[Genus-disjoint functional beta next-analysis contract](docs/GENUS_DISJOINT_FUNCTIONAL_BETA_NEXT.md)**
+
+The original 4,505 GIFT island flora remains the botanical study population. Among 2,324 eligible high/medium Direct same-accepted-species colour×form floras, full island-pair mean category-frequency overlap is **0.3869** across **2,699,326** pairs, and **0.2472** across **842,058 species-disjoint pairs**. The observation is *recurrent floral categories despite taxonomic turnover*, not demonstrated above-null evolutionary convergence. On true same-plant radial-symmetry×deep-tube phenotypes, the potential mainland-source-relative floral configuration is **+10.99 percentage points in the tropics** (n=666) but **−2.70 points in northern high latitudes** (n=135); the tropical marginal-corrected trait-pairing difference is primarily **between botanical genera**. An auxiliary DoPI European positive-visitor study shows source-degree-conditioned open-radial visitor guild breadth difference, without identifying island-local effective pollination.
+
+These are **original-source-verified observational results**, *not new results recomputed by this main-only evidence merge*. Their original protected execution, signatures, independent replays and limitations are linked in the ledger. The large [original source-backed working PR #16](https://github.com/zuizui0223/fd/pull/16) remains exploratory **DRAFT**, not silently merged into main. Crucial caveats include limited direct-native trait coverage, source/geography dependence, non-identifiability of tropical geology×LGM independent effects and no island-local pollinator transition evidence. Next primary inference is the **genus-disjoint**, geography/effort/source-conditioned floral functional beta analysis; its original-data outcome is currently pending.
+
+
 **Status:** independent exploratory analysis line, migrated from [island PR #321](https://github.com/zuizui0223/island/pull/321). This repository contains new analyses, **not** a new copy of the original plant-trait database. Its first runnable stage is implemented; no new global significance or evolutionary result is implied by creating the pipeline.
 
 ## Research question
