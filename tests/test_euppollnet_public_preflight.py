@@ -62,3 +62,20 @@ def test_original_public_dataset_counts_and_geography_missingness(monkeypatch):
     assert out["n_ungeoreferenced_source_rows"]==1
     assert out["original_metadata_rows"]==2
     assert out["limits"]["source_original_study_overlap_with_GloBI_DoPI_WOL_unknown"]
+
+
+def test_invalid_utf8_plant_name_is_quarantined_not_used_as_taxonomic_match(monkeypatch):
+    raw=(b"Study_id,Network_id,Plant_accepted_name,Pollinator_accepted_name,Latitude,Longitude\n"
+         b"A,N1,Alph\x8c alba,Bombus terrestris,44.0,8.0\n"
+         b"A,N1,Beta alba,Syrphus ribesii,44.0,8.0\n")
+    interactions=gzip.compress(raw)
+    metadata=b"Study_id,Year\nA,2020\n"
+    monkeypatch.setitem(SOURCE_FILES,"Interaction_data.csv.gz",
+                        (len(interactions),exact_git_blob_sha(interactions)))
+    monkeypatch.setitem(SOURCE_FILES,"Metadata.csv",
+                        (len(metadata),exact_git_blob_sha(metadata)))
+    q=summarize_public_euppollnet(interactions,metadata)
+    assert q["n_original_source_interaction_rows"]==2
+    assert q["n_original_plant_name_rows_quarantined_invalid_UTF8"]==1
+    assert q["n_original_source_distinct_named_plants"]==1
+    assert q["raw_csv_UTF8_invalid_bytes_not_silently_cast_to_taxonomy"]
