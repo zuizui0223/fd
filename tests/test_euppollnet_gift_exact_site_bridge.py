@@ -71,7 +71,7 @@ def test_animal_taxonomy_requires_actual_family():
 def test_original_site_and_study_id_alignment_with_csv_text_lat_lon():
     source,polygons,_,_,_= _frame()
     site,stats=exact_source_network_site_union(source,polygons)
-    assert stats["n_original_source_study_ids_with_exact_GIFT_polygon"]==2
+    assert stats["n_source_original_study_ids_with_exact_GIFT_polygon"]==2
     assert stats["n_original_source_study_network_site_units_on_verified_GIFT_polygon"]==2
     assert stats["n_original_distinct_source_coordinate_pairs"]==3
     assert stats["n_original_source_coordinate_pairs_inside_unique_GIFT_polygons"]==2
