@@ -9,6 +9,8 @@
 
 **GloBI expanded real source documentation:** source-pinned **24.6 million relationships** now support 232 GIFT islands /1,799 accepted plant×island positive citation pairs (previous selected 109/552), but **radial×deep Lepidoptera drops from 45 islands to 2** when the largest original archive provider is omitted; tropical records vanish under that test. These are not independently sampled island animal guild transitions or measured effective pollination. [Source evidence, caveats and provenance](results/20261118_positive_evidence/README.md) · [Original GloBI analysis CI](https://github.com/zuizui0223/island/actions/runs/44301575888).
 
+**Complete original provider-stability check:** of the 25 genuine Direct two-trait floral-morphology × GloBI documented guild combinations, globally **14/25** meet an exploratory minimum source/plant/island documentation threshold before excluding the dominant archive, but **0/25 afterward**; tropical **0/25 even before omission**. Entire 750-cell source result [verified in original Actions #44308473532](https://github.com/zuizui0223/island/actions/runs/44308473532). This is an evidence-identifiability gate, not a test of no biological pollinator choice. [Detailed source audit and nonclaims](results/20261118_positive_evidence/README.md).
+
 ## 2026-11-18: curated verified positive evidence and next falsification
 
 **[Verified 4,505-island floral functional assembly evidence ledger](results/20261118_positive_evidence/README.md)** · **[Genus-disjoint functional beta next-analysis contract](docs/GENUS_DISJOINT_FUNCTIONAL_BETA_NEXT.md)**
