@@ -107,3 +107,132 @@ def audit_public_flower_source(flower_blob:bytes, interaction_blob:bytes,
             original_European_study_not_tropical_island_replication=True,
             no_effect_coefficient_or_pvalue_estimated=True,
         ))
+
+
+def qualified_gift_flower_supply_on_positive_visits(
+    source_local_visits:pd.DataFrame, original_flower_counts:pd.DataFrame,
+    direct_traits:dict, *, original_GIFT_botanical_floras:int=4505,
+)->dict:
+    """PRIVATE original exact-GIFT-site source dataframe -> anonymous support.
+
+    The input source_local_visits MUST already be joined to independent GIFT
+    original exact GSHHG polygon and SAME island accepted botanical species.
+    Counts are not visitor choice or availability estimates. Require ONE
+    published flower-count row per source key and identical study/network/
+    original date to avoid false exposure links. Original source names,
+    sites, study IDs and flower keys are NEVER serialized.
+    """
+    from .fullframe_globi_local_support import genuine_direct_motifs
+    from .euppollnet_gift_exact_site_bridge import original_guild
+    if original_GIFT_botanical_floras!=4505:
+        raise ValueError("Original full 4505 botanical island source population lost")
+    required_visits={
+        "Study_id","Network_id","Flower_data_merger","Date",
+        "island_id","plant","origin_status","endemic_status",
+        "Pollinator_order","Pollinator_family","Pollinator_accepted_name",
+    }
+    required_flower={
+        "Flower_data_merger","Study_id","Network_id","Day","Month","Year",
+        "Flower_count","Units",
+    }
+    if not required_visits<=set(source_local_visits) or not required_flower<=set(original_flower_counts):
+        raise ValueError("Original field source/GIFT positive visitors or original supply missing")
+    visit=source_local_visits.copy()
+    fl=original_flower_counts.copy()
+    if len(visit)==0:
+        return dict(status="ORIGINAL_GIFT_SITE_EUPPOLLNET_NO_POSITIVE_VISITS",
+            n_original_qualified_visitors=0,
+            original_source_unsampled_not_animal_absence=True)
+    if visit[["Study_id","Network_id","island_id","plant"]].isna().any().any():
+        raise ValueError("Source field visitor ID or botanical flora site missing")
+    # The original source key is a published survey linker, NOT a new species
+    # observation. Empty/null source keys are unqualified.
+    visit[JOIN]=visit[JOIN].astype("string").str.strip()
+    fl[JOIN]=fl[JOIN].astype("string").str.strip()
+    visit=visit.loc[visit[JOIN].notna()&visit[JOIN].ne("")].copy()
+    fl=fl.loc[fl[JOIN].notna()&fl[JOIN].ne("")].copy()
+    frequencies=fl[JOIN].value_counts()
+    unique=set(frequencies.index[frequencies.eq(1)])
+    n_source_original_flower_keys_ambiguous=int(frequencies.gt(1).sum())
+    exact=fl.loc[fl[JOIN].isin(unique)]
+    # Never auto-sum multiple positive source visits into extra independent
+    # flower-count denominators.
+    linked=visit.merge(exact,on=JOIN,how="inner",
+        suffixes=("","_flower"),validate="many_to_one")
+    n_key_linked=len(linked)
+    original_study_network=(linked.Study_id.eq(linked.Study_id_flower)&
+            linked.Network_id.eq(linked.Network_id_flower))
+    linked=linked.loc[original_study_network].copy()
+    n_same_study_network=len(linked)
+    visit_date=pd.to_datetime(linked.Date,errors="coerce")
+    year=pd.to_numeric(linked.Year,errors="coerce")
+    month=pd.to_numeric(linked.Month,errors="coerce")
+    day=pd.to_numeric(linked.Day,errors="coerce")
+    same=(visit_date.notna()&year.eq(visit_date.dt.year)&
+          month.eq(visit_date.dt.month)&day.eq(visit_date.dt.day))
+    linked=linked.loc[same].copy()
+    n_same_original_calendar_day=len(linked)
+    numeric=pd.to_numeric(linked.Flower_count,errors="coerce")
+    positive=numeric.notna() & numeric.gt(0)
+    units=linked.Units.astype(str).str.strip()
+    valid_unit=units.ne("")&~units.str.lower().isin(
+        ("nan","none","unknown","na","null"))
+    linked=linked.loc[positive&valid_unit].copy()
+    n_quantitative_exposure_rows=len(linked)
+    # Exact true-same-species floral availability labels only: no genus
+    # imputation and no trait-state imputation from different accepted plants.
+    motifs=genuine_direct_motifs(direct_traits)
+    verified=linked.copy()
+    verified["visit_guild"]=[original_guild(o,f,a) for o,f,a in zip(
+        verified.Pollinator_order,verified.Pollinator_family,
+        verified.Pollinator_accepted_name)]
+    cells=[]
+    for scope in ("all_recorded","native_label","native_endemic"):
+        if scope=="all_recorded":subset=verified
+        elif scope=="native_label":subset=verified[
+            verified.origin_status.eq("native")]
+        else:subset=verified[
+            verified.origin_status.eq("native")&
+            verified.endemic_status.eq("endemic")]
+        for motif,by_species in motifs.items():
+            scored={s for s,v in by_species.items() if v}
+            yes=subset.loc[subset.plant.isin(scored)]
+            for guild in ("bombus","other_bees","butterfly_family",
+                          "sphingidae_moth","flies_order","other_lepidoptera"):
+                q=yes.loc[yes.visit_guild.eq(guild)]
+                cells.append(dict(botanical_scope=scope,
+                    genuine_same_species_flower_pair=motif,
+                    original_animal_taxonomic_guild=guild,
+                    n_original_source_gift_island_qualified_flower_supply_sites=int(
+                        q.island_id.nunique()),
+                    n_original_source_studies_with_qualified_flower_supply=int(
+                        q.Study_id.nunique()),
+                    n_original_accepted_species_with_qualified_flower_supply=int(
+                        q.plant.nunique()),
+                    n_original_qualified_flower_count_linked_visitor_rows=int(len(q))))
+    source_units=(linked.Units.fillna("MISSING").astype(str).str.strip().
+                  value_counts().to_dict())
+    return dict(
+        status="ORIGINAL_GIFT_EUPPOLLNET_EXACT_POSITIVE_FLOWER_SUPPLY_LINK_AUDIT",
+        parent_original_GIFT_botanical_floras=4505,
+        n_original_source_positive_same_island_botanical_visits=len(source_local_visits),
+        n_original_positive_source_with_nonmissing_join_key=len(visit),
+        n_original_source_flower_keys_ambiguous_not_automatically_summed=n_source_original_flower_keys_ambiguous,
+        n_original_visitor_rows_with_unique_original_flower_key=n_key_linked,
+        n_original_visitors_with_same_published_study_network_flower_source=n_same_study_network,
+        n_original_visitors_with_same_published_study_network_calendar_day=n_same_original_calendar_day,
+        n_original_positive_visitors_with_nonzero_numeric_flower_count_and_unit=n_quantitative_exposure_rows,
+        n_original_GIFT_islands_with_qualified_flower_exposure=int(linked.island_id.nunique()),
+        n_original_source_studies_with_qualified_flower_exposure=int(linked.Study_id.nunique()),
+        n_original_accepted_botanical_plants_with_qualified_flower_exposure=int(linked.plant.nunique()),
+        original_qualified_source_flower_unit_labels_counts=source_units,
+        true_source_same_species_flower_x_animal_positive_exposure_cells=cells,
+        limitations=dict(
+            original_source_StudyNetworkDate_plant_supply_matches_are_not_independent_guild_preferences=True,
+            flower_unit_heterogeneity_has_not_been_normalized=True,
+            repeated_visits_do_not_add_independent_flower_denominators=True,
+            original_animal_nondetections_and_plant_effort_not_verified=True,
+            source_flower_traits_not_measured_on_same_european_field_site=True,
+            no_calibrated_pollen_deposition_or_seed_set_estimated=True,
+            original_sources_overlap_GloBI_DoPI_WOL_unresolved=True,
+            no_private_original_study_network_island_plant_or_flower_source_keys_exported=True))
