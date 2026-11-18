@@ -11,6 +11,8 @@
 
 **Complete original provider-stability check:** of the 25 genuine Direct two-trait floral-morphology × GloBI documented guild combinations, globally **14/25** meet an exploratory minimum source/plant/island documentation threshold before excluding the dominant archive, but **0/25 afterward**; tropical **0/25 even before omission**. Entire 750-cell source result [verified in original Actions #44308473532](https://github.com/zuizui0223/island/actions/runs/44308473532). This is an evidence-identifiability gate, not a test of no biological pollinator choice. [Detailed source audit and nonclaims](results/20261118_positive_evidence/README.md).
 
+**Independent field-study site validation added (not an ecological effect):** original EuPPollNet study/site/date records (623,476 source positive interactions, 54 source study IDs) strictly intersected the 4,505 GIFT botanical island floras with exact original accepted species and independently verified GSHHG polygons. Actual source support is **168 coordinates /12 source study IDs, but only 13 GIFT islands with 440 correctly matching botanical accepted taxa**. True paired Direct radial×deep flowers have positive Bombus records on 3 islands and butterfly records on 5 islands; independent guild selection/fitness remains unidentified. [Verified original source run](https://github.com/zuizui0223/island/actions/runs/44312584732) · [Full original source support ledger](results/20261118_positive_evidence/README.md).
+
 ## 2026-11-18: curated verified positive evidence and next falsification
 
 **[Verified 4,505-island floral functional assembly evidence ledger](results/20261118_positive_evidence/README.md)** · **[Genus-disjoint functional beta next-analysis contract](docs/GENUS_DISJOINT_FUNCTIONAL_BETA_NEXT.md)**
