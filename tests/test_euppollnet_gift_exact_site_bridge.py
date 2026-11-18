@@ -1,9 +1,11 @@
 """Synthetic original GIFT 4,505 botanical accepted floral community × European field-site audit."""
-import geopandas as gpd
 import numpy as np
 import pandas as pd
 import pytest
-from shapely.geometry import box
+# The default fd CI installs only the core numerical package. Geospatial
+# source validation is optional and fully tested in the dedicated source job.
+gpd=pytest.importorskip("geopandas")
+box=pytest.importorskip("shapely.geometry").box
 from fd.euppollnet_gift_exact_site_bridge import (
     original_guild,strict_original_accepted_plant,
     exact_source_network_site_union,evaluate_original_european_island_visits,
