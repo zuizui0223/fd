@@ -22,9 +22,9 @@ All-recorded accepted plant floras, geo5 potential native GIFT mainland source r
 
 | True same-species deep-floral phenotype | Oceanic − continental (tropical, original 37 continental /124 oceanic) | LGM-unconnected − connected (tropical, original 257 connected/347 unconnected) |
 |---|---|---|
-| **Actinomorphic × deep** | **+6.693 pp [3.558,9.999]** | **+6.902 pp [2.910,10.712]** |
-| **Zygomorphic × deep** | −1.427 pp [−4.925,+2.134] | **−3.617 pp [−5.908,−1.432]** |
-| Tubular/bell × deep | +3.499 pp [−0.563,+7.120] (120 oceanic, not 124) | +0.073 pp [−3.139,+2.993] (218 connected/334 unconnected) |
+| **Actinomorphic × deep** | **+6.69 pp [3.56,10.00]** | **+6.90 pp [2.91,10.71]** |
+| **Zygomorphic × deep** | −1.43 pp [−4.93,+2.13] | **−3.62 pp [−5.91,−1.43]** |
+| Tubular/bell × deep | +3.50 pp [−0.56,+7.12] (120 oceanic, not 124) | +0.07 pp [−3.14,+2.99] (218 connected/334 unconnected) |
 
 The original alternate **climate10** candidate mainland source also gives **oceanic−continental radial×deep +5.963 pp [3.172,9.163]** and **LGM-unconnected−connected +6.118 pp [2.411,9.943]**. Among physical block grouped source comparisons, first original GIFT donor region reweighting returns **+7.50 [4.98,10.12]** oceanic−continental geo5, and **+8.19 [4.76,11.63]** LGM unconnected−connected geo5. These are **sensitivity estimates from overlapping cohorts**, not independent empirical repeats.
 
@@ -36,9 +36,9 @@ For each group contrast above the *pairing-excess* \`C\` is a different response
 
 | Source-relative pairing-excess contrast, geo5 (pp) | Observed class contrast ΔC [95%] | Component due to BETWEEN-genus source trait means ΔB [95%] | Within-genus observed pairing ΔW [95%] |
 |---|---|---|---|
-| Geological oceanic−continental, radial×deep | **+1.695 [−0.267,+3.582]** | **+1.733 [−0.245,+3.604]** | −0.048 [−0.115,+0.016] |
-| LGM unconnected−connected, radial×deep | **+3.224 [+1.569,+4.996]** | **+3.256 [+1.605,+5.032]** | −0.032 [−0.061,−0.008] |
-| LGM unconnected−connected, bilateral×deep | **−3.259 [−4.878,−1.701]** | **−3.337 [−4.960,−1.777]** | +0.078 [−0.013,+0.164] |
+| Geological oceanic−continental, radial×deep | **+1.688 [−0.272,+3.584]** | **+1.735 [−0.238,+3.604]** | −0.047 [−0.107,+0.020] |
+| LGM unconnected−connected, radial×deep | **+3.222 [+1.566,+5.000]** | **+3.257 [+1.606,+5.031]** | −0.035 [−0.063,−0.007] |
+| LGM unconnected−connected, bilateral×deep | **−3.258 [−4.878,−1.695]** | **−3.335 [−4.960,−1.781]** | +0.078 [−0.006,+0.161] |
 
 The geological oceanic−continental **climate10** radial×deep pairing excess is +2.81 pp [1.07,4.64], almost entirely its between-genus component +2.84 pp [1.08,4.64]; original first-source grouping climate10 same +2.85 [0.94,4.79], almost entirely between genus +2.86 [0.96,4.79]. Geological geo5 coupling (not joint frequency) crosses zero on both block and first-source grouping, so the claim of positive *pairing* under oceanic geology is **candidate mainland mode sensitive**, even though **raw joint prevalence contrasts** persist under both candidate modes.
 
