@@ -41,7 +41,7 @@ Source numerical CI [#44290748952](https://github.com/zuizui0223/island/actions/
 
 **Primary:** among the original Direct colour×form floras, measure whether functional overlap survives **zero shared accepted botanical genera** (across the whole floristic rosters, not merely the trait-measured carriers); report the already verified zero-species-sharing level as a nested comparison, not independent populations. Evaluate geographic and first-source support, both full and native-known scopes, and source/genus/trait-coverage conditional benchmarks. [Design and falsification gates](../../docs/GENUS_DISJOINT_FUNCTIONAL_BETA_NEXT.md).
 
-**Outcome status at this merge:** *not yet evaluated on original protected genus-disjoint island pairs*. Synthetic-code checks cannot count as empirical confirmation.
+**Status update (18 November 2026):** the strict genus-disjoint original protected-data **descriptive** result is now evaluated and source-CI verified (see the section above and original #44290748952). This earlier pending-status sentence was superseded; **distance/coverage-matched and GIFT mainland-source-cluster inference remains pending**. Synthetic-code checks alone are still not empirical evidence.
 
 ## Reproducibility receipts (original, immutable)
 
