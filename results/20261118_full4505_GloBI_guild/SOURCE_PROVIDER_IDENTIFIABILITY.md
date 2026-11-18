@@ -15,18 +15,18 @@ Test once on full source and once after removing the **globally most frequent or
 
 ## Actual original-data support counts
 
-There are 25 original selected two-Direct-flower × GloBI animal-guild combinations per geographical/plant-status panel. The actual source log [Actions #44301575888](https://github.com/zuizui0223/island/actions/runs/44301575888) was evaluated against the above same four counts:
+There are 25 original selected two-Direct-flower × GloBI animal-guild combinations per geographical/plant-status panel. The complete original anonymous 750-cell artifact from [Actions #44301575888](https://github.com/zuizui0223/island/actions/runs/44301575888) was evaluated against the above same four counts:
 
 | Original geography & plant provenance | Original 25 candidate cells passing threshold on full cited source | Passing after globally largest archive excluded |
 | --- | ---: | ---: |
-| **Global all-recorded** | **12 /25** | **0 /25** |
+| **Global all-recorded** | **14 /25** | **0 /25** |
 | Global literal known-native | 1 /25 | **0 /25** |
-| Northern midlatitude all-recorded | 10 /25 | **0 /25** |
+| Northern midlatitude all-recorded | 11 /25 | **0 /25** |
 | Northern midlatitude literal known-native | 0 /25 | **0 /25** |
 | **Tropical all-recorded** | **0 /25** | **0 /25** |
 | **Tropical literal known-native** | **0 /25** | **0 /25** |
 
-**Important**: A source's independent archive label is NOT itself an independently published field study. Thus even those 12 preliminary global cells cannot currently be promoted to valid tests of realized guild preference or floral adaptation. After omitting the global largest source, ZERO remain for this exploratory minimal gate; the result is source-availability fragility, not proof that flower shape and animal visitor guilds have no ecological association.
+**Important**: The full 750-cell tensor includes Diptera, which was NOT included in the concise initial source-action log printout; that subset had only 12 global and 10 northern-midlatitude passing combinations. The complete 25-cell totals are **14** and **11**, respectively, while the post-omission totals remain zero. A source's independent archive label is NOT itself an independently published field study. Thus even those 14 preliminary global cells cannot currently be promoted to valid tests of realized guild preference or floral adaptation. After omitting the global largest source, ZERO remain for this exploratory minimal gate; the result is source-availability fragility, not proof that flower shape and animal visitor guilds have no ecological association.
 
 ## Why tropical pollinator-syndrome displacement remains not identifiable
 
