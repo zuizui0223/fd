@@ -1,6 +1,8 @@
 # fd — functional differentiation of island floral assemblages
 
 
+**New verified genus-disjoint follow-up (18 Nov):** among **155,569** strictly full-flora accepted-genus-disjoint island pairs, original Direct same-species colour×form functional-overlap mean is **0.2149** (155,566 different-block pairs: 0.2149), even though observed squared category-frequency dissimilarity **0.2806 exceeds** the within-genus original global trait-shuffle reference **0.2565**. Thus *nonzero cross-genus functional-category recurrence* is supported, **not above-null adaptive convergence**. Tropical strict all-recorded support 321 pairs, but tropical native-only has no qualified genus-disjoint pairs. [Original data evidence and necessary caveats](results/20261118_positive_evidence/README.md) · [Exploratory code/results PR #18](https://github.com/zuizui0223/fd/pull/18) (DRAFT).
+
 ## 2026-11-18: curated verified positive evidence and next falsification
 
 **[Verified 4,505-island floral functional assembly evidence ledger](results/20261118_positive_evidence/README.md)** · **[Genus-disjoint functional beta next-analysis contract](docs/GENUS_DISJOINT_FUNCTIONAL_BETA_NEXT.md)**
