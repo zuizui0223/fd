@@ -7,6 +7,8 @@
 
 **Actual island-local visitor evidence ceiling:** full original GIFT 4,505 botanical floras yield **4,499 strictly verified GSHHG polygon islands**, but expanding Web of Life from the old 927 historical polygons adds only **3 site networks on 2 islands** (75→78 networks; exact accepted plant×guild network units 2,469→2,529). The extra 60 source units provide **zero new bird- or Sphingidae-linked actinomorphic×deep observations**. Thus regional flower-structure reassembly remains observational botanical science; a tropical historical guild shift remains **unidentified**, not biologically disproven. [Source-verified WOL evidence](results/20261118_positive_evidence/README.md) · [Original protected CI](https://github.com/zuizui0223/island/actions/runs/44299833563).
 
+**GloBI expanded real source documentation:** source-pinned **24.6 million relationships** now support 232 GIFT islands /1,799 accepted plant×island positive citation pairs (previous selected 109/552), but **radial×deep Lepidoptera drops from 45 islands to 2** when the largest original archive provider is omitted; tropical records vanish under that test. These are not independently sampled island animal guild transitions or measured effective pollination. [Source evidence, caveats and provenance](results/20261118_positive_evidence/README.md) · [Original GloBI analysis CI](https://github.com/zuizui0223/island/actions/runs/44301575888).
+
 ## 2026-11-18: curated verified positive evidence and next falsification
 
 **[Verified 4,505-island floral functional assembly evidence ledger](results/20261118_positive_evidence/README.md)** · **[Genus-disjoint functional beta next-analysis contract](docs/GENUS_DISJOINT_FUNCTIONAL_BETA_NEXT.md)**
