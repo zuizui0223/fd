@@ -87,8 +87,8 @@ def anonymous_network_extension_counts(
     """
     if not {"network_id","island_id"}<=set(located):
         raise ValueError("No source network/site-to-island IDs")
-    if located.network_id.duplicated().any() or
-        located[["network_id","island_id"]].isna().any().any():
+    if (located.network_id.duplicated().any() or
+            located[["network_id","island_id"]].isna().any().any()):
         raise ValueError("Source network point matches are ambiguous")
     old=located.loc[located.island_id.isin(historical_928)]
     extra=located.loc[~located.island_id.isin(historical_928)]
