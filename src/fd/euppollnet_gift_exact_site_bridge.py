@@ -102,7 +102,19 @@ def evaluate_original_european_island_visits(
     need={"island_id","accepted_species","origin_status","endemic_status"}
     if not need<=set(flora) or flora.duplicated(["island_id","accepted_species"]).any():
         raise ValueError("Original accepted GIFT flora source IDs not unique")
+    if not set(REQUIRED)<=set(source):
+        raise ValueError("Original accepted field-network source columns missing")
+    # Keep WGS84 identity exactly aligned on source records and unique
+    # network-site table; published source CSV coordinates are read as text.
+    source=source.copy()
+    source["Latitude"]=pd.to_numeric(source.Latitude,errors="coerce")
+    source["Longitude"]=pd.to_numeric(source.Longitude,errors="coerce")
+    valid=(source.Latitude.between(-90,90)&
+           source.Longitude.between(-180,180))
+    n_rejected=int((~valid).sum())
+    source=source.loc[valid].copy()
     network,site_report=exact_source_network_site_union(source,polygons)
+    site_report["n_original_source_rows_with_invalid_position_excluded"]=n_rejected
     if network.empty:
         return dict(status="SOURCE_FIELD_NETWORK_ISLAND_OPPORTUNITY_UNIDENTIFIABLE",
             n_original_GIFT_flora_population=4505,
