@@ -4,7 +4,7 @@ from itertools import product
 import pytest
 
 from fd.environment_genus_source_audit import (
-    audit_geo_source_genus_prediction,MODELS,REGIONS,SCOPES,QUALIFIED,
+    audit_geo_source_genus_prediction,MODELS,PAIRED,REGIONS,SCOPES,QUALIFIED,
 )
 
 
@@ -22,6 +22,13 @@ def fixture():
                 group[m+"_minus_region_equal_"+metric+"_group_equal_mean"]=val
                 group[m+"_minus_region_equal_"+metric+"_group_resample_95"]=(
                     [-.04,-.01] if val<0 else [.01,.05])
+        for label,ref,alternative in PAIRED:
+            for loss in ("Brier","logloss"):
+                score=lambda model: -.02 if model=="geo_nearest" else .03
+                delta=score(alternative)-score(ref)
+                group[label+"_"+loss+"_group_equal_mean"]=delta
+                group[label+"_"+loss+"_group_resample_95"]=(
+                    [delta-.01,delta+.01])
         cells.append(dict(
             scope=scope,region=region,status=
                 "ORIGINAL_GIFT_GENUS_OCCUPANCY_COMPOSITION_ENVIRONMENTAL_TEST_BOTH_SOURCE_GROUPS",
@@ -63,7 +70,8 @@ def test_four_regions_two_nested_statuses_and_no_genus_oracle():
     assert len(x["original_macroregion_proper_loss_source_count_summary"])==8
     assert x["limitations"]["original_focal_botanical_genus_input_never_used"]
     assert x["limitations"]["original_genus_community_source_not_yet_flora_trait_prediction"]
-    assert x["limitations"]["paired_environment_and_environment_plus_source_effect_NOT_tested_for_direct_increment"]
+    assert x["limitations"]["original_source_similarity_increment_TESTED_WITH_SAME_TARGET_AND_DIRECT_PAIRED_GROUP_RESAMPLING"]
+    assert len(x["original_paired_model_direct_source_increment_summary"])==8
 
 
 def test_proper_brier_logloss_and_BOTH_geographical_groupings_needed():
@@ -94,3 +102,19 @@ def test_no_unsupported_source_panels_become_positive():
     q["controls"]["source_taxon_genus_nonlisting_is_NOT_confirmed_ecological_absence"]=False
     with pytest.raises(ValueError,match="ceiling missing"):
         audit_geo_source_genus_prediction(q)
+
+
+def test_direct_PAIRED_original_source_increment_both_losses_and_source_groups_and_algebra():
+    q=audit_geo_source_genus_prediction(fixture())
+    x=q["original_full_geographic_composition_cells"][0]
+    src=x["original_source_paired_predictor_increments"]
+    assert src["source_similarity_increment_over_environment"]["status"]=="paired_ambiguous_or_loss_disagreement"
+    assert src["environment_increment_over_geographic_nearness"]["status"]=="paired_predictor_better"
+    assert src["environment_increment_over_geographic_nearness"]["proper_paired_difference_source_groups"][
+        "Brier__physical_10degree_block"]["value"]==pytest.approx(.05)
+    fail=fixture()
+    z=fail["original_no_oracle_original_island_genus_composition_source_predictions"][0][
+        "physical_10degree_block"]
+    z["source_similarity_increment_over_environment_Brier_group_equal_mean"]+=.01
+    with pytest.raises(ValueError,match="paired source environmental improvement failed"):
+        audit_geo_source_genus_prediction(fail)
