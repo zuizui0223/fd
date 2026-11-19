@@ -93,6 +93,8 @@ def audit(weight: pd.DataFrame, catalog: pd.DataFrame, *,
         raise ValueError("Unexpected ambiguous bird-name match")
     n_unmatched = int(joined._merge.eq("left_only").sum())
     matched = joined.loc[joined._merge.eq("both")].copy()
+    if matched.empty:
+        raise ValueError("No exact accepted species matches between original sources")
     positive = matched.diet_nectar_fraction.gt(0)
     zero = matched.diet_nectar_fraction.eq(0)
     if not (positive | zero).all():
