@@ -125,7 +125,7 @@ def test_two_traits_and_two_guilds_only_in_actually_shared_flower_supply_context
 
 def test_original_4505_parent_must_be_preserved_and_missing_plant_col_rejected():
     visits,flowers,traits=_frames()
-    with pytest.raises(ValueError,match="4505"):
+    with pytest.raises(ValueError,match="parent floras changed"):
         original_same_plant_exposure_audit(visits,flowers,traits,original_parent_n=927)
     with pytest.raises(ValueError,match="fields missing"):
         original_same_plant_exposure_audit(visits,flowers.drop(columns=["Plant_species"]),traits)
