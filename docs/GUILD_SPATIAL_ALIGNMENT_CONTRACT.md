@@ -1,6 +1,6 @@
 # Frozen test: tropical radial × deep-tube flowers versus mapped pollinator guilds
 
-**Status 2026-11-19:** implemented with synthetic tests; **not executed on original plant×island or pollinator-map data**. Existing GIFT 4,505-island positive results are unchanged. This is an exploratory ecological association, not an observation of visits, pollen transfer, fitness or a historical pollinator shift.
+**Status 2026-11-19:** post-hoc exploratory hypothesis frozen after inspecting the existing +10.99 pp descriptive result; module implemented with synthetic tests; **not executed on original plant×island or pollinator-map data**. Existing GIFT 4,505-island positive results are unchanged. This is an exploratory ecological association, not an observation of visits, pollen transfer, fitness or a historical pollinator shift.
 
 ## Primary estimand and single joint test
 
@@ -10,7 +10,7 @@ Freeze: all 4,505 original GIFT floras as parent; tropical analysis region; all-
 
 Response: Direct known-pair sector proportion on island minus the corresponding source pool proportion. Unmeasured species are **missing**, not sector-negative. The primary two independent covariates are log(1+mapped qualified nectarivorous-bird range species richness) and log(1+qualified Sphingidae modelled species richness), island-minus-source and standardized within the eligible tropical test cohort. Guild variables come only from independently acquired animal data, without focal flower traits. Neither zero GBIF detections nor generic Aves/Lepidoptera record totals count as qualified absence or moth/nectarivory measures.
 
-Fit one joint 2-df null of no guild association, with both guild terms entered together, controlling log(1+distance), log(1+area), absolute latitude, temperature and precipitation PCs, and separately recorded original Direct island/source pair coverage. Original disjoint 10-degree physical blocks and first GIFT source group each receive equal cluster weight with separate CR1 F approximations and 499 group-resampled intervals. A directional positive *exploratory gate* requires both partial guild slopes nonnegative, joint p<0.05 by both group definitions, and the lower CI for at least one guild greater than zero under both groupings. The joint p-values are exploratory, not family-wise confirmatory nor tests of causality.
+Fit one joint 2-df null of no guild association, with both guild terms entered together, controlling log(1+distance), log(1+area), absolute latitude, temperature and precipitation PCs, and separately recorded original Direct island/source pair coverage. Original disjoint 10-degree physical blocks and first GIFT source group each receive equal cluster weight with separate CR1 F approximations and 499 group-resampled intervals. A directional positive *exploratory, post-hoc gate* requires both partial guild slopes nonnegative, joint p<0.05 by both group definitions, and the lower CI for at least one guild greater than zero under both groupings. The joint p-values are exploratory, not family-wise confirmatory nor tests of causality.
 
 ## Source-independent map requirements
 
@@ -26,7 +26,7 @@ The reported tropical symmetry coverage difference (island ~47%, source/mainland
 
 ## Executable status and privacy
 
-The ready-to-run module accepts a **private** one-row-per-original-island CSV with exactly 4,505 rows and the columns enforced by the code. The private join must be prepared inside authorized source CI using original plant and separate independently reviewed guild maps. Unknown and non-qualified guild states must not be converted to zero. Execute:
+The complete 4,505-island row-count gate alone does not authenticate species/island/source identities: verify SHA-pinned original inputs separately upstream. The ready-to-run module accepts a **private** one-row-per-original-island CSV with exactly 4,505 rows and the columns enforced by the code. The private join must be prepared inside authorized source CI using original plant and separate independently reviewed guild maps. Unknown and non-qualified guild states must not be converted to zero. Execute:
 
     python -m fd.guild_sector_alignment --private-island-join /secure/original_4505_guild_pair_join.csv --bootstrap 499 --output /secure/anonymous_guild_pair.json
 
