@@ -86,8 +86,11 @@ def test_failed_original_group_or_missing_interval_cannot_claim_positive():
     first["support_both_independent_source_groups"]=True
     first["physical_block"]["predicted_joint_gain_vs_own_independence_Brier"]["bootstrap_95"]=[-.01,.02]
     assert sign(first,"predicted_joint_gain_vs_own_independence")=="ambiguous"
+    # A deliberately contradictory stored-positive flag must fail the audit.
+    first["external_genus_joint_dependency_over_own_marginals_supported"]=True
     with pytest.raises(ValueError,match="stored positive flag"):
         audit_original_joint(d)
+    first["external_genus_joint_dependency_over_own_marginals_supported"]=False
     del first["physical_block"]["predicted_joint_gain_vs_own_independence_Brier"]
     with pytest.raises(ValueError,match="interval missing"):
         audit_original_joint(d)
