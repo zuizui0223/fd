@@ -123,3 +123,45 @@ def test_full_regional_temperature_or_butterfly_conclusion_not_inferred_from_gen
     assert q["independent_execution_same_original_data_replay"][
         "deterministic_same_input_two_CI_runs_not_independent_field_replication"]
     assert q["original_north_to_tropical_double_metric_sign_reversal"]
+
+
+def original_synthetic_mainland_candidate():
+    return dict(
+        status="ORIGINAL_GIFT_4505_MAINLAND_SOURCE_NOVEL_SPECIES_HOLDOUT_VS_INTERREGIONAL_GENUS_ORACLE",
+        parent_original_global_GIFT_botanical_island_floras=4505,
+        n_original_mainland_GIFT_native_source_region_lists=748,
+        n_original_global_all_recorded_direct_colour_form_test_islands=2324,
+        n_original_direct_colour_form_source_species_before_strict_holdout=3606,
+        n_original_source_colour_form_species_outside_ALL_4505_GIFT_island_floras=0,
+        n_original_candidate_mainland_donors_after_2324_trait_eligible_island_full_name_holdout=9,
+        original_source_provenance_limit=dict(
+            global_4505_all_flora_name_holdout_leaves_ZERO_independent_source_direct_pair_donors=True,
+            cohort_2324_name_holdout_leaves_NINE_source_direct_pair_donors_but_novelty_not_ancestry=True,
+            original_single_species_wide_Direct_trait_ledger_shared_by_both_sources=True,
+            other_region_conditional_genus_predictor_KNOWS_focal_island_genus_composition=True,
+            independent_candidate_mainland_GIFT_lists_not_ancestral_population_phenotypes=True,
+        ),
+        original_actual_candidate_mainland_GIFT_source_holdout_cohorts=[
+            dict(source_cohort="global_all_n5",
+                n_candidate_mainland_direct_species_after_ALL_cohort_full_flora_names_removed=9,
+                n_original_source_donor_genera_with_two_plus_joint_category_states=0),
+        ],
+    )
+
+
+def test_mainland_candidate_flora_is_a_different_reference_from_other_island_regional_genus_training():
+    from fd.interregional_transfer_robustness import (
+        audit_actual_candidate_mainland_source_novelty)
+    a=original_synthetic_mainland_candidate()
+    q=audit_actual_candidate_mainland_source_novelty(a)
+    assert q["parent_global_GIFT_island_botanical_floras"]==4505
+    assert q["n_original_direct_colour_form_mainland_species_names_outside_ALL_4505_island_floras"]==0
+    assert q["n_candidate_source_species_after_2324_full_flora_names_heldout"]==9
+    assert q["n_candidate_source_genera_with_true_pair_variation_after_2324_holdout"]==0
+    b=original_synthetic_global_fixture()
+    r=analyze_original_global_regionality(b,copy.deepcopy(b),a)
+    assert r["independent_mainland_candidate_species_provenance_gate"][
+        "region_exclusive_other_GIFT_island_species_source_transfer_is_NOT_independent_mainland_source"]
+    a["n_original_source_colour_form_species_outside_ALL_4505_GIFT_island_floras"]=1
+    with pytest.raises(ValueError,match="independent mainland names"):
+        audit_actual_candidate_mainland_source_novelty(a)
