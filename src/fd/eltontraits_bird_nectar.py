@@ -65,16 +65,22 @@ def audit_bird_diet(blob: bytes, *, enforce_species_range: bool = True
         raise ValueError(f"Unable to parse original tab-delimited text: {errors}")
     if frame.columns.duplicated().any():
         raise ValueError("Duplicate original EltonTraits column names")
-    required = {"Scientific", "Diet.Nect"}
-    if not required.issubset(frame.columns):
-        raise ValueError(f"Original BirdFuncDat header missing {sorted(required-set(frame.columns))}: {list(frame.columns)[:12]}")
+    if "Scientific" not in frame.columns:
+        raise ValueError("Original BirdFuncDat header missing Scientific")
+    # Figshare's original archived BirdFuncDat.txt uses a literal hyphen;
+    # older secondary packages may recode it to a dot when importing to R.
+    # Never accept BOTH interpretations silently if future schema drifts.
+    nectar_matches = [c for c in ("Diet-Nect", "Diet.Nect") if c in frame.columns]
+    if len(nectar_matches) != 1:
+        raise ValueError(f"Original BirdFuncDat header missing/ambiguous nectar: {list(frame.columns)[:20]}")
+    nectar_col = nectar_matches[0]
     if enforce_species_range and not MIN_SPECIES <= len(frame) <= MAX_SPECIES:
         raise ValueError(f"Unexpected EltonTraits source bird population: {len(frame)}")
     names = frame["Scientific"].str.strip().str.replace("_", " ", regex=False)
     if names.eq("").any() or names.duplicated().any():
         raise ValueError("Missing or repeated scientific species name; source manual audit required")
-    raw = frame["Diet.Nect"].astype(str).str.strip()
-    numeric = pd.to_numeric(raw.replace("", np.nan), errors="coerce")
+    raw = frame[nectar_col].astype(str).str.strip()
+    numeric = pd.to_numeric(raw.where(raw.ne(""), np.nan), errors="coerce")
     if not np.isfinite(numeric).all() or numeric.lt(0).any() or numeric.gt(100).any():
         raise ValueError("Missing/invalid/non-percentage Diet.Nect; do not impute zeros")
     weights = pd.DataFrame({
@@ -87,6 +93,7 @@ def audit_bird_diet(blob: bytes, *, enforce_species_range: bool = True
         "source_paper_doi": PAPER_DOI,
         "source_filename": "BirdFuncDat.txt",
         "source_file_id": 5631081,
+        "source_nectar_column": nectar_col,
         "original_sha256": digest,
         "n_original_bird_records": int(len(frame)),
         "n_recorded_nectar_positive": int(numeric.gt(0).sum()),
