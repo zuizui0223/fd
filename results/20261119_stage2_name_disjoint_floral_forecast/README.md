@@ -39,6 +39,12 @@ Northern known-native (form n224, colour×form n214) and tropical known-native (
 
 Mean source unsupported true whole-flora genera in the all-recorded, floral-form-evaluable island subsets: **7.70% northern midlatitudes, 7.08% tropics, 16.20% Southern extratropical**. This increases substantially relative to earlier less-strict geography-only source checks, but cohorts differ and the raw values should not be directly subtracted as a matched treatment effect. These reflect strict heldout donor support and recording, **NOT** true biological dispersal or colonization failure.
 
+## Post-hoc proper-score reference-calibration diagnostic (19 November)
+
+An independent exact arithmetic audit of the same signed original source artifact finds a strong **north-versus-south reversal in the local-region versus other-region genus-blind trait-frequency benchmarks**. On the original 10° block-equal outcomes, local minus external genus-BLIND Brier loss is northern **−0.103769** for form and **−0.049768** for true colour×form, but southern **+0.057487** and **+0.050341** respectively. The southern large stage-2 scores over the local blind benchmark (+0.060389 / +0.051092) shrink to small but previously source-supported scores over external blind (+0.002902 / +0.000751). This calculation is an identity between means of paired original source losses on exactly the same targets; the four different genus models reproduce the blind-baseline gap to numerical precision. It is **not** an independent original experiment, causal partition or a newly bootstrapped local-versus-external contrast. Interpret the southern result as regionally contingent external donor predictability, not as a large demonstration of successful geography-specific floral-function assembly.
+
+[Full auditable numerical identity with both geography groupings and both proper losses](REGIONAL_BLIND_BASELINE_REVERSAL.md).
+
 ## Scientific ceiling and next discriminating test
 
 **Survives:** taxonomically conditioned floral-function category information remains geographically contingent and sometimes predicts real held-out botanical island flower composition better than strong regional category means. Global/regional nonuniformity is an empirical positive finding about prediction heterogeneity.
