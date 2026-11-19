@@ -32,7 +32,7 @@ def _fixtures():
         n_original_botanical_islands=4505,
         n_original_distinct_source_regions=748,
         n_original_mainland_native_source_rows=1666186,
-        n_source_direct_pair_species_after_ALL_4505_island_name_exclusion=9,
+        n_source_direct_pair_species_after_ALL_4505_island_name_exclusion=0,
         claims={
           "full_4505_botanical_universe_retained":True,
           "direct_species_flower_colour_and_form_joint_not_imputed":True,
@@ -55,7 +55,8 @@ def test_original_global_full_flora_name_exclusion_leaves_no_variable_mainland_g
     m,t=_fixtures()
     r=audit_candidate_mainland_reality(m,t)
     assert r["parent_original_global_GIFT_botanical_island_floras"]==4505
-    assert r["n_original_source_colour_form_species_outside_ALL_4505_GIFT_island_floras"]==9
+    assert r["n_original_source_colour_form_species_outside_ALL_4505_GIFT_island_floras"]==0
+    assert r["n_original_candidate_mainland_donors_after_2324_trait_eligible_island_full_name_holdout"]==9
     assert r["conditional_other_region_GIFT_island_genus_predictive_endpoints_across_three_regions"]==8
     rows={q["source_cohort"]:q for q in r[
         "original_actual_candidate_mainland_GIFT_source_holdout_cohorts"]}
@@ -76,8 +77,8 @@ def test_unpinned_ancestral_source_and_same_species_training_cannot_pass():
     with pytest.raises(ValueError,match="holdout contract"):
         audit_candidate_mainland_reality(bad,t)
     bad=copy.deepcopy(m)
-    bad["n_source_direct_pair_species_after_ALL_4505_island_name_exclusion"]=10
-    with pytest.raises(ValueError,match="nine"):
+    bad["n_source_direct_pair_species_after_ALL_4505_island_name_exclusion"]=1
+    with pytest.raises(ValueError,match="ZERO"):
         audit_candidate_mainland_reality(bad,t)
     bad=copy.deepcopy(t)
     bad["strict_approach"][
