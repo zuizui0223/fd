@@ -42,3 +42,45 @@ The north-midlatitude local-vs-external training advantage is positive in the so
 **Priority decision for manuscript:** retain the original global botanical functional-category repertoire and taxonomic genus-source reassembly as main results, show **8 of 13 conditionally transferable trait endpoints across 3 nonoverlapping regions** as a significant descriptive/predictive robustness finding, but do NOT equate these endpoint counts to eight independent tests or overclaim universality because direct-native and endpoint joint-colour×form support are weaker. Emphasize simultaneous **conservation of genus-linked information and contingency of local source performance** as the novel macroecological angle.
 
 [Pure cross-region audit](https://github.com/zuizui0223/fd/blob/analysis/full4505-local-visitor-guild-20261118/src/fd/source_regional_transfer_replication.py) · [negative-source/generalizability tests](https://github.com/zuizui0223/fd/blob/analysis/full4505-local-visitor-guild-20261118/tests/test_source_regional_transfer_replication.py) · [original protected summary code](https://github.com/zuizui0223/island/blob/analysis/fd-discrete-functional-volume-20261113/scripts/run_fd_original_region_transfer_replication_summary.py) · [original source-endpoint model](https://github.com/zuizui0223/island/blob/analysis/fd-discrete-functional-volume-20261113/scripts/fd_interregional_genus_name_exclusive_transfer.py).
+
+
+## 19 November second original source-audited all-endpoint LOCAL-versus-EXTERNAL transfer robustness
+
+A stronger **same-species-name-excluded, same-genus equal-donor source** check uses both original independent computational executions of the SAME GIFT data, original [regional source #43700248327](https://github.com/zuizui0223/island/actions/runs/43700248327) and [previous source #43700017352](https://github.com/zuizui0223/island/actions/runs/43700017352), plus the scientifically different candidate mainland source novelty data [#44444353301](https://github.com/zuizui0223/island/actions/runs/44444353301). The [combined original 4,505 GIFT source audit #44445707659](https://github.com/zuizui0223/island/actions/runs/44445707659) **SUCCESS**, 5 synthetic tests; all three ORIGINAL signed GitHub archive SHA256 digests verified, both old and new **100 region×trait×scope source prediction cells** numerically reproduced to within 1e-10 on common Brier/log-loss/D² values; parent **4,505**, true Direct trait endpoints **13**, original source-support cross-cells **104**, and 63 real independently supported conditional region rows preserved. New source anonymous artifact #14493630187 signed ZIP SHA256 **822a1d0ffb6f5efe722b44c6e04b4b3c114c7c62e426e842a043297417a2d295**. This is an extra exact numerical **replay**, not a new independent ecological study.
+
+Rather than just require positive other-region genus-versus-blind improvement, compare LOCAL-only versus EXTERNAL-only same-genus accepted donor species: positive local-minus-external Brier loss reduction favours *same region* and negative favours *other region*. Call a direction only when Brier AND log-loss pair group-resampling 95% intervals on BOTH physical 10° blocks and first GIFT potential candidate-mainland source groups have the same sign. These are **exploratory conditional source predictions**, NOT multiplicity-corrected evolutionary tests or independent 13 hypotheses.
+
+| Original botanical source regime, all recorded provenance | Endpoints passing original region/source eligibility (maximum 13) | Local same-genus donors directionally better on both proper losses/grouping methods | Other-region same-genus donors directionally better | Other-region genus donor better than genus-blind under BOTH grouped Brier modes |
+| --- | ---: | ---: | ---: | ---: |
+| Northern midlatitude | **13** | **10** | **1** | 9 |
+| Tropical | **12** | 3 | **5** | 10 |
+| Southern extratropical | 10 | 1 | 0 | 10 |
+| Northern high latitude | 6 | 1 | 1 | 4 |
+
+The final column is a **Brier-only source-group+geographic-block check** and differs from the stricter previously verified **8/13 endpoints in ALL THREE main independent regions under BOTH Brier/log-loss and grouping methods**; these are distinct questions, not conflicting results. Each trait endpoint shares source floras and often shares same accepted species; endpoint counts must not be read as independent evolution replications.
+
+### Five source-original north-midlatitude versus tropical donor-advantage sign reversals
+
+All five **all-recorded** traits below have both Brier and log-loss sign reversal, and each sign is stable in both original GSHHG physical block and first candidate-source grouping. Source scores are Brier category prediction loss units (NOT percentage-point floral frequencies), 999 cluster resamples exploratory, 10° physical-block equal mean [source original resample 95%].
+
+| True Direct endpoint | Northern-midlatitude source-local advantage | Tropical local source advantage | Qualified matched floral island floras, northern / tropical |
+| --- | ---: | ---: | ---: |
+| **Floral form** | **+0.10683 [0.09458,0.11883]** | **−0.05787 [−0.07019,−0.04509]** | **1,436 /483** |
+| **Flower colour × symmetry**, true SAME accepted species | **+0.14066 [0.12265,0.16057]** | **−0.02642 [−0.03594,−0.01758]** | 1,336 /467 |
+| Self-incompatibility | +0.02891 [0.02143,0.03651] | −0.02277 [−0.03293,−0.01374] | 1,463 /406 |
+| Mating system | +0.05659 [0.04196,0.07094] | −0.14648 [−0.16497,−0.12826] | 875 /38 |
+| Autonomous selfing capacity | +0.04754 [0.03408,0.06140] | −0.03314 [−0.05454,−0.00956] | 369 /82 |
+
+The paired proper log-loss and first candidate mainland source-group intervals additionally retain the same opposite signs for these five original panels. Note the restricted original **tropical mating-system n38** and **autonomous selfing n82**, although source-first and physical-block counts meet 10+ grouping gates. These values are **not independent evolutionary rates**.
+
+**Direct original native-only evidence:** source-local donor advantage for floral form remains opposite with **181** north-midlatitude flora islands, Brier **+0.15480 [0.12916,0.18328]**, and **70** tropical flora islands, **−0.02411 [−0.04750,−0.00040]**; first-source-group confidence intervals and log-loss directions agree. The native-only result does **not** support independent cross-region inversion for all other traits: direct botanical reporting and species support shrink.
+
+**Explicit exceptions:** true SAME-species **flower colour × form** improves with local original region-only donors in northern-midlatitudes **+0.14561 [0.12773,0.16488]**, but tropics remain **source ambiguous +0.00198 [−0.01541,+0.01904]**; flower size class improves local source prediction in BOTH north (**+0.03844**) and tropics (**+0.06615**). A universal same-direction simplification or universal local-versus-external reversal is contradicted by these direct observations.
+
+### Independent candidate mainland source evidence is not the same prediction test
+
+The distinct original 748 GIFT candidate mainland source regions /3,606 Direct same-species colour×form source names have **zero** category-labelled candidate species outside ALL original 4,505 island plant lists; after excluding all accepted plant names among 2,324 directly eligible target-island floras just **nine** source names remain, **zero** source botanical genera with two variable joint-colour×form states. [Original independent source-novelty report](../20261119_actual_mainland_source_holdout/README.md). Thus this regional transferability finding is **taxonomic conditional prediction using differently documented species from other GIFT island floras**, not independent ancestral mainland selection, mainland invasion/colonization forecast, or genuinely external genetic/trait data. GIFT original high/medium species-wide Direct records and focal genus roster still constrain predictors.
+
+**Manuscript claim ceiling:** temperate/tropical difference in **genus-conditional flower trait portability** is robust on several endpoints, while ancestral mainland species trait novel-input and guild-mediated pollination transitions are NOT identified. Keep 4,505 accepted island floras as the parent population; report each Direct endpoint's eligible original sample, matched genus support, first candidate mainland-source and physical block uncertainty, and native-only qualification rather than merging the selective 63 endpoints into a new global-study population. No across-trait omnibus p or confidence claim arises from this descriptive derived scan.
+
+[Re-executable pure audit and robust-sign method](../../src/fd/interregional_transfer_robustness.py) (exploratory branch) · [original five tests](../../tests/test_interregional_transfer_robustness.py) · [signed original source combined replay CI](https://github.com/zuizui0223/island/actions/runs/44445707659).
