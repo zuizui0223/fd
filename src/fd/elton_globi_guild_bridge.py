@@ -95,7 +95,7 @@ def audit(weight: pd.DataFrame, catalog: pd.DataFrame, *,
     matched = joined.loc[joined._merge.eq("both")].copy()
     positive = matched.diet_nectar_fraction.gt(0)
     zero = matched.diet_nectar_fraction.eq(0)
-    if not positive.or_(zero).all():
+    if not (positive | zero).all():
         raise ValueError("Unresolved matched bird diet fraction")
     claims = pd.to_numeric(matched.n_pollination_rows,errors="coerce")
     visits = pd.to_numeric(matched.n_flower_visit_rows,errors="coerce")
