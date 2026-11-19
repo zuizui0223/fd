@@ -1,0 +1,37 @@
+name: Original EltonTraits bird nectar source-only acquisition
+
+on:
+  pull_request:
+    paths:
+      - '.github/workflows/eltontraits-bird-preflight.yml'
+      - 'src/fd/eltontraits_bird_nectar.py'
+      - 'tests/test_eltontraits_bird_nectar.py'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  original-eltontraits-source:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      OPENBLAS_NUM_THREADS: '1'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install exact project dependencies
+        run: python -m pip install -e '.[test]'
+      - name: Validate source parser with synthetic cases
+        run: python -m pytest -q tests/test_eltontraits_bird_nectar.py
+      - name: Fetch original CC BY EltonTraits bird nectar data from figshare
+        run: python -m fd.eltontraits_bird_nectar --output-dir work/eltontraits_public
+      - name: Keep source SHA, original quantitative diet and provenance artifact
+        if: success()
+        uses: actions/upload-artifact@v4
+        with:
+          name: fd-original-eltontraits-bird-nectar-public
+          path: work/eltontraits_public/
+          retention-days: 30
