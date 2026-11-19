@@ -21,3 +21,12 @@ A strict three-region claim requires the same endpoint and positive direction ac
 Positive scores would support observational predictability of floristic category composition conditional on GIFT geography and other-island floras; they do not directly identify dispersal, establishment, within-lineage adaptation, pollinator syndrome shifts, animal guild choice or seed set. The donor trait profiles are species-wide literature records from **other GIFT islands**, not measured ancestral mainland plants. Source similarity in ranked *candidate* mainland geography does not prove propagules arrived. Source name holdout is a prerequisite for stronger independent-donor claims. Keep raw plant/genus/island IDs and exact coordinates in protected source analysis; export only anonymous region/endpoint/gain/group summaries to fd main **after real-source CI succeeds**.
 
 Implementation: src/fd/two_stage_floral_forecast.py is a tested numerical scoring/guardrail module. The stage-1 refit on original species-level GIFT source data and its real-data results are **not executed by this module**. A separate source-backed runner and workflow are still required.
+
+
+## Exact diagnostic partition (evaluation only; no adaptation claims)
+
+On the SAME focal island, distinguish (1) geography-predicted genus frequencies W_pred from actually recorded WHOLE-flora genus frequencies W_whole; (2) observed genus frequencies W_Direct among Direct-scored species from W_whole; and (3) observed Direct flower categories from externally predicted congener categories. With externally trained genus→flower matrix F, the **signed category frequency residual** has the exact identity
+
+q_direct - W_pred F = (W_whole - W_pred) F + (W_direct - W_whole) F + (q_direct - W_direct F).
+
+The three terms respectively diagnose **floristic genus forecasting**, **nonrandom availability of Direct floral annotations**, and **documented within-genus floral-category residuals**. The last is NOT a biological estimate of in-situ adaptation: literature trait annotations and genus-specific species identities differ across locations. These three signed vectors add exactly, but squared errors and Brier advantages do NOT decompose additively without cross terms. The new scoring module exposes an evaluation-only function with a synthetic exact-identity test.
