@@ -34,7 +34,9 @@ def test_both_full_focal_and_group_accepted_names_blacklisted():
              genus_donor_names={"remote A"}, flower_donor_names={"remote B"},
              focal_block="10N_100E", focal_first_source="entity_1",
              genus_donor_blocks={"other_block"},
-             genus_donor_first_sources={"entity_2"})
+             genus_donor_first_sources={"entity_2"},
+             flower_donor_blocks={"other_flower_block"},
+             flower_donor_first_sources={"entity_3"})
     audit_no_name_or_group_leakage(**x)
     for key, offender in (("genus_donor_names", "focal Taxon"),
                           ("flower_donor_names", "neighbor Species")):
@@ -42,6 +44,8 @@ def test_both_full_focal_and_group_accepted_names_blacklisted():
             audit_no_name_or_group_leakage(**(x | {key: {offender}}))
     with pytest.raises(ValueError, match="group leakage"):
         audit_no_name_or_group_leakage(**(x | {"genus_donor_blocks": {"10N_100E"}}))
+    with pytest.raises(ValueError, match="group leakage"):
+        audit_no_name_or_group_leakage(**(x | {"flower_donor_first_sources": {"entity_1"}}))
 
 
 def test_scores_are_proper_and_negative_gains_retained():
