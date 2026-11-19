@@ -209,9 +209,63 @@ def verify_two_original_runs(first:dict,second:dict)->dict:
                 deterministic_same_input_two_CI_runs_not_independent_field_replication=True)
 
 
-def analyze_original_global_regionality(source:dict,older:dict)->dict:
+def audit_actual_candidate_mainland_source_novelty(a:dict)->dict:
+    """STRICTLY separate GIFT mainland candidate lists from region-exclusive
+    OTHER-ISLAND donor traits.
+
+    An originally source-listed name is not independent phenotyping of a
+    mainland ancestor: both source panels inherit the same species-wide
+    original Direct trait ledger. A completely new name would still require
+    independent actual mainland phenotype measurement.
+    """
+    if (a.get("status")!="ORIGINAL_GIFT_4505_MAINLAND_SOURCE_NOVEL_SPECIES_HOLDOUT_VS_INTERREGIONAL_GENUS_ORACLE"
+        or a.get("parent_original_global_GIFT_botanical_island_floras")!=4505):
+        raise ValueError("Original actual mainland-vs-GIFT source null not original full population")
+    if (a.get("n_original_mainland_GIFT_native_source_region_lists")!=748
+        or a.get("n_original_global_all_recorded_direct_colour_form_test_islands")!=2324
+        or a.get("n_original_direct_colour_form_source_species_before_strict_holdout")!=3606):
+        raise ValueError("GIFT original source candidate mainland coverage changed")
+    if (a.get("n_original_source_colour_form_species_outside_ALL_4505_GIFT_island_floras")!=0
+        or a.get("n_original_candidate_mainland_donors_after_2324_trait_eligible_island_full_name_holdout")!=9):
+        raise ValueError("Original source independent mainland names claim changed")
+    claims=a.get("original_source_provenance_limit",{})
+    for key in (
+        "global_4505_all_flora_name_holdout_leaves_ZERO_independent_source_direct_pair_donors",
+        "cohort_2324_name_holdout_leaves_NINE_source_direct_pair_donors_but_novelty_not_ancestry",
+        "original_single_species_wide_Direct_trait_ledger_shared_by_both_sources",
+        "other_region_conditional_genus_predictor_KNOWS_focal_island_genus_composition",
+        "independent_candidate_mainland_GIFT_lists_not_ancestral_population_phenotypes",
+    ):
+        if claims.get(key) is not True:
+            raise ValueError("Independent mainland and island source training distinction absent: "+key)
+    cohorts=a.get("original_actual_candidate_mainland_GIFT_source_holdout_cohorts")
+    if not isinstance(cohorts,list) or not cohorts:
+        raise ValueError("Original different-cohort source denominator not available")
+    all_cohort=[r for r in cohorts if r.get("source_cohort")=="global_all_n5"]
+    if len(all_cohort)!=1 or (
+        all_cohort[0].get("n_candidate_mainland_direct_species_after_ALL_cohort_full_flora_names_removed")!=9
+        or all_cohort[0].get("n_original_source_donor_genera_with_two_plus_joint_category_states")!=0):
+        raise ValueError("Original 2324 GIFT mainland candidate donor source status drift")
+    return dict(
+        parent_global_GIFT_island_botanical_floras=4505,
+        n_candidate_mainland_GIFT_native_source_regions=748,
+        n_original_direct_colour_form_candidate_mainland_species_names=3606,
+        n_original_direct_colour_form_mainland_species_names_outside_ALL_4505_island_floras=0,
+        n_candidate_source_species_after_2324_full_flora_names_heldout=9,
+        n_candidate_source_genera_with_true_pair_variation_after_2324_holdout=0,
+        result_independent_mainland_only_cannot_test_prospective_4505_global_flower_colour_form_prediction=True,
+        region_exclusive_other_GIFT_island_species_source_transfer_is_NOT_independent_mainland_source=True,
+        no_source_lineage_phylogenetic_or_guild_adaptation_inference=True,
+        source_candidate_cohorts_overlap_and_cannot_directly_subtract_effects=True,
+    )
+
+
+def analyze_original_global_regionality(source:dict,older:dict,
+                                        mainland_candidate:dict|None=None)->dict:
     provenance=validate_source(source)
     replay=verify_two_original_runs(source,older)
+    mainland_independence=(audit_actual_candidate_mainland_source_novelty(
+        mainland_candidate) if mainland_candidate is not None else None)
     rows=source["original_equal_genus_donor_transfer_results"]
     aggregated=[]
     qualified={}
@@ -271,6 +325,7 @@ def analyze_original_global_regionality(source:dict,older:dict)->dict:
         n_original_highmedium_direct_endpoints=len(TRAITS),
         source_original_four_region_and_missing_denominator=provenance,
         independent_execution_same_original_data_replay=replay,
+        independent_mainland_candidate_species_provenance_gate=mainland_independence,
         all_original_qualifying_trait_endpoint_scope_region_results=aggregated,
         source_robust_13_endpoint_panel_counts=totals,
         original_north_to_tropical_double_metric_sign_reversal=region_reversals,
