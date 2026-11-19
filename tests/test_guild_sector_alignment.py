@@ -26,6 +26,8 @@ def make_data(n=180, seed=3, qualified=True, correlated=True):
         bird_source_richness=3.0,
         sphingid_island_richness=b+1,sphingid_source_richness=3.0,
         bird_range_qualified=qualified,sphingid_model_qualified=qualified,
+        genus_reference_qualified=True,
+        genus_reference_expected_delta=rng.normal(0,.04,size=n),
         log1p_distance_km=rng.uniform(0.4,7,size=n),
         log1p_area_km2=rng.uniform(1.,14.,size=n),
         absolute_latitude=rng.uniform(0,25,size=n),
@@ -63,6 +65,28 @@ def test_usable_map_yields_anonymous_model_and_missingness_bounds():
     high=ans["missingness_bounds_on_mean_delta"]["upper_unweighted"]
     assert low < 0 < high
     assert ans["missingness_bounds_on_mean_delta"]["sign_robust_to_arbitrary_missing_binary_states"] is False
+
+
+def test_unqualified_genus_reference_is_not_usable():
+    d=make_data(correlated=False)
+    d["genus_reference_qualified"]=False
+    ans=run(d,require_population=False,bootstrap=100)
+    assert ans["status"]=="NOT_IDENTIFIABLE_GUILD_MAP_OR_CLUSTER_SUPPORT"
+    assert ans["support"]["n_map_and_direct_qualified"]==0
+    assert "fits" not in ans
+
+
+def test_missing_genus_baseline_column_fails_closed():
+    d=make_data(correlated=False).drop(columns=["genus_reference_expected_delta"])
+    with pytest.raises(ValueError,match="genus_reference_expected_delta"):
+        run(d,require_population=False,bootstrap=100)
+
+
+def test_genus_baseline_fraction_must_be_valid():
+    d=make_data(correlated=False)
+    d.loc[0,"genus_reference_expected_delta"]=1.5
+    with pytest.raises(ValueError,match="genus expected"):
+        run(d,require_population=False,bootstrap=100)
 
 
 def test_near_collinearity_is_rejected():
