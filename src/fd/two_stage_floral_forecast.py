@@ -245,3 +245,54 @@ def diagnostic_flower_residual_split(*, predicted_genus_weights: Mapping[str, fl
                        pieces["observed_minus_predicted_direct_trait_frequency"], atol=1e-10):
         raise AssertionError("Flower residual identity failed")
     return pieces
+
+
+def categorical_simpson_diversity_diagnostic(
+    observed_codes: Sequence[int],
+    model_probabilities: Mapping[str, Sequence[float]],
+    *, local_blind_model: str = "regional_blind",
+) -> dict[str, float]:
+    """Descriptive Direct-flower categorical diversity on matched carriers.
+
+    Here all categories use unit between-category distance; Q=1-sum(p_k^2).
+    This is categorical Gini-Simpson / nominal Rao Q, NOT a multivariate
+    morphology-distance hypervolume. For observed finite n, also report the
+    unbiased U-statistic n/(n-1) * Q_plugin, defined only for n>=2.
+    Compare all model predictions on the identical original Direct carriers
+    and label errors descriptive, never direct tests of ecological selection.
+    """
+    if local_blind_model not in model_probabilities:
+        raise ValueError("Strong local-blind category baseline must be present")
+    if not model_probabilities:
+        raise ValueError("No flower category probabilities")
+    p = {name: _probability(prob, name)
+         for name, prob in model_probabilities.items()}
+    ncat = len(p[local_blind_model])
+    if any(len(v) != ncat for v in p.values()):
+        raise ValueError("Flower-category ontology differs between models")
+    codes = np.asarray(observed_codes)
+    if (codes.ndim != 1 or len(codes) < 2
+            or not np.issubdtype(codes.dtype, np.integer)
+            or (codes < 0).any() or (codes >= ncat).any()):
+        raise ValueError("Observed Direct categories must contain >=2 valid carriers")
+    counts = np.bincount(codes, minlength=ncat).astype(float)
+    n = len(codes)
+    observed = float(1.0 - np.sum((counts/n)**2))
+    unbiased = float((n/(n-1))*observed)
+    result = {"n_direct_carriers": int(n),
+              "observed_categorical_simpson_plugin": observed,
+              "observed_categorical_simpson_unbiased": unbiased,
+              "observed_simpson_unbiased_is_a_noisy_finite_sample_estimate": True}
+    abs_err = {}
+    for name, prob in p.items():
+        pred = float(1.0 - prob @ prob)
+        err = pred - unbiased
+        result[f"{name}_predicted_categorical_simpson"] = pred
+        result[f"{name}_categorical_simpson_signed_error"] = err
+        abs_err[name] = abs(err)
+        result[f"{name}_categorical_simpson_absolute_error"] = abs_err[name]
+    for name in p:
+        if name != local_blind_model:
+            result[f"{name}_gain_vs_{local_blind_model}_categorical_simpson_abs_error"] = (
+                abs_err[local_blind_model]-abs_err[name])
+    return result
