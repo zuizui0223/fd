@@ -16,6 +16,16 @@ REGIONS=("northern_midlatitude","tropical","southern_extratropical",
 SCOPES=("all_recorded","original_native")
 MODELS=("geo_nearest","climate_nearest","environment_nearest",
         "environment_source_nearest")
+PAIRED=(
+    ("source_similarity_increment_over_environment",
+     "environment_nearest","environment_source_nearest"),
+    ("area_isolation_increment_over_climate",
+     "climate_nearest","environment_nearest"),
+    ("environment_increment_over_geographic_nearness",
+     "geo_nearest","environment_nearest"),
+    ("environment_source_increment_over_geographic_nearness",
+     "geo_nearest","environment_source_nearest"),
+)
 GROUPS=("physical_10degree_block","first_candidate_source_entity_group")
 QUALIFIED="ORIGINAL_GIFT_TAXONOMIC_GENUS_SOURCE_COMPOSITION_GROUP_PREDICTION"
 FULL_STATUS="ORIGINAL_GIFT_GENUS_OCCUPANCY_COMPOSITION_ENVIRONMENTAL_TEST_BOTH_SOURCE_GROUPS"
@@ -56,6 +66,40 @@ def _direction(source_row:dict,model:str):
     else:
         decision="ambiguous_or_disagreeing_losses_or_source_groups"
     return dict(status=decision,source_grouped_proper_loss_evidence=comparisons)
+
+
+def _paired_direction(source_row:dict,label:str,reference:str,alternative:str)->dict:
+    """Evaluate SAME-FLORA donor/model Brier and log-loss pair delta.
+
+    Cannot subtract two separately bootstrapped confidence bounds; the
+    protected original source models produced DIRECT paired score columns
+    using the exact same source islands and the same group draws.
+    """
+    col={}
+    for field in ("Brier","logloss"):
+        for group in GROUPS:
+            group_output=source_row.get(group)
+            key=label+"_"+field
+            paired=_group(group_output,key) if isinstance(group_output,dict) else None
+            # Check exact algebra for group-equal means, not confidence
+            # bounds, which are correctly resampled on paired deltas.
+            left=_group(group_output,alternative+"_minus_region_equal_"+field) if isinstance(group_output,dict) else None
+            right=_group(group_output,reference+"_minus_region_equal_"+field) if isinstance(group_output,dict) else None
+            if paired and left and right and abs(paired["value"]-(left["value"]-right["value"]))>1e-10:
+                raise ValueError("Original same-focal-flora paired source environmental improvement failed score identity")
+            col[field+"__"+group]=paired
+    if not all(col.values()):
+        verdict="not_identifiable"
+    elif all(v["ci_95"][0]>0 for v in col.values()):
+        verdict="paired_predictor_better"
+    elif all(v["ci_95"][1]<0 for v in col.values()):
+        verdict="paired_predictor_worse"
+    else:
+        verdict="paired_ambiguous_or_loss_disagreement"
+    return dict(status=verdict,reference_source_model=reference,
+                alternative_source_model=alternative,
+                proper_paired_difference_source_groups=col,
+                original_source_same_focal_island_and_donor_set=True)
 
 
 def audit_geo_source_genus_prediction(original:dict)->dict:
@@ -102,6 +146,8 @@ def audit_geo_source_genus_prediction(original:dict)->dict:
                 sum(dropout.values())+scored!=eligible):
             raise ValueError("Original 4505 source genus source/geo eligibility waterfall wrong")
         outcome={m:_direction(row,m) for m in MODELS}
+        paired={label:_paired_direction(row,label,ref,alternative)
+            for label,ref,alternative in PAIRED}
         if row.get("status")==FULL_STATUS and (
             not all(outcome[m]["status"]!="not_identifiable" for m in MODELS)):
             raise ValueError("Fully spatially qualified original output lacks proper score metrics")
@@ -113,6 +159,7 @@ def audit_geo_source_genus_prediction(original:dict)->dict:
             n_source_donor_insufficient_islands=sum(dropout.values()),
             source_nonidentifiability_counts=dropout,
             original_source_models=outcome,
+            original_source_paired_predictor_increments=paired,
             first_source_candidate_may_be_geography_proxy_not_measured_immigration=True,
         ))
     if seen!={(scope,r) for scope in SCOPES for r in REGIONS}:
@@ -133,18 +180,39 @@ def audit_geo_source_genus_prediction(original:dict)->dict:
                     r["original_source_models"][model]["status"]==
                     "predictor_worse_than_region_equal" for r in cells_scope),
             ))
+    paired_summary=[]
+    for scope in SCOPES:
+        for label,ref,alternative in PAIRED:
+            subset=[r for r in result if r["scope"]==scope]
+            paired_summary.append(dict(
+                botanical_scope=scope,original_paired_model_comparison=label,
+                original_restricted_source_model=ref,
+                original_extended_source_model=alternative,
+                n_original_regions_with_both_proper_losses_and_groups_positive=sum(
+                    r["original_source_paired_predictor_increments"][label]["status"]==
+                    "paired_predictor_better" for r in subset),
+                n_original_regions_with_both_proper_losses_and_groups_negative=sum(
+                    r["original_source_paired_predictor_increments"][label]["status"]==
+                    "paired_predictor_worse" for r in subset),
+                n_original_regions_no_paired_independent_group_support=sum(
+                    r["original_source_paired_predictor_increments"][label]["status"]==
+                    "not_identifiable" for r in subset),
+            ))
     return dict(
         status="ORIGINAL_GIFT_4505_GEOGRAPHIC_AND_ENVIRONMENTAL_GENUS_ASSEMBLY_SOURCE_AUDIT",
         n_original_global_botanical_floras=4505,
         original_full_geographic_composition_cells=result,
         original_macroregion_proper_loss_source_count_summary=summary,
+        original_paired_model_direct_source_increment_summary=paired_summary,
         limitations=dict(
             original_focal_botanical_genus_input_never_used=True,
             genus_community_richness_does_not_measure_genus_colonization_probability=True,
             whole_species_checklist_not_seen_is_NOT_biological_genus_absence=True,
             original_source_islands_not_independent_mainland_ancestors=True,
             original_candidate_mainland_entity_similarity_NOT_dispersion_or_selection=True,
-            paired_environment_and_environment_plus_source_effect_NOT_tested_for_direct_increment=True,
+            original_source_similarity_increment_TESTED_WITH_SAME_TARGET_AND_DIRECT_PAIRED_GROUP_RESAMPLING=True,
+            source_similarity_is_GEOGRAPHIC_OPPORTUNITY_not_independent_mainland_seed_immigration=True,
+            area_isolation_climate_source_increment_not_independent_causal_driver=True,
             original_genus_community_source_not_yet_flora_trait_prediction=True,
             original_direct_flower_selection_pollination_service_NOT_estimated=True,
             sample_composition_annotation_not_phylogenetic_independent_replicates=True,
