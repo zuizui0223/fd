@@ -92,3 +92,18 @@ def test_unqualified_grouping_and_dual_support_gate():
     d = paired_cluster_summary(one_group, group="physical_block", columns=[col1,col2], nboot=75)
     assert d["supported_for_inference"] is False
     assert not dual_loss_dual_group_positive(d, b, "environment_source_nearest", "regional_blind")
+
+
+def test_evaluation_only_residual_exact_split_with_direct_coverage_bias():
+    from fd.two_stage_floral_forecast import diagnostic_flower_residual_split
+    pieces = diagnostic_flower_residual_split(
+        predicted_genus_weights={"A": .4, "B": .6},
+        observed_whole_flora_genera=["A", "B"],
+        observed_direct_carrier_genera=["A"]*5,
+        observed_direct_codes=[0]*5,
+        external_genus_profiles={"A": [.8, .2], "B": [.2, .8]},
+        external_blind=[.5, .5])
+    np.testing.assert_allclose(pieces["taxonomic_genus_forecast_residual"], [.06,-.06])
+    np.testing.assert_allclose(pieces["direct_trait_documentation_residual"], [.3,-.3])
+    np.testing.assert_allclose(pieces["within_genus_documented_trait_residual"], [.2,-.2])
+    np.testing.assert_allclose(pieces["observed_minus_predicted_direct_trait_frequency"], [.56,-.56])
