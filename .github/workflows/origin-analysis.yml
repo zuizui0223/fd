@@ -27,6 +27,16 @@ jobs:
           python -m pytest -q
       - name: Retrieve source-commit-pinned public trait aggregate inputs
         run: python scripts/fetch_island_aggregates.py --output work/island_public
+      - name: Audit marginal and joint flower colour/form kernels on frozen 496 public profiles
+        run: |
+          python -m fd.trait_kernels \
+            --reference work/island_public/floral_space_20261106/all/profile_coordinates.csv \
+            --output results/trait_kernel_audit
+      - name: Recalculate conservative five-fold coupling sensitivity from released aggregate only
+        run: |
+          python -m fd.fold_coupling_sensitivity \
+            --summary results/20261110_joint_flower_source/marginal_fixed_five_fold_audit.csv \
+            --output results/coupling_fivefold_stress
       - name: Reconstruct floral Rao Q and original-distance comparisons
         run: python -m fd.pipeline --input work/island_public --output work/fd_g0
       - name: Recompute common projected KDE sensitivity
@@ -102,13 +112,6 @@ jobs:
             --g0 work/fd_g0 \
             --crosswalk work/fd_crosswalk/island_origin_crosswalk.csv \
             --output results/geography_independent
-      - name: Rematch geographical origin islands with nonoverlapping spatial blocks and source archipelagos
-        run: |
-          python -m fd.geography_independent \
-            --input work/island_public \
-            --g0 work/fd_g0 \
-            --crosswalk work/fd_crosswalk/island_origin_crosswalk.csv \
-            --output results/geography_independent
       - name: Cross-validate named archipelago floral repertoires against same-regime and distance-matched outside sources
         run: |
           python -m fd.archipelago_cv \
@@ -118,6 +121,34 @@ jobs:
             --output results/archipelago_cv \
             --permutations 9999 \
             --bootstrap 4999
+      - name: Measure original categorical-distance packing against fixed-support reference pools
+        run: |
+          python -m fd.distance_ses \
+            --input work/island_public \
+            --g0 work/fd_g0 \
+            --crosswalk work/fd_crosswalk/island_origin_crosswalk.csv \
+            --output results/distance_ses \
+            --draws 999 \
+            --thinnings 99
+      - name: Evaluate floral packing relative to the ten nearest OTHER islands
+        run: |
+          python -m fd.local_geography_ses \
+            --input work/island_public \
+            --g0 work/fd_g0 \
+            --crosswalk work/fd_crosswalk/island_origin_crosswalk.csv \
+            --output results/local_geography_ses \
+            --neighbors 10 \
+            --draws 999 \
+            --thinnings 99
+      - name: Audit geographic reach by fixed 1000 and 2000 km floral donor radii
+        run: |
+          python -m fd.fixed_radius_ses \
+            --input work/island_public \
+            --g0 work/fd_g0 \
+            --crosswalk work/fd_crosswalk/island_origin_crosswalk.csv \
+            --output results/fixed_radius_ses \
+            --draws 999 \
+            --thinnings 99
       - name: Preserve aggregate results and crosswalk audit without row-level geology joins
         if: success()
         uses: actions/upload-artifact@v4
@@ -134,6 +165,11 @@ jobs:
             results/spatial_cluster_dependence
             results/geography_independent
             results/archipelago_cv
+            results/distance_ses
+            results/local_geography_ses
+            results/fixed_radius_ses
+            results/trait_kernel_audit
+            results/coupling_fivefold_stress
             work/fd_crosswalk/crosswalk_audit.json
             work/island_public/source_manifest.json
           retention-days: 30
