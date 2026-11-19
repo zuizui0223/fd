@@ -28,6 +28,21 @@ The North is not uniformly biologically "negative": six of 12 testable endpoints
 
 Native-only original source-status subset: **39 cells total**, **1 positive, 10 negative, 12 ambiguous, 16 insufficient**. Southern native independent source donor support is unavailable for all endpoints. The one native positive is **tropical floral symmetry** (n=124); no three-region native claim is possible. Tropical all-status autonomous selfing capacity's large +0.163841 Brier difference **does NOT beat the stronger externally sourced blind category model** under the same proper-score and two-group criteria; it is mainly a local baseline comparison, not proof of Baker reproductive assurance or an island-specific selfing shift.
 
+## A2. Cross-benchmark triple-gate: just two independent source information gains
+
+The original 78-cell result's nine positive all-recorded improvements versus LOCAL region-blind flower frequencies do not all mean the model is genuinely more informative than alternate source priors. As an **explicit post-hoc strengthening**, require each geography→genus→flower result to beat **all three predictions on the EXACT SAME source carrier plants**: (i) target-region genus-BLIND categorical frequency, (ii) OTHER-region genus-BLIND categorical frequency, and (iii) simple POOLED other-island regional GENUS-mix flower prediction. For EACH baseline separately, require positive 95% physical-block and first candidate-source-group intervals for BOTH proper Brier/log losses. This retains **2 of 39 all-recorded** macroregion×endpoint source cells:
+
+| Macroregion | Genuine Direct endpoint | Original n scored botanical island floras | Gain against strongest *additional pooled GENUS* reference, Brier block-equal [95% exploratory] |
+|---|---|---:|---|
+| Tropical | Floral symmetry | **925** | **+0.00059684 [0.00021977,0.00100674]** |
+| Southern extratropical | Primary flower colour | **184** | **+0.00238370 [0.00098660,0.00379939]** |
+
+All other **37/39 all-recorded** endpoint×region cells fail this strict all-comparators criterion, including three source-ineligible cleistogamy cases. **0/39 original-native** source cells pass, with no Southern-native independent source support. This is a more defensible **information-increment shortlist** than the broader 9/39 local-blind-positive count; it is still post-hoc, exploratory, not multiple-testing adjusted, and NOT a measured causal environmental/seed source process.
+
+**Important counterexample in reproductive assurance:** Tropical autonomous-selfing-capacity original stage-2 model improves Brier over its local-region genus-blind source by **+0.163841** (n606), but has Brier **−0.0004 approximately** versus the external genus-blind source and no supported increment over the pooled GENUS model. The same-plant exact loss identity attributes most of the *local-baseline-relative score* to poorer local vs external reference calibration (**local-minus-external Brier +0.1642 approximately**), not uniquely to geography-predicted genus composition. Tropical self-incompatibility likewise improves local blind (+0.013638) while its external-blind score is slightly worse (about −0.0004). This is evidence about **regional source-frequency transferability**, not a demonstrated island selfing adaptation mechanism or pollinator scarcity.
+
+The regionally positive Southern colour and tropical symmetry are specifically strong predictive source signals, but none licenses interpretation as a historically observed island trait transition or a causally identified pollinator-shift effect.
+
 ## B. Incremental benefit of target-island geography to predict genus mixture is much narrower
 
 Versus the much simpler **pooled other-island regional GENUS** donor mixture, source geographically/environmentally refined genus weights improve **only three all-recorded** cells on both losses/two cluster checks:
