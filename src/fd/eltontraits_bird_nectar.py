@@ -76,17 +76,37 @@ def audit_bird_diet(blob: bytes, *, enforce_species_range: bool = True
     nectar_col = nectar_matches[0]
     if enforce_species_range and not MIN_SPECIES <= len(frame) <= MAX_SPECIES:
         raise ValueError(f"Unexpected EltonTraits source bird population: {len(frame)}")
-    names = frame["Scientific"].str.strip().str.replace("_", " ", regex=False)
-    if names.eq("").any() or names.duplicated().any():
-        raise ValueError("Missing or repeated scientific species name; source manual audit required")
+    names = frame["Scientific"].astype(str).str.strip().str.replace(
+        "_", " ", regex=False)
     raw = frame[nectar_col].astype(str).str.strip()
     numeric = pd.to_numeric(raw.where(raw.ne(""), np.nan), errors="coerce")
-    if not np.isfinite(numeric).all() or numeric.lt(0).any() or numeric.gt(100).any():
-        raise ValueError("Missing/invalid/non-percentage Diet.Nect; do not impute zeros")
-    weights = pd.DataFrame({
-        "original_scientific_name": names,
-        "diet_nectar_fraction": numeric.to_numpy(float) / 100.0,
-    })
+    if numeric.lt(0).any() or numeric.gt(100).any() or np.isinf(numeric).any():
+        raise ValueError("Invalid/non-percentage Diet.Nect; original value outside [0,100]")
+    # Never interpret an undocumented missing value as zero. Duplicated
+    # accepted names sometimes arise in original taxonomic archives; identical
+    # values may be collapsed, but discordant duplicate name values are
+    # quarantined (not averaged or chosen by row order).
+    candidate = pd.DataFrame({"name": names, "percent": numeric})
+    blank = candidate["name"].eq("")
+    unknown = candidate["percent"].isna()
+    valid = candidate.loc[~blank & ~unknown].copy()
+    duplicated = valid["name"].duplicated(keep=False)
+    conflict_names = set(
+        valid.loc[duplicated].groupby("name")["percent"].nunique().loc[
+            lambda v: v.gt(1)].index)
+    clean = valid.loc[~valid["name"].isin(conflict_names)].drop_duplicates(
+        subset=["name"], keep="first")
+    if len(clean) < MIN_SPECIES and enforce_species_range:
+        raise ValueError(
+            f"Insufficient uniquely identified source diet species: {len(clean)}"
+            f" (raw={len(frame)}, blank={int(blank.sum())},"
+            f" missing_diet={int(unknown.sum())},"
+            f" duplicated_names={int(duplicated.sum())},"
+            f" discordant_names={len(conflict_names)})")
+    weights = clean.rename(columns={
+        "name": "original_scientific_name",
+        "percent": "diet_nectar_fraction"})
+    weights["diet_nectar_fraction"] = weights["diet_nectar_fraction"] / 100.0
     receipt = {
         "contract": "fd_original_eltontraits_bird_nectar_v1",
         "source_collection_doi": SOURCE_DOI,
@@ -96,10 +116,16 @@ def audit_bird_diet(blob: bytes, *, enforce_species_range: bool = True
         "source_nectar_column": nectar_col,
         "original_sha256": digest,
         "n_original_bird_records": int(len(frame)),
-        "n_recorded_nectar_positive": int(numeric.gt(0).sum()),
-        "n_recorded_nectar_zero": int(numeric.eq(0).sum()),
-        "sum_of_nectar_fraction_by_species": float((numeric / 100).sum()),
-        "mean_nectar_fraction_by_species": float((numeric / 100).mean()),
+        "n_name_unique_valid_diet_species": int(len(clean)),
+        "n_blank_original_names": int(blank.sum()),
+        "n_missing_diet_original_rows": int(unknown.sum()),
+        "n_original_rows_with_nonunique_names": int(duplicated.sum()),
+        "n_original_names_with_conflicting_values_quarantined": int(len(conflict_names)),
+        "n_original_records_quarantined_or_deduplicated": int(len(frame)-len(clean)),
+        "n_recorded_nectar_positive": int(weights.diet_nectar_fraction.gt(0).sum()),
+        "n_recorded_nectar_zero": int(weights.diet_nectar_fraction.eq(0).sum()),
+        "sum_of_nectar_fraction_by_species": float(weights.diet_nectar_fraction.sum()),
+        "mean_nectar_fraction_by_species": float(weights.diet_nectar_fraction.mean()),
         "source_license": "CC BY 4.0; attribute Wilman et al. (2014)",
         "has_eBird_taxonomy_or_occurrences": False,
         "observational_guild_presence": False,
