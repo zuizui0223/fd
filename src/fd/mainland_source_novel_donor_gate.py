@@ -111,8 +111,8 @@ def audit_candidate_mainland_reality(mainland:dict,transfer:dict)->dict:
         full["n_candidate_mainland_direct_species_after_ALL_cohort_full_flora_names_removed"]!=9
         or full["n_original_source_donor_genera_with_two_plus_joint_category_states"]!=0):
         raise ValueError("Original GIFT full-parent mainland source-name holdout ceiling changed")
-    if mainland.get("n_source_direct_pair_species_after_ALL_4505_island_name_exclusion")!=9:
-        raise ValueError("All 4505 accepted-flora names leave nine source Direct colour/form donors")
+    if mainland.get("n_source_direct_pair_species_after_ALL_4505_island_name_exclusion")!=0:
+        raise ValueError("All 4505 accepted-flora names leave ZERO source-only Direct colour/form mainland donors")
     strict_native=by["global_original_native_n5"]
     if (strict_native["original_test_botanical_islands"]!=327 or
         strict_native["n_candidate_mainland_direct_species_after_ALL_cohort_full_flora_names_removed"]!=679):
@@ -123,7 +123,8 @@ def audit_candidate_mainland_reality(mainland:dict,transfer:dict)->dict:
         n_original_mainland_GIFT_native_source_region_lists=748,
         n_original_mainland_native_region_species_occurrence_rows=1666186,
         n_original_direct_colour_form_source_species_before_strict_holdout=3606,
-        n_original_source_colour_form_species_outside_ALL_4505_GIFT_island_floras=9,
+        n_original_source_colour_form_species_outside_ALL_4505_GIFT_island_floras=0,
+        n_original_candidate_mainland_donors_after_2324_trait_eligible_island_full_name_holdout=9,
         n_original_global_all_recorded_direct_colour_form_test_islands=2324,
         original_actual_candidate_mainland_GIFT_source_holdout_cohorts=rows,
         conditional_other_region_GIFT_island_genus_predictive_endpoints_across_three_regions=int(
@@ -139,7 +140,8 @@ def audit_candidate_mainland_reality(mainland:dict,transfer:dict)->dict:
             other_region_conditional_genus_predictor_KNOWS_focal_island_genus_composition=True,
             actual_source_mainland_holdout_compares_only_colour_and_form_pair_not_all_13_traits=True,
             distinct_cohort_and_endpoint_scores_cannot_be_directly_subtracted=True,
-            global_full_flora_species_heldout_source_nine_remaining_is_documentation_ceiling_not_island_no_colonization=True,
+            global_4505_all_flora_name_holdout_leaves_ZERO_independent_source_direct_pair_donors=True,
+            cohort_2324_name_holdout_leaves_NINE_source_direct_pair_donors_but_novelty_not_ancestry=True,
             native_only_and_short_distance_source_results_are_selective_subsets_no_global_generalization=True,
             no_original_source_ancestral_seed_dispersal_or_pollinator_causal_interpretation=True,
             no_private_flora_island_source_region_genus_species_or_location_id_exported=True,
