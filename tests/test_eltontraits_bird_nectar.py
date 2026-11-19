@@ -28,6 +28,23 @@ def test_invalid_nectar_scores_are_never_imputed(invalid):
             enforce_species_range=False)
 
 
+def test_real_original_archive_hyphenated_header_is_accepted():
+    summary, weights = audit_bird_diet(
+        source([{"Scientific": "Bird_1", "Diet-Nect": "25"},
+                {"Scientific": "Bird_2", "Diet-Nect": "0"}]),
+        enforce_species_range=False,
+    )
+    assert summary["source_nectar_column"] == "Diet-Nect"
+    assert weights.diet_nectar_fraction.tolist() == [.25, 0.]
+
+
+def test_ambiguous_dual_nectar_column_is_rejected():
+    with pytest.raises(ValueError, match="missing/ambiguous"):
+        audit_bird_diet(
+            source([{"Scientific":"Bird_1","Diet-Nect":25,"Diet.Nect":25}]),
+            enforce_species_range=False)
+
+
 def test_wrong_source_header_and_size_are_rejected():
     with pytest.raises(ValueError, match="header"):
         audit_bird_diet(source([{"Species": "Bird_a", "nectar": 20}]),
