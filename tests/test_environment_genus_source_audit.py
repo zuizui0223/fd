@@ -31,7 +31,8 @@ def fixture():
             n_original_focal_islands_no_complete_geographic_or_full_genus_record=count-sample-10,
             n_unscored_donor_coverage_by_reason=dict(
                 n_focal_islands_lacking_10_donor_source_groups=10),
-            spatial_block=deepcopy(group),first_source=deepcopy(group),
+            physical_10degree_block=deepcopy(group),
+            first_candidate_source_entity_group=deepcopy(group),
         ))
     controls={s:True for s in (
       "original_4505_island_botanical_flora_population_retained",
@@ -73,7 +74,7 @@ def test_proper_brier_logloss_and_BOTH_geographical_groupings_needed():
     assert first["original_source_models"]["environment_nearest"]["status"]=="predictor_better_than_region_equal"
     bad=deepcopy(z)
     bad["original_no_oracle_original_island_genus_composition_source_predictions"][0][
-        "first_source"]["environment_nearest_minus_region_equal_logloss_group_resample_95"]=[-.01,.04]
+        "first_candidate_source_entity_group"]["environment_nearest_minus_region_equal_logloss_group_resample_95"]=[-.01,.04]
     out=audit_geo_source_genus_prediction(bad)
     assert out["original_full_geographic_composition_cells"][0][
         "original_source_models"]["environment_nearest"]["status"]=="ambiguous_or_disagreeing_losses_or_source_groups"
