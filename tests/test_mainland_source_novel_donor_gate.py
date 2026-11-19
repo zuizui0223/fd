@@ -90,7 +90,7 @@ def test_mismatched_population_or_invalid_source_denominator_blocked():
     m,t=_fixtures()
     bad=copy.deepcopy(m)
     bad["n_original_botanical_islands"]=928
-    with pytest.raises(ValueError,match="4505"):
+    with pytest.raises(ValueError,match="4,505"):
         audit_candidate_mainland_reality(bad,t)
     bad=copy.deepcopy(m)
     bad["cohorts"][0]["n_unique_source_direct_pair_donor_species_after_exact_name_holdout"]=3900
