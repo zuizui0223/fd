@@ -24,10 +24,11 @@ jobs:
         run: python -m pip install -e '.[test]'
       - name: Run strict synthetic species, units and coverage gates
         run: python -m pytest -q tests/test_avoniche_nectar_preflight.py
-      - name: Fetch public AVONICHE BirdLife 2020 nectar weights only
+      - name: Fetch public AVONICHE BirdLife 2020 nectar weights only (manual source attempt)
+        if: github.event_name == 'workflow_dispatch'
         run: python -m fd.avoniche_nectar_preflight --output-dir work/avoniche_public
       - name: Upload source-only CC0 receipt and bird diet weights
-        if: success()
+        if: github.event_name == 'workflow_dispatch' && success()
         uses: actions/upload-artifact@v4
         with:
           name: fd-public-avoniche-birdlife2020-nectar-source
