@@ -16,7 +16,7 @@ REGIONS=("northern_midlatitude","tropical","southern_extratropical",
 SCOPES=("all_recorded","original_native")
 MODELS=("geo_nearest","climate_nearest","environment_nearest",
         "environment_source_nearest")
-GROUPS=("spatial_block","first_source")
+GROUPS=("physical_10degree_block","first_candidate_source_entity_group")
 QUALIFIED="ORIGINAL_GIFT_TAXONOMIC_GENUS_SOURCE_COMPOSITION_GROUP_PREDICTION"
 FULL_STATUS="ORIGINAL_GIFT_GENUS_OCCUPANCY_COMPOSITION_ENVIRONMENTAL_TEST_BOTH_SOURCE_GROUPS"
 
