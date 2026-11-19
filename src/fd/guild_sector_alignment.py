@@ -140,7 +140,7 @@ def _cluster_fit(x: np.ndarray, y: np.ndarray, labels: np.ndarray,
     cov = inv @ (score.T @ score) @ inv * (g / (g - 1)) * ((n - 1) / (n - p))
     v = cov[1:3, 1:3]
     if np.linalg.matrix_rank(v) < 2 or not np.isfinite(v).all():
-        return {"status": "GUILD_COVARIANCE_UNIDENTIFIIFIABLE"}
+        return {"status": "GUILD_COVARIANCE_UNIDENTIFIABLE"}
     f_value = float(beta[1:3] @ np.linalg.solve(v, beta[1:3]) / 2)
     p_joint = float(f_distribution.sf(f_value, 2, g - 1))
     rng = np.random.default_rng(seed)
@@ -168,10 +168,10 @@ def run(df: pd.DataFrame, *, require_population: bool=True,
         raise ValueError("bootstrap >= 100 draws required")
     frame, audit = _select(df, require_population)
     out = {"contract":"fd_tropical_guild_flower_alignment_v1",
-           "role":"prospective_analysis_specification_not_field_mechanism",
+           "role":"exploratory_frozen_after_prior_descriptive_results_not_causal",
            "region":PRIMARY_REGION, "source_mode":PRIMARY_SOURCE_MODE,
            "scope":PRIMARY_SCOPE, "same_species_pair_sector":PRIMARY_SECTOR,
-           "parent_4505_verified":bool(audit["parent_complete_4505"]),
+           "parent_count_matches_4505":bool(audit["parent_complete_4505"]),
            "support":audit,
            "scientific_limit":"correlation of mapped potential guild availability with recorded flora; not visitation, adaptation, colonization or fitness"}
     if (len(frame) < MIN_ISLANDS or
