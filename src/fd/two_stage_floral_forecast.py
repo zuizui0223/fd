@@ -201,3 +201,47 @@ def dual_loss_dual_group_positive(block_summary: Mapping,
             if name not in summary or summary[name]["bootstrap_95"][0] <= 0:
                 return False
     return True
+
+
+def diagnostic_flower_residual_split(*, predicted_genus_weights: Mapping[str, float],
+                                     observed_whole_flora_genera: Sequence[str],
+                                     observed_direct_carrier_genera: Sequence[str],
+                                     observed_direct_codes: Sequence[int],
+                                     external_genus_profiles: Mapping[str, Sequence[float]],
+                                     external_blind: Sequence[float]) -> dict[str, np.ndarray]:
+    """Exact post-prediction decomposition; focal true genera used ONLY to audit.
+
+    total observed-minus-predicted trait frequency =
+      (whole flora genera - predicted genera) projected through donor flowers
+      + (Direct scored carriers - whole flora genera) ascertainment component
+      + (actual Direct state frequencies - donor-predicted Direct composition).
+    These are signed categorical residual vectors, NOT causal selection effects.
+    Their squared norms are NOT an additive explained-variance partition.
+    """
+    from collections import Counter
+    whole = list(observed_whole_flora_genera)
+    direct = list(observed_direct_carrier_genera)
+    if not whole or not direct or len(direct) != len(observed_direct_codes):
+        raise ValueError("Whole-flora and Direct-carrier genus audit inputs incomplete")
+    blind = _probability(external_blind, "external genus-blind trait prior")
+    codes = np.asarray(observed_direct_codes)
+    if (codes.ndim != 1 or not np.issubdtype(codes.dtype, np.integer)
+            or (codes < 0).any() or (codes >= len(blind)).any()):
+        raise ValueError("Direct-carrier phenotype ontology mismatch")
+    def freq(genera):
+        count = Counter(genera)
+        return {g: n/len(genera) for g, n in count.items()}
+    p_geo = predict_flower_distribution(predicted_genus_weights, external_genus_profiles, blind)
+    p_whole = predict_flower_distribution(freq(whole), external_genus_profiles, blind)
+    p_direct = predict_flower_distribution(freq(direct), external_genus_profiles, blind)
+    q_direct = np.bincount(codes, minlength=len(blind)).astype(float)/len(codes)
+    pieces = {
+        "taxonomic_genus_forecast_residual": p_whole - p_geo,
+        "direct_trait_documentation_residual": p_direct - p_whole,
+        "within_genus_documented_trait_residual": q_direct - p_direct,
+        "observed_minus_predicted_direct_trait_frequency": q_direct - p_geo,
+    }
+    if not np.allclose(sum((pieces[k] for k in list(pieces)[:3]), np.zeros_like(blind)),
+                       pieces["observed_minus_predicted_direct_trait_frequency"], atol=1e-10):
+        raise AssertionError("Flower residual identity failed")
+    return pieces
