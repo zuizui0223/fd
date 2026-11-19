@@ -107,3 +107,27 @@ def test_evaluation_only_residual_exact_split_with_direct_coverage_bias():
     np.testing.assert_allclose(pieces["direct_trait_documentation_residual"], [.3,-.3])
     np.testing.assert_allclose(pieces["within_genus_documented_trait_residual"], [.2,-.2])
     np.testing.assert_allclose(pieces["observed_minus_predicted_direct_trait_frequency"], [.56,-.56])
+
+
+
+def test_nominal_simpson_paired_diversity_diagnostic_and_unbiased_n():
+    from fd.two_stage_floral_forecast import categorical_simpson_diversity_diagnostic
+    q = categorical_simpson_diversity_diagnostic(
+        [0, 0, 1, 1],
+        {"regional_blind": [1., 0.], "geographic_nearest": [.5, .5]})
+    assert q["n_direct_carriers"] == 4
+    assert q["observed_categorical_simpson_plugin"] == pytest.approx(.5)
+    assert q["observed_categorical_simpson_unbiased"] == pytest.approx(2/3)
+    assert q["geographic_nearest_predicted_categorical_simpson"] == pytest.approx(.5)
+    assert q["geographic_nearest_gain_vs_regional_blind_categorical_simpson_abs_error"] == pytest.approx(.5)
+
+
+def test_simpson_diagnostic_does_not_conflate_ontology_or_single_carrier():
+    from fd.two_stage_floral_forecast import categorical_simpson_diversity_diagnostic
+    with pytest.raises(ValueError, match=">=2"):
+        categorical_simpson_diversity_diagnostic(
+            [0], {"regional_blind": [.5, .5]})
+    with pytest.raises(ValueError, match="ontology"):
+        categorical_simpson_diversity_diagnostic(
+            [0, 1], {"regional_blind": [.5, .5],
+                     "other": [.3, .3, .4]})
