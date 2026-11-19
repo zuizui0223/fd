@@ -45,6 +45,12 @@ An independent exact arithmetic audit of the same signed original source artifac
 
 [Full auditable numerical identity with both geography groupings and both proper losses](REGIONAL_BLIND_BASELINE_REVERSAL.md).
 
+## Actual original external-only congener source expansion sensitivity (19 November 2026)
+
+The frozen original 2-endpoint stage-2 model has now been re-fitted with **all external-region Direct-scored congeners**, including genera absent from the originally required locally scored Direct source genus pool. Prior existing genus profiles, individual focal trait carriers, source blacklist, source loss references and unknown-genus probability are exactly retained. [Source CI #44518646514](https://github.com/zuizui0223/island/actions/runs/44518646514) **SUCCESS**, independently audited original anonymous source 12 panels and 1,690 unchanged prior score numbers. Added external genera yield supported positive paired Brier+log improvements on both geographic grouping schemes in **3/6 all-recorded region×trait cells**: tropical form +0.000439, Southern form +0.006971, Southern true colour×form +0.002089; strict-native tropical form also improves versus the original constrained model. But **only the two Southern all-recorded endpoints still improve against the target-region genus-blind category-frequency benchmark**; no universal global trait model gain, Southern native source support remains zero. The extra tropical improvement is real *versus the original model*, not a new local-blind win. This reveals external taxonomic Direct documentation limitations rather than causal pollinator-mediated functional adaptations.
+
+[Complete original source, both proper scores/group intervals, no-support cells and numerical sensitivity](EXTERNAL_ONLY_CONGENER_SENSITIVITY.md).
+
 ## Scientific ceiling and next discriminating test
 
 **Survives:** taxonomically conditioned floral-function category information remains geographically contingent and sometimes predicts real held-out botanical island flower composition better than strong regional category means. Global/regional nonuniformity is an empirical positive finding about prediction heterogeneity.
