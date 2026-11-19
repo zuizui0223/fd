@@ -8,6 +8,15 @@
 
 **Population accounting:** all **4,505** GIFT botanical island floras are retained as the source study population, even when one particular directly recorded endpoint has substantially fewer eligible islands. **2,324** floras have at least five accepted species with truly *same-species* Direct flower-colour × floral-form observations; **2,699,326** unordered pairs are compared. The historical 928-island 3-trait complete cohort and 425 independently geology-labelled flora islands are *separate selected subsets*, not the global population.
 
+
+### Verified 2026-11-19 original no-genus-oracle geography→genus→flower source test
+
+Original GIFT botanical parent **4,505**; original source [island run #44513833517](https://github.com/zuizui0223/island/actions/runs/44513833517) **SUCCESS**. All results are source-anonymous and checked against downloaded original ZIP SHA256 **9cc97d7e572c043d586bda4a661ba69573fc2049bdd35e2c9f38de35dd7bf725**. With strict accepted-species full focal block/first candidate mainland source NAME deletion before genus and flower source training, **10/12** endpoint×region×status original panels have >=10 physical and first source group support; original Southern-native two panels are NOT identifiable.
+
+**Positive but region-specific:** all-recorded Southern extratropical regional genus-blind benchmark predictive Brier gains are **+0.06039** (n157 floral form) and **+0.05109** (n140 true same-species colour×form), intervals excluding zero under both proper Brier/log losses and both independent grouping definitions. **Counterexamples:** north all-recorded both worse than strong local blind (−0.09606, −0.04829), tropical floral form unresolved, tropical true colour×form worse (−0.00538). **No stronger geographic-source skill:** 0/6 all-recorded panels improve across both losses/groups versus the simpler pooled regional donor GENUS prior. Therefore the southern positive does not prove geography-driven taxonomic establishment or source-guild-mediated floral category assembly; 0 supported local-blind improvements in the four eligible native-only north/tropical panels. Source profile coverage is conditional on Direct documentation and genus represented among eligible external congener sources; names/trait completeness still require a sensitivity.
+
+[Complete original positive/negative score table and explicit interpretation](../20261119_stage2_name_disjoint_floral_forecast/README.md) · [protected source PR #331](https://github.com/zuizui0223/island/pull/331). This is **predictive botanical record structure**, not confirmed bird/butterfly/Sphingidae pollinator switching, island flower adaptation, source propagule history or selection.
+
 ## Evidence ledger
 
 | Level | Positive empirical observation | Evidence identity and limitation |
