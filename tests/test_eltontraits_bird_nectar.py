@@ -20,9 +20,19 @@ def test_percentage_scale_without_eBird():
     assert summary["island_source_animal_join_completed"] is False
 
 
-@pytest.mark.parametrize("invalid", ["", "NaN", "101", "-2", "0.5x"])
-def test_invalid_nectar_scores_are_never_imputed(invalid):
-    with pytest.raises(ValueError, match="Missing/invalid"):
+@pytest.mark.parametrize("unknown", ["", "NaN", "0.5x"])
+def test_missing_nectar_never_becomes_zero(unknown):
+    summary, weights = audit_bird_diet(
+        source([{"Scientific": "Bird_a", "Diet.Nect": unknown}]),
+        enforce_species_range=False)
+    assert summary["n_missing_diet_original_rows"] == 1
+    assert len(weights) == 0
+    assert summary["n_recorded_nectar_zero"] == 0
+
+
+@pytest.mark.parametrize("invalid", ["101", "-2"])
+def test_out_of_bounds_diet_fails_closed(invalid):
+    with pytest.raises(ValueError, match="Invalid/non-percentage"):
         audit_bird_diet(
             source([{"Scientific": "Bird_a", "Diet.Nect": invalid}]),
             enforce_species_range=False)
@@ -53,10 +63,19 @@ def test_wrong_source_header_and_size_are_rejected():
         audit_bird_diet(source([{"Scientific": "Bird_a", "Diet.Nect": 20}]))
 
 
-def test_duplicate_species_are_rejected():
-    rows = [{"Scientific": "Bird_a", "Diet.Nect": 20}] * 2
-    with pytest.raises(ValueError, match="repeated"):
-        audit_bird_diet(source(rows), enforce_species_range=False)
+def test_exact_duplicate_is_collapsed_and_conflicting_values_quarantined():
+    rows = [{"Scientific": "Bird_a", "Diet.Nect": 20},
+            {"Scientific": "Bird_a", "Diet.Nect": 20}]
+    summary, weights = audit_bird_diet(source(rows), enforce_species_range=False)
+    assert summary["n_original_rows_with_nonunique_names"] == 2
+    assert summary["n_original_names_with_conflicting_values_quarantined"] == 0
+    assert weights["diet_nectar_fraction"].tolist() == [.2]
+
+    conflicting = [{"Scientific": "Bird_a", "Diet.Nect": 20},
+                   {"Scientific": "Bird_a", "Diet.Nect": 40}]
+    summary, weights = audit_bird_diet(source(conflicting), enforce_species_range=False)
+    assert summary["n_original_names_with_conflicting_values_quarantined"] == 1
+    assert len(weights) == 0
 
 
 def test_unapproved_download_url_is_rejected_before_network():
