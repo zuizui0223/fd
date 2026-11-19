@@ -23,6 +23,7 @@ MIN_CLUSTERS = 15
 COVARIATES = (
     "log1p_distance_km", "log1p_area_km2", "absolute_latitude",
     "temperature_pc1", "precipitation_pc1",
+    "genus_reference_expected_delta",
     "island_pair_coverage", "source_pair_coverage",
 )
 REQUIRED = (
@@ -32,6 +33,7 @@ REQUIRED = (
     "source_pair_positive", "bird_island_richness", "bird_source_richness",
     "sphingid_island_richness", "sphingid_source_richness",
     "bird_range_qualified", "sphingid_model_qualified",
+    "genus_reference_qualified", "genus_reference_expected_delta",
     "log1p_distance_km", "log1p_area_km2", "absolute_latitude",
     "temperature_pc1", "precipitation_pc1",
 )
@@ -42,6 +44,7 @@ NUMERIC = (
     "sphingid_island_richness", "sphingid_source_richness",
     "log1p_distance_km", "log1p_area_km2", "absolute_latitude",
     "temperature_pc1", "precipitation_pc1",
+    "genus_reference_expected_delta",
 )
 
 
@@ -71,18 +74,24 @@ def _select(df: pd.DataFrame, require_population: bool) -> tuple[pd.DataFrame, d
                 "sphingid_island_richness", "sphingid_source_richness"):
         if frame[key].lt(0).any():
             raise ValueError(f"negative modeled guild richness: {key}")
-    for key in ("bird_range_qualified", "sphingid_model_qualified"):
+    for key in ("bird_range_qualified", "sphingid_model_qualified",
+                "genus_reference_qualified"):
         if not frame[key].dropna().isin([True, False, 0, 1]).all():
             raise ValueError(f"invalid qualified evidence flag: {key}")
+    if frame.genus_reference_expected_delta.abs().gt(1 + 1e-9).any():
+        raise ValueError("genus expected island-minus-source fraction outside [-1,1]")
     audit = {
         "n_source_parent_floras": int(df.island_id.nunique()),
         "parent_complete_4505": bool(df.island_id.nunique() == POPULATION),
         "n_tropical_candidate": int(len(frame)),
+        "n_independent_name_disjoint_genus_reference": int(
+            frame.genus_reference_qualified.eq(True).sum()),
     }
     frame = frame.loc[
         frame.island_pair_n.ge(5) & frame.source_pair_n.ge(5)
         & frame.island_total.gt(0) & frame.source_total.gt(0)
         & frame.bird_range_qualified.eq(True) & frame.sphingid_model_qualified.eq(True)
+        & frame.genus_reference_qualified.eq(True)
     ].dropna(subset=[*NUMERIC, "spatial_block", "first_source"])
     audit["n_map_and_direct_qualified"] = int(len(frame))
     audit["n_10deg_blocks"] = int(frame.spatial_block.nunique())
@@ -173,6 +182,7 @@ def run(df: pd.DataFrame, *, require_population: bool=True,
            "scope":PRIMARY_SCOPE, "same_species_pair_sector":PRIMARY_SECTOR,
            "parent_count_matches_4505":bool(audit["parent_complete_4505"]),
            "support":audit,
+           "conditions_on_external_name_disjoint_genus_expected_delta":True,
            "scientific_limit":"correlation of mapped potential guild availability with recorded flora; not visitation, adaptation, colonization or fitness"}
     if (len(frame) < MIN_ISLANDS or
         frame.spatial_block.nunique() < MIN_CLUSTERS or
