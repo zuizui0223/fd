@@ -33,7 +33,9 @@ def audit_no_name_or_group_leakage(*, focal_names: set[str],
                                    focal_block: str,
                                    focal_first_source: str,
                                    genus_donor_blocks: set[str],
-                                   genus_donor_first_sources: set[str]) -> None:
+                                   genus_donor_first_sources: set[str],
+                                   flower_donor_blocks: set[str],
+                                   flower_donor_first_sources: set[str]) -> None:
     """Require full accepted-name and geographic deletion *before* model fitting.
 
     The original environmental genus stage excluded focal-group ISLANDS,
@@ -47,6 +49,8 @@ def audit_no_name_or_group_leakage(*, focal_names: set[str],
         raise ValueError("Accepted-species leakage into genus or flower donor training")
     if focal_block in genus_donor_blocks or focal_first_source in genus_donor_first_sources:
         raise ValueError("Geographical/source donor group leakage into genus training")
+    if focal_block in flower_donor_blocks or focal_first_source in flower_donor_first_sources:
+        raise ValueError("Geographical/source donor group leakage into flower training")
 
 
 def mixture_from_stage1(genus_names: Sequence[str], probabilities: Sequence[float],
