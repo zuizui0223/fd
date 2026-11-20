@@ -129,3 +129,44 @@ def compare_category_and_nominal_diversity(
             base["iid_unbiased_Q_absolute_forecast_error"]
             - model["iid_unbiased_Q_absolute_forecast_error"])
     return result
+
+
+
+def rao_distance_decomposition(
+    probability: Sequence[float],
+    empirical_frequency: Sequence[float],
+    dissimilarity: Sequence[Sequence[float]],
+) -> dict[str, float]:
+    """Exact general Rao Q(p)=p' D p, not restricted to nominal unit distance.
+
+    D must be a fixed, finite, symmetric, nonnegative categorical distance
+    table with zero diagonal, shared by model and source observation. Unlike
+    ||p-q||², the quadratic term e' D e may have EITHER sign because ordinary
+    dissimilarity matrices need not be positive-semidefinite. This diagnostic
+    is a mathematical identity only; it does not construct or estimate a
+    flower morphology/trait distance matrix from source data.
+    """
+    p = _simplex(probability, "Predicted category probability")
+    q = _simplex(empirical_frequency, "Observed empirical category frequency")
+    if len(p) != len(q):
+        raise ValueError("Predicted and observed Rao Q category ontology not aligned")
+    d = np.asarray(dissimilarity, dtype=float)
+    if (d.shape != (len(p), len(p)) or not np.isfinite(d).all()
+            or np.any(d < 0) or not np.allclose(d, d.T, atol=1e-10)
+            or not np.allclose(np.diag(d), 0, atol=1e-10)):
+        raise ValueError("Shared category distance D must be symmetric, finite and hollow")
+    e = p - q
+    q_obs = float(q @ d @ q)
+    q_pred = float(p @ d @ p)
+    linear = float(2 * e @ d @ q)
+    quadratic = float(e @ d @ e)
+    if not np.isclose(q_pred-q_obs, linear+quadratic, atol=1e-12):
+        raise AssertionError("General pairwise Rao Q expansion failed")
+    return {
+        "observed_Rao_Q_fixed_D": q_obs,
+        "predicted_Rao_Q_fixed_D": q_pred,
+        "Rao_Q_signed_forecast_error": float(q_pred-q_obs),
+        "Rao_Q_linear_error_from_trait_distances": linear,
+        "Rao_Q_quadratic_error_from_trait_distances": quadratic,
+        "category_squared_error_is_not_Rao_Q_error": True,
+    }
