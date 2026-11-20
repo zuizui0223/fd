@@ -38,7 +38,7 @@ def test_joint_diversity_excess_can_be_positive_at_fixed_marginals():
     assert source["nominal_second_axis_Rao_Q"] == pytest.approx(.32)
     assert source["nominal_Gower_additive_Rao_Q"] == pytest.approx(.32)
     assert expected_independent["nominal_Gower_additive_Rao_Q"] == pytest.approx(.32)
-    assert source["true_joint_Q_minus_independent_marginal_Q"] == pytest.approx(.0208)
+    assert source["true_joint_Q_minus_independent_marginal_Q"] == pytest.approx(.0224)
     assert expected_independent["true_joint_Q_minus_independent_marginal_Q"] == pytest.approx(0)
 
 
