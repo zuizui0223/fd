@@ -128,7 +128,7 @@ def test_prior_78_same_original_target_islands_and_group_scores_required():
 def test_missing_species_source_and_ontological_parent_fail_closed():
     d=synthetic_original()
     d["regional_source_heldout_results"].pop()
-    with pytest.raises(ValueError,match="78"):
+    with pytest.raises(ValueError,match="13×3×2"):
         audit(d)
     d=synthetic_original()
     d["original_parent_GIFT_botanical_floras"]=928
