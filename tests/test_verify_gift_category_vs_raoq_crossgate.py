@@ -140,6 +140,7 @@ def test_source_zip_digest_and_private_original_identity_check(tmp_path):
     with pytest.raises(ValueError,match="exactly one"):
         read_source(p)
     a["metadata"]={"accepted_species":"Never export source protected trait name"}
-    p.write_text(json.dumps(a))
+    raw = tmp_path/"prohibited_raw.json"
+    raw.write_text(json.dumps(a))
     with pytest.raises(ValueError,match="source identity"):
-        read_source(p)
+        read_source(raw)
