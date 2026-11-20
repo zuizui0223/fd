@@ -129,6 +129,13 @@ def audit(original:dict, prior:dict|None=None) -> dict:
         sn,gn,occ=(v.get("n_distinct_target_species"),
                     v.get("n_distinct_target_genera"),
                     v.get("n_species_island_occurrences"))
+        # Original supported=0 cohort exports no occurrence ratio because
+        # there were no eligible Direct carriers; this is a genuine missing
+        # analysis, NOT a zero ecological effect.
+        if (sn,gn)==(0,0) and r.get("n_original_target_islands_scored")==0:
+            if occ is not None and occ!=0:
+                raise ValueError("Unsupported original cohort has invented occurrences")
+            occ=0
         if (not all(isinstance(z,int) and z>=0 for z in (sn,gn,occ))
                 or not 0<=gn<=sn<=occ):
             raise ValueError("Impossible protected target species/genus incidence counts")
