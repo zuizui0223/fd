@@ -154,3 +154,37 @@ def test_privacy_deep_json_and_sha256_archive_guard(tmp_path):
     bad.write_text(json.dumps(d),encoding="utf-8")
     with pytest.raises(ValueError,match="Protected"):
         read_original(bad)
+
+
+
+def test_unidentifiable_zero_direct_cohort_does_not_need_nonexistent_repeat_counts():
+    # Original source emits a true UNSUPPORTED flora as an empty taxon
+    # accumulator, with no occurrence count field at all.
+    d=synthetic_original()
+    row=d["regional_source_heldout_results"][0]
+    row["n_original_target_islands_scored"]=0
+    row["support_both_independent_source_groups"]=False
+    taxon=row["target_species_genus_reweighting"]
+    taxon.clear()
+    taxon.update({
+        "n_distinct_target_species":0,
+        "n_distinct_target_genera":0,
+        "target_accepted_names_absent_from_export":True,
+        "species_equal":{"supported_for_inference":False},
+        "genus_equal":{"supported_for_inference":False},
+    })
+    for u in ("species_equal","genus_equal"):
+        row[f"{u}_positive_local_external_pooled"]={
+            x:False for x in ("regional_blind","external_blind","regional_genus_prior")
+        }
+    a=audit(d)
+    assert a["original_panels"]==78
+    eligible=next(z for z in a["all_anonymous_panels"]
+                  if (z["scope"],z["region"],z["trait_endpoint"]) ==
+                  (row["scope"],row["region"],row["trait_endpoint"]))
+    assert eligible["n_unique_direct_target_species"]==0
+    assert eligible["n_direct_species_island_occurrences"]==0
+    assert eligible["species_equal_gain_over_regional_blind"]=="unsupported"
+    taxon["n_species_island_occurrences"]=7
+    with pytest.raises(ValueError,match="invented occurrences"):
+        audit(d)
