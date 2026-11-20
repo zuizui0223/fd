@@ -26,7 +26,16 @@ SCOPES = ("all_recorded", "original_native")
 GROUPS = ("physical_block", "first_source_group")
 SEEDS = (0, 1, 2)
 PARENT = 4505
-N_TRAITS = 13
+DIRECT_ENDPOINTS = frozenset((
+    "flower_primary_color", "floral_form", "floral_symmetry",
+    "flower_size_class", "tube_depth_class", "inflorescence_display",
+    "self_incompatibility", "autonomous_selfing_capacity",
+    "mating_system", "cleistogamy",
+    "flower_primary_color__floral_form",
+    "flower_primary_color__floral_symmetry",
+    "floral_form__floral_symmetry",
+))
+N_TRAITS = len(DIRECT_ENDPOINTS)
 N_ROWS = N_TRAITS * len(REGIONS) * len(SCOPES)
 STUDY_STATUS = "ORIGINAL_GIFT_STAGE2_BALANCED_SOURCE_LOCAL_EXTERNAL_BLIND_SENSITIVITY"
 SENSITIVE_KEYS = frozenset({
@@ -108,7 +117,7 @@ def audit(data: dict) -> dict:
     endpoints=data.get("frozen_pilot_endpoints")
     rows=data.get("regional_source_heldout_results")
     if (not isinstance(endpoints,list) or len(endpoints)!=N_TRAITS
-            or len(set(endpoints))!=N_TRAITS
+            or len(set(endpoints))!=N_TRAITS or set(endpoints)!=DIRECT_ENDPOINTS
             or not isinstance(rows,list) or len(rows)!=N_ROWS):
         raise ValueError("Missing required complete original 13×3×2 source panel table")
     seen=set()
