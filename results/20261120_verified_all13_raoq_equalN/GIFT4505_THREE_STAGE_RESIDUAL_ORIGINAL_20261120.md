@@ -47,6 +47,25 @@ These are **10° physical block-equal means of per-target island squared vectors
 
 The same exact source per-island signed projections independently audited from the anonymous JSON add to the total squared category error in all source-supported panels. No original plant names, genus identities, island IDs, candidate source IDs or coordinates appear in this report, source ZIP or released summary.
 
+## Independent signed projection audit: congener transfer mismatch is also the largest ALIGNED error component
+
+The original descriptive source report above identified the largest **squared vector NORM** under the 10° block-equal and first-source-group-equal models. The full same source artifact also provides the more informative **SIGNED inner products with the total prediction error**, each with 499 exploratory geographical group-resample intervals. We checked and released [all 78 panels, both groupings, each projection and its confidence bounds](GIFT4505_SIGNED_RESIDUAL_PROJECTION_78.csv) against source-original [Actions #44678331952](https://github.com/zuizui0223/island/actions/runs/44678331952), immutable ZIP SHA256 **938d884ae004cfb9de6ac410c45d87619f9cc640a7abad3aba6ba626f0ade591**.
+
+The result is unusually uniform: in the **59/59** region×status×trait panels with original source grouping support (36 all-recorded, 23 nested known-native), the external-congener category transfer residual is ALSO the largest **positive signed projection** among all three source vectors under BOTH source 10° physical-block and first-candidate-source grouping; its source-group 95% exploratory lower bound is **strictly positive in 59/59 under both grouping definitions**. This is **118/118 grouped views**, NOT 118 independent ecological observations. The two nested status scopes, trait endpoints and source categories overlap botanical species.
+
+A more interpretable numerical presentation for two original primary source-scored floras:
+
+| Matched original GIFT trait | Grouping | Total squared categorical error | Genus forecast signed projection | Direct documentation signed projection | Congener trait transfer signed projection [source-group 95%] | Congener projection divided by total |
+| --- | --- | ---: | ---: | ---: | --- | ---: |
+| Tropical floral symmetry, 925 islands | 10° blocks | **0.042137** | +0.002992 | +0.003936 | **+0.035209 [0.029948, 0.041613]** | **83.56%** |
+| Tropical floral symmetry | First candidate source | **0.041468** | +0.002339 | +0.003053 | **+0.036076 [0.029687, 0.042741]** | **87.00%** |
+| Southern extratropical primary colour, 184 islands | 10° blocks | **0.063596** | +0.004505 | +0.004525 | **+0.054566 [0.039554, 0.071255]** | **85.80%** |
+| Southern extratropical primary colour | First candidate source | **0.048891** | +0.002432 | +0.003078 | **+0.043381 [0.029902, 0.060333]** | **88.73%** |
+
+All three component projections add **arithmetically** to total squared categorical prediction error for the SAME source-target plant carriers. The last column is the signed projection divided by its group-mean squared error, NOT a causal contribution percentage, explained variance, phylogenetic adaptation component or attributable share; in other region×trait cells ratios can exceed 100% when other signed projections are negative. The displayed 95% intervals are for the individual signed projection, **not** a bootstrap interval for the projection ratio. Do NOT infer support from marginal interval subtraction.
+
+**Scientific consequence:** even after the original geography-predicted genus source is projected onto actual genus composition, the dominant outstanding category prediction discrepancy is what externally documented congeneric trait profiles infer about scored species, plus any source coding and trait-documentation mismatch. This supports prioritizing independent direct measurements and source taxonomy/annotation alignment, not upgrading region-specific genus geographic predictions to causal guild-driven island evolution.
+
 ## Research meaning and ceiling
 
 A geography-only improvement to the modelled genus probability may not address the largest remaining **botanical Direct flower category prediction residual**. The next most discriminating source-quality/biological step is to assess how much of the external congeneric trait-profile transfer mismatch is due to genus-to-species Direct documentation, mismatch of trait labels across sources, within-genus functional heterogeneity, or actual independent local island floral phenotypes. The present observations cannot distinguish these without newly measured or independently validated species trait states, ideally repeated in comparable island/mainland populations and linked to effective pollinator visits/pollen deposition/fitness.
