@@ -90,3 +90,44 @@ def test_multicategory_exact_identity_random_nonzero_probabilities():
                 -(pred-q)@(pred+q),abs=1e-11)
             assert ref["observed_plugin_nominal_Q"]==pytest.approx(
                 model["observed_plugin_nominal_Q"])
+
+
+
+def test_general_rao_fixed_distance_matrix_recovers_nominal_simpson_identity():
+    from fd.nominal_diversity_identity import rao_distance_decomposition
+    q=[.8,.2]
+    p=[.95,.05]
+    dist=np.ones((2,2))-np.eye(2)
+    r=rao_distance_decomposition(p,q,dist)
+    z=category_forecast_identity(p,q)
+    assert r["observed_Rao_Q_fixed_D"]==pytest.approx(z["observed_plugin_nominal_Q"])
+    assert r["predicted_Rao_Q_fixed_D"]==pytest.approx(z["predicted_nominal_Q"])
+    assert r["Rao_Q_signed_forecast_error"]==pytest.approx(-.225)
+    assert r["Rao_Q_linear_error_from_trait_distances"]==pytest.approx(-.18)
+    assert r["Rao_Q_quadratic_error_from_trait_distances"]==pytest.approx(-.045)
+
+
+def test_generalized_rao_fixed_mixed_trait_dissimilarity_exact_expansion():
+    from fd.nominal_diversity_identity import rao_distance_decomposition
+    D=np.array([[0,.2,1],[.2,0,.8],[1,.8,0]])
+    p=np.array([.2,.5,.3])
+    q=np.array([.3,.2,.5])
+    r=rao_distance_decomposition(p,q,D)
+    assert r["observed_Rao_Q_fixed_D"]==pytest.approx(q@D@q)
+    assert r["predicted_Rao_Q_fixed_D"]==pytest.approx(p@D@p)
+    assert (r["Rao_Q_linear_error_from_trait_distances"]
+            +r["Rao_Q_quadratic_error_from_trait_distances"]
+            ==pytest.approx(p@D@p-q@D@q,abs=1e-12))
+
+
+@pytest.mark.parametrize("D",[
+    [[0,1],[.5,0]],
+    [[0,-.1],[-.1,0]],
+    [[.1,.3],[.3,0]],
+    [[0,float("inf")],[float("inf"),0]],
+    [[0,1,2],[1,0,3]],
+])
+def test_rao_quadratic_distance_must_be_finite_symmetric_hollow(D):
+    from fd.nominal_diversity_identity import rao_distance_decomposition
+    with pytest.raises(ValueError,match="distance"):
+        rao_distance_decomposition([.7,.3],[.4,.6],D)
