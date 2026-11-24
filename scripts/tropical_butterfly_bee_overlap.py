@@ -11,7 +11,14 @@ import shapely
 from pyproj import CRS, Transformer
 from tropical_pollinator_source_preflight import get
 from tropical_asian_butterfly_intake import FILE_ID, MD5, BYTES
-from tropical_bee_bird_crosswalk import decode_source
+
+def decode_source(raw):
+    for encoding in ("utf-8-sig", "cp1252", "latin-1"):
+        try:
+            return raw.decode(encoding)
+        except UnicodeDecodeError:
+            pass
+    raise ValueError("unsupported source encoding")
 BEE_MD5="372c22e2c24e203600a29d7f874a907d"
 ASIA=(60.,-25.,161.,30.)
 
