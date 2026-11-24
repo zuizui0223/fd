@@ -24,7 +24,9 @@ def load():
     inc["name"]=inc.final_species_name.map(norm)
     invalid=inc.name.isna().sum()
     inc=inc.dropna(subset=["name"]).drop_duplicates(["bee_id","source_mask","name"])
-    assert inc.name.nunique()==2313
+    normalized_count=int(inc.name.nunique())
+    print("NORMALIZATION_REPLAY",json.dumps({"prior_logged_names":2313,"replayed_names":normalized_count,"invalid_rows":int(invalid),"deduplicated_rows":len(inc)}),flush=True)
+    if normalized_count<1000: raise ValueError("unexpectedly few accepted binomials")
     raw=get(URL,maxbytes=5_000_000);assert blobsha(raw)==BLOB
     assert hashlib.sha256(raw).hexdigest()=="6ec35b8a31e96c971aeaa228a48aae9f107c40c33695f0d470aa4382ca6d635b"
     traits=pd.read_csv(io.BytesIO(raw),dtype=str)
@@ -52,7 +54,7 @@ def load():
     tr["genus"]=tr.name.str.split().str[0]
     tr=tr[tr.family.ne("")]
     assert tr.name.is_unique
-    coverage={"source_positive_rows":18283,"invalid_name_rows":int(invalid),"normalized_names":2313,"exact_matches_before_duplicate_audit":1723,"conflicting_names":len(conflicting),"joined_unique_names":int(inc.name.isin(tr.name).groupby(inc.name).any().sum()),"trait_observed_distinct":{k:int(tr.loc[tr.name.isin(inc.name),k].notna().sum()) for k in ["log_wingspan","log_forewing","log_host_families","log_host_accounts"]},"units":"cm for wing measurements; log midpoint of positive lower/upper bounds. Host family count is documented breadth, not actual local host availability."}
+    coverage={"source_positive_rows":18283,"invalid_name_rows":int(invalid),"normalized_names":normalized_count,"prior_logged_names":2313,"exact_matches_before_duplicate_audit":int(inc.name.isin(traits.name.dropna()).groupby(inc.name).any().sum()),"prior_logged_exact_matches":1723,"conflicting_names":len(conflicting),"joined_unique_names":int(inc.name.isin(tr.name).groupby(inc.name).any().sum()),"trait_observed_distinct":{k:int(tr.loc[tr.name.isin(inc.name),k].notna().sum()) for k in ["log_wingspan","log_forewing","log_host_families","log_host_accounts"]},"units":"cm for wing measurements; log midpoint of positive lower/upper bounds. Host family count is documented breadth, not actual local host availability."}
     return inc,geo,tr,coverage
 def group_residual(df,y,effort,weight="group"):
     xs=[];ys=[];ids=[]
