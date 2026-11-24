@@ -15,22 +15,26 @@ function renderRegion(d){
  const panel=(x,y,k,s)=>T(x,y,k,{sz:20,bold:true})+T(x+30,y,s,{sz:17,bold:true});
  function ax(x,y,w,h,lo,hi,ticks,lab){const f=scale(lo,hi,x,w);let s="";for(const t of ticks)s+=L(f(t),y,f(t),y+h,{color:t===0?C.sub:C.grid,w:t===0?1.2:1,dash:t===0})+T(f(t),y+h+21,t,{anchor:"middle",sz:12,color:C.sub});return [s+L(x,y+h,x+w,y+h,{color:C.sub})+T(x+w/2,y+h+42,lab,{anchor:"middle",sz:13}),f]}
  function point(f,y,v,ci,color,open=false){return (ci?L(f(ci[0]),y,f(ci[1]),y,{color,w:1.8})+L(f(ci[0]),y-4,f(ci[0]),y+4,{color})+L(f(ci[1]),y-4,f(ci[1]),y+4,{color}):"")+P(f(v),y,color,5,open)}
- const w=1280,h=820;let b=panel(24,105,"A","Radial × deep across geographical regions")+panel(660,105,"B","Tropical deep-tube combinations");
+ const w=1280,h=1028;let b=panel(24,105,"A","Radial × deep across geographical regions")+panel(660,105,"B","Tropical deep-tube combinations");
  let [a,f]=ax(244,133,355,202,-5,15,[-5,0,5,10,15],"Island − candidate mainland joint frequency (pp)");b+=a;
  d.rows.forEach((v,i)=>{const y=154+i*48;b+=T(230,y-2,v[0],{anchor:"end",sz:13})+T(230,y+15,`n = ${v[1].toLocaleString("en-US")}`,{anchor:"end",sz:12,color:C.sub})+point(f,y,v[2],[v[3],v[4]],v[2]>0?C.teal:C.orange)+T(f(v[4])+6,y-10,fmt(v[2],2),{sz:11,bold:true})});
  let [a2,g]=ax(875,133,362,202,-5,15,[-5,0,5,10,15],"Joint frequency difference (pp)");b+=a2;
- d.tropical_pairs.forEach((v,i)=>{const y=169+i*67;b+=T(860,y-2,v.label,{anchor:"end",sz:13})+T(860,y+15,`n = ${v.n}`,{anchor:"end",sz:12,color:C.sub})+point(g,y,v.joint,v.joint_interval,v.joint>0?C.teal:C.orange,!v.joint_interval)+T(v.joint>=0?g(v.joint)+7:g(v.joint)-7,y-12,fmt(v.joint,2),{sz:12,bold:true,anchor:v.joint>=0?"start":"end"})});
- b+=T(660,398,"Open circles: archived point estimates only.",{sz:12,color:C.sub})+L(24,418,1256,418);
- b+=panel(24,451,"C","Marginal-corrected association and genus accounting")+panel(910,451,"D","Nested source sensitivity");
- const [a3,k]=ax(250,479,580,190,-5,6,[-5,-4,-2,0,2,4,6],"Island − source covariance difference (pp)");b+=a3;
- d.tropical_pairs.forEach((v,i)=>{const y=507+i*63;b+=T(235,y+3,v.label,{anchor:"end",sz:13})+point(k,y-12,v.covariance,v.cov_interval,C.ink)+point(k,y+2,v.between,v.between_interval,C.teal)+point(k,y+16,v.within,v.within_interval,C.blue,true)});
- b+=P(29,729,C.ink)+T(42,733,"Total ΔC",{sz:12})+P(180,729,C.teal)+T(193,733,"Between genera",{sz:12})+P(365,729,C.blue,5,true)+T(378,733,"Within genera",{sz:12});
- b+=T(910,483,"123 animal-matched tropical islands",{sz:13,color:C.sub});
- d.matched.forEach((v,i)=>{b+=T(910,512+i*57,v[0],{sz:13,color:C.sub})+T(910,535+i*57,fmt(v[1],2)+" pp",{sz:21,bold:true,color:C.teal})});
- b+=T(910,628,"Radial × deep joint frequency;",{sz:12,color:C.sub})+T(910,646,"nested subset, not independent",{sz:12,color:C.sub})+T(910,664,"replication.",{sz:12,color:C.sub});
- b+=T(24,768,"Joint frequency and covariance are distinct. No direct measure of specialization or effective pollination.",{sz:14,bold:true});
+ d.tropical_pairs.forEach((v,i)=>{const y=169+i*67;b+=T(860,y-2,v.label,{anchor:"end",sz:13})+T(860,y+15,`n = ${v.n}`,{anchor:"end",sz:12,color:C.sub})+point(g,y,v.joint,v.joint_interval,v.joint>0?C.teal:C.orange)+T(v.joint>=0?g(v.joint)+7:g(v.joint)-7,y-12,fmt(v.joint,2),{sz:12,bold:true,anchor:v.joint>=0?"start":"end"})});
+ b+=L(24,399,1256,399);
+ b+=panel(24,432,"C","Tropical covariance and genus accounting")+panel(660,432,"D","Known-native recorded subset (96 islands)");
+ const [a3,k]=ax(230,460,369,198,-5,6,[-4,-2,0,2,4,6],"Island − source covariance difference (pp)");b+=a3;
+ d.tropical_pairs.forEach((v,i)=>{const y=488+i*63;b+=T(216,y+3,v.label,{anchor:"end",sz:12})+point(k,y-12,v.covariance,v.cov_interval,C.ink)+point(k,y+2,v.between,v.between_interval,C.teal)+point(k,y+16,v.within,v.within_interval,C.blue,true)});
+ b+=P(29,724,C.ink)+T(42,728,"Total ΔC",{sz:12})+P(178,724,C.teal)+T(191,728,"Between genera",{sz:12})+P(366,724,C.blue,5,true)+T(379,728,"Within genera",{sz:12});
+ const [a4,j]=ax(875,460,362,198,-10,20,[-10,-5,0,5,10,15,20],"Source-relative difference (pp)");b+=a4;
+ d.native.rows.forEach((v,i)=>{const y=506+i*91;b+=T(860,y+2,v.label,{anchor:"end",sz:13})+point(j,y-13,v.joint,v.joint_interval,C.teal)+point(j,y+13,v.covariance,v.cov_interval,C.blue,true)+T(j(v.joint),y-25,fmt(v.joint,2),{anchor:"middle",sz:12,bold:true})+T(j(v.covariance),y+32,fmt(v.covariance,2),{anchor:"middle",sz:12,bold:true})});
+ b+=P(680,724,C.teal)+T(693,728,"Joint ΔJ",{sz:12})+P(817,724,C.blue,5,true)+T(830,728,"Covariance ΔC",{sz:12})+T(660,752,"Nonrandom provenance-documented subset; not an independent replicate.",{sz:12,color:C.sub});
+ b+=L(24,774,1256,774)+panel(24,806,"E","Source and documentation sensitivity of radial × deep");
+ b+=T(24,833,"Source comparison",{sz:12,bold:true})+T(418,833,"Joint ΔJ (pp)",{sz:12,bold:true})+T(700,833,"Covariance ΔC (pp)",{sz:12,bold:true});
+ const ir=(v,ci)=>`${fmt(v,2)} [${fmt(ci[0],2)}, ${fmt(ci[1],2)}]`;
+ d.radial_sensitivity.forEach((v,i)=>{const y=857+i*24;b+=T(24,y,`${v.label} (n=${v.n})`,{sz:12})+T(418,y,ir(v.joint,v.joint_interval),{sz:12})+T(700,y,ir(v.covariance,v.cov_interval),{sz:12})});
+ b+=T(24,966,"Animal-matched tropical subset (123 islands): geo5 +9.52 pp; climate10 +9.41 pp. All sensitivities use overlapping cohorts.",{sz:12,color:C.sub});
  const ttl="Figure 2 | Reassembly depends on geography and floral trait combinations";
- return `<svg xmlns="http://www.w3.org/2000/svg" width="${w}" height="${h}" viewBox="0 0 ${w} ${h}" role="img" aria-label="${e(ttl)}"><rect width="100%" height="100%" fill="#FFFFFF"/><g font-family="Arial, Helvetica, sans-serif">${T(24,32,ttl,{sz:23,bold:true})}${T(24,55,"Species-Direct paired categories relative to candidate mainland pools (geo5).",{sz:13,color:C.sub})}${L(24,69,w-24,69)}${b}${L(24,h-34,w-24,h-34)}${T(24,h-14,"Whiskers: archived geographic-block 95% exploratory intervals. Covariance terms use scored species/genus composition, not causal effects.",{sz:11,color:C.sub})}</g></svg>\n`
+ return `<svg xmlns="http://www.w3.org/2000/svg" width="${w}" height="${h}" viewBox="0 0 ${w} ${h}" role="img" aria-label="${e(ttl)}"><rect width="100%" height="100%" fill="#FFFFFF"/><g font-family="Arial, Helvetica, sans-serif">${T(24,32,ttl,{sz:23,bold:true})}${T(24,55,"Species-Direct paired categories relative to candidate mainland pools. Panels A–D use geo5.",{sz:13,color:C.sub})}${L(24,69,w-24,69)}${b}${L(24,h-34,w-24,h-34)}${T(24,h-14,"Whiskers: archived conditional 95% geographical-block intervals. Panel E includes alternative source-group intervals. No causal effects implied.",{sz:11,color:C.sub})}</g></svg>\n`
 }
 const buildFigures=function buildFigures(D){
  const C={ink:"#172B3A",sub:"#51616D",grid:"#DCE3E7",teal:"#007C78",blue:"#3C6FA3",orange:"#B96A34",light:"#EAF3F2",gray:"#9BA8B1",black:"#172B3A",white:"#FFFFFF"};

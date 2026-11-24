@@ -72,7 +72,7 @@
       ]
     ],
     "matched_n": 123,
-    "source": "Original 4505 figure spine and exact tropical genus covariance report (source run 44235884651); matched sensitivity 45365112213; joint non-focal contrasts reported to three decimals; covariance components reported to four decimals except radial/deep full precision. No new model fit.",
+    "source": "Original 4505 figure spine and exact tropical genus covariance report (source run 44235884651); matched sensitivity 45365112213; joint non-focal contrasts reported to three decimals; covariance components reported to four decimals except radial/deep full precision. No new model fit. Native and alternate source contrasts, and previously omitted non-focal joint intervals: original run 43857181963, archived results/20261116_true_joint_pollination_syndrome_source/README.md. Native cohort n96; nonrandom nested roster. Non-focal intervals rounded to two decimals as archived.",
     "tropical_pairs": [
       {
         "label": "Actinomorphic × deep",
@@ -102,7 +102,10 @@
         "label": "Zygomorphic × deep",
         "n": 666,
         "joint": -1.368,
-        "joint_interval": null,
+        "joint_interval": [
+          -2.68,
+          -0.05
+        ],
         "covariance": -3.4253,
         "cov_interval": [
           -4.3149,
@@ -123,7 +126,10 @@
         "label": "Tubular/bell × deep",
         "n": 598,
         "joint": 5.172,
-        "joint_interval": null,
+        "joint_interval": [
+          3.82,
+          6.61
+        ],
         "covariance": -1.0973,
         "cov_interval": [
           -1.9404,
@@ -141,7 +147,112 @@
         ]
       }
     ],
-    "marginal_product_delta": 6.97068
+    "marginal_product_delta": 6.97068,
+    "native": {
+      "n": 96,
+      "first_source_groups": 26,
+      "rows": [
+        {
+          "label": "Actinomorphic × deep",
+          "joint": 12.63,
+          "joint_interval": [
+            8.64,
+            17.11
+          ],
+          "covariance": 7.08,
+          "cov_interval": [
+            5.41,
+            8.68
+          ],
+          "joint_first_source": 9.92,
+          "joint_first_source_interval": [
+            5.46,
+            14.45
+          ],
+          "cov_first_source": 6.89,
+          "cov_first_source_interval": [
+            5.16,
+            8.72
+          ]
+        },
+        {
+          "label": "Zygomorphic × deep",
+          "joint": -6.58,
+          "joint_interval": [
+            -8.82,
+            -4.17
+          ],
+          "covariance": -6.6,
+          "cov_interval": [
+            -8.2,
+            -4.94
+          ],
+          "cov_first_source": -6.47,
+          "cov_first_source_interval": [
+            -8.42,
+            -4.71
+          ]
+        }
+      ]
+    },
+    "radial_sensitivity": [
+      {
+        "label": "All-recorded, geo5",
+        "n": 666,
+        "joint": 10.99,
+        "joint_interval": [
+          8.96,
+          13.31
+        ],
+        "covariance": 4.02,
+        "cov_interval": [
+          3.17,
+          4.92
+        ]
+      },
+      {
+        "label": "All-recorded, climate10",
+        "n": 666,
+        "joint": 11.07,
+        "joint_interval": [
+          9.1,
+          13.33
+        ],
+        "covariance": 4.47,
+        "cov_interval": [
+          3.67,
+          5.33
+        ]
+      },
+      {
+        "label": "All-recorded, geo5, source groups",
+        "n": 666,
+        "joint": 7.32,
+        "joint_interval": [
+          5.07,
+          9.52
+        ],
+        "covariance": 2.76,
+        "cov_interval": [
+          1.58,
+          3.97
+        ]
+      },
+      {
+        "label": "Annotation-balanced, geo5",
+        "n": 435,
+        "joint": 9.66,
+        "joint_interval": [
+          7.85,
+          11.35
+        ],
+        "covariance": 3.46,
+        "cov_interval": [
+          2.48,
+          4.42
+        ]
+      }
+    ]
   },
   "geography": {
     "n": 38,
