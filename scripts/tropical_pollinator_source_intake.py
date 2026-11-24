@@ -190,7 +190,7 @@ def bee_intake(out):
     (out/"bee_file_inventory.json").write_text(json.dumps(inventory,indent=2))
     print("BEE_INVENTORY",json.dumps([{k:x.get(k) for k in ("key","size","checksum")} for x in files]),flush=True)
     schemas=[]
-    cap=100_000_000
+    cap=300_000_000
     for f in files:
         name=f["key"]
         size=f.get("size") or 0
@@ -221,7 +221,9 @@ def bee_intake(out):
         except Exception as e:
             schemas.append({"file":name,"error":str(e)[:400]})
     (out/"bee_table_schemas.json").write_text(json.dumps(schemas,indent=2))
-    print("BEE_SCHEMAS",json.dumps(schemas)[:24000],flush=True)
+    print("BEE_SCHEMAS",json.dumps(schemas)[:40000],flush=True)
+    if not any(x.get("file")=="Data.zip" and x.get("members") for x in schemas):
+        raise RuntimeError("full native bee archive not inspected")
 
 def main():
     p=argparse.ArgumentParser()
