@@ -1,0 +1,29 @@
+name: Three guild candidate bridge and bird bee sensitivity
+on:
+  push:
+    branches: [analysis/tropical-pollinator-guild-dispersal-20261124]
+    paths:
+      - scripts/tropical_three_guild_candidate_audit.py
+      - .github/workflows/tropical_three_guild_candidate_audit.yml
+  workflow_dispatch:
+permissions:
+  actions: read
+  contents: read
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: pip install numpy pandas
+      - run: python scripts/tropical_three_guild_candidate_audit.py --out work/three_guild
+        env:
+          GH_TOKEN: ${{ github.token }}
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: tropical-three-guild-candidate-audit
+          path: work/three_guild
