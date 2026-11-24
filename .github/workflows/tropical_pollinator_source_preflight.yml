@@ -1,0 +1,23 @@
+name: Tropical pollinator source preflight
+on:
+  push:
+    branches: [analysis/tropical-pollinator-guild-dispersal-20261124]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  source:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: python scripts/tropical_pollinator_source_preflight.py --self-test --out work/tropical_pollinator_preflight
+      - run: python scripts/tropical_pollinator_source_preflight.py --out work/tropical_pollinator_preflight
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: tropical-pollinator-public-source-preflight
+          path: work/tropical_pollinator_preflight

@@ -1,0 +1,29 @@
+name: Tropical Asian butterfly trait filtering source audit
+on:
+  push:
+    branches: [analysis/tropical-pollinator-guild-dispersal-20261124]
+    paths:
+      - scripts/tropical_butterfly_trait_filtering.py
+      - .github/workflows/tropical_butterfly_trait_filtering.yml
+  workflow_dispatch:
+permissions:
+  actions: read
+  contents: read
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: pip install numpy pandas
+      - run: python scripts/tropical_butterfly_trait_filtering.py --out work/butterfly_filtering
+        env:
+          GH_TOKEN: ${{ github.token }}
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: tropical-butterfly-trait-filtering
+          path: work/butterfly_filtering

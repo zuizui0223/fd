@@ -1,0 +1,27 @@
+name: Tropical butterfly trait incidence source audit
+on:
+  push:
+    branches: [analysis/tropical-pollinator-guild-dispersal-20261124]
+    paths:
+      - scripts/tropical_butterfly_trait_incidence.py
+      - scripts/tropical_leptraits_intake.py
+      - .github/workflows/tropical_butterfly_trait_incidence.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  incidence:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: pip install geopandas pyogrio shapely pyproj pandas numpy
+      - run: python scripts/tropical_butterfly_trait_incidence.py --out work/butterfly_traits
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: tropical-butterfly-positive-incidence-trait-audit
+          path: work/butterfly_traits

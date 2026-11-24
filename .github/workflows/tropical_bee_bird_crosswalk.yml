@@ -1,0 +1,27 @@
+name: Native bee bird candidate crosswalk
+on:
+  push:
+    branches: [analysis/tropical-pollinator-guild-dispersal-20261124]
+    paths:
+      - scripts/tropical_bee_bird_crosswalk.py
+      - .github/workflows/tropical_bee_bird_crosswalk.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  crosswalk:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: pip install numpy pyshp pyproj
+      - run: python scripts/tropical_bee_bird_crosswalk.py --self-test --out work/bee_bird
+      - run: python scripts/tropical_bee_bird_crosswalk.py --out work/bee_bird
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: tropical-bee-bird-candidates
+          path: work/bee_bird

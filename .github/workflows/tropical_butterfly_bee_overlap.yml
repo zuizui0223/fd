@@ -1,0 +1,26 @@
+name: Tropical Asian butterfly bee polygon positive opportunity
+on:
+  push:
+    branches: [analysis/tropical-pollinator-guild-dispersal-20261124]
+    paths:
+      - scripts/tropical_butterfly_bee_overlap.py
+      - .github/workflows/tropical_butterfly_bee_overlap.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  overlap:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: pip install geopandas pyogrio shapely pyproj pandas numpy
+      - run: python scripts/tropical_butterfly_bee_overlap.py --out work/butterfly_bee
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: tropical-butterfly-bee-positive-opportunity
+          path: work/butterfly_bee

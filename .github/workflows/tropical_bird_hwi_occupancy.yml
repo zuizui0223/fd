@@ -1,0 +1,26 @@
+name: Independent tropical bird flight-trait occupancy
+on:
+  push:
+    branches: [analysis/tropical-pollinator-guild-dispersal-20261124]
+    paths:
+      - scripts/tropical_bird_hwi_occupancy.py
+      - .github/workflows/tropical_bird_hwi_occupancy.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  traits:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: pip install numpy scipy
+      - run: python scripts/tropical_bird_hwi_occupancy.py --out work/bird_hwi
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: tropical-bird-hwi-occupancy
+          path: work/bird_hwi

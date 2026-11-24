@@ -1,0 +1,22 @@
+# Tropical bird flight morphology and realized archipelago occupancy — 2026-11-24
+
+## Original data and execution
+[Actions 45341369223](https://github.com/zuizui0223/fd/actions/runs/45341369223) completed SUCCESS; source artifact 14896670354. Pinned independent DARs native/current checklist matrices (11 source groups, 200 island columns; 10 tropical candidate archipelagos, 132 columns, plus Ryukyu sensitivity 68). All original richness footers reconcile. EltonTraits original diet 9,993 species SHA256 97216eb1797da077169ebb1ebea275db293b09fc62f8bb8911f9beb98c50d321. AVONET species-average BirdTree table from published secondary archive pinned commit 757d16598fa00ce0e5696a22a54807ad2d299e01, Git blob ee00cd347179844041f490e6eb3e3f902cd0ed94 and SHA256 06a77cbc16dfda6c9f8ed2640476f8cc0d319b7253e0b7f4f165f841bc2e71d1; 9,993 exact names. All original positive checklist species match both tables. No eBird occurrence data.
+
+Tropical candidate scope: 721 species x archipelago rows, 497 distinct species; nectar/pollen/exudate diet >0: 89 rows / 66 species. Occupancy = recorded islands / island columns within original checklist, conditional on already recorded in archipelago. HWI is a wing-shape proxy for flight efficiency, not measured inter-island movement or mainland colonization. Exploratory correlations across species separately by archipelago; regression of occupancy on HWI demeaned within archipelago x taxonomic family cells with >=3 species, varying occupancy and HWI, equal cell weight. Slopes per +10 HWI points on occupancy fraction scale.
+
+| Diet group | Species x group rows | Distinct species | Groups with estimable rho | Positive rho | Median rho | Family x group slope per 10 HWI |
+|---|---:|---:|---:|---:|---:|---:|
+| All birds | 721 | 497 | 10 | 9 | 0.0871163 | 0.0844262 |
+| Nectar >0 | 89 | 66 | 5 | 4 | 0.0731813 | 0.2367252 |
+| Nectar >=20 | 55 | 41 | 4 | 2 | 0.0344842 | 0.2130432 |
+| Nectar >=50 | 19 | 16 | 1 | 1 | 0.3339472 | 1.0907006 |
+| Nectar =0 | 632 | 431 | 10 | 9 | 0.1256828 | 0.0779588 |
+
+Strict >50% nectar specialist slope exceeds the entire occupancy scale per 10 HWI: sparse-support linear extrapolation, NOT an ecologically plausible effect size. Do not use it as evidence of especially strong flight-trait filtering. For nectar >0, leave-one-archipelago-out slopes 0.0930741 to 0.4440162; all birds 0.0297017 to 0.1077482. Nectar >=20 estimate becomes essentially zero (0.00030076) when Lesser Antilles excluded; two of four group correlations negative. Report all sensitivity outcomes, no cherry-picking. No confidence intervals or formal contrast between diet groups, no adjusted significance, no cross-guild differential isolation effect. The all-bird group includes aquatic birds; species recurring between archipelagos are nonindependent. Future confirmatory model requires non-aquatic / resident scope, independent geographic units and species-level dependence control, predeclared HWI x nectar interaction, no extrapolation, and actual between-island isolation / area covariates. This is new descriptive flight-trait/realized-occupancy association only.
+
+## Independent global bird archive audit
+Baldwin & Myers (2024), Ecology Letters DOI 10.1111/ele.70020; Zenodo 12741516 archive MD5 ce918e45ac29d7381bbc7f53b7f03923. [Actions 45341205339](https://github.com/zuizui0223/fd/actions/runs/45341205339) SUCCESS; artifact 14896056745. Published study frame 3894 islands / 6706 species. Public archive has island_richness.csv (3578 rows, all-bird CWM HWI), island_richness_nomigs.csv (2923), island_sum2_rangesize.csv (3891), realm/family summaries; no island x species matrix. Original scripts refer to all_results_tax.csv (available upon request) and island_biota.rds, absent from archive. Therefore these aggregates CANNOT reconstruct the nectar-guild community. Do not promote to a 3894-island nectar-bird dataset. Potential auxiliary all-bird community metric only after geographic/provenance checks.
+
+## Other source work
+Both original spatial runners initially failed on legacy encoding of checksum-verified bee CSVs. Source decoder fixed, reruns [bee/bird 45341076967](https://github.com/zuizui0223/fd/actions/runs/45341076967) and [bee/butterfly 45341087879](https://github.com/zuizui0223/fd/actions/runs/45341087879). At evidence freeze no verified crosswalk outputs yet. No H1-H4 inference; original GIFT 4505 botanical frame retained.
