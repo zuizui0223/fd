@@ -1,0 +1,25 @@
+name: Global bird checklist source provenance audit
+on:
+  push:
+    branches: [analysis/tropical-pollinator-guild-dispersal-20261124]
+    paths:
+      - scripts/global_bird_source_audit.py
+      - .github/workflows/global_bird_source_audit.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: python scripts/global_bird_source_audit.py --out work/global_bird
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: global-bird-source-audit
+          path: work/global_bird
