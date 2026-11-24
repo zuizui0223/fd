@@ -4,6 +4,34 @@ import {fileURLToPath} from "node:url";
 const here=path.dirname(fileURLToPath(import.meta.url));
 const dir=path.resolve(here,"../docs/manuscript_20261124");
 const data=JSON.parse(fs.readFileSync(path.join(dir,"figure_data.json"),"utf8"));
+function renderRegion(d){
+ const C={ink:"#172B3A",sub:"#51616D",grid:"#DCE3E7",teal:"#007C78",blue:"#3C6FA3",orange:"#B96A34",gray:"#9BA8B1",white:"#FFFFFF"};
+ const e=s=>String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
+ const T=(x,y,s,o={})=>`<text x="${x}" y="${y}" font-size="${o.sz??15}" font-weight="${o.bold?700:400}" text-anchor="${o.anchor??"start"}" fill="${o.color??C.ink}">${e(s)}</text>`;
+ const L=(x,y,x2,y2,o={})=>`<line x1="${x}" y1="${y}" x2="${x2}" y2="${y2}" stroke="${o.color??C.grid}" stroke-width="${o.w??1}"${o.dash?' stroke-dasharray="5 4"':""}/>`;
+ const P=(x,y,c,r=5,open=false)=>`<circle cx="${x}" cy="${y}" r="${r}" fill="${open?C.white:c}" stroke="${c}" stroke-width="1.6"/>`;
+ const fmt=(v,n=3)=>(v>0?"+":"")+v.toFixed(n);
+ const scale=(lo,hi,x,w)=>v=>x+(v-lo)/(hi-lo)*w;
+ const panel=(x,y,k,s)=>T(x,y,k,{sz:20,bold:true})+T(x+30,y,s,{sz:17,bold:true});
+ function ax(x,y,w,h,lo,hi,ticks,lab){const f=scale(lo,hi,x,w);let s="";for(const t of ticks)s+=L(f(t),y,f(t),y+h,{color:t===0?C.sub:C.grid,w:t===0?1.2:1,dash:t===0})+T(f(t),y+h+21,t,{anchor:"middle",sz:12,color:C.sub});return [s+L(x,y+h,x+w,y+h,{color:C.sub})+T(x+w/2,y+h+42,lab,{anchor:"middle",sz:13}),f]}
+ function point(f,y,v,ci,color,open=false){return (ci?L(f(ci[0]),y,f(ci[1]),y,{color,w:1.8})+L(f(ci[0]),y-4,f(ci[0]),y+4,{color})+L(f(ci[1]),y-4,f(ci[1]),y+4,{color}):"")+P(f(v),y,color,5,open)}
+ const w=1280,h=820;let b=panel(24,105,"A","Radial × deep across geographical regions")+panel(660,105,"B","Tropical deep-tube combinations");
+ let [a,f]=ax(244,133,355,202,-5,15,[-5,0,5,10,15],"Island − candidate mainland joint frequency (pp)");b+=a;
+ d.rows.forEach((v,i)=>{const y=154+i*48;b+=T(230,y-2,v[0],{anchor:"end",sz:13})+T(230,y+15,`n = ${v[1].toLocaleString("en-US")}`,{anchor:"end",sz:12,color:C.sub})+point(f,y,v[2],[v[3],v[4]],v[2]>0?C.teal:C.orange)+T(f(v[4])+6,y-10,fmt(v[2],2),{sz:11,bold:true})});
+ let [a2,g]=ax(875,133,362,202,-5,15,[-5,0,5,10,15],"Joint frequency difference (pp)");b+=a2;
+ d.tropical_pairs.forEach((v,i)=>{const y=169+i*67;b+=T(860,y-2,v.label,{anchor:"end",sz:13})+T(860,y+15,`n = ${v.n}`,{anchor:"end",sz:12,color:C.sub})+point(g,y,v.joint,v.joint_interval,v.joint>0?C.teal:C.orange,!v.joint_interval)+T(v.joint>=0?g(v.joint)+7:g(v.joint)-7,y-12,fmt(v.joint,2),{sz:12,bold:true,anchor:v.joint>=0?"start":"end"})});
+ b+=T(660,398,"Open circles: archived point estimates only.",{sz:12,color:C.sub})+L(24,418,1256,418);
+ b+=panel(24,451,"C","Marginal-corrected association and genus accounting")+panel(910,451,"D","Nested source sensitivity");
+ const [a3,k]=ax(250,479,580,190,-5,6,[-5,-4,-2,0,2,4,6],"Island − source covariance difference (pp)");b+=a3;
+ d.tropical_pairs.forEach((v,i)=>{const y=507+i*63;b+=T(235,y+3,v.label,{anchor:"end",sz:13})+point(k,y-12,v.covariance,v.cov_interval,C.ink)+point(k,y+2,v.between,v.between_interval,C.teal)+point(k,y+16,v.within,v.within_interval,C.blue,true)});
+ b+=P(29,729,C.ink)+T(42,733,"Total ΔC",{sz:12})+P(180,729,C.teal)+T(193,733,"Between genera",{sz:12})+P(365,729,C.blue,5,true)+T(378,733,"Within genera",{sz:12});
+ b+=T(910,483,"123 animal-matched tropical islands",{sz:13,color:C.sub});
+ d.matched.forEach((v,i)=>{b+=T(910,512+i*57,v[0],{sz:13,color:C.sub})+T(910,535+i*57,fmt(v[1],2)+" pp",{sz:21,bold:true,color:C.teal})});
+ b+=T(910,628,"Radial × deep joint frequency;",{sz:12,color:C.sub})+T(910,646,"nested subset, not independent",{sz:12,color:C.sub})+T(910,664,"replication.",{sz:12,color:C.sub});
+ b+=T(24,768,"Joint frequency and covariance are distinct. No direct measure of specialization or effective pollination.",{sz:14,bold:true});
+ const ttl="Figure 2 | Reassembly depends on geography and floral trait combinations";
+ return `<svg xmlns="http://www.w3.org/2000/svg" width="${w}" height="${h}" viewBox="0 0 ${w} ${h}" role="img" aria-label="${e(ttl)}"><rect width="100%" height="100%" fill="#FFFFFF"/><g font-family="Arial, Helvetica, sans-serif">${T(24,32,ttl,{sz:23,bold:true})}${T(24,55,"Species-Direct paired categories relative to candidate mainland pools (geo5).",{sz:13,color:C.sub})}${L(24,69,w-24,69)}${b}${L(24,h-34,w-24,h-34)}${T(24,h-14,"Whiskers: archived geographic-block 95% exploratory intervals. Covariance terms use scored species/genus composition, not causal effects.",{sz:11,color:C.sub})}</g></svg>\n`
+}
 const buildFigures=function buildFigures(D){
  const C={ink:"#172B3A",sub:"#51616D",grid:"#DCE3E7",teal:"#007C78",blue:"#3C6FA3",orange:"#B96A34",light:"#EAF3F2",gray:"#9BA8B1",black:"#172B3A",white:"#FFFFFF"};
  const e=s=>String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
@@ -33,15 +61,7 @@ const buildFigures=function buildFigures(D){
   b+=T(24,442,"Strict genus-disjoint pairs: observed squared distance 0.281 vs shuffled-trait reference 0.257.",{sz:14,color:C.sub})+T(24,465,"Nonzero overlap is recurrence; it does not establish excess convergence.",{sz:14,bold:true});
   out["fig01_recurrence.svg"]=svg(1060,510,"Figure 1 | Floral repertoires recur despite taxonomic turnover","Observed high/medium species-Direct colour × form; full-flora taxonomic disjointness.",b,"Source: fd verified positive evidence ledger; 24 Nov 2026 synthesis. Pair cohorts overlap; no independence assumed.");
  }
- {const d=D.region;let b=panel(24,101,"A","Regional joint-frequency contrast")+panel(650,101,"B","Tropical covariance accounting");
-  let [a,f]=chartAxis(248,132,350,220,-5,15,[-5,0,5,10,15],"Island − candidate mainland (pp)");b+=a;
-  d.rows.forEach((r,i)=>{const y=164+i*72;b+=T(236,y-2,r[0],{anchor:"end",sz:14})+T(236,y+17,`n = ${N(r[1])}`,{anchor:"end",sz:12,color:C.sub})+dotRange(f,y,r[2],[r[3],r[4]],r[2]>0?C.teal:C.orange)+T(f(r[4])+7,y-10,fmt(r[2],2),{sz:12,bold:true})});
-  const [a2,g]=chartAxis(806,132,222,220,-.5,5,[-.5,0,2,4,5],"Covariance excess (pp)");b+=a2;
-  [["Total",d.covariance.total],["Between genera",d.covariance.between],["Within genera",d.covariance.within]].forEach((r,i)=>{const y=165+i*72;b+=T(793,y+4,r[0],{anchor:"end",sz:13})+R(Math.min(g(0),g(r[1])),y-10,Math.abs(g(r[1])-g(0)),20,i===2?C.orange:C.teal,2)+T(r[1]<0?g(0)-5:g(r[1])+5,y-14,fmt(r[1],3),{anchor:r[1]<0?"end":"start",sz:12,bold:true})});
-  b+=L(24,415,1036,415)+panel(24,447,"C","Nested animal-matched tropical cohort (123 islands)");
-  d.matched.forEach((r,i)=>b+=T(25+i*505,480,r[0]+":",{sz:14,color:C.sub})+T(25+i*505,511,fmt(r[1],2)+" pp",{sz:23,bold:true,color:C.teal}));
-  out["fig02_geographical_reassembly.svg"]=svg(1060,562,"Figure 2 | Geography-dependent joint floral reassembly","Actinomorphic × deep-tube category; covariance and joint frequency are different estimands.",b,"Regional whiskers: geographic-block 95% exploratory intervals. Candidate source pools are not observed ancestors.");
- }
+ out["fig02_geographical_reassembly.svg"]=renderRegion(D.region);
  {const d=D.geography;let b=panel(24,101,"A","Independent source support")+panel(450,101,"B","Isolation-distance sensitivity");
   d.source_counts.forEach((r,i)=>{const y=142+i*52;b+=T(24,y,r[0],{sz:14})+R(24,y+9,310*r[1]/305,12,C.blue,2)+T(345,y+20,N(r[1]),{sz:14,bold:true,anchor:"end"})});
   b+=T(24,377,"38 tropical bird–bee candidates",{sz:17,bold:true})+T(24,399,"7 archipelagos; 6 informative",{sz:13,color:C.sub})+T(24,421,"9 tropical three-guild candidates",{sz:13,color:C.sub});

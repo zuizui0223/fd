@@ -47,6 +47,13 @@
         10.989,
         8.958,
         13.313
+      ],
+      [
+        "Southern extratropical",
+        118,
+        4.103,
+        0.697,
+        7.533
       ]
     ],
     "covariance": {
@@ -65,7 +72,76 @@
       ]
     ],
     "matched_n": 123,
-    "source": "results/20261118_positive_evidence/README.md; protected run 45365112213"
+    "source": "Original 4505 figure spine and exact tropical genus covariance report (source run 44235884651); matched sensitivity 45365112213; joint non-focal contrasts reported to three decimals; covariance components reported to four decimals except radial/deep full precision. No new model fit.",
+    "tropical_pairs": [
+      {
+        "label": "Actinomorphic × deep",
+        "n": 666,
+        "joint": 10.98858,
+        "joint_interval": [
+          8.958,
+          13.313
+        ],
+        "covariance": 4.0179,
+        "cov_interval": [
+          3.1737,
+          4.9234
+        ],
+        "between": 4.05652,
+        "within": -0.03862,
+        "between_interval": [
+          3.2058,
+          4.9624
+        ],
+        "within_interval": [
+          -0.0577,
+          -0.0186
+        ]
+      },
+      {
+        "label": "Zygomorphic × deep",
+        "n": 666,
+        "joint": -1.368,
+        "joint_interval": null,
+        "covariance": -3.4253,
+        "cov_interval": [
+          -4.3149,
+          -2.5685
+        ],
+        "between": -3.639,
+        "within": 0.2137,
+        "between_interval": [
+          -4.5034,
+          -2.7838
+        ],
+        "within_interval": [
+          0.1611,
+          0.2656
+        ]
+      },
+      {
+        "label": "Tubular/bell × deep",
+        "n": 598,
+        "joint": 5.172,
+        "joint_interval": null,
+        "covariance": -1.0973,
+        "cov_interval": [
+          -1.9404,
+          -0.2753
+        ],
+        "between": -1.6341,
+        "within": 0.5367,
+        "between_interval": [
+          -2.4513,
+          -0.8491
+        ],
+        "within_interval": [
+          0.4439,
+          0.6457
+        ]
+      }
+    ],
+    "marginal_product_delta": 6.97068
   },
   "geography": {
     "n": 38,

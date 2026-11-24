@@ -20,3 +20,5 @@ Source-verified aggregate supplement, 24 November 2026. All figures generated fr
 - [Table S5 — all origin bound outputs](supplement/table_S05_origin_bounds.csv): 460 feasible endpoint-level intervals plus infeasible cap rows; intervals are conditional identification ranges and not sampling intervals.
 
 Reproduction: `node scripts/render_integrated_supplement_figures.mjs --check`. The original Actions logs were parsed and the 996/460 totals verified. See main evidence ledger and protected run links in the source registry. Original source metadata for the native bounds inherited an outdated warning; actual status, source code and endpoint-wise bound outputs control interpretation.
+
+**S1 denominator correction (25 November 2026 JST):** geology contrast is oceanic 124 versus continental 37; LGM is unconnected 347 versus connected 257. Earlier vector labels listed the two counts in reverse contrast order. Only the displayed order changed, not the effect estimates or joint support cells.

@@ -39,3 +39,6 @@ For a prespecified pair of floral traits A,D and candidate source S, define `J =
 - Keep animal results in Figures 3–5, with unsupported tests alongside raw positive associations.
 - Figure replay CI [45395209126](https://github.com/zuizui0223/fd/actions/runs/45395209126) completed successfully; reproducible vector aggregate draft figures are not final typeset journal plates.
 - No new empirical model was run. No claim of first-ever global assessment or exhaustive literature search. More citation/data-source and full-method work remains.
+
+## Refinement: architecture-dependent reassembly (25 November 2026 JST)
+The earlier draft emphasized a single positive tropical joint category and omitted the southern extratropical regional row. The original source report supports all four radial/deep regional rows and contrasting tropical deep-tube combinations. In particular, bilateral/deep joint frequency has a negative point contrast (−1.368 pp), and its covariance difference (−3.4253 pp) contrasts with radial/deep (+4.0179 pp). Tubular/bell × deep shows positive joint frequency (+5.172 pp) with negative covariance (−1.0973 pp). These distinct estimands substantiate the question of architecture-dependent assembly; they do not establish a directional shift in measured pollination specialization. Figure 2 and Results now retain these contrasts. No new ecological fit.
