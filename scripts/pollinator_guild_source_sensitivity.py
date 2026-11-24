@@ -2,7 +2,7 @@
 """Sensitivity analysis of original source-derived public artifacts.
 Observed record richness is NOT true guild richness. Bird checklist occupancy is NOT colonization.
 """
-import argparse,hashlib,io,json,math,pathlib,os,urllib.request,zipfile
+import argparse,hashlib,io,json,math,pathlib,os,subprocess,zipfile
 from collections import defaultdict
 import numpy as np
 import pandas as pd
@@ -13,8 +13,7 @@ PINS={
 def load_artifact(kind):
     aid,expected,filename=PINS[kind]
     url=f"https://api.github.com/repos/zuizui0223/fd/actions/artifacts/{aid}/zip"
-    req=urllib.request.Request(url,headers={"Authorization":"Bearer "+os.environ["GH_TOKEN"],"Accept":"application/vnd.github+json","User-Agent":"fd-audit"})
-    with urllib.request.urlopen(req,timeout=60) as response:raw=response.read(2_000_000)
+    raw=subprocess.check_output(["curl","--fail","--silent","--show-error","--location","--max-time","90","--max-filesize","2000000","-H","Authorization: Bearer "+os.environ["GH_TOKEN"],"-H","Accept: application/vnd.github+json",url])
     assert hashlib.sha256(raw).hexdigest()==expected,"artifact digest mismatch"
     with zipfile.ZipFile(io.BytesIO(raw)) as z:
         p=[n for n in z.namelist() if pathlib.PurePosixPath(n).name==filename]
@@ -55,7 +54,7 @@ def moments(x,y,w,idx):
     if den<1e-10:return None
     return num,den
 
-def slope(x,y,w,cells,groups):
+def slope(x,y,w,cells,groups,group_mult=None):
     by=defaultdict(list)
     for idx in cells:
         m=moments(x,y,w,idx)
@@ -63,14 +62,16 @@ def slope(x,y,w,cells,groups):
     if not by:return None
     # each active group contributes its mean cell moments; no unequal-cell group dominance
     a=np.asarray([np.mean(v,axis=0) for v in by.values()])
-    return float(a[:,0].sum()/a[:,1].sum()*10) if a[:,1].sum()>0 else None
-def split_slope(x,y,w,cells,groups):
+    m=np.array([1 if group_mult is None else group_mult.get(g,0) for g in by])
+    num,den=(a*m[:,None]).sum(axis=0)
+    return float(num/den*10) if den>0 else None
+def split_slope(x,y,w,cells,groups,group_mult=None):
     am=[];bm=[]
     for a,b in cells:
         if moments(x,y,w,a) is not None and moments(x,y,w,b) is not None:
             am.append(a);bm.append(b)
     if not am:return None
-    a=slope(x,y,w,am,groups);b=slope(x,y,w,bm,groups)
+    a=slope(x,y,w,am,groups,group_mult);b=slope(x,y,w,bm,groups,group_mult)
     if a is None or b is None:return None
     return a-b
 def bird_audit(d,draws=1999):
@@ -100,7 +101,7 @@ def bird_audit(d,draws=1999):
             for _ in range(draws):
                 a=np.bincount(rng.integers(0,len(gi),len(gi)),minlength=len(gi))
                 b=np.bincount(rng.integers(0,len(sp),len(sp)),minlength=len(sp))
-                vals.append(fx(x,y,a[gidx]*b[sidx],c,groups));sg.append(fx(x,y,b[sidx],c,groups))
+                vals.append(fx(x,y,a[gidx]*b[sidx],c,groups,dict(zip(gi,a))));sg.append(fx(x,y,b[sidx],c,groups))
             # Conditional distinct-species HWI shuffle within family and genus separately.
             perm={}
             if not split:
