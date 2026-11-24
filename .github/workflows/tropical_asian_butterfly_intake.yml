@@ -1,0 +1,25 @@
+name: Tropical Asian butterfly original occurrence intake
+on:
+  push:
+    branches: [analysis/tropical-pollinator-guild-dispersal-20261124]
+    paths:
+      - scripts/tropical_asian_butterfly_intake.py
+      - .github/workflows/tropical_asian_butterfly_intake.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  source:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: python scripts/tropical_asian_butterfly_intake.py --out work/butterfly_intake
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: tropical-asian-butterfly-source-intake
+          path: work/butterfly_intake
