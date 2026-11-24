@@ -11,6 +11,7 @@ import shapely
 from pyproj import CRS, Transformer
 from tropical_pollinator_source_preflight import get
 from tropical_asian_butterfly_intake import FILE_ID, MD5, BYTES
+from tropical_bee_bird_crosswalk import decode_source
 BEE_MD5="372c22e2c24e203600a29d7f874a907d"
 ASIA=(60.,-25.,161.,30.)
 
@@ -30,14 +31,14 @@ def fetch_islands(tmp):
     raw=get(f["links"].get("content") or f["links"]["self"],maxbytes=300_000_000)
     assert hashlib.md5(raw).hexdigest()==BEE_MD5
     with zipfile.ZipFile(io.BytesIO(raw)) as z:
-        model=pd.read_csv(io.BytesIO(z.read("Data/model_table.csv")),dtype={"OBJECTID_1":str})
+        model=pd.read_csv(io.StringIO(decode_source(z.read("Data/model_table.csv"))),dtype={"OBJECTID_1":str})
         for ext in ("dbf","prj","shp","shx"): z.extract("Data/islands."+ext,tmp)
     assert len(model)==model["OBJECTID_1"].nunique()==305
     shp=str(tmp/"Data/islands.shp")
     info=pyogrio.read_info(shp)
     crs=CRS.from_user_input(info["crs"])
     bbox=Transformer.from_crs("EPSG:4326",crs,always_xy=True).transform_bounds(*ASIA,densify_pts=21)
-    data=gpd.read_file(shp,bbox=bbox,engine="pyogrio").to_crs("EPSG:4326")
+    data=gpd.read_file(shp,bbox=bbox,engine="pyogrio",encoding="CP1252").to_crs("EPSG:4326")
     key=next(k for k in data.columns if k.lower()=="objectid_1")
     data["bee_id"]=data[key].astype(str).str.replace(r"\.0$","",regex=True)
     assert data["bee_id"].is_unique and set(data["bee_id"])<=set(model["OBJECTID_1"])

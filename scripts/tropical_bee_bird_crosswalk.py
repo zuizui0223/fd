@@ -50,6 +50,14 @@ def norm(s):
     return "".join(c for c in s if c.isalnum())
 def in_box(bounds,box):
     return all(math.isfinite(x) for x in bounds) and bounds[0]>=box[0] and bounds[1]>=box[1] and bounds[2]<=box[2] and bounds[3]<=box[3]
+def decode_source(raw):
+    for encoding in ("utf-8-sig", "cp1252", "latin-1"):
+        try:
+            return raw.decode(encoding)
+        except UnicodeDecodeError:
+            pass
+    raise ValueError("unsupported source encoding")
+
 def load_bees():
     meta=json.loads(get("https://zenodo.org/api/records/23222636"))
     f=next(f for f in meta["files"] if f["key"]=="Data.zip")
@@ -61,8 +69,8 @@ def load_bees():
         occurrences=z.read("Data/islandspecieslist.csv")
         assert hashlib.sha256(model).hexdigest()==MODEL_SHA
         assert hashlib.sha256(occurrences).hexdigest()==SPECIES_SHA
-        rows=list(csv.DictReader(io.StringIO(model.decode("utf-8-sig"))))
-        occ=list(csv.DictReader(io.StringIO(occurrences.decode("utf-8-sig"))))
+        rows=list(csv.DictReader(io.StringIO(decode_source(model))))
+        occ=list(csv.DictReader(io.StringIO(decode_source(occurrences))))
         ids={r["OBJECTID_1"] for r in rows}
         assert len(rows)==len(ids)==305
         native=defaultdict(set); native_certain=defaultdict(set)
@@ -76,7 +84,7 @@ def load_bees():
         base=pathlib.Path(td)/"Data/islands"
         crs=CRS.from_wkt(base.with_suffix(".prj").read_text())
         transform=Transformer.from_crs(crs,"EPSG:4326",always_xy=True)
-        shapes=shapefile.Reader(str(base),encodingErrors="replace")
+        shapes=shapefile.Reader(str(base),encoding="cp1252",encodingErrors="replace")
         fields=[f[0] for f in shapes.fields[1:]]
         key=next((f for f in fields if f.casefold()=="objectid_1"),None)
         if not key:
