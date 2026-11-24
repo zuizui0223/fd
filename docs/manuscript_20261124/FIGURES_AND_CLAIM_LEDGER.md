@@ -14,7 +14,7 @@ This is a source-linked plan, not rendered figures or new fitted results. Keep t
 - Main: historical botanical recurrence and joint architecture; animal geography, diet specificity and original two-sided null. The three animal-facing figures prevent the newly compiled source data being reduced to a discussion-only aside.
 - S1: botanical geological/LGM support and overlap failure. S2: trait-specific nominal Q and category prediction, not continuous hypervolume. S3: wing shape and butterfly host breadth, all source masks, effort/host-documentation sensitivity. S4: original 500-test form/depth and 336-test source-relative summaries. S5: native-status decomposition and all 460 feasible bounds. S6: source pin manifest and name/geometry support checks.
 - Figures must use actual source values, preserve unsupported/negative cells, and label grouped resampling ranges honestly. No example figures presented as data. Do not portray taxonomic expectation as a causal proportion explained.
-- No new literature claims without verifying references. Full method, figure rendering and bibliographic verification remain separate editorial steps.
+- A targeted literature comparison and nine verified journal references are archived in [NOVELTY_AND_PRECEDENTS.md](NOVELTY_AND_PRECEDENTS.md). Five aggregate-data vector figures replay successfully ([CI 45395209126](https://github.com/zuizui0223/fd/actions/runs/45395209126)); complete source bibliography, full methods and final typesetting remain separate editorial steps.
 
 ## Claim ledger
 | Level | Permitted statement | Not permitted |
@@ -24,5 +24,7 @@ This is a source-linked plan, not rendered figures or new fitted results. Keep t
 | Exploratory animal | Dietary contrasts are positive across nested public panels; family-null support in 6/24 tests | Established pollinator guild shift or stronger dispersal of birds/butterflies |
 | Exploratory trait specificity | In a common scored cohort, deep class and tubular form differ in residual coefficient | Demonstrated selection on access depth or within-species evolution |
 | Inference boundary | No corrected original dual-null support; origin uncertainty prevents stable sign | Absence of biological effects or a native evolutionary response established |
+
+Novelty priority: geographically contrasting joint categorical phenotype distributions and covariance accounting, with two-sided diagnostics of potential animal correspondence. Do not claim that trait–trait reassembly, plant-family filtering or generalist/specialist bird distinctions are themselves new (Song et al. 2026; Ishii et al. 2025; Abrahamczyk 2019). See the targeted novelty audit.
 
 Proposed journal positioning: **Biogeography / macroecology**, with island assemblage structure as the supported main result and two-sided interaction-filtering as the central question. A standalone mechanistic mutualism paper is not yet supported by the available local interaction evidence.
