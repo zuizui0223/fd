@@ -89,18 +89,27 @@ def load_bees():
         key=next((f for f in fields if f.casefold()=="objectid_1"),None)
         if not key:
             raise RuntimeError("No exact OBJECTID_1 in source geometry: "+str(fields))
-        geom={}
+        geom=defaultdict(list)
+        source_geom_records=0
+        nonmodel_geom_ids=defaultdict(int)
         for sr in shapes.iterShapeRecords():
             keyval=str(sr.record.as_dict()[key])
             if keyval.endswith(".0"): keyval=keyval[:-2]
+            source_geom_records+=1
+            if keyval not in ids:
+                nonmodel_geom_ids[keyval]+=1
+                continue
             b=transform.transform_bounds(*sr.shape.bbox,densify_pts=21)
-            if keyval in geom: raise ValueError("duplicate bee geometry ID")
-            geom[keyval]={"bbox":b,"parts":len(sr.shape.parts)}
-        assert ids<=geom.keys(), "missing model island geometry"
+            geom[keyval].append({"bbox":b,"parts":len(sr.shape.parts)})
+        ambiguous={k:len(v) for k,v in geom.items() if len(v)!=1}
+        missing=sorted(ids-set(geom))
         for r in rows:
             k=r["OBJECTID_1"]
-            r.update(geom[k])
-        summary={"model_islands":len(rows),"geometry_islands":len(geom),"record_rows":len(occ),
+            if len(geom[k])==1:
+                r.update(geom[k][0])
+            else:
+                r.update({"bbox":[float("nan")]*4,"parts":0})
+        summary={"model_islands":len(rows),"geometry_islands":sum(len(v)==1 for v in geom.values()),"geometry_records":source_geom_records,"nonmodel_geometry_ids":dict(nonmodel_geom_ids),"ambiguous_model_geometry_ids":ambiguous,"missing_model_geometry_ids":missing,"record_rows":len(occ),
                  "native_species_union":len(set().union(*native.values())),
                  "native_certain_species_union":len(set().union(*native_certain.values())),
                  "positive_model_bees":sum(float(r["FinalRichNat"])>0 for r in rows),

@@ -1,0 +1,29 @@
+name: Pollinator guild source matched sensitivity audit
+on:
+  push:
+    branches: [analysis/tropical-pollinator-guild-dispersal-20261124]
+    paths:
+      - scripts/pollinator_guild_source_sensitivity.py
+      - .github/workflows/pollinator_guild_source_sensitivity.yml
+  workflow_dispatch:
+permissions:
+  actions: read
+  contents: read
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: pip install numpy pandas
+      - run: python scripts/pollinator_guild_source_sensitivity.py --out work/guild_sensitivity
+        env:
+          GH_TOKEN: ${{ github.token }}
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: pollinator-guild-source-sensitivity
+          path: work/guild_sensitivity
