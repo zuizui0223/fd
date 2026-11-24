@@ -17,10 +17,8 @@ PILOT = {
     "Marianas": ("Baiser et al (2017) Marianas Birds_current_noAliens.csv", ["Myzomela_rubratra"], 15, 12, "640e4b0f9d74197ca54a19dd2a08225f6bd18f01"),
     "Cook Islands": ("Baiser et al (2017) Cook Islands Birds_current_noAliens.csv", ["Vini_kuhlii"], 15, 1, "c14c748f59eca667d0cdbf11f7c00550781cacf6"),
     "Society Islands": ("Baiser et al (2017) Society Islands Birds_current_noAliens.csv", ["Vini_peruviana"], 11, 2, "6dda0b02a94c75b7c24b05d269a7353fb2e684a6"),
-    "Wakatobi": ("OConnell et al (2020) Wakatobi.csv", ["Trichoglossus_ornatus", "Nectarinia_jugularis"], 9, 9, "a3110d9fd8a73f2dc803c655594a0a82d41058d"),
+    "Wakatobi": ("OConnell et al (2020) Wakatobi.csv", ["Trichoglossus_ornatus", "Nectarinia_jugularis"], 9, 9, "a3110d9fd8a73f2dc803cd655594a0a82d41058d"),
 }
-# Correct pinned Git blob for Wakatobi (source tree).
-PILOT["Wakatobi"] = (*PILOT["Wakatobi"][:4], "a3110d9fd8a73f2dc803c655594a0a82d41058d")
 
 def get(url, maxbytes=20_000_000):
     req = urllib.request.Request(url, headers={"User-Agent": "fd-public-source-preflight/1.0", "Accept": "*/*"})
