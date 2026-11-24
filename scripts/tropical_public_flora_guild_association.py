@@ -96,15 +96,37 @@ def fit(d,features,controls,draws=499):
     v=design(d,features,controls)
     if v is None:return o|{"status":"insufficient_rank_or_support"}
     groups=v["groups"];o.update(status="exploratory",informative_groups=len(groups),n_informative=v["n_informative"],dof=v["dof"],prespecified_minimum_support=(len(groups)>=10 and v["n_informative"]>=30))
+    # Cache each demeaned group design. The bootstrap is algebraically the
+    # identical weighted least squares on replicated groups, without redoing
+    # pandas groupby and centering hundreds of times.
+    p=len(features)+len(controls)
+    grams=[];cross=[];sizes=[];blocks=[]
+    for g in groups:
+        q=d[d.group==g]
+        x=q[features+controls].to_numpy(float)
+        y=q[list(ENDPOINTS)].to_numpy(float)
+        x=(x-x.mean(0))/math.sqrt(len(q));y=(y-y.mean(0))/math.sqrt(len(q))
+        grams.append(x.T@x);cross.append(x.T@y);sizes.append(len(q));blocks.append((x,y))
+    grams=np.asarray(grams);cross=np.asarray(cross);sizes=np.asarray(sizes)
+    def fast(m):
+        # Rank via the original stacked design rather than squared condition number.
+        active=np.flatnonzero(m)
+        if not len(active) or int(sizes[active].sum())-len(active)-p<4:return None
+        x=np.vstack([blocks[i][0]*math.sqrt(m[i]) for i in active])
+        if np.linalg.matrix_rank(x)<p:return None
+        y=np.vstack([blocks[i][1]*math.sqrt(m[i]) for i in active])
+        return np.linalg.lstsq(x,y,rcond=None)[0][:len(features)].T
+    same=fast(np.ones(len(groups),dtype=int))
+    assert same is not None and np.allclose(same,v["beta"],rtol=1e-8,atol=1e-10)
     rng=np.random.default_rng(20261124);boot=[];drop=[]
     for i in range(draws):
-        selected=rng.choice(groups,size=len(groups),replace=True)
-        counts=collections.Counter(selected)
-        z=design(d,features,controls,resample=counts)
-        if z:boot.append(z["beta"])
-    for g in groups:
-        z=design(d[d.group!=g],features,controls)
-        if z:drop.append(z["beta"])
+        m=np.bincount(rng.integers(0,len(groups),len(groups)),minlength=len(groups))
+        z=fast(m)
+        if z is not None:boot.append(z)
+    for g in range(len(groups)):
+        m=np.ones(len(groups),dtype=int);m[g]=0
+        z=fast(m)
+        if z is not None:drop.append(z)
     rows={}
     for i,y in enumerate(ENDPOINTS):
         rows[y]={}
@@ -112,7 +134,7 @@ def fit(d,features,controls,draws=499):
             a=float(v["beta"][i,j])
             b=[float(z[i,j]) for z in boot]
             c=[float(z[i,j]) for z in drop]
-            rows[y][x]={"slope":a,"resample_q025_q975":np.quantile(b,[.025,.975]).tolist() if len(b)>=50 else None,"bootstrap_draws":len(b),"leave_one_group_min_max":[min(c),max(c)] if c else None,"same_sign_drops":sum(np.sign(z)==np.sign(a) for z in c),"drop_count":len(c)}
+            rows[y][x]={"slope":a,"resample_q025_q975":np.quantile(b,[.025,.975]).tolist() if len(b)>=50 else None,"bootstrap_draws":len(b),"leave_one_group_min_max":[min(c),max(c)] if c else None,"same_sign_drops":int(sum(np.sign(z)==np.sign(a) for z in c)),"drop_count":len(c)}
     return o|{"endpoints":rows}
 def prep(d):
     d=d.copy();d["log_area"]=np.log2(d.area);d["log_distance"]=np.log2(1+d.distance);d["log_n_names"]=np.log2(d.n_names)
