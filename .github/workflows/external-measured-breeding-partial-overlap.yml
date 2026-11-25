@@ -1,0 +1,35 @@
+name: External measured breeding-system partial overlap
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - scripts/external_measured_breeding_partial_overlap.py
+      - scripts/external_measured_breeding_calibration.py
+      - scripts/external_breeding_system_source_audit.py
+      - .github/workflows/external-measured-breeding-partial-overlap.yml
+      - config/external_db_ownership.json
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: fd-measured-breeding-partial-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  calibration:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    env:
+      OPENBLAS_NUM_THREADS: "1"
+      OMP_NUM_THREADS: "1"
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: pip install numpy pandas openpyxl
+      - run: python scripts/external_measured_breeding_partial_overlap.py --self-test
+      - run: python -u scripts/external_measured_breeding_partial_overlap.py --out work/external_measured_breeding_partial_overlap.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: external-measured-breeding-partial-overlap
+          path: work/external_measured_breeding_partial_overlap.json
