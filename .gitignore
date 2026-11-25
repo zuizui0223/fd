@@ -7,3 +7,5 @@ work/
 results/run_*/
 dist/
 build/
+sim.log
+.e2e/
