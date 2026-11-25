@@ -57,6 +57,16 @@
     "scripts/tropical_pollinator_source_intake.py",
     "scripts/tropical_pollinator_source_preflight.py",
     "scripts/tropical_three_guild_candidate_audit.py",
+    "shared_db_research/README.md",
+    "shared_db_research/provenance/evidence_ledger.csv",
+    "shared_db_research/provenance/fd_self_db_integration_20261125.json",
+    "shared_db_research/provenance/pr_inventory.csv",
+    "shared_db_research/results/20261125_fd_joint_cells/anonymous_job_log_panels.json",
+    "shared_db_research/results/20261125_fd_joint_cells/genus_influence_run_45573904237.json",
+    "shared_db_research/scripts/fd_original_global_joint_margin.py",
+    "shared_db_research/scripts/fd_original_joint_cells.py",
+    "shared_db_research/scripts/fd_original_joint_genus_influence.py",
+    "shared_db_research/scripts/fd_original_tropical_pollinator_bridge.py",
     "src/fd/__init__.py",
     "src/fd/avoniche_nectar_preflight.py",
     "src/fd/elton_globi_guild_bridge.py",
@@ -445,5 +455,6 @@
       "mode": "100644"
     }
   ],
-  "scope_limit": "Reviewed external standalone candidates and source tools, not a claim that every old historical report was source-verified. Unknown/mixed paths not enabled; original history remains. Legacy external workflows imported under docs, not automatically run. Independent external GloBI catalog prepared in island is permitted only when provenance proves no focal own-plant/occurrence inputs."
+  "scope_limit": "Reviewed external standalone candidates and source tools, not a claim that every old historical report was source-verified. Unknown/mixed paths not enabled; original history remains. Legacy external workflows imported under docs, not automatically run. Independent external GloBI catalog prepared in island is permitted only when provenance proves no focal own-plant/occurrence inputs.",
+  "shared_db_research_policy": "Reviewed archival namespace only; active external paths retain original marker screen; protected execution remains island."
 }
