@@ -1,0 +1,449 @@
+{
+  "contract": "fd_external_only_20261125",
+  "owner": "fd",
+  "policy": "Independent external-source inputs only; own island roster, own trait DB, derived public plant aggregates and any joint models containing them belong to island. Generic methods are neutral.",
+  "source_main": "43b80ab0b3b5fe580f4ad74ffe6af6809af718e2",
+  "source_migration": "https://github.com/zuizui0223/island/pull/347",
+  "source_pins": "https://github.com/zuizui0223/island/blob/64a58cd4817ccf1c54c179aa7fd1c5585f57dd43/config/fd_data_ownership_20261125.json",
+  "allowed_paths": [
+    ".github/workflows/external-db-boundary.yml",
+    ".github/workflows/global_bird_source_audit.yml",
+    ".github/workflows/pollinator_guild_source_sensitivity.yml",
+    ".github/workflows/tropical_asian_butterfly_intake.yml",
+    ".github/workflows/tropical_bee_bird_crosswalk.yml",
+    ".github/workflows/tropical_bird_hwi_occupancy.yml",
+    ".github/workflows/tropical_butterfly_bee_overlap.yml",
+    ".github/workflows/tropical_butterfly_trait_filtering.yml",
+    ".github/workflows/tropical_butterfly_trait_incidence.yml",
+    ".github/workflows/tropical_pollinator_source_intake.yml",
+    ".github/workflows/tropical_pollinator_source_preflight.yml",
+    ".github/workflows/tropical_three_guild_candidate_audit.yml",
+    ".gitignore",
+    "README.md",
+    "config/external_db_ownership.json",
+    "docs/EXTERNAL_SOURCE_RESEARCH_INDEX.md",
+    "docs/legacy_external_workflows/acquire-thousand-island-lake-source.yml",
+    "docs/legacy_external_workflows/audit-emln-pollination-source.yml",
+    "docs/legacy_external_workflows/audit-til-dryad-source-access.yml",
+    "docs/legacy_external_workflows/avoniche-bird-nectar-preflight.yml",
+    "docs/legacy_external_workflows/eltontraits-bird-preflight.yml",
+    "docs/legacy_external_workflows/export-emln-original-network-panels.yml",
+    "docs/legacy_external_workflows/mdd-bat-diet-metadata.yml",
+    "docs/legacy_external_workflows/run-emln-island-visitor-turnover.yml",
+    "pyproject.toml",
+    "results/20261119_elton_globi_guild_catalog/ORIGINAL_AGGREGATE.json",
+    "results/20261119_elton_globi_guild_catalog/README.md",
+    "results/20261124_tropical_pollinator_source_intake/BEE_BIRD_CANDIDATE_CROSSWALK.md",
+    "results/20261124_tropical_pollinator_source_intake/BIRD_HWI_OCCUPANCY_AND_GLOBAL_ARCHIVE.md",
+    "results/20261124_tropical_pollinator_source_intake/BUTTERFLY_TRAIT_FILTERING_VERIFIED.md",
+    "results/20261124_tropical_pollinator_source_intake/GUILD_SENSITIVITY_VERIFIED.md",
+    "results/20261124_tropical_pollinator_source_intake/ORIGINAL_BEE_REVISED_BUTTERFLY.md",
+    "results/20261124_tropical_pollinator_source_intake/THREE_GUILD_AND_LEPTRAITS_VERIFIED.md",
+    "results/20261124_tropical_pollinator_source_intake/VERIFIED_BUTTERFLY_BEE_OVERLAP_AND_SENSITIVITY.md",
+    "scripts/audit_mdd_bat_diet_metadata.py",
+    "scripts/bat_mdd_synonym_audit.py",
+    "scripts/check_external_source_boundary.py",
+    "scripts/export_mdd_bat_ranges.R",
+    "scripts/global_bird_source_audit.py",
+    "scripts/pollinator_guild_source_sensitivity.py",
+    "scripts/run_emln_island_visitor_turnover.py",
+    "scripts/tropical_asian_butterfly_intake.py",
+    "scripts/tropical_bee_bird_crosswalk.py",
+    "scripts/tropical_bird_hwi_occupancy.py",
+    "scripts/tropical_butterfly_bee_overlap.py",
+    "scripts/tropical_butterfly_trait_filtering.py",
+    "scripts/tropical_butterfly_trait_incidence.py",
+    "scripts/tropical_leptraits_intake.py",
+    "scripts/tropical_pollinator_source_intake.py",
+    "scripts/tropical_pollinator_source_preflight.py",
+    "scripts/tropical_three_guild_candidate_audit.py",
+    "src/fd/__init__.py",
+    "src/fd/avoniche_nectar_preflight.py",
+    "src/fd/elton_globi_guild_bridge.py",
+    "src/fd/eltontraits_bird_nectar.py",
+    "src/fd/emln_island_visitor_turnover.py",
+    "tests/test_avoniche_nectar_preflight.py",
+    "tests/test_elton_globi_guild_bridge.py",
+    "tests/test_eltontraits_bird_nectar.py",
+    "tests/test_emln_island_visitor_turnover.py"
+  ],
+  "retained_main": [
+    {
+      "path": ".github/workflows/global_bird_source_audit.yml",
+      "source_commit": "43b80ab0b3b5fe580f4ad74ffe6af6809af718e2",
+      "git_blob": "57c02138ccdb85a1c9c6676ace251b887290e497",
+      "original_path": ".github/workflows/global_bird_source_audit.yml"
+    },
+    {
+      "path": ".github/workflows/pollinator_guild_source_sensitivity.yml",
+      "source_commit": "43b80ab0b3b5fe580f4ad74ffe6af6809af718e2",
+      "git_blob": "31ea7a0ed581a6d64901764c758750cff0f79fba",
+      "original_path": ".github/workflows/pollinator_guild_source_sensitivity.yml"
+    },
+    {
+      "path": ".github/workflows/tropical_asian_butterfly_intake.yml",
+      "source_commit": "43b80ab0b3b5fe580f4ad74ffe6af6809af718e2",
+      "git_blob": "c659be5d6e130f782b2a47706301fbca896c3402",
+      "original_path": ".github/workflows/tropical_asian_butterfly_intake.yml"
+    },
+    {
+      "path": ".github/workflows/tropical_bee_bird_crosswalk.yml",
+      "source_commit": "43b80ab0b3b5fe580f4ad74ffe6af6809af718e2",
+      "git_blob": "20993b0f4bee26fa4c8efa5dfdc62c551d659c98",
+      "original_path": ".github/workflows/tropical_bee_bird_crosswalk.yml"
+    },
+    {
+      "path": ".github/workflows/tropical_bird_hwi_occupancy.yml",
+      "source_commit": "43b80ab0b3b5fe580f4ad74ffe6af6809af718e2",
+      "git_blob": "78c9597202f91ad8a9433ae93cf63254146d9257",
+      "original_path": ".github/workflows/tropical_bird_hwi_occupancy.yml"
+    },
+    {
+      "path": ".github/workflows/tropical_butterfly_bee_overlap.yml",
+      "source_commit": "43b80ab0b3b5fe580f4ad74ffe6af6809af718e2",
+      "git_blob": "a141cbf0711017b343cf2c7b7c7d61be9dbe9c16",
+      "original_path": ".github/workflows/tropical_butterfly_bee_overlap.yml"
+    },
+    {
+      "path": ".github/workflows/tropical_butterfly_trait_filtering.yml",
+      "source_commit": "43b80ab0b3b5fe580f4ad74ffe6af6809af718e2",
+      "git_blob": "f32925be5fe683b11789e1ab03877aa60a4c5b28",
+      "original_path": ".github/workflows/tropical_butterfly_trait_filtering.yml"
+    },
+    {
+      "path": ".github/workflows/tropical_butterfly_trait_incidence.yml",
+      "source_commit": "43b80ab0b3b5fe580f4ad74ffe6af6809af718e2",
+      "git_blob": "af533de5861c704b6fe5c0c12196fc72da4a824a",
+      "original_path": ".github/workflows/tropical_butterfly_trait_incidence.yml"
+    },
+    {
+      "path": ".github/workflows/tropical_pollinator_source_intake.yml",
+      "source_commit": "43b80ab0b3b5fe580f4ad74ffe6af6809af718e2",
+      "git_blob": "7d8552c4f23294a76e2d8178a46cdaf5559e4691",
+      "original_path": ".github/workflows/tropical_pollinator_source_intake.yml"
+    },
+    {
+      "path": ".github/workflows/tropical_pollinator_source_preflight.yml",
+      "source_commit": "43b80ab0b3b5fe580f4ad74ffe6af6809af718e2",
+      "git_blob": "06ccaccc03d8047676414dd9679abc37a4982b51",
+      "original_path": ".github/workflows/tropical_pollinator_source_preflight.yml"
+    },
+    {
+      "path": ".github/workflows/tropical_three_guild_candidate_audit.yml",
+      "source_commit": "43b80ab0b3b5fe580f4ad74ffe6af6809af718e2",
+      "git_blob": "f36d5a9401fe0275c9f0fd450147a2fa0a8628bb",
+      "original_path": ".github/workflows/tropical_three_guild_candidate_audit.yml"
+    },
+    {
+      "path": ".gitignore",
+      "source_commit": "43b80ab0b3b5fe580f4ad74ffe6af6809af718e2",
+      "git_blob": "fbbd6ff9aa94d1ef0012a9d118e99a30580835c2",
+      "original_path": ".gitignore"
+    },
+    {
+      "path": "pyproject.toml",
+      "source_commit": "43b80ab0b3b5fe580f4ad74ffe6af6809af718e2",
+      "git_blob": "c198549be468c5545a335257ea564fb91c2e9f7c",
+      "original_path": "pyproject.toml"
+    },
+    {
+      "path": "results/20261124_tropical_pollinator_source_intake/BEE_BIRD_CANDIDATE_CROSSWALK.md",
+      "source_commit": "43b80ab0b3b5fe580f4ad74ffe6af6809af718e2",
+      "git_blob": "3f09d50102eba084bae58ed7109cd78511c2f8f9",
+      "original_path": "results/20261124_tropical_pollinator_source_intake/BEE_BIRD_CANDIDATE_CROSSWALK.md"
+    },
+    {
+      "path": "results/20261124_tropical_pollinator_source_intake/BIRD_HWI_OCCUPANCY_AND_GLOBAL_ARCHIVE.md",
+      "source_commit": "43b80ab0b3b5fe580f4ad74ffe6af6809af718e2",
+      "git_blob": "74d06aab8c3e4fc2ba3abd12c5581b3a1d243350",
+      "original_path": "results/20261124_tropical_pollinator_source_intake/BIRD_HWI_OCCUPANCY_AND_GLOBAL_ARCHIVE.md"
+    },
+    {
+      "path": "results/20261124_tropical_pollinator_source_intake/BUTTERFLY_TRAIT_FILTERING_VERIFIED.md",
+      "source_commit": "43b80ab0b3b5fe580f4ad74ffe6af6809af718e2",
+      "git_blob": "97696619a7cd5dab465f311fab0c0b9b795d6442",
+      "original_path": "results/20261124_tropical_pollinator_source_intake/BUTTERFLY_TRAIT_FILTERING_VERIFIED.md"
+    },
+    {
+      "path": "results/20261124_tropical_pollinator_source_intake/GUILD_SENSITIVITY_VERIFIED.md",
+      "source_commit": "43b80ab0b3b5fe580f4ad74ffe6af6809af718e2",
+      "git_blob": "d9be6d24c0d2828d8ff3c27a09dfb71b36c55cd7",
+      "original_path": "results/20261124_tropical_pollinator_source_intake/GUILD_SENSITIVITY_VERIFIED.md"
+    },
+    {
+      "path": "results/20261124_tropical_pollinator_source_intake/ORIGINAL_BEE_REVISED_BUTTERFLY.md",
+      "source_commit": "43b80ab0b3b5fe580f4ad74ffe6af6809af718e2",
+      "git_blob": "e83fb8f4ad1872f6fe42466b5d69bd53fd2bb1e0",
+      "original_path": "results/20261124_tropical_pollinator_source_intake/ORIGINAL_BEE_REVISED_BUTTERFLY.md"
+    },
+    {
+      "path": "results/20261124_tropical_pollinator_source_intake/THREE_GUILD_AND_LEPTRAITS_VERIFIED.md",
+      "source_commit": "43b80ab0b3b5fe580f4ad74ffe6af6809af718e2",
+      "git_blob": "f9536dfe481b8befb3d40fec0fa3c9511508a20f",
+      "original_path": "results/20261124_tropical_pollinator_source_intake/THREE_GUILD_AND_LEPTRAITS_VERIFIED.md"
+    },
+    {
+      "path": "results/20261124_tropical_pollinator_source_intake/VERIFIED_BUTTERFLY_BEE_OVERLAP_AND_SENSITIVITY.md",
+      "source_commit": "43b80ab0b3b5fe580f4ad74ffe6af6809af718e2",
+      "git_blob": "e54070a0de900354b342c8c531487b1fcb87e1b0",
+      "original_path": "results/20261124_tropical_pollinator_source_intake/VERIFIED_BUTTERFLY_BEE_OVERLAP_AND_SENSITIVITY.md"
+    },
+    {
+      "path": "scripts/global_bird_source_audit.py",
+      "source_commit": "43b80ab0b3b5fe580f4ad74ffe6af6809af718e2",
+      "git_blob": "fbc4d679f1ff864794613724e2d8fdd4bd1b3c83",
+      "original_path": "scripts/global_bird_source_audit.py"
+    },
+    {
+      "path": "scripts/pollinator_guild_source_sensitivity.py",
+      "source_commit": "43b80ab0b3b5fe580f4ad74ffe6af6809af718e2",
+      "git_blob": "c06cd04f04534d0981c548423be83f34fbd8f1cb",
+      "original_path": "scripts/pollinator_guild_source_sensitivity.py"
+    },
+    {
+      "path": "scripts/tropical_asian_butterfly_intake.py",
+      "source_commit": "43b80ab0b3b5fe580f4ad74ffe6af6809af718e2",
+      "git_blob": "a3b5242e3698a7280dfbe0b376fad15473d3e21b",
+      "original_path": "scripts/tropical_asian_butterfly_intake.py"
+    },
+    {
+      "path": "scripts/tropical_bee_bird_crosswalk.py",
+      "source_commit": "43b80ab0b3b5fe580f4ad74ffe6af6809af718e2",
+      "git_blob": "27ec6bb0ee991d837a594ccf40be8b7f7bdf6fd4",
+      "original_path": "scripts/tropical_bee_bird_crosswalk.py"
+    },
+    {
+      "path": "scripts/tropical_bird_hwi_occupancy.py",
+      "source_commit": "43b80ab0b3b5fe580f4ad74ffe6af6809af718e2",
+      "git_blob": "d294a48247825ac801ee9a2f55c89ad368482130",
+      "original_path": "scripts/tropical_bird_hwi_occupancy.py"
+    },
+    {
+      "path": "scripts/tropical_butterfly_bee_overlap.py",
+      "source_commit": "43b80ab0b3b5fe580f4ad74ffe6af6809af718e2",
+      "git_blob": "122437ef29979bef1459f72cc723749ff471d34b",
+      "original_path": "scripts/tropical_butterfly_bee_overlap.py"
+    },
+    {
+      "path": "scripts/tropical_butterfly_trait_filtering.py",
+      "source_commit": "43b80ab0b3b5fe580f4ad74ffe6af6809af718e2",
+      "git_blob": "ce6be0c1a57a4aa4f8de9bc613abfa052044e82b",
+      "original_path": "scripts/tropical_butterfly_trait_filtering.py"
+    },
+    {
+      "path": "scripts/tropical_butterfly_trait_incidence.py",
+      "source_commit": "43b80ab0b3b5fe580f4ad74ffe6af6809af718e2",
+      "git_blob": "0f5d49fa8e47f6fbb6e54a439e9ee310834a6239",
+      "original_path": "scripts/tropical_butterfly_trait_incidence.py"
+    },
+    {
+      "path": "scripts/tropical_leptraits_intake.py",
+      "source_commit": "43b80ab0b3b5fe580f4ad74ffe6af6809af718e2",
+      "git_blob": "05f32e3d44dd29a15067670b9125e214f947aa65",
+      "original_path": "scripts/tropical_leptraits_intake.py"
+    },
+    {
+      "path": "scripts/tropical_pollinator_source_intake.py",
+      "source_commit": "43b80ab0b3b5fe580f4ad74ffe6af6809af718e2",
+      "git_blob": "941e57752c087c296fc3cb88c5bad23812b54745",
+      "original_path": "scripts/tropical_pollinator_source_intake.py"
+    },
+    {
+      "path": "scripts/tropical_pollinator_source_preflight.py",
+      "source_commit": "43b80ab0b3b5fe580f4ad74ffe6af6809af718e2",
+      "git_blob": "a13920efd2fd77cbcce7a165494b8f2e71b5bf9f",
+      "original_path": "scripts/tropical_pollinator_source_preflight.py"
+    },
+    {
+      "path": "scripts/tropical_three_guild_candidate_audit.py",
+      "source_commit": "43b80ab0b3b5fe580f4ad74ffe6af6809af718e2",
+      "git_blob": "0fff83717bd94241dfcfaac1c7842b8d045b75bd",
+      "original_path": "scripts/tropical_three_guild_candidate_audit.py"
+    },
+    {
+      "path": "src/fd/__init__.py",
+      "source_commit": "43b80ab0b3b5fe580f4ad74ffe6af6809af718e2",
+      "git_blob": "a0907de48c396e3989cc683e9b59fa4e8652a1da",
+      "original_path": "src/fd/__init__.py"
+    }
+  ],
+  "imported_external_only": [
+    {
+      "source_pr": 15,
+      "source_commit": "4b94fcc8239a31540b66f4f7ccf59290a8a1bfcf",
+      "original_path": "scripts/run_emln_island_visitor_turnover.py",
+      "dest": "scripts/run_emln_island_visitor_turnover.py",
+      "sha": "b77999d237811bc9b42ccaa8835910f4b281b277",
+      "mode": "100644"
+    },
+    {
+      "source_pr": 15,
+      "source_commit": "4b94fcc8239a31540b66f4f7ccf59290a8a1bfcf",
+      "original_path": "src/fd/emln_island_visitor_turnover.py",
+      "dest": "src/fd/emln_island_visitor_turnover.py",
+      "sha": "8eea257009cdbf8301e6fb70aa955925e031bf3f",
+      "mode": "100644"
+    },
+    {
+      "source_pr": 15,
+      "source_commit": "4b94fcc8239a31540b66f4f7ccf59290a8a1bfcf",
+      "original_path": "tests/test_emln_island_visitor_turnover.py",
+      "dest": "tests/test_emln_island_visitor_turnover.py",
+      "sha": "3af48a67c71ecba5eabbd6c7063cea8a2ad12867",
+      "mode": "100644"
+    },
+    {
+      "source_pr": 15,
+      "source_commit": "4b94fcc8239a31540b66f4f7ccf59290a8a1bfcf",
+      "original_path": ".github/workflows/audit-emln-pollination-source.yml",
+      "dest": "docs/legacy_external_workflows/audit-emln-pollination-source.yml",
+      "sha": "e0a51b679be69e5d48f17348cb4d92cedf35ddea",
+      "mode": "100644"
+    },
+    {
+      "source_pr": 15,
+      "source_commit": "4b94fcc8239a31540b66f4f7ccf59290a8a1bfcf",
+      "original_path": ".github/workflows/export-emln-original-network-panels.yml",
+      "dest": "docs/legacy_external_workflows/export-emln-original-network-panels.yml",
+      "sha": "c46113a9ec64b64e36fe28ca23dca131b8ec2fa7",
+      "mode": "100644"
+    },
+    {
+      "source_pr": 15,
+      "source_commit": "4b94fcc8239a31540b66f4f7ccf59290a8a1bfcf",
+      "original_path": ".github/workflows/run-emln-island-visitor-turnover.yml",
+      "dest": "docs/legacy_external_workflows/run-emln-island-visitor-turnover.yml",
+      "sha": "d513bfaffbe319ab0bebdaa41801a1a9e4725fac",
+      "mode": "100644"
+    },
+    {
+      "source_pr": 15,
+      "source_commit": "4b94fcc8239a31540b66f4f7ccf59290a8a1bfcf",
+      "original_path": ".github/workflows/acquire-thousand-island-lake-source.yml",
+      "dest": "docs/legacy_external_workflows/acquire-thousand-island-lake-source.yml",
+      "sha": "0756608d0bf4403a7a1d48b9d59b88e53a97374c",
+      "mode": "100644"
+    },
+    {
+      "source_pr": 15,
+      "source_commit": "4b94fcc8239a31540b66f4f7ccf59290a8a1bfcf",
+      "original_path": ".github/workflows/audit-til-dryad-source-access.yml",
+      "dest": "docs/legacy_external_workflows/audit-til-dryad-source-access.yml",
+      "sha": "aeb6bad280098f271afa76f3b61f4bafdac9b7d1",
+      "mode": "100644"
+    },
+    {
+      "source_pr": 43,
+      "source_commit": "f8f217a5d9c4f828bca455b871c98feac1923d09",
+      "original_path": "src/fd/avoniche_nectar_preflight.py",
+      "dest": "src/fd/avoniche_nectar_preflight.py",
+      "sha": "010d58f65eca1db26919a26e8b2e0f0610fc09c6",
+      "mode": "100644"
+    },
+    {
+      "source_pr": 43,
+      "source_commit": "f8f217a5d9c4f828bca455b871c98feac1923d09",
+      "original_path": "src/fd/elton_globi_guild_bridge.py",
+      "dest": "src/fd/elton_globi_guild_bridge.py",
+      "sha": "fe4b1032a533e21170ec68b447eb9f19c159de5d",
+      "mode": "100644"
+    },
+    {
+      "source_pr": 43,
+      "source_commit": "f8f217a5d9c4f828bca455b871c98feac1923d09",
+      "original_path": "src/fd/eltontraits_bird_nectar.py",
+      "dest": "src/fd/eltontraits_bird_nectar.py",
+      "sha": "5e495bd737c63b4e76e3996ba0a446e5215f618c",
+      "mode": "100644"
+    },
+    {
+      "source_pr": 43,
+      "source_commit": "f8f217a5d9c4f828bca455b871c98feac1923d09",
+      "original_path": "tests/test_avoniche_nectar_preflight.py",
+      "dest": "tests/test_avoniche_nectar_preflight.py",
+      "sha": "0c829903eda387215c77af2249e21adaf9c676ea",
+      "mode": "100644"
+    },
+    {
+      "source_pr": 43,
+      "source_commit": "f8f217a5d9c4f828bca455b871c98feac1923d09",
+      "original_path": "tests/test_elton_globi_guild_bridge.py",
+      "dest": "tests/test_elton_globi_guild_bridge.py",
+      "sha": "282bf083bd06c656b026363feded668a2df16057",
+      "mode": "100644"
+    },
+    {
+      "source_pr": 43,
+      "source_commit": "f8f217a5d9c4f828bca455b871c98feac1923d09",
+      "original_path": "tests/test_eltontraits_bird_nectar.py",
+      "dest": "tests/test_eltontraits_bird_nectar.py",
+      "sha": "90c5c31907419470efc7c4e86ed27cf37aeb8d57",
+      "mode": "100644"
+    },
+    {
+      "source_pr": 43,
+      "source_commit": "f8f217a5d9c4f828bca455b871c98feac1923d09",
+      "original_path": ".github/workflows/avoniche-bird-nectar-preflight.yml",
+      "dest": "docs/legacy_external_workflows/avoniche-bird-nectar-preflight.yml",
+      "sha": "07d95641373a2692059a782dd66b58d9ade69c46",
+      "mode": "100644"
+    },
+    {
+      "source_pr": 43,
+      "source_commit": "f8f217a5d9c4f828bca455b871c98feac1923d09",
+      "original_path": ".github/workflows/eltontraits-bird-preflight.yml",
+      "dest": "docs/legacy_external_workflows/eltontraits-bird-preflight.yml",
+      "sha": "e5a23d153f5b52864f7c6cc29f722fb991fc530b",
+      "mode": "100644"
+    },
+    {
+      "source_pr": 43,
+      "source_commit": "f8f217a5d9c4f828bca455b871c98feac1923d09",
+      "original_path": "results/20261119_elton_globi_guild_catalog/ORIGINAL_AGGREGATE.json",
+      "dest": "results/20261119_elton_globi_guild_catalog/ORIGINAL_AGGREGATE.json",
+      "sha": "72f1ac6c298633897ecc7bdf0d3a7f70795190d6",
+      "mode": "100644"
+    },
+    {
+      "source_pr": 43,
+      "source_commit": "f8f217a5d9c4f828bca455b871c98feac1923d09",
+      "original_path": "results/20261119_elton_globi_guild_catalog/README.md",
+      "dest": "results/20261119_elton_globi_guild_catalog/README.md",
+      "sha": "39e719d9fa5d0855a3a2abcdf6616a636c028f2f",
+      "mode": "100644"
+    },
+    {
+      "source_pr": 66,
+      "source_commit": "5e0a65784d222673121628c55c2ba63c006c52a6",
+      "original_path": "scripts/audit_mdd_bat_diet_metadata.py",
+      "dest": "scripts/audit_mdd_bat_diet_metadata.py",
+      "sha": "797ba450fff7859ee45cbffcd11787a716acbb86",
+      "mode": "100644"
+    },
+    {
+      "source_pr": 66,
+      "source_commit": "5e0a65784d222673121628c55c2ba63c006c52a6",
+      "original_path": ".github/workflows/mdd-bat-diet-metadata.yml",
+      "dest": "docs/legacy_external_workflows/mdd-bat-diet-metadata.yml",
+      "sha": "a800bd8fcb970a72261db907ef7e251247ca33e1",
+      "mode": "100644"
+    },
+    {
+      "source_pr": 68,
+      "source_commit": "4fe3baa2ee46549817ffa556cef2432332e410f5",
+      "original_path": "scripts/bat_mdd_synonym_audit.py",
+      "dest": "scripts/bat_mdd_synonym_audit.py",
+      "sha": "56b9177083b5090f4b47d8c9139833aeedbee949",
+      "mode": "100644"
+    },
+    {
+      "source_pr": 68,
+      "source_commit": "4fe3baa2ee46549817ffa556cef2432332e410f5",
+      "original_path": "scripts/export_mdd_bat_ranges.R",
+      "dest": "scripts/export_mdd_bat_ranges.R",
+      "sha": "2e5eaa1aa15a149f4fc5a71fda0791229fcc864d",
+      "mode": "100644"
+    }
+  ],
+  "scope_limit": "Reviewed external standalone candidates and source tools, not a claim that every old historical report was source-verified. Unknown/mixed paths not enabled; original history remains. Legacy external workflows imported under docs, not automatically run. Independent external GloBI catalog prepared in island is permitted only when provenance proves no focal own-plant/occurrence inputs."
+}
