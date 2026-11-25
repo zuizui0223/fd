@@ -1,0 +1,370 @@
+{
+  "panels": {
+    "native_no_positive_question_flags__reference_decomposition": {
+      "pairs": 30,
+      "metric_order": [
+        "raw_full_carriers",
+        "raw_common_reference_carriers",
+        "reference_equal_strata",
+        "carrier_restriction_change",
+        "reference_reweighting_change",
+        "total_change"
+      ],
+      "median_carrier_counts": {
+        "matched_target_taxa": 74,
+        "matched_source_taxa": 130.5,
+        "target_carriers": 107.5,
+        "source_carriers": 255.5,
+        "matched_reference_strata": 3
+      },
+      "block": {
+        "groups": 30,
+        "mean": [
+          -0.0023014692865728475,
+          0.010779657690181566,
+          0.021967363514030044,
+          0.01308112697675443,
+          0.011187705823848473,
+          0.024268832800602887
+        ],
+        "interval": [
+          [
+            -0.0500510445954552,
+            0.04228173809115183
+          ],
+          [
+            -0.036257532026265235,
+            0.056583887133978016
+          ],
+          [
+            -0.005465196312005006,
+            0.05065028426718003
+          ],
+          [
+            -0.02441497338692908,
+            0.05234620579418683
+          ],
+          [
+            -0.015559337978083624,
+            0.04018673214490753
+          ],
+          [
+            -0.014002147926826468,
+            0.06468032309816778
+          ]
+        ]
+      },
+      "donor": {
+        "groups": 24,
+        "mean": [
+          -0.01620610253782404,
+          -0.009760780009411971,
+          0.0135318421543512,
+          0.006445322528412067,
+          0.023292622163763172,
+          0.02973794469217525
+        ],
+        "interval": [
+          [
+            -0.0600241112385611,
+            0.020695954541301458
+          ],
+          [
+            -0.054036132562839914,
+            0.03200708892238474
+          ],
+          [
+            -0.012529501438928734,
+            0.04214867909207997
+          ],
+          [
+            -0.029842079812718875,
+            0.041793938942584694
+          ],
+          [
+            -0.0028951954855653524,
+            0.05282276329019257
+          ],
+          [
+            -0.01069412662873741,
+            0.0692327908281874
+          ]
+        ]
+      },
+      "status": "insufficient_support",
+      "raw_full_sample": {
+        "pairs": 48,
+        "median_cell_counts": [
+          42.5,
+          20.5,
+          107,
+          57
+        ],
+        "median_matched_strata": 1,
+        "mean_island_equal_delta": -0.010155817510937915,
+        "block": {
+          "groups": 48,
+          "mean": [
+            -0.0101558175109379,
+            0.4369960602835035,
+            0.44715187779444143,
+            -0.010155817510937906
+          ],
+          "interval": [
+            [
+              -0.04506888100044121,
+              0.02554944631598861
+            ],
+            [
+              0.38987977749142716,
+              0.47935986674756004
+            ],
+            [
+              0.39955722773528196,
+              0.4905937686437604
+            ],
+            [
+              -0.04506888100044121,
+              0.02554944631598861
+            ]
+          ]
+        },
+        "donor": {
+          "groups": 32,
+          "mean": [
+            -0.023661880852032385,
+            0.4125824311698731,
+            0.4362443120219055,
+            -0.02366188085203238
+          ],
+          "interval": [
+            [
+              -0.06265109788495841,
+              0.013637994792905997
+            ],
+            [
+              0.36212549095769914,
+              0.4641713722539464
+            ],
+            [
+              0.3805119290628555,
+              0.4827694638315457
+            ],
+            [
+              -0.06265109788495841,
+              0.013637994792905997
+            ]
+          ]
+        },
+        "status": "insufficient_support",
+        "positive_direction_both_intervals": false,
+        "metric_order": [
+          "island_minus_mainland",
+          "island_insect_minus_wind",
+          "mainland_insect_minus_wind",
+          "overlap_weighted_delta"
+        ]
+      }
+    },
+    "native_no_positive_question_flags__guild_genus_inclusive": {
+      "pairs": 0,
+      "status": "not_estimable"
+    },
+    "native_no_positive_question_flags__guild_genus_disjoint": {
+      "pairs": 0,
+      "status": "not_estimable"
+    },
+    "native_no_positive_question_flags__guild_genus_inclusive_on_disjoint_eligible": {
+      "pairs": 0,
+      "status": "not_estimable"
+    },
+    "strict_native__reference_decomposition": {
+      "pairs": 4,
+      "metric_order": [
+        "raw_full_carriers",
+        "raw_common_reference_carriers",
+        "reference_equal_strata",
+        "carrier_restriction_change",
+        "reference_reweighting_change",
+        "total_change"
+      ],
+      "median_carrier_counts": {
+        "matched_target_taxa": 342,
+        "matched_source_taxa": 723.5,
+        "target_carriers": 472.5,
+        "source_carriers": 876.5,
+        "matched_reference_strata": 10
+      },
+      "block": {
+        "groups": 4,
+        "mean": [
+          -0.03133066303919742,
+          -0.06415954394450851,
+          -0.006131587291010301,
+          -0.032828880905311095,
+          0.05802795665349821,
+          0.025199075748187118
+        ],
+        "interval": [
+          [
+            -0.05800984492332037,
+            -0.014089291656867384
+          ],
+          [
+            -0.09226196640978682,
+            -0.03961146526695499
+          ],
+          [
+            -0.013892011297909002,
+            0.0016288367158884013
+          ],
+          [
+            -0.042993529140901904,
+            -0.02266423266972028
+          ],
+          [
+            0.035655740053596875,
+            0.09119837287041926
+          ],
+          [
+            0.006230798800936959,
+            0.0563749210597478
+          ]
+        ]
+      },
+      "donor": {
+        "groups": 4,
+        "mean": [
+          -0.03133066303919742,
+          -0.06415954394450851,
+          -0.006131587291010301,
+          -0.032828880905311095,
+          0.05802795665349821,
+          0.025199075748187118
+        ],
+        "interval": [
+          [
+            -0.05800984492332037,
+            -0.014089291656867384
+          ],
+          [
+            -0.09226196640978682,
+            -0.03961146526695499
+          ],
+          [
+            -0.013892011297909002,
+            0.0016288367158884013
+          ],
+          [
+            -0.042993529140901904,
+            -0.02266423266972028
+          ],
+          [
+            0.035655740053596875,
+            0.09119837287041926
+          ],
+          [
+            0.006230798800936959,
+            0.0563749210597478
+          ]
+        ]
+      },
+      "status": "insufficient_support",
+      "raw_full_sample": {
+        "pairs": 4,
+        "median_cell_counts": [
+          332.5,
+          140,
+          623.5,
+          253
+        ],
+        "median_matched_strata": 1,
+        "mean_island_equal_delta": -0.03133066303919742,
+        "block": {
+          "groups": 4,
+          "mean": [
+            -0.03133066303919742,
+            0.4780537339791459,
+            0.5093843970183434,
+            -0.031330663039197404
+          ],
+          "interval": [
+            [
+              -0.05800984492332037,
+              -0.014089291656867384
+            ],
+            [
+              0.43281890007980306,
+              0.5241045266834101
+            ],
+            [
+              0.4497661326770377,
+              0.5690026613596489
+            ],
+            [
+              -0.05800984492332037,
+              -0.014089291656867342
+            ]
+          ]
+        },
+        "donor": {
+          "groups": 4,
+          "mean": [
+            -0.03133066303919742,
+            0.4780537339791459,
+            0.5093843970183434,
+            -0.031330663039197404
+          ],
+          "interval": [
+            [
+              -0.05800984492332037,
+              -0.014089291656867384
+            ],
+            [
+              0.43281890007980306,
+              0.5241045266834101
+            ],
+            [
+              0.44976613267703774,
+              0.5690026613596488
+            ],
+            [
+              -0.05800984492332037,
+              -0.014089291656867342
+            ]
+          ]
+        },
+        "status": "insufficient_support",
+        "positive_direction_both_intervals": false,
+        "metric_order": [
+          "island_minus_mainland",
+          "island_insect_minus_wind",
+          "mainland_insect_minus_wind",
+          "overlap_weighted_delta"
+        ]
+      }
+    },
+    "strict_native__guild_genus_inclusive": {
+      "pairs": 0,
+      "status": "not_estimable"
+    },
+    "strict_native__guild_genus_disjoint": {
+      "pairs": 0,
+      "status": "not_estimable"
+    },
+    "strict_native__guild_genus_inclusive_on_disjoint_eligible": {
+      "pairs": 0,
+      "status": "not_estimable"
+    }
+  },
+  "verification": {
+    "panels": 8,
+    "exact_source_files_reproduced": 155
+  },
+  "provenance": {
+    "run": 45570619874,
+    "artifact": 15002380659,
+    "digest_reported": "sha256:70fd321e5b39b265df8dd5723722dcc5f1d6c10647072c720948e47eb6049fff",
+    "method": "Completed job stdout; prior artifact SHA and all 155 publisher checklist source bytes verified by runner; output archive digest reported by GitHub."
+  }
+}
