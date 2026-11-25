@@ -58,6 +58,7 @@
     "scripts/tropical_pollinator_source_preflight.py",
     "scripts/tropical_three_guild_candidate_audit.py",
     "shared_db_research/FD_EVIDENCE_SPINE.md",
+    "shared_db_research/FD_SYNDROME_ARCHITECTURE_CONTRACT_20261125.md",
     "shared_db_research/README.md",
     "shared_db_research/historical/fd/docs/CARIBBEAN_VERTEBRATE_SPECIFICITY_CONTRACT_20261125.md",
     "shared_db_research/historical/fd/docs/manuscript_20261124/ARCHITECTURE_DEPENDENT_REASSEMBLY.md",
@@ -80,6 +81,8 @@
     "shared_db_research/provenance/pr_inventory.csv",
     "shared_db_research/results/20261125_fd_joint_cells/anonymous_job_log_panels.json",
     "shared_db_research/results/20261125_fd_joint_cells/genus_influence_run_45573904237.json",
+    "shared_db_research/results/20261125_fd_syndrome_architecture/pair_atlas_all_endpoint_robustness.json",
+    "shared_db_research/scripts/fd_depth_conditional_architecture.py",
     "shared_db_research/scripts/fd_original_global_joint_margin.py",
     "shared_db_research/scripts/fd_original_joint_cells.py",
     "shared_db_research/scripts/fd_original_joint_genus_influence.py",
@@ -92,7 +95,8 @@
     "tests/test_avoniche_nectar_preflight.py",
     "tests/test_elton_globi_guild_bridge.py",
     "tests/test_eltontraits_bird_nectar.py",
-    "tests/test_emln_island_visitor_turnover.py"
+    "tests/test_emln_island_visitor_turnover.py",
+    "tests/test_fd_depth_conditional_architecture.py"
   ],
   "retained_main": [
     {
@@ -474,5 +478,14 @@
   ],
   "scope_limit": "No protected raw rows or credentials copied. No independent replication inferred from shared inputs. Archived scripts are not activated workflows. Prior external-only inventory retained as provenance; historical files require dependency and export review before promotion.",
   "shared_db_research_policy": "Reviewed archival namespace only; active external paths retain original marker screen; protected execution remains island.",
-  "prior_source_only_contract": "fd_external_only_20261125"
+  "prior_source_only_contract": "fd_external_only_20261125",
+  "fd_syndrome_architecture_review_20261125": {
+    "scope": "FD-owned shared-source archival anonymous aggregate robustness audit (80 historical panels, no raw records); prospective conditional architecture analysis contract and exact algebra kernel, synthetic-only test in existing CI. Protected empirical execution remains island; no modification of protected workflows, island files, or frozen submission. No biological animal-channel claim.",
+    "paths": [
+      "shared_db_research/FD_SYNDROME_ARCHITECTURE_CONTRACT_20261125.md",
+      "shared_db_research/results/20261125_fd_syndrome_architecture/pair_atlas_all_endpoint_robustness.json",
+      "shared_db_research/scripts/fd_depth_conditional_architecture.py",
+      "tests/test_fd_depth_conditional_architecture.py"
+    ]
+  }
 }
