@@ -1,0 +1,130 @@
+{
+  "sources": {
+    "Razanajatovo2016": {
+      "doi": "10.1038/ncomms13313",
+      "pmc": "PMC5095580",
+      "reported_taxa": 1752,
+      "scope": "Quantitative self-compatibility and autofertility indices from literature experiments; separate fruit and seed metrics.",
+      "service": "NIH NLM NCBI PMC Article Datasets on AWS",
+      "service_documentation": "https://pmc.ncbi.nlm.nih.gov/tools/pmcaws/",
+      "accessed_utc_date": "2026-11-25",
+      "version_listing": {
+        "url": "https://pmc-oa-opendata.s3.amazonaws.com/?list-type=2&prefix=PMC5095580.&delimiter=%2F&max-keys=100",
+        "sha256": "60f3498ec4cc38068b429b98ee9ceea2a608857c88cf7e17f47b92d1d6a3132a",
+        "versions": [
+          "PMC5095580.1/"
+        ]
+      },
+      "article_versions": [
+        {
+          "prefix": "PMC5095580.1/",
+          "metadata_url": "https://pmc-oa-opendata.s3.amazonaws.com/PMC5095580.1/PMC5095580.1.json",
+          "metadata_sha256": "09db64b758571279494350bc558c9b1c51515aee6239cf3273e2ee058a5ce410",
+          "title": "Plants capable of selfing are more likely to become naturalized",
+          "doi": "10.1038/ncomms13313",
+          "license_code": "CC BY",
+          "is_pmc_openaccess": true,
+          "is_manuscript": false,
+          "is_retracted": false,
+          "media_count": 8
+        }
+      ],
+      "workbooks": {
+        "PMC5095580.1/ncomms13313-s2.xlsx": {
+          "url": "https://pmc-oa-opendata.s3.amazonaws.com/PMC5095580.1/ncomms13313-s2.xlsx",
+          "source_md5": "9ff8d0c09d67d00c6561f6eaf911fed8",
+          "sha256": "cb17009ae65c4f6cb2d28b21239714782600d0904effa77c5635249d28e62fc0",
+          "bytes": 160847,
+          "sheets": {
+            "Title": {
+              "rows": 0,
+              "columns": [
+                "Breeding system data with information on species, life history, four selfing ability indices, native range, global naturalization as assessed based on Global Naturalized Alien Flora database, and data source"
+              ],
+              "reproduction_or_reference_fields": {
+                "Breeding system data with information on species, life history, four selfing ability indices, native range, global naturalization as assessed based on Global Naturalized Alien Flora database, and data source": {
+                  "nonmissing": 0,
+                  "distinct": 0,
+                  "raw_state_counts": {}
+                }
+              },
+              "literal_binomial_column_counts": {
+                "Breeding system data with information on species, life history, four selfing ability indices, native range, global naturalization as assessed based on Global Naturalized Alien Flora database, and data source": 0
+              }
+            },
+            "Razanajatovo_etal_data": {
+              "rows": 1890,
+              "columns": [
+                "Data_source",
+                "Species",
+                "Family",
+                "Self-compatibility_index_FS",
+                "Self-compatibility_index_SFL",
+                "Autofertility_index_FS",
+                "Autofertility_index_SFL",
+                "Annual_Biennial",
+                "Listed_in_GloNAF",
+                "Number_GloNAF_Regions",
+                "Number_Native_Regions"
+              ],
+              "reproduction_or_reference_fields": {
+                "Self-compatibility_index_FS": {
+                  "nonmissing": 1191,
+                  "distinct": 693
+                },
+                "Self-compatibility_index_SFL": {
+                  "nonmissing": 421,
+                  "distinct": 303
+                },
+                "Autofertility_index_FS": {
+                  "nonmissing": 872,
+                  "distinct": 435
+                },
+                "Autofertility_index_SFL": {
+                  "nonmissing": 285,
+                  "distinct": 179
+                }
+              },
+              "literal_binomial_column_counts": {
+                "Species": 0
+              }
+            },
+            "Remarks": {
+              "rows": 7,
+              "columns": [
+                "Column_ID",
+                "Remarks"
+              ],
+              "literal_binomial_column_counts": {}
+            }
+          },
+          "license_code": "cc by"
+        }
+      },
+      "status": "retrieved"
+    },
+    "Ferrer2024": {
+      "doi": "10.1093/aob/mcae056",
+      "pmc": "PMC11805948",
+      "reported_taxa": 5685,
+      "scope": "Species self-incompatibility compilation; partial/conflicting states and genus-inferred reaction mechanism not direct autonomous selfing.",
+      "service": "NIH NLM NCBI PMC Article Datasets on AWS",
+      "service_documentation": "https://pmc.ncbi.nlm.nih.gov/tools/pmcaws/",
+      "accessed_utc_date": "2026-11-25",
+      "version_listing": {
+        "url": "https://pmc-oa-opendata.s3.amazonaws.com/?list-type=2&prefix=PMC11805948.&delimiter=%2F&max-keys=100",
+        "sha256": "b489ec7f32bddbd36cfe1a6b100994a10928eb09ea436a636d83bb93695120eb",
+        "versions": []
+      },
+      "article_versions": [],
+      "workbooks": {},
+      "status": "no_licensed_tabular_supplement_available"
+    }
+  },
+  "provenance": {
+    "run": 45579614513,
+    "artifact": 15006261184,
+    "digest_reported": "sha256:aa82aec5cedc93614b552df2ed1abf78d54a30dd05aa3d0b95b9dd3928cfcd74",
+    "method": "Verified completed job log, official PMC Cloud DOI, license and MD5 gate; output archive digest reported by GitHub. Workbook values not redistributed."
+  }
+}
