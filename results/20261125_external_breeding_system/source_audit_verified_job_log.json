@@ -1,0 +1,28 @@
+{
+  "sources": {
+    "Razanajatovo2016": {
+      "doi": "10.1038/ncomms13313",
+      "pmc": "PMC5095580",
+      "reported_taxa": 1752,
+      "scope": "Quantitative self-compatibility and autofertility indices from literature experiments; separate fruit and seed metrics.",
+      "status": "unavailable_or_invalid",
+      "error_type": "TimeoutError",
+      "detail": "The read operation timed out"
+    },
+    "Ferrer2024": {
+      "doi": "10.1093/aob/mcae056",
+      "pmc": "PMC11805948",
+      "reported_taxa": 5685,
+      "scope": "Species self-incompatibility compilation; partial/conflicting states and genus-inferred reaction mechanism not direct autonomous selfing.",
+      "status": "unavailable_or_invalid",
+      "error_type": "TimeoutError",
+      "detail": "The read operation timed out"
+    }
+  },
+  "provenance": {
+    "run": 45574127844,
+    "artifact": 15002499748,
+    "digest_reported": "sha256:de740bac7b6feddb6e400a333e99c83adb652a7eab79efeb35be767995cd1385",
+    "method": "Completed job stdout; both source retrievals timed out. Workflow success is not source acquisition."
+  }
+}
