@@ -52,7 +52,8 @@ def source():
              "bombus_native_name_pairs":int(result.native_bombus.sum()),
              "bombus_certain_name_pairs":int(result.certain_bombus.sum())}
     assert summary["native_name_pairs"]==11064
-    return result,summary
+    cols=["bee_id","group","model_native","area","distance","bee_coverage","AMT","AP","reconciled","native_bombus","native_other","certain_bombus","certain_other"]
+    return result[cols],summary
 
 def estimate(d,controls,draws=1999):
     cols=["log_bombus","log_other",*controls]
@@ -123,9 +124,29 @@ def panels(fl,bees,draws=1999):
                     out[key]=estimate(d,CONTROLS,draws)
     return out
 
+def self_test():
+    rng=np.random.default_rng(SEED)
+    n=96
+    d=pd.DataFrame({"group":np.repeat(np.arange(12),8),
+                    "log_bombus":np.tile(np.arange(8)/7,12),
+                    "log_other":rng.normal(size=n)})
+    for c in CONTROLS:d[c]=rng.normal(size=n)
+    for o in OUTCOMES:d[o]=.5*d.log_bombus-.1*d.log_other+rng.normal(0,.001,n)
+    v=estimate(d,CONTROLS,draws=199)
+    assert v["status"]=="exploratory_support" and v["informative_groups"]==12
+    assert abs(v["endpoints"][OUTCOMES[0]]["contrast_bombus_minus_other"]-.6)<.01
+    d["log_bombus"]=0.
+    assert estimate(d,CONTROLS,draws=199)["status"]=="not_estimable"
+    print("SYNTHETIC_ESTIMATOR_TEST_PASS",flush=True)
+
 def main():
-    p=argparse.ArgumentParser();p.add_argument("--out",type=pathlib.Path,required=True)
-    a=p.parse_args();a.out.mkdir(parents=True,exist_ok=True)
+    p=argparse.ArgumentParser();p.add_argument("--out",type=pathlib.Path);p.add_argument("--self-test",action="store_true")
+    a=p.parse_args()
+    if a.self_test:
+        self_test()
+        return
+    if a.out is None:p.error("--out is required for source run")
+    a.out.mkdir(parents=True,exist_ok=True)
     fl,profile_sha=get_public_flora(read_artifact())
     bees,counts=source()
     print("BOMBUS_SOURCE",json.dumps(counts),flush=True)
