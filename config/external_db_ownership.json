@@ -89,6 +89,7 @@
     "shared_db_research/results/20261125_fd_syndrome_architecture/depth_conditional_high_quality_only__geo_k5.json",
     "shared_db_research/results/20261125_fd_syndrome_architecture/depth_conditional_original_native__geo50_climate10.json",
     "shared_db_research/results/20261125_fd_syndrome_architecture/depth_conditional_original_native__geo_k5.json",
+    "shared_db_research/results/20261125_fd_syndrome_architecture/depth_factor_region_verified_job_log.json",
     "shared_db_research/results/20261125_fd_syndrome_architecture/pair_atlas_all_endpoint_robustness.json",
     "shared_db_research/scripts/fd_depth_conditional_architecture.py",
     "shared_db_research/scripts/fd_original_global_joint_margin.py",
@@ -507,6 +508,12 @@
       "shared_db_research/results/20261125_fd_syndrome_architecture/depth_conditional_all_on_native_eligible__geo50_climate10.json",
       "shared_db_research/results/20261125_fd_syndrome_architecture/depth_conditional_high_quality_only__geo_k5.json",
       "shared_db_research/results/20261125_fd_syndrome_architecture/depth_conditional_high_quality_only__geo50_climate10.json"
+    ]
+  },
+  "fd_depth_factor_region_completed_review_20261125": {
+    "scope": "Complete anonymous 12-panel aggregate output from protected run 45594190103, 264 north/201 tropical common-eligible islands in all-recorded scope, exact per-island depth prevalence and conditional architecture factorization. Four support-qualified exploratory panels; no stable regional difference after coherent genus-weight sensitivity, no causal pollinator or evolutionary claim. FD owns scientific interpretation; protected execution remains island.",
+    "paths": [
+      "shared_db_research/results/20261125_fd_syndrome_architecture/depth_factor_region_verified_job_log.json"
     ]
   }
 }
