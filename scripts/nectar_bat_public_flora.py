@@ -289,7 +289,7 @@ def self_test():
     print("BAT_SYNTHETIC_ESTIMATOR_TEST_PASS",flush=True)
 
 def main():
-    p=argparse.ArgumentParser();p.add_argument("--out",type=pathlib.Path);p.add_argument("--self-test",action="store_true");p.add_argument("--shared-support",action="store_true");p.add_argument("--synonym-sensitivity",action="store_true")
+    p=argparse.ArgumentParser();p.add_argument("--out",type=pathlib.Path);p.add_argument("--self-test",action="store_true");p.add_argument("--shared-support",action="store_true");p.add_argument("--synonym-sensitivity",action="store_true");p.add_argument("--unknown-diet-sensitivity",action="store_true")
     a=p.parse_args()
     if a.self_test:self_test();return
     if a.out is None:p.error("--out required")
@@ -319,6 +319,11 @@ def main():
             shared=same_cohort_support(tab,geo)
             (a.out/"multiguild_shared_support.json").write_text(json.dumps(shared,indent=2,allow_nan=False))
             print("MULTIGUILD_SHARED_SUPPORT",json.dumps(shared,allow_nan=False),flush=True)
+        if a.unknown_diet_sensitivity:
+            from bat_unknown_diet_sensitivity import missingness_panels
+            m0=missingness_panels(f,tab,geo)
+            (a.out/"bat_unknown_diet_sensitivity.json").write_text(json.dumps(m0,indent=2,allow_nan=False))
+            for k,v in m0["panels"].items():print("BAT_UNKNOWN_PANEL",k,json.dumps(v),flush=True)
         if a.synonym_sensitivity:
             from bat_mdd_synonym_audit import build
             aug,audit=build(set(p.name),d)
