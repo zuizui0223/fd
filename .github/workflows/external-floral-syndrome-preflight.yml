@@ -1,0 +1,24 @@
+name: External floral syndrome source preflight
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - scripts/external_floral_syndrome_preflight.py
+      - .github/workflows/external-floral-syndrome-preflight.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  source-audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: python scripts/external_floral_syndrome_preflight.py --out work/external_floral_preflight.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: external-floral-source-audit
+          path: work/external_floral_preflight.json
