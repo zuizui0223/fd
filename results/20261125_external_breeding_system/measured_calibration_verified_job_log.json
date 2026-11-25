@@ -1,0 +1,829 @@
+{
+  "name_audit": {
+    "raw_rows": 1890,
+    "nonmissing_name_rows": 1890,
+    "normalized_binomial_rows": 1833,
+    "distinct_normalized_binomials": 1695,
+    "underscore_name_rows": 1890,
+    "unparsed_examples": [
+      "Acacia_retinodes_uncifolia",
+      "Aeschynomene_pratensis_caribaea",
+      "Aloe_greatheadii_davyana",
+      "Aloe_lineata_muirii",
+      "Alstroemeria_ligtu_simsii",
+      "Amorpha_herbacea_crenulata",
+      "Anemone_hepatica_acuta",
+      "Argyroxiphium_sandwicense_macrocephalum",
+      "Ariocarpus_retusus_trigonus",
+      "Arum_italicum_neglectum",
+      "Asclepias_incarnata_pulchra",
+      "Bidens_alba_radiata"
+    ],
+    "unique_gift_name_matches": 1501,
+    "ambiguous_gift_name_matches": 0
+  },
+  "panels": {
+    "FS": {
+      "census": {
+        "all_rows": 1890,
+        "sc_in_unit_interval": 1191,
+        "af_in_unit_interval": 872,
+        "same_row_pair_valid": 834,
+        "same_row_pair_valid_named": 810,
+        "nonmissing_sc_invalid": 0,
+        "nonmissing_af_invalid": 0,
+        "distinct_paired_normalized_names": 773,
+        "attrition": {
+          "both_gift_traits_missing": 619,
+          "no_unique_gift_work_id": 88
+        },
+        "eligible_species": 66
+      },
+      "all_matched": {
+        "species": 66,
+        "genera": 48,
+        "families": 25,
+        "workbook_source_patterns": 38,
+        "gift_reference_patterns": 17,
+        "workbook_source_pattern_counts": {
+          "[\"MacPhail_Kevan_2009\"]": 8,
+          "[\"Rambuda_Johnson_2004\"]": 6,
+          "[\"Morales_Galetto_2003\"]": 6,
+          "[\"Zhang_Mosjidis_1995\"]": 4,
+          "[\"Barrett_Helenurm_1987\"]": 3,
+          "[\"Diaz_etal_2006\"]": 2,
+          "[\"Ward_etal_2012\"]": 2,
+          "[\"Groeneveld_Klein_2014\"]": 2,
+          "[\"McMullen_1987\"]": 2,
+          "[\"Guitian_etal_1993\"]": 2,
+          "[\"Froborg_1996\", \"Jacquemart_Thompson_1996\"]": 2,
+          "[\"Anderson_etal_1996\"]": 1
+        },
+        "gift_reference_pattern_counts": {
+          "[[\"10199\"], [\"10199\"]]": 11,
+          "[[\"10313\"], [\"10313\"]]": 11,
+          "[[\"10313\"], [\"10313\", \"10315\"]]": 7,
+          "[[\"10247\", \"10328\"], [\"10247\"]]": 6,
+          "[[\"10247\"], [\"10247\"]]": 6,
+          "[[\"10313\", \"10328\"], [\"10313\", \"10315\"]]": 4,
+          "[[\"10313\", \"10328\"], [\"10313\"]]": 4,
+          "[[\"10313\", \"10315\"], [\"10313\"]]": 4,
+          "[[\"10247\", \"10313\", \"10328\"], [\"10247\", \"10313\"]]": 3,
+          "[[\"10313\", \"10315\"], [\"10313\", \"10315\"]]": 2,
+          "[[\"10247\", \"10313\"], [\"10313\", \"10315\"]]": 2,
+          "[[\"10328\"], [\"10199\"]]": 1
+        },
+        "duplicate_paired_rows": 3,
+        "cells": [
+          {
+            "guild": "wind",
+            "gift_self": "absent",
+            "species": 0,
+            "genera": 0,
+            "families": 0,
+            "SC_mean": null,
+            "AF_mean": null,
+            "SC_min_max": null,
+            "AF_zero": 0,
+            "AF_one": 0
+          },
+          {
+            "guild": "wind",
+            "gift_self": "present",
+            "species": 0,
+            "genera": 0,
+            "families": 0,
+            "SC_mean": null,
+            "AF_mean": null,
+            "SC_min_max": null,
+            "AF_zero": 0,
+            "AF_one": 0
+          },
+          {
+            "guild": "insect",
+            "gift_self": "absent",
+            "species": 37,
+            "genera": 29,
+            "families": 20,
+            "SC_mean": 0.6030215917027026,
+            "AF_mean": 0.36870734985135134,
+            "SC_min_max": [
+              0,
+              1
+            ],
+            "AF_zero": 10,
+            "AF_one": 8
+          },
+          {
+            "guild": "insect",
+            "gift_self": "present",
+            "species": 29,
+            "genera": 21,
+            "families": 12,
+            "SC_mean": 0.7030255504137931,
+            "AF_mean": 0.46646727820689654,
+            "SC_min_max": [
+              0,
+              1
+            ],
+            "AF_zero": 3,
+            "AF_one": 3
+          }
+        ]
+      },
+      "fits": {
+        "raw": {
+          "status": "insufficient_cell_support",
+          "support": {
+            "species": 66,
+            "genera": 48,
+            "families": 25,
+            "workbook_source_patterns": 38,
+            "gift_reference_patterns": 17,
+            "workbook_source_pattern_counts": {
+              "[\"MacPhail_Kevan_2009\"]": 8,
+              "[\"Rambuda_Johnson_2004\"]": 6,
+              "[\"Morales_Galetto_2003\"]": 6,
+              "[\"Zhang_Mosjidis_1995\"]": 4,
+              "[\"Barrett_Helenurm_1987\"]": 3,
+              "[\"Diaz_etal_2006\"]": 2,
+              "[\"Ward_etal_2012\"]": 2,
+              "[\"Groeneveld_Klein_2014\"]": 2,
+              "[\"McMullen_1987\"]": 2,
+              "[\"Guitian_etal_1993\"]": 2,
+              "[\"Froborg_1996\", \"Jacquemart_Thompson_1996\"]": 2,
+              "[\"Anderson_etal_1996\"]": 1
+            },
+            "gift_reference_pattern_counts": {
+              "[[\"10199\"], [\"10199\"]]": 11,
+              "[[\"10313\"], [\"10313\"]]": 11,
+              "[[\"10313\"], [\"10313\", \"10315\"]]": 7,
+              "[[\"10247\", \"10328\"], [\"10247\"]]": 6,
+              "[[\"10247\"], [\"10247\"]]": 6,
+              "[[\"10313\", \"10328\"], [\"10313\", \"10315\"]]": 4,
+              "[[\"10313\", \"10328\"], [\"10313\"]]": 4,
+              "[[\"10313\", \"10315\"], [\"10313\"]]": 4,
+              "[[\"10247\", \"10313\", \"10328\"], [\"10247\", \"10313\"]]": 3,
+              "[[\"10313\", \"10315\"], [\"10313\", \"10315\"]]": 2,
+              "[[\"10247\", \"10313\"], [\"10313\", \"10315\"]]": 2,
+              "[[\"10328\"], [\"10199\"]]": 1
+            },
+            "duplicate_paired_rows": 3,
+            "cells": [
+              {
+                "guild": "wind",
+                "gift_self": "absent",
+                "species": 0,
+                "genera": 0,
+                "families": 0,
+                "SC_mean": null,
+                "AF_mean": null,
+                "SC_min_max": null,
+                "AF_zero": 0,
+                "AF_one": 0
+              },
+              {
+                "guild": "wind",
+                "gift_self": "present",
+                "species": 0,
+                "genera": 0,
+                "families": 0,
+                "SC_mean": null,
+                "AF_mean": null,
+                "SC_min_max": null,
+                "AF_zero": 0,
+                "AF_one": 0
+              },
+              {
+                "guild": "insect",
+                "gift_self": "absent",
+                "species": 37,
+                "genera": 29,
+                "families": 20,
+                "SC_mean": 0.6030215917027026,
+                "AF_mean": 0.36870734985135134,
+                "SC_min_max": [
+                  0,
+                  1
+                ],
+                "AF_zero": 10,
+                "AF_one": 8
+              },
+              {
+                "guild": "insect",
+                "gift_self": "present",
+                "species": 29,
+                "genera": 21,
+                "families": 12,
+                "SC_mean": 0.7030255504137931,
+                "AF_mean": 0.46646727820689654,
+                "SC_min_max": [
+                  0,
+                  1
+                ],
+                "AF_zero": 3,
+                "AF_one": 3
+              }
+            ]
+          }
+        },
+        "family": {
+          "status": "insufficient_cell_support",
+          "support": {
+            "species": 66,
+            "genera": 48,
+            "families": 25,
+            "workbook_source_patterns": 38,
+            "gift_reference_patterns": 17,
+            "workbook_source_pattern_counts": {
+              "[\"MacPhail_Kevan_2009\"]": 8,
+              "[\"Rambuda_Johnson_2004\"]": 6,
+              "[\"Morales_Galetto_2003\"]": 6,
+              "[\"Zhang_Mosjidis_1995\"]": 4,
+              "[\"Barrett_Helenurm_1987\"]": 3,
+              "[\"Diaz_etal_2006\"]": 2,
+              "[\"Ward_etal_2012\"]": 2,
+              "[\"Groeneveld_Klein_2014\"]": 2,
+              "[\"McMullen_1987\"]": 2,
+              "[\"Guitian_etal_1993\"]": 2,
+              "[\"Froborg_1996\", \"Jacquemart_Thompson_1996\"]": 2,
+              "[\"Anderson_etal_1996\"]": 1
+            },
+            "gift_reference_pattern_counts": {
+              "[[\"10199\"], [\"10199\"]]": 11,
+              "[[\"10313\"], [\"10313\"]]": 11,
+              "[[\"10313\"], [\"10313\", \"10315\"]]": 7,
+              "[[\"10247\", \"10328\"], [\"10247\"]]": 6,
+              "[[\"10247\"], [\"10247\"]]": 6,
+              "[[\"10313\", \"10328\"], [\"10313\", \"10315\"]]": 4,
+              "[[\"10313\", \"10328\"], [\"10313\"]]": 4,
+              "[[\"10313\", \"10315\"], [\"10313\"]]": 4,
+              "[[\"10247\", \"10313\", \"10328\"], [\"10247\", \"10313\"]]": 3,
+              "[[\"10313\", \"10315\"], [\"10313\", \"10315\"]]": 2,
+              "[[\"10247\", \"10313\"], [\"10313\", \"10315\"]]": 2,
+              "[[\"10328\"], [\"10199\"]]": 1
+            },
+            "duplicate_paired_rows": 3,
+            "cells": [
+              {
+                "guild": "wind",
+                "gift_self": "absent",
+                "species": 0,
+                "genera": 0,
+                "families": 0,
+                "SC_mean": null,
+                "AF_mean": null,
+                "SC_min_max": null,
+                "AF_zero": 0,
+                "AF_one": 0
+              },
+              {
+                "guild": "wind",
+                "gift_self": "present",
+                "species": 0,
+                "genera": 0,
+                "families": 0,
+                "SC_mean": null,
+                "AF_mean": null,
+                "SC_min_max": null,
+                "AF_zero": 0,
+                "AF_one": 0
+              },
+              {
+                "guild": "insect",
+                "gift_self": "absent",
+                "species": 37,
+                "genera": 29,
+                "families": 20,
+                "SC_mean": 0.6030215917027026,
+                "AF_mean": 0.36870734985135134,
+                "SC_min_max": [
+                  0,
+                  1
+                ],
+                "AF_zero": 10,
+                "AF_one": 8
+              },
+              {
+                "guild": "insect",
+                "gift_self": "present",
+                "species": 29,
+                "genera": 21,
+                "families": 12,
+                "SC_mean": 0.7030255504137931,
+                "AF_mean": 0.46646727820689654,
+                "SC_min_max": [
+                  0,
+                  1
+                ],
+                "AF_zero": 3,
+                "AF_one": 3
+              }
+            ]
+          }
+        },
+        "family_and_source_patterns": {
+          "status": "insufficient_cell_support",
+          "support": {
+            "species": 66,
+            "genera": 48,
+            "families": 25,
+            "workbook_source_patterns": 38,
+            "gift_reference_patterns": 17,
+            "workbook_source_pattern_counts": {
+              "[\"MacPhail_Kevan_2009\"]": 8,
+              "[\"Rambuda_Johnson_2004\"]": 6,
+              "[\"Morales_Galetto_2003\"]": 6,
+              "[\"Zhang_Mosjidis_1995\"]": 4,
+              "[\"Barrett_Helenurm_1987\"]": 3,
+              "[\"Diaz_etal_2006\"]": 2,
+              "[\"Ward_etal_2012\"]": 2,
+              "[\"Groeneveld_Klein_2014\"]": 2,
+              "[\"McMullen_1987\"]": 2,
+              "[\"Guitian_etal_1993\"]": 2,
+              "[\"Froborg_1996\", \"Jacquemart_Thompson_1996\"]": 2,
+              "[\"Anderson_etal_1996\"]": 1
+            },
+            "gift_reference_pattern_counts": {
+              "[[\"10199\"], [\"10199\"]]": 11,
+              "[[\"10313\"], [\"10313\"]]": 11,
+              "[[\"10313\"], [\"10313\", \"10315\"]]": 7,
+              "[[\"10247\", \"10328\"], [\"10247\"]]": 6,
+              "[[\"10247\"], [\"10247\"]]": 6,
+              "[[\"10313\", \"10328\"], [\"10313\", \"10315\"]]": 4,
+              "[[\"10313\", \"10328\"], [\"10313\"]]": 4,
+              "[[\"10313\", \"10315\"], [\"10313\"]]": 4,
+              "[[\"10247\", \"10313\", \"10328\"], [\"10247\", \"10313\"]]": 3,
+              "[[\"10313\", \"10315\"], [\"10313\", \"10315\"]]": 2,
+              "[[\"10247\", \"10313\"], [\"10313\", \"10315\"]]": 2,
+              "[[\"10328\"], [\"10199\"]]": 1
+            },
+            "duplicate_paired_rows": 3,
+            "cells": [
+              {
+                "guild": "wind",
+                "gift_self": "absent",
+                "species": 0,
+                "genera": 0,
+                "families": 0,
+                "SC_mean": null,
+                "AF_mean": null,
+                "SC_min_max": null,
+                "AF_zero": 0,
+                "AF_one": 0
+              },
+              {
+                "guild": "wind",
+                "gift_self": "present",
+                "species": 0,
+                "genera": 0,
+                "families": 0,
+                "SC_mean": null,
+                "AF_mean": null,
+                "SC_min_max": null,
+                "AF_zero": 0,
+                "AF_one": 0
+              },
+              {
+                "guild": "insect",
+                "gift_self": "absent",
+                "species": 37,
+                "genera": 29,
+                "families": 20,
+                "SC_mean": 0.6030215917027026,
+                "AF_mean": 0.36870734985135134,
+                "SC_min_max": [
+                  0,
+                  1
+                ],
+                "AF_zero": 10,
+                "AF_one": 8
+              },
+              {
+                "guild": "insect",
+                "gift_self": "present",
+                "species": 29,
+                "genera": 21,
+                "families": 12,
+                "SC_mean": 0.7030255504137931,
+                "AF_mean": 0.46646727820689654,
+                "SC_min_max": [
+                  0,
+                  1
+                ],
+                "AF_zero": 3,
+                "AF_one": 3
+              }
+            ]
+          }
+        }
+      }
+    },
+    "SFL": {
+      "census": {
+        "all_rows": 1890,
+        "sc_in_unit_interval": 421,
+        "af_in_unit_interval": 285,
+        "same_row_pair_valid": 277,
+        "same_row_pair_valid_named": 264,
+        "nonmissing_sc_invalid": 0,
+        "nonmissing_af_invalid": 0,
+        "distinct_paired_normalized_names": 260,
+        "attrition": {
+          "no_unique_gift_work_id": 31,
+          "both_gift_traits_missing": 199
+        },
+        "eligible_species": 30
+      },
+      "all_matched": {
+        "species": 30,
+        "genera": 28,
+        "families": 19,
+        "workbook_source_patterns": 20,
+        "gift_reference_patterns": 14,
+        "workbook_source_pattern_counts": {
+          "[\"Rambuda_Johnson_2004\"]": 5,
+          "[\"Diaz_etal_2006\"]": 2,
+          "[\"Ward_etal_2012\"]": 2,
+          "[\"Groeneveld_Klein_2014\"]": 2,
+          "[\"McMullen_1987\"]": 2,
+          "[\"Petanidou_etal_2012\"]": 2,
+          "[\"Jacquemart_Thompson_1996\"]": 2,
+          "[\"Anderson_etal_1996\"]": 1,
+          "[\"Mahy_Jacquemart_1998\"]": 1,
+          "[\"Darwin_1868\"]": 1,
+          "[\"Parker_1997\"]": 1,
+          "[\"Hardner_Potts_1995\"]": 1
+        },
+        "gift_reference_pattern_counts": {
+          "[[\"10247\", \"10328\"], [\"10247\"]]": 5,
+          "[[\"10199\"], [\"10199\"]]": 4,
+          "[[\"10313\", \"10315\"], [\"10313\"]]": 3,
+          "[[\"10247\"], [\"10247\"]]": 3,
+          "[[\"10313\"], [\"10313\"]]": 3,
+          "[[\"10247\", \"10313\", \"10328\"], [\"10247\", \"10313\"]]": 2,
+          "[[\"10313\", \"10315\"], [\"10313\", \"10315\"]]": 2,
+          "[[\"10313\"], [\"10313\", \"10315\"]]": 2,
+          "[[\"10313\", \"10328\"], [\"10313\", \"10315\"]]": 1,
+          "[[\"10328\"], [\"10199\"]]": 1,
+          "[[\"10315\"], [\"10315\"]]": 1,
+          "[[\"10199\", \"10247\"], [\"10199\", \"10247\"]]": 1
+        },
+        "duplicate_paired_rows": 0,
+        "cells": [
+          {
+            "guild": "wind",
+            "gift_self": "absent",
+            "species": 0,
+            "genera": 0,
+            "families": 0,
+            "SC_mean": null,
+            "AF_mean": null,
+            "SC_min_max": null,
+            "AF_zero": 0,
+            "AF_one": 0
+          },
+          {
+            "guild": "wind",
+            "gift_self": "present",
+            "species": 0,
+            "genera": 0,
+            "families": 0,
+            "SC_mean": null,
+            "AF_mean": null,
+            "SC_min_max": null,
+            "AF_zero": 0,
+            "AF_one": 0
+          },
+          {
+            "guild": "insect",
+            "gift_self": "absent",
+            "species": 17,
+            "genera": 15,
+            "families": 14,
+            "SC_mean": 0.6723738894705883,
+            "AF_mean": 0.23794437123529413,
+            "SC_min_max": [
+              0.04589372,
+              1
+            ],
+            "AF_zero": 4,
+            "AF_one": 2
+          },
+          {
+            "guild": "insect",
+            "gift_self": "present",
+            "species": 13,
+            "genera": 13,
+            "families": 8,
+            "SC_mean": 0.7403819264615384,
+            "AF_mean": 0.44876360400000004,
+            "SC_min_max": [
+              0.174418605,
+              1
+            ],
+            "AF_zero": 2,
+            "AF_one": 2
+          }
+        ]
+      },
+      "fits": {
+        "raw": {
+          "status": "insufficient_cell_support",
+          "support": {
+            "species": 30,
+            "genera": 28,
+            "families": 19,
+            "workbook_source_patterns": 20,
+            "gift_reference_patterns": 14,
+            "workbook_source_pattern_counts": {
+              "[\"Rambuda_Johnson_2004\"]": 5,
+              "[\"Diaz_etal_2006\"]": 2,
+              "[\"Ward_etal_2012\"]": 2,
+              "[\"Groeneveld_Klein_2014\"]": 2,
+              "[\"McMullen_1987\"]": 2,
+              "[\"Petanidou_etal_2012\"]": 2,
+              "[\"Jacquemart_Thompson_1996\"]": 2,
+              "[\"Anderson_etal_1996\"]": 1,
+              "[\"Mahy_Jacquemart_1998\"]": 1,
+              "[\"Darwin_1868\"]": 1,
+              "[\"Parker_1997\"]": 1,
+              "[\"Hardner_Potts_1995\"]": 1
+            },
+            "gift_reference_pattern_counts": {
+              "[[\"10247\", \"10328\"], [\"10247\"]]": 5,
+              "[[\"10199\"], [\"10199\"]]": 4,
+              "[[\"10313\", \"10315\"], [\"10313\"]]": 3,
+              "[[\"10247\"], [\"10247\"]]": 3,
+              "[[\"10313\"], [\"10313\"]]": 3,
+              "[[\"10247\", \"10313\", \"10328\"], [\"10247\", \"10313\"]]": 2,
+              "[[\"10313\", \"10315\"], [\"10313\", \"10315\"]]": 2,
+              "[[\"10313\"], [\"10313\", \"10315\"]]": 2,
+              "[[\"10313\", \"10328\"], [\"10313\", \"10315\"]]": 1,
+              "[[\"10328\"], [\"10199\"]]": 1,
+              "[[\"10315\"], [\"10315\"]]": 1,
+              "[[\"10199\", \"10247\"], [\"10199\", \"10247\"]]": 1
+            },
+            "duplicate_paired_rows": 0,
+            "cells": [
+              {
+                "guild": "wind",
+                "gift_self": "absent",
+                "species": 0,
+                "genera": 0,
+                "families": 0,
+                "SC_mean": null,
+                "AF_mean": null,
+                "SC_min_max": null,
+                "AF_zero": 0,
+                "AF_one": 0
+              },
+              {
+                "guild": "wind",
+                "gift_self": "present",
+                "species": 0,
+                "genera": 0,
+                "families": 0,
+                "SC_mean": null,
+                "AF_mean": null,
+                "SC_min_max": null,
+                "AF_zero": 0,
+                "AF_one": 0
+              },
+              {
+                "guild": "insect",
+                "gift_self": "absent",
+                "species": 17,
+                "genera": 15,
+                "families": 14,
+                "SC_mean": 0.6723738894705883,
+                "AF_mean": 0.23794437123529413,
+                "SC_min_max": [
+                  0.04589372,
+                  1
+                ],
+                "AF_zero": 4,
+                "AF_one": 2
+              },
+              {
+                "guild": "insect",
+                "gift_self": "present",
+                "species": 13,
+                "genera": 13,
+                "families": 8,
+                "SC_mean": 0.7403819264615384,
+                "AF_mean": 0.44876360400000004,
+                "SC_min_max": [
+                  0.174418605,
+                  1
+                ],
+                "AF_zero": 2,
+                "AF_one": 2
+              }
+            ]
+          }
+        },
+        "family": {
+          "status": "insufficient_cell_support",
+          "support": {
+            "species": 30,
+            "genera": 28,
+            "families": 19,
+            "workbook_source_patterns": 20,
+            "gift_reference_patterns": 14,
+            "workbook_source_pattern_counts": {
+              "[\"Rambuda_Johnson_2004\"]": 5,
+              "[\"Diaz_etal_2006\"]": 2,
+              "[\"Ward_etal_2012\"]": 2,
+              "[\"Groeneveld_Klein_2014\"]": 2,
+              "[\"McMullen_1987\"]": 2,
+              "[\"Petanidou_etal_2012\"]": 2,
+              "[\"Jacquemart_Thompson_1996\"]": 2,
+              "[\"Anderson_etal_1996\"]": 1,
+              "[\"Mahy_Jacquemart_1998\"]": 1,
+              "[\"Darwin_1868\"]": 1,
+              "[\"Parker_1997\"]": 1,
+              "[\"Hardner_Potts_1995\"]": 1
+            },
+            "gift_reference_pattern_counts": {
+              "[[\"10247\", \"10328\"], [\"10247\"]]": 5,
+              "[[\"10199\"], [\"10199\"]]": 4,
+              "[[\"10313\", \"10315\"], [\"10313\"]]": 3,
+              "[[\"10247\"], [\"10247\"]]": 3,
+              "[[\"10313\"], [\"10313\"]]": 3,
+              "[[\"10247\", \"10313\", \"10328\"], [\"10247\", \"10313\"]]": 2,
+              "[[\"10313\", \"10315\"], [\"10313\", \"10315\"]]": 2,
+              "[[\"10313\"], [\"10313\", \"10315\"]]": 2,
+              "[[\"10313\", \"10328\"], [\"10313\", \"10315\"]]": 1,
+              "[[\"10328\"], [\"10199\"]]": 1,
+              "[[\"10315\"], [\"10315\"]]": 1,
+              "[[\"10199\", \"10247\"], [\"10199\", \"10247\"]]": 1
+            },
+            "duplicate_paired_rows": 0,
+            "cells": [
+              {
+                "guild": "wind",
+                "gift_self": "absent",
+                "species": 0,
+                "genera": 0,
+                "families": 0,
+                "SC_mean": null,
+                "AF_mean": null,
+                "SC_min_max": null,
+                "AF_zero": 0,
+                "AF_one": 0
+              },
+              {
+                "guild": "wind",
+                "gift_self": "present",
+                "species": 0,
+                "genera": 0,
+                "families": 0,
+                "SC_mean": null,
+                "AF_mean": null,
+                "SC_min_max": null,
+                "AF_zero": 0,
+                "AF_one": 0
+              },
+              {
+                "guild": "insect",
+                "gift_self": "absent",
+                "species": 17,
+                "genera": 15,
+                "families": 14,
+                "SC_mean": 0.6723738894705883,
+                "AF_mean": 0.23794437123529413,
+                "SC_min_max": [
+                  0.04589372,
+                  1
+                ],
+                "AF_zero": 4,
+                "AF_one": 2
+              },
+              {
+                "guild": "insect",
+                "gift_self": "present",
+                "species": 13,
+                "genera": 13,
+                "families": 8,
+                "SC_mean": 0.7403819264615384,
+                "AF_mean": 0.44876360400000004,
+                "SC_min_max": [
+                  0.174418605,
+                  1
+                ],
+                "AF_zero": 2,
+                "AF_one": 2
+              }
+            ]
+          }
+        },
+        "family_and_source_patterns": {
+          "status": "insufficient_cell_support",
+          "support": {
+            "species": 30,
+            "genera": 28,
+            "families": 19,
+            "workbook_source_patterns": 20,
+            "gift_reference_patterns": 14,
+            "workbook_source_pattern_counts": {
+              "[\"Rambuda_Johnson_2004\"]": 5,
+              "[\"Diaz_etal_2006\"]": 2,
+              "[\"Ward_etal_2012\"]": 2,
+              "[\"Groeneveld_Klein_2014\"]": 2,
+              "[\"McMullen_1987\"]": 2,
+              "[\"Petanidou_etal_2012\"]": 2,
+              "[\"Jacquemart_Thompson_1996\"]": 2,
+              "[\"Anderson_etal_1996\"]": 1,
+              "[\"Mahy_Jacquemart_1998\"]": 1,
+              "[\"Darwin_1868\"]": 1,
+              "[\"Parker_1997\"]": 1,
+              "[\"Hardner_Potts_1995\"]": 1
+            },
+            "gift_reference_pattern_counts": {
+              "[[\"10247\", \"10328\"], [\"10247\"]]": 5,
+              "[[\"10199\"], [\"10199\"]]": 4,
+              "[[\"10313\", \"10315\"], [\"10313\"]]": 3,
+              "[[\"10247\"], [\"10247\"]]": 3,
+              "[[\"10313\"], [\"10313\"]]": 3,
+              "[[\"10247\", \"10313\", \"10328\"], [\"10247\", \"10313\"]]": 2,
+              "[[\"10313\", \"10315\"], [\"10313\", \"10315\"]]": 2,
+              "[[\"10313\"], [\"10313\", \"10315\"]]": 2,
+              "[[\"10313\", \"10328\"], [\"10313\", \"10315\"]]": 1,
+              "[[\"10328\"], [\"10199\"]]": 1,
+              "[[\"10315\"], [\"10315\"]]": 1,
+              "[[\"10199\", \"10247\"], [\"10199\", \"10247\"]]": 1
+            },
+            "duplicate_paired_rows": 0,
+            "cells": [
+              {
+                "guild": "wind",
+                "gift_self": "absent",
+                "species": 0,
+                "genera": 0,
+                "families": 0,
+                "SC_mean": null,
+                "AF_mean": null,
+                "SC_min_max": null,
+                "AF_zero": 0,
+                "AF_one": 0
+              },
+              {
+                "guild": "wind",
+                "gift_self": "present",
+                "species": 0,
+                "genera": 0,
+                "families": 0,
+                "SC_mean": null,
+                "AF_mean": null,
+                "SC_min_max": null,
+                "AF_zero": 0,
+                "AF_one": 0
+              },
+              {
+                "guild": "insect",
+                "gift_self": "absent",
+                "species": 17,
+                "genera": 15,
+                "families": 14,
+                "SC_mean": 0.6723738894705883,
+                "AF_mean": 0.23794437123529413,
+                "SC_min_max": [
+                  0.04589372,
+                  1
+                ],
+                "AF_zero": 4,
+                "AF_one": 2
+              },
+              {
+                "guild": "insect",
+                "gift_self": "present",
+                "species": 13,
+                "genera": 13,
+                "families": 8,
+                "SC_mean": 0.7403819264615384,
+                "AF_mean": 0.44876360400000004,
+                "SC_min_max": [
+                  0.174418605,
+                  1
+                ],
+                "AF_zero": 2,
+                "AF_one": 2
+              }
+            ]
+          }
+        }
+      }
+    }
+  },
+  "verification": {
+    "panels": 2,
+    "source_sha256": "cb17009ae65c4f6cb2d28b21239714782600d0904effa77c5635249d28e62fc0"
+  },
+  "provenance": {
+    "run": 45583662381,
+    "artifact": 15007946577,
+    "digest_reported": "sha256:fa82f755b2f571ac2389b620f0455e22a30f9cd532a7e0acdd6c77d2198a6e6c",
+    "method": "Completed job logs; workbook source bytes verified in runner. Output archive digest reported by GitHub. All six fits insufficient cell support; no wind carriers."
+  }
+}
