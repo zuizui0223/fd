@@ -58,6 +58,8 @@
     "scripts/tropical_pollinator_source_preflight.py",
     "scripts/tropical_three_guild_candidate_audit.py",
     "shared_db_research/README.md",
+    "shared_db_research/historical/fd/docs/CARIBBEAN_VERTEBRATE_SPECIFICITY_CONTRACT_20261125.md",
+    "shared_db_research/historical/fd/results/20261125_nectar_bat_public/original_gift_genus_null_from_verified_job_log.json",
     "shared_db_research/historical/pr325/scripts/run_fd_euppollnet_island_mainland_preflight.py",
     "shared_db_research/historical/pr325/scripts/run_fd_euppollnet_v130_overlap.py",
     "shared_db_research/historical/pr325/scripts/run_fd_gbif_temporal_apidae_pilot.py",
