@@ -43,7 +43,7 @@ def main():
         assert len(d)==6362
         order=col(d,["order","ordername","mddorder"]);family=col(d,["family","familyname","mddfamily"])
         try:
-            species=col(d,["scientificname","scientific","sciname","binomial","msw3name","mddname","speciesname"])
+            species=col(d,["mddsciname","scientificname","scientific","sciname","binomial","msw3name","mddname","speciesname"])
             names=d[species].map(norm)
             if names.notna().sum()<len(d)*.95:raise ValueError("not binomial")
         except ValueError:
@@ -60,17 +60,20 @@ def main():
         b=fetch(DIET);d=table(b,"\t")
         n=col(d,["scientific"]);nect=col(d,["dietnect"]);fruit=col(d,["dietfruit"]);fam=col(d,["mswfamilylatin","family"])
         d["name"]=d[n].map(norm);d["nectar"]=pd.to_numeric(d[nect],errors="coerce");d["fruit"]=pd.to_numeric(d[fruit],errors="coerce")
-        assert len(d)==5400
+        out["elton_raw"]={"rows":len(d),"sha256":hashlib.sha256(b).hexdigest(),"md5":hashlib.md5(b).hexdigest(),"columns":list(d.columns),"published_species_count":5400}
+        # The original data paper's species count is not a guarantee of raw file row count.
+        # Audit valid named records and row exclusions rather than assume no metadata/footer rows.
         valid=d.name.notna()&d.nectar.between(0,100)&d.fruit.between(0,100)
         z=d[valid].copy()
         conflicted=set(z.loc[z.name.duplicated(False),"name"])
         z=z[~z.name.isin(conflicted)].set_index("name")
-        out["elton_mammals"]={"rows":len(d),"sha256":hashlib.sha256(b).hexdigest(),"valid_unique_diet_names":len(z),"duplicate_names_excluded":len(conflicted),"diet_provenance_fields":[x for x in d.columns if re.search("source|certainty|speclevel",x,re.I) and re.search("diet",x,re.I)]}
+        if len(z)<5000:raise ValueError("too few valid unique diet records for original mammal table")
+        out["elton_mammals"]={"rows":len(d),"invalid_name_or_diet_rows":int((~valid).sum()),"published_count_matches_valid_names":len(z)==5400,"sha256":hashlib.sha256(b).hexdigest(),"valid_unique_diet_names":len(z),"duplicate_names_excluded":len(conflicted),"diet_provenance_fields":[x for x in d.columns if re.search("source|certainty|speclevel",x,re.I) and re.search("diet",x,re.I)]}
         if bats is not None:
             q=bats.join(z[["nectar","fruit",fam]],on="name",validate="one_to_one")
             eligible=q.nectar.notna()
             out["exact_name_match"]={"mapped_bats":len(q),"matched":int(eligible.sum()),"unmatched":int((~eligible).sum()),"unmatched_share":float((~eligible).mean()),"diet_classes_matched":{"nectar_ge50":int(q.nectar.ge(50).sum()),"nectar_partial":int((q.nectar.gt(0)&q.nectar.lt(50)).sum()),"nectar_zero":int(q.nectar.eq(0).sum()),"fruit_positive":int(q.fruit.gt(0).sum())},"within_5pct_global_list":bool((~eligible).mean()<=.05)}
-            out["status"]="taxonomy_eligibility_only"
+            out["status"]="taxonomy_eligibility_only" if len(z)==5400 else "candidate_taxonomy_audit_row_count_requires_review"
         else:out["status"]="partial_diet_metadata_only"
     except Exception as e:
         out["diet_source_status"]="unavailable_or_schema_failed";out["diet_error_type"]=type(e).__name__;out["diet_error"]=str(e)[:180]
