@@ -6,6 +6,7 @@
   "source_migration": "https://github.com/zuizui0223/island/pull/347",
   "source_pins": "https://github.com/zuizui0223/island/blob/64a58cd4817ccf1c54c179aa7fd1c5585f57dd43/config/fd_data_ownership_20261125.json",
   "allowed_paths": [
+    ".github/workflows/external-breeding-system-source-audit.yml",
     ".github/workflows/external-db-boundary.yml",
     ".github/workflows/global_bird_source_audit.yml",
     ".github/workflows/pollinator_guild_source_sensitivity.yml",
@@ -44,6 +45,7 @@
     "scripts/bat_mdd_synonym_audit.py",
     "scripts/check_external_source_boundary.py",
     "scripts/export_mdd_bat_ranges.R",
+    "scripts/external_breeding_system_source_audit.py",
     "scripts/global_bird_source_audit.py",
     "scripts/pollinator_guild_source_sensitivity.py",
     "scripts/run_emln_island_visitor_turnover.py",
@@ -445,5 +447,12 @@
       "mode": "100644"
     }
   ],
-  "scope_limit": "Reviewed external standalone candidates and source tools, not a claim that every old historical report was source-verified. Unknown/mixed paths not enabled; original history remains. Legacy external workflows imported under docs, not automatically run. Independent external GloBI catalog prepared in island is permitted only when provenance proves no focal own-plant/occurrence inputs."
+  "scope_limit": "Reviewed external standalone candidates and source tools, not a claim that every old historical report was source-verified. Unknown/mixed paths not enabled; original history remains. Legacy external workflows imported under docs, not automatically run. Independent external GloBI catalog prepared in island is permitted only when provenance proves no focal own-plant/occurrence inputs.",
+  "external_measured_breeding_system_review_20261125": {
+    "scope": "Published supplementary workbook intake via public Europe PMC supplementary-files service, Razanajatovo et al. 2016 DOI 10.1038/ncomms13313 and Ferrer et al. 2024 DOI 10.1093/aob/mcae056. Schema, provenance, binomial coverage and raw state census only. No project data, no equivalence of SC/AF, no independent observation claim; fail closed on denied or invalid downloads.",
+    "paths": [
+      "scripts/external_breeding_system_source_audit.py",
+      ".github/workflows/external-breeding-system-source-audit.yml"
+    ]
+  }
 }
