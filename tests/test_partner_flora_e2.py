@@ -2,7 +2,7 @@ import numpy as np
 import pandas as pd
 from scipy import sparse
 import pytest
-from fd.partner_flora_e2 import run_partner_test, holm_fixed
+from fd.partner_flora_e2 import run_partner_test, run_partner_clades, holm_fixed
 
 def synthetic():
     rng=np.random.default_rng(19)
@@ -41,3 +41,18 @@ def test_diet_and_fixed_holm():
     assert r["status"]=="insufficient_animal_null_support" and r["p_primary"] is None
     assert holm_fixed({"BOMB_NORTH":.02})=={"NECTAR_BIRD":1.,"BOMB_NORTH":.06,"NECTAR_BAT":1.}
     with pytest.raises(ValueError):holm_fixed({"posthoc":.001})
+
+def test_clade_gate_and_fruit_binary():
+    d,p,m,l=synthetic()
+    p=p[~((p.genus=="P7")&(p.island%3==0))]
+    l[2:7]=1;l[7:12]=2
+    g=np.repeat(np.arange(7),2)
+    cl=np.repeat(["A","A","A","A","B","B","B"],2)
+    z=run_partner_clades(d,p,m,l,g,cl,["A","B","unobserved"],n_boot=19,n_perm=19)
+    assert len(z)==3 and all(v["status"]=="insufficient_support" and v["holm_p_clade_family"]==1 for v in z.values())
+    with pytest.raises(ValueError):run_partner_clades(d,p,m,l,g,np.arange(14),["A"])
+    # When only the arbitrary 1/2 fruit bins vary within genus, the binary fruit-use
+    # permutation must not claim a supported movable animal null.
+    binary_blocks=np.where(l==0,0,1)
+    r=run_partner_test(d,p,m,l,binary_blocks,mode="fruit",min_groups=4,min_islands=20,n_boot=19,n_perm=19)
+    assert r["status"] in {"insufficient_animal_null_support","insufficient_null_support"}

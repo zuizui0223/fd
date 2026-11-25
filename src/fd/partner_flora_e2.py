@@ -9,7 +9,7 @@ from scipy import sparse
 from .nectarivore_flora_test import add_controls, group_index, plant_block_expectation, within_fit, permute_within_blocks, CONTROLS
 from .range_map_nectarivore import diet_counts
 
-def _design(inc, labels, d, mode):
+def _design(inc, labels, d, mode, clade_mask=None):
     c = diet_counts(inc, labels)
     if mode=="diet":
         x=np.column_stack([np.log1p(c[:,2]),np.log1p(c[:,1]),np.log1p(c[:,0]),d[list(CONTROLS)].to_numpy(float)])
@@ -22,6 +22,13 @@ def _design(inc, labels, d, mode):
         x=np.column_stack([(c[:,2]>0).astype(float),np.log1p(c[:,0]),d[list(CONTROLS)].to_numpy(float)])
         contrast=np.array([1.,0.,0.,0.,0.,0.])
     else:raise ValueError("invalid partner mode")
+    if clade_mask is not None:
+        if mode=="bombus":raise ValueError("Bombus subgenus test requires separately frozen design")
+        focal=(labels==2)&clade_mask
+        remaining=(labels==2)&~clade_mask
+        x[:,0]=np.log1p(np.asarray(inc@focal.astype(float)).ravel())
+        x=np.column_stack([x,np.log1p(np.asarray(inc@remaining.astype(float)).ravel())])
+        contrast=np.append(contrast,0.)
     return x,contrast
 
 def _block_ids(tab,cols):
@@ -44,7 +51,7 @@ def holm_fixed(pvalues, ids=("NECTAR_BIRD","BOMB_NORTH","NECTAR_BAT")):
     return dict(zip(ids,map(float,out)))
 
 def run_partner_test(islands, plants, incidence, animal_labels, animal_genus=None, mode="diet",
-                     *, min_groups=30, min_islands=200, n_boot=1999, n_perm=1999, seed=20261125):
+                     *, min_groups=30, min_islands=200, n_boot=1999, n_perm=1999, seed=20261125, clade_mask=None):
     """islands: one row per eligible island, island/group/area_km2/dist_km/lat.
     plants: complete fixed regional pool of scored island-species rows (island/species/genus/grade/trait).
     incidence rows align to islands; only qualified source-supported units may be supplied.
@@ -56,6 +63,10 @@ def run_partner_test(islands, plants, incidence, animal_labels, animal_genus=Non
     inc=sparse.csr_matrix(incidence)
     labels=np.asarray(animal_labels)
     if inc.shape!=(len(d),len(labels)) or not np.isin(labels,[0,1,2]).all() or not np.isin(inc.data,[0,1]).all():raise ValueError("bad incidence or animal labels")
+    if mode=="fruit":labels=np.where(labels>0,2,0)  # permute the actual binary fruit-use label, not irrelevant within-fruit splits
+    if clade_mask is not None:
+        if np.asarray(clade_mask).shape!=labels.shape:raise ValueError("clade shape mismatch")
+        clade_mask=np.asarray(clade_mask,bool)
     if plants[["species","genus","grade","trait"]].isna().any().any():raise ValueError("unknown plant state")
     shares=plant_block_expectation(plants)
     d=d.join(shares,on="island",validate="one_to_one")
@@ -66,7 +77,8 @@ def run_partner_test(islands, plants, incidence, animal_labels, animal_genus=Non
     inc=inc[:,present];labels=labels[present]
     ag=None if animal_genus is None else np.asarray(animal_genus)[present]
     if ag is not None and pd.isna(ag).any():raise ValueError("unknown animal taxonomic block")
-    X,c=_design(inc,labels,d,mode)
+    if clade_mask is not None:clade_mask=clade_mask[present]
+    X,c=_design(inc,labels,d,mode,clade_mask)
     if not np.isfinite(X).all():raise ValueError("nonfinite design")
     groups=group_index(d.group)
     informative=sum(len(ix)>=2 and np.ptp(X[ix,0])>0 for ix in groups)
@@ -103,7 +115,8 @@ def run_partner_test(islands, plants, incidence, animal_labels, animal_genus=Non
         if v is not None:draws.append(v)
     out["bootstrap_valid"]=len(draws);out["E2_interval"]=np.quantile(draws,[.025,.975]).tolist() if draws else None
     if len(draws)<.9*n_boot or out["plant_movable_species"]==0:return out|{"status":"insufficient_null_support"}
-    if mode!="bombus" and (ag is None or _movable(labels,ag)==0):return out|{"status":"insufficient_animal_null_support","animal_movable_species":0}
+    if mode!="bombus" and (ag is None or _movable(labels,ag)==0 or (clade_mask is not None and _movable(labels[clade_mask],ag[clade_mask])==0)):
+        return out|{"status":"insufficient_animal_null_support","animal_movable_species":0}
     out["animal_movable_species"]=None if mode=="bombus" else _movable(labels,ag)
     pdraw=[];adraw=[];jdraw=[]
     for _ in range(n_perm):
@@ -113,7 +126,7 @@ def run_partner_test(islands, plants, incidence, animal_labels, animal_genus=Non
         if v is not None:pdraw.append(v)
         if mode!="bombus":
             lab=permute_within_blocks(labels,ag,rng)
-            nx,_=_design(inc,lab,d,mode)
+            nx,_=_design(inc,lab,d,mode,clade_mask)
             av,jv=est(nx,resid),est(nx,ry)
             if av is not None and jv is not None:adraw.append(av);jdraw.append(jv)
     out["permutation_valid"]={"plant":len(pdraw),"animal":len(adraw),"joint":len(jdraw)}
@@ -123,4 +136,20 @@ def run_partner_test(islands, plants, incidence, animal_labels, animal_genus=Non
     out["permutation_p"]=ps
     out["p_primary"]=max(ps.values()) if out["E2_interval"][0]>0 else 1.
     out["status"]="ok"
+    return out
+
+def run_partner_clades(islands,plants,incidence,animal_labels,animal_genus,clades,planned_clades,mode="diet",**kwargs):
+    """Fixed, named clade family; same E2 gates and separate Holm. Remaining focal diet
+    species enter their own control. Clades must be genus-coherent. Estimates overlap
+    geographically and are not independent replications by themselves.
+    """
+    if mode not in {"diet","fruit"}:raise ValueError("requires a diet-defined focal group")
+    clades=np.asarray(clades);g=np.asarray(animal_genus)
+    if clades.shape!=g.shape or pd.isna(clades).any() or pd.isna(g).any():raise ValueError("bad clade labels")
+    if pd.DataFrame({"g":g,"c":clades}).groupby("g").c.nunique().max()>1:raise ValueError("clades must be genus-coherent")
+    names=tuple(planned_clades)
+    if not names or len(set(names))!=len(names):raise ValueError("planned clades must be unique")
+    out={k:run_partner_test(islands,plants,incidence,animal_labels,g,mode=mode,clade_mask=clades==k,**kwargs) for k in names}
+    adjusted=holm_fixed({k:v.get("p_primary") for k,v in out.items()},ids=names)
+    for k,v in out.items():v["holm_p_clade_family"]=adjusted[k]
     return out
