@@ -91,6 +91,9 @@
     "shared_db_research/results/20261125_fd_syndrome_architecture/depth_conditional_original_native__geo_k5.json",
     "shared_db_research/results/20261125_fd_syndrome_architecture/depth_factor_region_verified_job_log.json",
     "shared_db_research/results/20261125_fd_syndrome_architecture/depth_rao_verified_job_log.json",
+    "shared_db_research/results/20261125_fd_syndrome_architecture/hierarchical_diversity_all_recorded.json",
+    "shared_db_research/results/20261125_fd_syndrome_architecture/hierarchical_diversity_high_quality_only.json",
+    "shared_db_research/results/20261125_fd_syndrome_architecture/hierarchical_diversity_original_native.json",
     "shared_db_research/results/20261125_fd_syndrome_architecture/pair_atlas_all_endpoint_robustness.json",
     "shared_db_research/results/20261125_fd_syndrome_architecture/rao_eligibility_all_recorded.json",
     "shared_db_research/results/20261125_fd_syndrome_architecture/rao_eligibility_high_quality_only.json",
@@ -532,6 +535,14 @@
       "shared_db_research/results/20261125_fd_syndrome_architecture/rao_eligibility_all_recorded.json",
       "shared_db_research/results/20261125_fd_syndrome_architecture/rao_eligibility_original_native.json",
       "shared_db_research/results/20261125_fd_syndrome_architecture/rao_eligibility_high_quality_only.json"
+    ]
+  },
+  "fd_hierarchical_diversity_completed_review_20261126": {
+    "scope": "Complete anonymous 24-panel hierarchical Q results from protected island run 45714400415. With-replacement Q and equal sample expectation are distinct from prior distinct-species Rao. Raw alpha decline/beta offset not stable after matching size. Separate shared genus-weight sensitivity; no protected identities, independent ecological replication, or causal inference.",
+    "paths": [
+      "shared_db_research/results/20261125_fd_syndrome_architecture/hierarchical_diversity_all_recorded.json",
+      "shared_db_research/results/20261125_fd_syndrome_architecture/hierarchical_diversity_original_native.json",
+      "shared_db_research/results/20261125_fd_syndrome_architecture/hierarchical_diversity_high_quality_only.json"
     ]
   }
 }
