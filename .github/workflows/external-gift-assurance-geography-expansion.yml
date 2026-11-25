@@ -35,7 +35,9 @@ jobs:
           mkdir -p "$STAGE"
           curl --fail --silent --show-error --location --max-time 180 --max-filesize 10000000 -H "Authorization: Bearer $GH_TOKEN" -H 'Accept: application/vnd.github+json' 'https://api.github.com/repos/zuizui0223/fd/actions/artifacts/15001073268/zip' -o "$STAGE/prior.zip"
           printf '%s  %s\n' '1ee08e7e7f7f5326dc85223310d8fc85a91b248a9c56ae2216fa008c61148812' "$STAGE/prior.zip" | sha256sum -c -
-      - run: python -u scripts/external_gift_assurance_geography_expansion.py --prior "$STAGE/prior.zip" --out work/external_gift_assurance_geography_expansion.json
+          curl --fail --silent --show-error --location --max-time 180 --max-filesize 10000000 -H "Authorization: Bearer $GH_TOKEN" -H 'Accept: application/vnd.github+json' 'https://api.github.com/repos/zuizui0223/fd/actions/artifacts/15002368064/zip' -o "$STAGE/comparison.zip"
+          printf '%s  %s\n' '85c15d81f65f29a1a8ad2ac3ad3ea2b57949d6684e2b9b08526556f56ca73800' "$STAGE/comparison.zip" | sha256sum -c -
+      - run: python -u scripts/external_gift_assurance_geography_expansion.py --prior "$STAGE/prior.zip" --comparison-pilot "$STAGE/comparison.zip" --out work/external_gift_assurance_geography_expansion.json
       - uses: actions/upload-artifact@v4
         with:
           name: external-gift-assurance-geography-expansion
