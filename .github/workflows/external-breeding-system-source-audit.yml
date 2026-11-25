@@ -1,0 +1,26 @@
+name: External measured breeding-system source audit
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - scripts/external_breeding_system_source_audit.py
+      - .github/workflows/external-breeding-system-source-audit.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  source-audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: pip install pandas openpyxl
+      - run: python scripts/external_breeding_system_source_audit.py --self-test
+      - run: python -u scripts/external_breeding_system_source_audit.py --out work/external_breeding_system_source_audit.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: external-breeding-system-source-audit
+          path: work/external_breeding_system_source_audit.json
