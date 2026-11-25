@@ -81,6 +81,14 @@
     "shared_db_research/provenance/pr_inventory.csv",
     "shared_db_research/results/20261125_fd_joint_cells/anonymous_job_log_panels.json",
     "shared_db_research/results/20261125_fd_joint_cells/genus_influence_run_45573904237.json",
+    "shared_db_research/results/20261125_fd_syndrome_architecture/depth_conditional_all_on_native_eligible__geo50_climate10.json",
+    "shared_db_research/results/20261125_fd_syndrome_architecture/depth_conditional_all_on_native_eligible__geo_k5.json",
+    "shared_db_research/results/20261125_fd_syndrome_architecture/depth_conditional_all_recorded__geo50_climate10.json",
+    "shared_db_research/results/20261125_fd_syndrome_architecture/depth_conditional_all_recorded__geo_k5.json",
+    "shared_db_research/results/20261125_fd_syndrome_architecture/depth_conditional_high_quality_only__geo50_climate10.json",
+    "shared_db_research/results/20261125_fd_syndrome_architecture/depth_conditional_high_quality_only__geo_k5.json",
+    "shared_db_research/results/20261125_fd_syndrome_architecture/depth_conditional_original_native__geo50_climate10.json",
+    "shared_db_research/results/20261125_fd_syndrome_architecture/depth_conditional_original_native__geo_k5.json",
     "shared_db_research/results/20261125_fd_syndrome_architecture/pair_atlas_all_endpoint_robustness.json",
     "shared_db_research/scripts/fd_depth_conditional_architecture.py",
     "shared_db_research/scripts/fd_original_global_joint_margin.py",
@@ -486,6 +494,19 @@
       "shared_db_research/results/20261125_fd_syndrome_architecture/pair_atlas_all_endpoint_robustness.json",
       "shared_db_research/scripts/fd_depth_conditional_architecture.py",
       "tests/test_fd_depth_conditional_architecture.py"
+    ]
+  },
+  "fd_depth_conditional_completed_review_20261125": {
+    "scope": "Complete anonymous aggregate outputs from island PR357 successful protected run 45593223580. 64 panels, 12 support-qualified, 2180 paired species, 152 metrics; no protected occurrence/species/region IDs or raw sources. Genus-weight intervals are sensitivities, not calibrated CIs. No direct pollinator or causal inference; result ownership FD.",
+    "paths": [
+      "shared_db_research/results/20261125_fd_syndrome_architecture/depth_conditional_all_recorded__geo_k5.json",
+      "shared_db_research/results/20261125_fd_syndrome_architecture/depth_conditional_all_recorded__geo50_climate10.json",
+      "shared_db_research/results/20261125_fd_syndrome_architecture/depth_conditional_original_native__geo_k5.json",
+      "shared_db_research/results/20261125_fd_syndrome_architecture/depth_conditional_original_native__geo50_climate10.json",
+      "shared_db_research/results/20261125_fd_syndrome_architecture/depth_conditional_all_on_native_eligible__geo_k5.json",
+      "shared_db_research/results/20261125_fd_syndrome_architecture/depth_conditional_all_on_native_eligible__geo50_climate10.json",
+      "shared_db_research/results/20261125_fd_syndrome_architecture/depth_conditional_high_quality_only__geo_k5.json",
+      "shared_db_research/results/20261125_fd_syndrome_architecture/depth_conditional_high_quality_only__geo50_climate10.json"
     ]
   }
 }
