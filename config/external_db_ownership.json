@@ -8,6 +8,7 @@
   "allowed_paths": [
     ".github/workflows/external-db-boundary.yml",
     ".github/workflows/external-floral-syndrome-preflight.yml",
+    ".github/workflows/external-gift-reproductive-assurance.yml",
     ".github/workflows/global_bird_source_audit.yml",
     ".github/workflows/pollinator_guild_source_sensitivity.yml",
     ".github/workflows/tropical_asian_butterfly_intake.yml",
@@ -42,6 +43,7 @@
     "results/20261124_tropical_pollinator_source_intake/ORIGINAL_BEE_REVISED_BUTTERFLY.md",
     "results/20261124_tropical_pollinator_source_intake/THREE_GUILD_AND_LEPTRAITS_VERIFIED.md",
     "results/20261124_tropical_pollinator_source_intake/VERIFIED_BUTTERFLY_BEE_OVERLAP_AND_SENSITIVITY.md",
+    "results/20261125_external_floral_source/gift_coverage_source_verified_job_log.json",
     "results/20261125_external_floral_source/gift_trait_overlap_verified_job_log.json",
     "results/20261125_external_floral_source/preflight_verified_job_log.json",
     "scripts/audit_mdd_bat_diet_metadata.py",
@@ -51,6 +53,7 @@
     "scripts/external_floral_syndrome_preflight.py",
     "scripts/external_gift_coverage_source_audit.py",
     "scripts/external_gift_floral_trait_overlap.py",
+    "scripts/external_gift_reproductive_assurance_pilot.py",
     "scripts/global_bird_source_audit.py",
     "scripts/pollinator_guild_source_sensitivity.py",
     "scripts/run_emln_island_visitor_turnover.py",
@@ -473,6 +476,14 @@
     "paths": [
       "scripts/external_gift_coverage_source_audit.py",
       "results/20261125_external_floral_source/gift_trait_overlap_verified_job_log.json"
+    ]
+  },
+  "external_gift_assurance_pilot_review_20261125": {
+    "scope": "Only official publisher GIFT v3.1 trait, checklist, geographic centroid and overlap endpoints. Metadata-frozen nonoverlapping island and mainland region sample, same-reference-pattern contrasts and explicit missing/questionable status sensitivity. Conditional exploratory estimates, not actual pollination or autonomous selfing. No project-derived flora or traits. Archive official source concentration audit.",
+    "paths": [
+      "scripts/external_gift_reproductive_assurance_pilot.py",
+      ".github/workflows/external-gift-reproductive-assurance.yml",
+      "results/20261125_external_floral_source/gift_coverage_source_verified_job_log.json"
     ]
   }
 }
