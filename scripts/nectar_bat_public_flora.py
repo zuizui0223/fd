@@ -289,7 +289,7 @@ def self_test():
     print("BAT_SYNTHETIC_ESTIMATOR_TEST_PASS",flush=True)
 
 def main():
-    p=argparse.ArgumentParser();p.add_argument("--out",type=pathlib.Path);p.add_argument("--self-test",action="store_true")
+    p=argparse.ArgumentParser();p.add_argument("--out",type=pathlib.Path);p.add_argument("--self-test",action="store_true");p.add_argument("--shared-support",action="store_true")
     a=p.parse_args()
     if a.self_test:self_test();return
     if a.out is None:p.error("--out required")
@@ -314,4 +314,9 @@ def main():
              "warning":"Downscaled expert native range overlap, not observed or confirmed current absence; 1 km simplification particularly limits small-island inference. Strict exact diet matches in bat-positive islands only. Public historical species-name category sets, not true flower dimensions, nocturnal traits, or plant genus-adjusted effects. All panels exploratory, 10-degree physical blocks are not archipelagos. No new causal claim."}
         (a.out/"bat_public_flora.json").write_text(json.dumps(out,indent=2,allow_nan=False))
         for k,v in res.items():print("BAT_PANEL",k,json.dumps(v),flush=True)
+        if a.shared_support:
+            from multiguild_shared_support import same_cohort_support
+            shared=same_cohort_support(tab,geo)
+            (a.out/"multiguild_shared_support.json").write_text(json.dumps(shared,indent=2,allow_nan=False))
+            print("MULTIGUILD_SHARED_SUPPORT",json.dumps(shared,allow_nan=False),flush=True)
 if __name__=="__main__":main()
