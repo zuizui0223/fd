@@ -9,6 +9,7 @@
     ".github/workflows/external-db-boundary.yml",
     ".github/workflows/external-floral-syndrome-preflight.yml",
     ".github/workflows/external-gift-assurance-exact-cohort.yml",
+    ".github/workflows/external-gift-assurance-geography-expansion.yml",
     ".github/workflows/external-gift-reproductive-assurance.yml",
     ".github/workflows/global_bird_source_audit.yml",
     ".github/workflows/pollinator_guild_source_sensitivity.yml",
@@ -44,6 +45,7 @@
     "results/20261124_tropical_pollinator_source_intake/ORIGINAL_BEE_REVISED_BUTTERFLY.md",
     "results/20261124_tropical_pollinator_source_intake/THREE_GUILD_AND_LEPTRAITS_VERIFIED.md",
     "results/20261124_tropical_pollinator_source_intake/VERIFIED_BUTTERFLY_BEE_OVERLAP_AND_SENSITIVITY.md",
+    "results/20261125_external_floral_source/gift_assurance_exact_cohort_verified_job_log.json",
     "results/20261125_external_floral_source/gift_assurance_pilot_verified_job_log.json",
     "results/20261125_external_floral_source/gift_coverage_source_verified_job_log.json",
     "results/20261125_external_floral_source/gift_trait_overlap_verified_job_log.json",
@@ -54,6 +56,7 @@
     "scripts/export_mdd_bat_ranges.R",
     "scripts/external_floral_syndrome_preflight.py",
     "scripts/external_gift_assurance_exact_cohort.py",
+    "scripts/external_gift_assurance_geography_expansion.py",
     "scripts/external_gift_coverage_source_audit.py",
     "scripts/external_gift_floral_trait_overlap.py",
     "scripts/external_gift_reproductive_assurance_pilot.py",
@@ -495,6 +498,14 @@
       "scripts/external_gift_assurance_exact_cohort.py",
       ".github/workflows/external-gift-assurance-exact-cohort.yml",
       "results/20261125_external_floral_source/gift_assurance_pilot_verified_job_log.json"
+    ]
+  },
+  "external_gift_assurance_geography_expansion_review_20261125": {
+    "scope": "Official external-only GIFT 3.1 publisher endpoints and previous external pilot artifact. Frozen geography prefix, up to 288 outcome-blind target entities, paired common-reference contrasts, disjoint roster sensitivity, coherent genus reweighting, leave-each-reference-out. Not independent observations or causal evolutionary evidence. No own-project inputs. Archived exact-cohort results.",
+    "paths": [
+      "scripts/external_gift_assurance_geography_expansion.py",
+      ".github/workflows/external-gift-assurance-geography-expansion.yml",
+      "results/20261125_external_floral_source/gift_assurance_exact_cohort_verified_job_log.json"
     ]
   }
 }
