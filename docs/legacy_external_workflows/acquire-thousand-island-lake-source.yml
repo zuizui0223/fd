@@ -1,0 +1,85 @@
+name: fd public Dryad Thousand Island Lake source acquisition
+
+on:
+  push:
+    branches:
+      - analysis/pollinator-loss-functional-assembly-20261113
+    paths:
+      - '.github/workflows/acquire-thousand-island-lake-source.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  dryad-source:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    env:
+      DIR: /tmp/fd-til-dryad
+      API: https://datadryad.org/api/v2/datasets/doi%3A10.5061%2Fdryad.612jm64gq
+    steps:
+      - uses: actions/checkout@v4
+      - name: Discover official versioned Dryad source and fetch original dataset bundle
+        run: |
+          set -euo pipefail
+          mkdir -p "$DIR"
+          curl --fail --location --retry 4 --retry-all-errors \
+            -H 'Accept: application/json' \
+            -A 'fd-island-pollinator-source-provenance/20261113 (noncommercial academic)' \
+            --max-time 100 "$API" -o "$DIR/official_metadata.json"
+          python - <<'PY'
+          import json,os
+          from pathlib import Path
+          d=json.loads((Path(os.environ["DIR"])/"official_metadata.json").read_text())
+          s=json.dumps(d,ensure_ascii=False)
+          assert 'dryad.612jm64gq' in s
+          print({'source':'Dryad official API','metadata_json_bytes':len(s),
+                 'source_date':d.get('publicationDate'),
+                 'version':d.get('versionNumber')})
+          PY
+          curl --fail --location --retry 4 --retry-all-errors \
+            -A 'fd-island-pollinator-source-provenance/20261113' \
+            --max-time 240 "$API/download" -o "$DIR/original_dataset_bundle.zip"
+          test -s "$DIR/original_dataset_bundle.zip"
+          unzip -tq "$DIR/original_dataset_bundle.zip"
+          unzip -l "$DIR/original_dataset_bundle.zip" | tail -25
+          sha256sum "$DIR/original_dataset_bundle.zip" | tee "$DIR/bundle.sha256"
+      - name: Audit original package filenames and archives without inventing ecological results
+        run: |
+          python - <<'PY'
+          import hashlib,json,os,zipfile
+          from pathlib import Path
+          root=Path(os.environ["DIR"])
+          archive=root/"original_dataset_bundle.zip"
+          with zipfile.ZipFile(archive) as z:
+              files=[i for i in z.infolist() if not i.is_dir()]
+              names=[i.filename for i in files]
+              assert any('plant_bee_interactions_on_islands.zip' in x for x in names)
+              assert any('bee_visitation_frequency_to_each_floral_color_within_each_island.xlsx' in x for x in names)
+              assert any('flower_color_reflectance_spectra.xlsx' in x for x in names)
+              report={
+                 'status':'PINNED_ORIGINAL_PUBLIC_DRYAD_BUNDLE_ACQUIRED',
+                 'source_doi':'10.5061/dryad.612jm64gq',
+                 'source_bundle_sha256':hashlib.sha256(archive.read_bytes()).hexdigest(),
+                 'n_archive_files':len(files),
+                 'source_file_basenames':[Path(x).name for x in names],
+                 'total_source_bytes_in_archive':sum(x.file_size for x in files),
+                 'island_n':41,'mainland_sampling_sites_n':16,
+                 'field_years':[2023,2024],
+                 'n_plant_bee_interactions_observed':None,
+                 'existing_study_source_not_independent_global_effect':True,
+                 'island_mainland_pairwise_functional_diversity_impact_not_yet_tested':True,
+              }
+          (root/'source_validation_receipt.json').write_text(json.dumps(report,indent=2)+"\n")
+          print(json.dumps(report,sort_keys=True))
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: fd-til-dryad-original-source-${{ github.run_id }}
+          path: |
+            /tmp/fd-til-dryad/original_dataset_bundle.zip
+            /tmp/fd-til-dryad/source_validation_receipt.json
+            /tmp/fd-til-dryad/bundle.sha256
+          if-no-files-found: error
+          retention-days: 90

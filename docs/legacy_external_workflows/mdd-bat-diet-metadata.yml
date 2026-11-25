@@ -1,0 +1,25 @@
+name: MDD bat diet taxonomy source eligibility
+on:
+  push:
+    branches: [analysis/range-map-nectarivore-20261125]
+    paths:
+      - scripts/audit_mdd_bat_diet_metadata.py
+      - .github/workflows/mdd-bat-diet-metadata.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  metadata:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: pip install pandas numpy
+      - run: python -u scripts/audit_mdd_bat_diet_metadata.py --out /tmp/fd-bat/anonymous_bat_metadata.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: anonymous-bat-diet-source-metadata
+          path: /tmp/fd-bat/anonymous_bat_metadata.json

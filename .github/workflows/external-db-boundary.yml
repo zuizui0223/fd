@@ -1,0 +1,21 @@
+name: External DB ownership boundary
+on:
+  pull_request:
+  push:
+    branches: [reorg/external-db-only-20261125]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: |
+          python scripts/check_external_source_boundary.py
+          python -m pip install -e '.[test]'
+          python -m compileall -q src scripts tests
+          python -m pytest -q
