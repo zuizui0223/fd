@@ -44,6 +44,44 @@ def km(a,b):
     h=math.sin((lat2-lat1)/2)**2+math.cos(lat1)*math.cos(lat2)*math.sin((lon2-lon1)/2)**2
     return 6371*2*math.asin(math.sqrt(min(1,max(0,h))))
 
+def overlap_graph(rows,candidates):
+    """Publisher overlap fractions. Filter candidate IDs before validating values.
+
+    The official GIFT_no_overlap R function filters both endpoints to candidate
+    IDs before applying the 0.1 fraction threshold. Never rescale out-of-range
+    values or treat a relevant missing value as zero.
+    """
+    edges=collections.defaultdict(set);quarantine=set();counts=collections.Counter()
+    reasons=collections.Counter();minmax=[None,None]
+    for r in rows:
+        a=ident(r["entity1"]);b=ident(r["entity2"])
+        counts["raw_rows"]+=1
+        if a not in candidates or b not in candidates:
+            counts["irrelevant_rows"]+=1
+            continue
+        counts["candidate_rows"]+=1
+        x=num(r.get("overlap12"));y=num(r.get("overlap21"))
+        if x is None or y is None:
+            reasons["missing_or_nonfinite"]+=1
+            quarantine.update((a,b));continue
+        if not (0<=x<=1 and 0<=y<=1):
+            reasons["out_of_unit_interval"]+=1
+            quarantine.update((a,b));continue
+        counts["valid_candidate_rows"]+=1
+        lo,hi=min(x,y),max(x,y)
+        minmax=[lo if minmax[0] is None else min(lo,minmax[0]),
+                hi if minmax[1] is None else max(hi,minmax[1])]
+        if a!=b and hi>.1:
+            edges[a].add(b);edges[b].add(a)
+    audit={k:counts[k] for k in ("raw_rows","irrelevant_rows","candidate_rows","valid_candidate_rows")}
+    audit.update({"invalid_candidate_rows":sum(reasons.values()),
+                  "invalid_reasons":dict(reasons),"quarantined_candidate_entities":len(quarantine),
+                  "eligible_candidate_entities":len(candidates),"valid_fraction_range":minmax,
+                  "threshold":.1,"rule":"candidate pairs first; quarantine both endpoints of any invalid relevant pair"})
+    assert audit["raw_rows"]==audit["irrelevant_rows"]+audit["candidate_rows"]
+    assert audit["candidate_rows"]==audit["valid_candidate_rows"]+audit["invalid_candidate_rows"]
+    return edges,quarantine,audit
+
 def geo_plan(eligible,environment,overlap):
     coords={};bad=set()
     for r in environment:
@@ -52,12 +90,13 @@ def geo_plan(eligible,environment,overlap):
         if i in coords and coords[i]!=(lat,lon):bad.add(i)
         coords[i]=(lat,lon)
     for i in bad:coords.pop(i,None)
-    edges=collections.defaultdict(set)
-    for r in overlap:
-        a=ident(r["entity1"]);b=ident(r["entity2"])
-        x=num(r.get("overlap12"));y=num(r.get("overlap21"))
-        if x is None or y is None or not(0<=x<=1 and 0<=y<=1):raise ValueError("overlap fraction schema not validated")
-        if a!=b and max(x,y)>.1:edges[a].add(b);edges[b].add(a)
+    candidates=(set(eligible["Island"])|set(eligible["Mainland"]))&coords.keys()
+    edges,quarantine,overlap_audit=overlap_graph(overlap,candidates)
+    print("EXTERNAL_ASSURANCE_OVERLAP_AUDIT",json.dumps(overlap_audit,allow_nan=False),flush=True)
+    if not overlap_audit["valid_candidate_rows"]:
+        raise ValueError("no validated overlap rows among candidate entities")
+    # Do not infer a zero overlap from a malformed relevant record.
+    coords={i:v for i,v in coords.items() if i not in quarantine}
     main=sorted(set(eligible["Mainland"])&coords.keys(),key=priority)
     mset=set();mkeep=[]
     for m in main:
@@ -93,7 +132,7 @@ def geo_plan(eligible,environment,overlap):
     donors={m for i,m,d,g in chosen}
     assert not any(edges[i]&donors for i in keep)
     assert not any(edges[m]&donors for m in donors)
-    out={"eligible_island_entities":len(eligible["Island"]),"eligible_mainland_entities":len(eligible["Mainland"]),
+    out={"overlap_schema_audit":overlap_audit,"eligible_island_entities":len(eligible["Island"]),"eligible_mainland_entities":len(eligible["Mainland"]),
          "valid_island_centroids":len(set(eligible["Island"])&coords.keys()),"valid_mainland_centroids":len(main),
          "nonoverlapping_mainland_candidates":len(mkeep),"islands_without_comparator_within_2000km":no_donor,
          "selected_island_entities":len(chosen),"selected_mainland_comparators":len(donors),
@@ -184,6 +223,17 @@ def main():
         for k in ENDPOINTS:assert contrast(z,q,k)["delta"]==1
         assert contrast(z[:4],q,"raw") is None
         assert abs(km((0,0),(0,1))-111.195)<.01
+        edges,bad,audit=overlap_graph([
+            {"entity1":"9","entity2":"1","overlap12":None,"overlap21":"-1"},
+            {"entity1":"1","entity2":"2","overlap12":".2","overlap21":".01"},
+            {"entity1":"2","entity2":"3","overlap12":"1.01","overlap21":".4"},
+            {"entity1":"1","entity2":"4","overlap12":".1","overlap21":".01"},
+            {"entity1":"4","entity2":"5","overlap12":None,"overlap21":"0"},
+        ],{"1","2","3","4","5"})
+        assert bad=={"2","3","4","5"} and edges["1"]=={"2"}
+        assert audit["irrelevant_rows"]==1 and audit["valid_candidate_rows"]==2
+        assert audit["invalid_reasons"]=={"out_of_unit_interval":1,"missing_or_nonfinite":1}
+        assert audit["valid_fraction_range"]==[.01,.2]
         print("EXTERNAL_GIFT_ASSURANCE_TEST_PASS");return
     reg,rpin=fetch("regions");lst,lpin=fetch("lists");tax,tpin=fetch("taxonomy")
     assert rpin["sha256"]=="d12d9129eb8aeb7aafb295ddf99b3ffdd810dcd628ab951ca31e560ab772b64b"
@@ -225,6 +275,6 @@ def main():
     out={"metadata_pins":[rpin,lpin,tpin,epin,opin],"trait_pins":{k:PIN[k] for k in ("guild_broad","self_fertilization")},
          "geography_census":census,"source_files":list(sources.values()),"download_errors":errors,
          "panels":panels,"primary_post_coverage_exploratory":SCOPES[0]+"__common_reference_pattern",
-         "warning":"Nonoverlap uses publisher overlap fraction >0.1, not proof of geographic independence. Closest mainland centroid within 2000 km is not proven source or ecological match. Native missing-question flags are not verified absence of doubts; strict sensitivity requires all flags zero. Repeated taxa and source publications remain dependent. Reported self fertilization is not autonomous selfing and GIFT modes are not verified observed pollination. Geographic and donor bootstrap intervals conditional on observed species/reference inputs; no causal or evolutionary conclusion. No project-created botanical data."}
+         "warning":"Nonoverlap uses validated publisher overlap fractions >0.1 among candidate entities; any invalid relevant pair quarantines both endpoints. No unknown overlap is converted to zero. Not proof of geographic independence. Closest mainland centroid within 2000 km is not proven source or ecological match. Native missing-question flags are not verified absence of doubts; strict sensitivity requires all flags zero. Repeated taxa and source publications remain dependent. Reported self fertilization is not autonomous selfing and GIFT modes are not verified observed pollination. Geographic and donor bootstrap intervals conditional on observed species/reference inputs; no causal or evolutionary conclusion. No project-created botanical data."}
     a.out.parent.mkdir(parents=True,exist_ok=True);a.out.write_text(json.dumps(out,indent=2,allow_nan=False))
 if __name__=="__main__":main()
