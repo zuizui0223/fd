@@ -1,11 +1,11 @@
 # FD — floral functional diversity and pollinator channels
 
-**Proposed scientific ownership, 25 November 2026:** FD owns floral functional diversity, syndrome composition and pollinator-channel research regardless of source. island retains canonical data custody, protected execution and Chapter 1 reproductive-assurance research. See [shared-source research and ownership](shared_db_research/README.md). Shared-source snapshots are archival, not active external workflows; no raw data copied. Historical external-only safeguards remain active for external workflows.
+**Scientific ownership (effective upon merging PR #76):** FD owns floral functional diversity, syndrome composition and pollinator-channel research regardless of source. island retains canonical data custody, protected execution and Chapter 1 reproductive-assurance research. See [shared-source research and ownership](shared_db_research/README.md). Shared-source snapshots are archival, not active external workflows; no raw data copied. Historical external-only safeguards remain active for external workflows.
 
 ## Research here
 - Independent bird occurrence/checklist, diet, and flight morphology; bee/butterfly source geometry and trait audits; documented source limitations.
 - Independent EMLN observed flower-visitor turnover, source-only bird nectar metadata and independent MDD bat source/trait audit. GloBI external catalog can be used if independent of focal plant records.
-- Future external-only functional-diversity research with explicitly named official source releases and provenance. No biological claim of pollinator replacement follows from the external source audits.
+- Shared-database floral functional diversity, functional reassembly, pollinator-channel opportunity, and syndrome composition. See [FD evidence spine](shared_db_research/FD_EVIDENCE_SPINE.md). No biological claim of pollinator replacement follows from the external source audits.
 
 ## Boundary checks
 ```sh
