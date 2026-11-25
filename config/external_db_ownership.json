@@ -95,6 +95,7 @@
     "shared_db_research/scripts/fd_original_joint_cells.py",
     "shared_db_research/scripts/fd_original_joint_genus_influence.py",
     "shared_db_research/scripts/fd_original_tropical_pollinator_bridge.py",
+    "shared_db_research/scripts/fd_pairwise_flower_space.py",
     "src/fd/__init__.py",
     "src/fd/avoniche_nectar_preflight.py",
     "src/fd/elton_globi_guild_bridge.py",
