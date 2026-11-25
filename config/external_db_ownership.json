@@ -8,6 +8,7 @@
   "allowed_paths": [
     ".github/workflows/external-breeding-system-source-audit.yml",
     ".github/workflows/external-db-boundary.yml",
+    ".github/workflows/external-measured-breeding-calibration.yml",
     ".github/workflows/global_bird_source_audit.yml",
     ".github/workflows/pollinator_guild_source_sensitivity.yml",
     ".github/workflows/tropical_asian_butterfly_intake.yml",
@@ -42,12 +43,14 @@
     "results/20261124_tropical_pollinator_source_intake/ORIGINAL_BEE_REVISED_BUTTERFLY.md",
     "results/20261124_tropical_pollinator_source_intake/THREE_GUILD_AND_LEPTRAITS_VERIFIED.md",
     "results/20261124_tropical_pollinator_source_intake/VERIFIED_BUTTERFLY_BEE_OVERLAP_AND_SENSITIVITY.md",
+    "results/20261125_external_breeding_system/pmc_cloud_verified_job_log.json",
     "results/20261125_external_breeding_system/source_audit_verified_job_log.json",
     "scripts/audit_mdd_bat_diet_metadata.py",
     "scripts/bat_mdd_synonym_audit.py",
     "scripts/check_external_source_boundary.py",
     "scripts/export_mdd_bat_ranges.R",
     "scripts/external_breeding_system_source_audit.py",
+    "scripts/external_measured_breeding_calibration.py",
     "scripts/global_bird_source_audit.py",
     "scripts/pollinator_guild_source_sensitivity.py",
     "scripts/run_emln_island_visitor_turnover.py",
@@ -463,6 +466,14 @@
     "paths": [
       "docs/EXTERNAL_BREEDING_SYSTEM_CALIBRATION_CONTRACT_20261125.md",
       "results/20261125_external_breeding_system/source_audit_verified_job_log.json"
+    ]
+  },
+  "external_measured_calibration_review_20261125": {
+    "scope": "Verified DOI 10.1038/ncomms13313 CC BY workbook SHA cb17009ae65c4f6cb2d28b21239714782600d0904effa77c5635249d28e62fc0 and official GIFT 3.1 publisher species/trait endpoints. Exact normalized binomial joins, same-row same-metric SC/AF pairs, pre-outcome cell/lineage/source support gates, genus-weight sensitivity. No own-project DB, no autonomous sexual selfing or causal mechanism claim; AF may include apomixis. Archive aggregate source audit only.",
+    "paths": [
+      "scripts/external_measured_breeding_calibration.py",
+      ".github/workflows/external-measured-breeding-calibration.yml",
+      "results/20261125_external_breeding_system/pmc_cloud_verified_job_log.json"
     ]
   }
 }
