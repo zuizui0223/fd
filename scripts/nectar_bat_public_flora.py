@@ -156,6 +156,8 @@ def incidence(units,p,d):
     tree=shapely.STRtree(arr)
     # columns: non-nectar, partial, specialist, unmatched; distinct map species.
     counts={t:np.zeros((len(u),4),dtype=int) for t in (.1,.5)}
+    from bat_family_context import allocate, add_counts, attach_counts
+    families={t:allocate(len(u)) for t in counts}
     occurrence={t:set() for t in counts}
     matched=set(p.name)&set(d.index)
     for s,g in p.groupby("name",sort=True):
@@ -167,6 +169,7 @@ def incidence(units,p,d):
         for t,c in counts.items():
             selected=hit[cover>=t-1e-12]
             c[selected,k]+=1
+            if k!=3:add_counts(families[t],d.loc[s,"family"],k,selected)
             if len(selected):occurrence[t].add(s)
     tables={};summary={}
     for t,c in counts.items():
@@ -175,6 +178,7 @@ def incidence(units,p,d):
         v["range_area"]=area/1e6
         v["total"]=c.sum(1)
         v["nectar"]=v.partial+v.specialist
+        attach_counts(v,families[t])
         # Unmatched taxa remain unknown, never assigned zero nectar.
         v["complete"]=v.unknown.eq(0)&v.total.gt(0)
         v["match_share"]=np.divide((v.total-v.unknown).to_numpy(),v.total.to_numpy(),out=np.full(len(v),np.nan),where=v.total.gt(0).to_numpy())
@@ -279,6 +283,8 @@ def panels(f,tab,geo):
 
 def self_test():
     geometry_self_test()
+    from bat_family_context import self_test as family_self_test
+    family_self_test()
     rng=np.random.default_rng(SEED);n=240
     d=pd.DataFrame({"block":np.repeat(np.arange(30),8),"a":np.tile(np.arange(8)/7,30),"b":rng.normal(size=n),"c":rng.normal(size=n)})
     for o in OUTCOMES:d[o]=.5*d.a-.1*d.b+rng.normal(0,.001,n)
@@ -338,6 +344,10 @@ def main():
                 assert (new.loc[old.complete,["other","partial","specialist","unknown"]]==old.loc[old.complete,["other","partial","specialist","unknown"]]).all().all()
                 assert new.loc[old.complete,"complete"].all()
             res2=panels(f,tab2,geo)
+            from bat_family_context import clade_panels
+            family_results={"exact":clade_panels(f,tab,geo,estimate),"mdd_singleton":clade_panels(f,tab2,geo,estimate)}
+            (a.out/"bat_family_context.json").write_text(json.dumps(family_results,indent=2,allow_nan=False))
+            print("BAT_FAMILY_CONTEXT",json.dumps(family_results,allow_nan=False),flush=True)
             from bat_synonym_cohort_diagnostic import diagnostic
             cohort=diagnostic(f,tab,tab2,geo,estimate)
             for t in (.5,.1):
