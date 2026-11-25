@@ -17,9 +17,9 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.11'
-      - run: pip install pandas openpyxl
+      - run: pip install pandas openpyxl xlrd
       - run: python scripts/external_breeding_system_source_audit.py --self-test
-      - run: python -u scripts/external_breeding_system_source_audit.py --out work/external_breeding_system_source_audit.json
+      - run: python -u scripts/external_breeding_system_source_audit.py --service official-pmc-cloud --out work/external_breeding_system_source_audit.json
       - uses: actions/upload-artifact@v4
         with:
           name: external-breeding-system-source-audit
