@@ -148,7 +148,7 @@ def ranges(tmp):
     assert np.isfinite(shapely.area(p.geometry.to_numpy())).all()
     return p,{"rds_md5":RDS_MD5,"rds_sha256":digest,"map_species":int(names.nunique()),"polygon_pieces":len(p),"crossing_polygons":crossing,"crossing_species":len(crossing_species),"wide_no_jump":wide_no_jump}
 
-def incidence(units,p,d):
+def incidence(units,p,d,strict_family_map=None,exact_diet=None):
     u=units.to_crs(6933).reset_index(drop=True)
     arr=shapely.make_valid(u.geometry.to_numpy())
     area=shapely.area(arr)
@@ -158,6 +158,12 @@ def incidence(units,p,d):
     counts={t:np.zeros((len(u),4),dtype=int) for t in (.1,.5)}
     from bat_family_context import allocate, add_counts, attach_counts
     families={t:allocate(len(u)) for t in counts}
+    from bat_family_local_completeness import allocate as local_allocate, add as local_add, attach as local_attach
+    local=None
+    if strict_family_map is not None:
+        assert exact_diet is not None
+        local={t:{z:local_allocate(len(u)) for z in ('local_exact','local_mdd')} for t in counts}
+        exact_unknown={t:np.zeros(len(u),dtype=int) for t in counts}
     occurrence={t:set() for t in counts}
     matched=set(p.name)&set(d.index)
     for s,g in p.groupby("name",sort=True):
@@ -170,6 +176,12 @@ def incidence(units,p,d):
             selected=hit[cover>=t-1e-12]
             c[selected,k]+=1
             if k!=3:add_counts(families[t],d.loc[s,"family"],k,selected)
+            if local is not None:
+                ke=3 if s not in exact_diet.index else 2 if exact_diet.loc[s,'nectar']>=50 else 1 if exact_diet.loc[s,'nectar']>0 else 0
+                family=strict_family_map.get(s)
+                local_add(local[t]['local_exact'],family,ke,selected)
+                local_add(local[t]['local_mdd'],family,k,selected)
+                if ke==3:exact_unknown[t][selected]+=1
             if len(selected):occurrence[t].add(s)
     tables={};summary={}
     for t,c in counts.items():
@@ -179,6 +191,10 @@ def incidence(units,p,d):
         v["total"]=c.sum(1)
         v["nectar"]=v.partial+v.specialist
         attach_counts(v,families[t])
+        if local is not None:
+            for prefix,a in local[t].items():local_attach(v,a,prefix)
+            v['local_exact_global_unknown']=exact_unknown[t]
+            v['local_mdd_global_unknown']=v.unknown
         # Unmatched taxa remain unknown, never assigned zero nectar.
         v["complete"]=v.unknown.eq(0)&v.total.gt(0)
         v["match_share"]=np.divide((v.total-v.unknown).to_numpy(),v.total.to_numpy(),out=np.full(len(v),np.nan),where=v.total.gt(0).to_numpy())
@@ -285,6 +301,8 @@ def self_test():
     geometry_self_test()
     from bat_family_context import self_test as family_self_test
     family_self_test()
+    from bat_family_local_completeness import self_test as local_self_test
+    local_self_test()
     rng=np.random.default_rng(SEED);n=240
     d=pd.DataFrame({"block":np.repeat(np.arange(30),8),"a":np.tile(np.arange(8)/7,30),"b":rng.normal(size=n),"c":rng.normal(size=n)})
     for o in OUTCOMES:d[o]=.5*d.a-.1*d.b+rng.normal(0,.001,n)
@@ -332,14 +350,16 @@ def main():
             for k,v in m0["panels"].items():print("BAT_UNKNOWN_PANEL",k,json.dumps(v),flush=True)
         if a.synonym_sensitivity:
             from bat_mdd_synonym_audit import build
-            aug,audit=build(set(p.name),d)
+            aug,audit,family_map,family_audit=build(set(p.name),d,return_taxonomy=True)
             print("BAT_MDD_CROSSWALK",json.dumps(audit,allow_nan=False),flush=True)
             (a.out/"mdd_crosswalk_audit.json").write_text(json.dumps(audit,indent=2,allow_nan=False))
-            tab2,counts2=incidence(units[units.area_km2.ge(20)],p,aug)
+            tab2,counts2=incidence(units[units.area_km2.ge(20)],p,aug,strict_family_map=family_map,exact_diet=d)
             print("BAT_MDD_COVERAGE",json.dumps(counts2,allow_nan=False),flush=True)
             for t in tab:
                 old=tab[t].set_index("island_id");new=tab2[t].set_index("island_id").loc[old.index]
                 assert np.array_equal(old.total,new.total)
+                assert np.array_equal(old.unknown,new.local_exact_global_unknown)
+                assert np.array_equal(new.unknown,new.local_mdd_global_unknown)
                 assert (new.unknown<=old.unknown).all() and (new.nectar>=old.nectar).all()
                 assert (new.loc[old.complete,["other","partial","specialist","unknown"]]==old.loc[old.complete,["other","partial","specialist","unknown"]]).all().all()
                 assert new.loc[old.complete,"complete"].all()
@@ -348,6 +368,11 @@ def main():
             family_results={"exact":clade_panels(f,tab,geo,estimate),"mdd_singleton":clade_panels(f,tab2,geo,estimate)}
             (a.out/"bat_family_context.json").write_text(json.dumps(family_results,indent=2,allow_nan=False))
             print("BAT_FAMILY_CONTEXT",json.dumps(family_results,allow_nan=False),flush=True)
+            from bat_family_local_completeness import panels as local_panels
+            local_results=local_panels(f,tab2,geo,estimate)
+            local_results['taxonomy']=family_audit
+            (a.out/'bat_family_local_completeness.json').write_text(json.dumps(local_results,indent=2,allow_nan=False))
+            print('BAT_FAMILY_LOCAL_COMPLETENESS',json.dumps(local_results,allow_nan=False),flush=True)
             from bat_synonym_cohort_diagnostic import diagnostic
             cohort=diagnostic(f,tab,tab2,geo,estimate)
             for t in (.5,.1):
