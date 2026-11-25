@@ -1,7 +1,7 @@
 name: Bombus specific floral-form contrast
 on:
-  push:
-    branches: [analysis/bombus-floral-shape-20261125]
+  pull_request:
+    branches: [main]
     paths:
       - scripts/bombus_public_flora.py
       - .github/workflows/bombus_public_flora.yml
@@ -19,6 +19,7 @@ jobs:
         with:
           python-version: '3.11'
       - run: pip install pandas numpy pyshp pyproj
+      - run: python scripts/bombus_public_flora.py --self-test
       - run: python scripts/bombus_public_flora.py --out work/bombus_public
         env:
           GH_TOKEN: ${{ github.token }}
