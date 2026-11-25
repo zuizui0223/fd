@@ -7,6 +7,8 @@ import numpy as np
 import pandas as pd
 import geopandas as gpd
 import shapely
+from shapely.geometry import Polygon, box
+from shapely.affinity import translate
 from tropical_pollinator_public_flora_bridge import BASE, GEO_SHA, gshhg
 from tropical_pollinator_source_preflight import get
 
@@ -49,6 +51,72 @@ def polygons(g):
         return [q for x in g.geoms for q in polygons(x)]
     return []
 
+def geographic_parts(poly):
+    """Split genuinely dateline-crossing rings before planar projection.
+
+    A wide bounding box alone is not evidence of a crossing. Only a longitude
+    jump >180 degrees triggers shortest-arc unwrapping. Align holes with the
+    exterior and conserve the repaired polygon's planar degree-area when
+    clipping. Nonclosing/winding rings fail rather than invent coverage.
+    """
+    rings=[np.asarray(poly.exterior.coords,float)[:,:2]]+[np.asarray(h.coords,float)[:,:2] for h in poly.interiors]
+    for a in rings:
+        if not np.isfinite(a).all() or np.any(np.abs(a[:,0])>180+1e-7) or np.any(np.abs(a[:,1])>90+1e-7):
+            raise ValueError("Out-of-domain geographic coordinates")
+    crossing=any(np.any(np.abs(np.diff(a[:,0]))>180+1e-8) for a in rings)
+    wide=poly.bounds[2]-poly.bounds[0]>180
+    if not crossing:
+        return polygons(shapely.make_valid(poly)),False,wide
+    def unwrap(a):
+        b=a.copy()
+        b[:,0]=np.rad2deg(np.unwrap(np.deg2rad(a[:,0])))
+        if not np.allclose(b[0],b[-1],rtol=0,atol=1e-7):
+            raise ValueError("Nonclosing longitude ring: ambiguous global winding")
+        b[-1]=b[0]
+        if np.ptp(b[:,0])>=360-1e-7:
+            raise ValueError("Ambiguous global longitude extent")
+        return b
+    ext=unwrap(rings[0])
+    center=(ext[:,0].min()+ext[:,0].max())/2
+    holes=[]
+    for a in rings[1:]:
+        h=unwrap(a)
+        h[:,0]+=360*round((center-(h[:,0].min()+h[:,0].max())/2)/360)
+        holes.append(h)
+    shell=Polygon(ext)
+    if any(not shell.covers(Polygon(h).representative_point()) for h in holes):
+        raise ValueError("Dateline hole could not be aligned")
+    original=polygons(shapely.make_valid(Polygon(ext,holes)))
+    pieces=[]
+    for g in original:
+        lo=int(np.floor((g.bounds[0]+180)/360));hi=int(np.floor((g.bounds[2]+180)/360))
+        for band in range(lo,hi+1):
+            clipped=g.intersection(box(-180+360*band,-90,180+360*band,90))
+            pieces.extend(translate(q,xoff=-360*band) for q in polygons(clipped) if q.area>0)
+    before=sum(q.area for q in original);after=sum(q.area for q in pieces)
+    if before<=0 or not np.isclose(before,after,rtol=1e-8,atol=1e-10):
+        raise ValueError("Dateline clipping failed area conservation")
+    if any(q.bounds[0]<-180-1e-7 or q.bounds[2]>180+1e-7 for q in pieces):
+        raise ValueError("Dateline clipping escaped longitude domain")
+    return pieces,True,wide
+
+def geometry_self_test():
+    # Narrow crossing rectangle should not cover Greenwich. Preserve a hole
+    # crossing the same seam, and distinguish genuinely wide no-jump rings.
+    p=Polygon([(179,-2),(-179,-2),(-179,2),(179,2),(179,-2)],
+              [[(179.5,-1),(-179.5,-1),(-179.5,1),(179.5,1),(179.5,-1)]])
+    g,c,w=geographic_parts(p)
+    assert c and w and len(g)==2 and np.isclose(sum(x.area for x in g),6.)
+    assert all(not x.intersects(box(-10,-3,10,3)) for x in g)
+    assert all(x.is_valid for x in g)
+    wide=Polygon([(-110,-2),(0,-2),(110,-2),(110,2),(0,2),(-110,2),(-110,-2)])
+    g,c,w=geographic_parts(wide)
+    assert w and not c and np.isclose(sum(x.area for x in g),880.)
+    ordinary=box(30,-2,32,2)
+    g,c,w=geographic_parts(ordinary)
+    assert not c and not w and np.isclose(sum(x.area for x in g),8.)
+    print("BAT_DATELINE_GEOMETRY_TEST_PASS",flush=True)
+
 def ranges(tmp):
     raw=download(RDS_URL,100_000_000)
     assert hashlib.md5(raw).hexdigest()==RDS_MD5
@@ -61,18 +129,24 @@ def ranges(tmp):
     g=g.to_crs(4326)
     names=g.sciname.map(norm)
     assert names.nunique()>500 and names.ne("").all()
-    # Reject unsplit antimeridian polygons before a global planar projection.
-    pieces=[]
+    # Inspect raw rings before make_valid, which could otherwise repair a
+    # crossing ring into a perfectly valid polygon on the wrong hemisphere.
+    pieces=[];crossing=wide_no_jump=0;crossing_species=set()
     for s,geom in zip(names,g.geometry):
-        for q in polygons(shapely.make_valid(geom)):
-            if q.bounds[2]-q.bounds[0]>180:
-                raise RuntimeError("Unsplit antimeridian range polygon: inspect source before inference")
-            if q.area>0:pieces.append((s,q))
+        for q in polygons(geom):
+            try: parts,changed,wide=geographic_parts(q)
+            except ValueError as e:
+                raise RuntimeError("Ambiguous range geometry; source not scored: "+str(e)) from e
+            crossing+=int(changed);wide_no_jump+=int(wide and not changed)
+            if changed:crossing_species.add(s)
+            pieces.extend((s,z) for z in parts if z.area>0)
+    print("BAT_GEOMETRY_AUDIT",json.dumps({"crossing_polygons":crossing,
+        "crossing_species":len(crossing_species),"wide_no_jump":wide_no_jump}),flush=True)
     p=gpd.GeoDataFrame(pieces,columns=["name","geometry"],geometry="geometry",crs=4326).to_crs(6933)
     assert p.name.nunique()==names.nunique()
     p.geometry=shapely.make_valid(p.geometry.to_numpy())
     assert np.isfinite(shapely.area(p.geometry.to_numpy())).all()
-    return p,{"rds_md5":RDS_MD5,"rds_sha256":digest,"map_species":int(names.nunique()),"polygon_pieces":len(p)}
+    return p,{"rds_md5":RDS_MD5,"rds_sha256":digest,"map_species":int(names.nunique()),"polygon_pieces":len(p),"crossing_polygons":crossing,"crossing_species":len(crossing_species),"wide_no_jump":wide_no_jump}
 
 def incidence(units,p,d):
     u=units.to_crs(6933).reset_index(drop=True)
@@ -103,7 +177,7 @@ def incidence(units,p,d):
         v["nectar"]=v.partial+v.specialist
         # Unmatched taxa remain unknown, never assigned zero nectar.
         v["complete"]=v.unknown.eq(0)&v.total.gt(0)
-        v["match_share"]=np.divide(v.total-v.unknown,v.total,out=np.full(len(v),np.nan),where=v.total.gt(0))
+        v["match_share"]=np.divide((v.total-v.unknown).to_numpy(),v.total.to_numpy(),out=np.full(len(v),np.nan),where=v.total.gt(0).to_numpy())
         tables[t]=v
         summary[str(t)]={"map_species_with_island_overlap":len(occurrence[t]),
                          "matched_species_with_overlap":len(occurrence[t]&matched),
@@ -204,6 +278,7 @@ def panels(f,tab,geo):
     return out
 
 def self_test():
+    geometry_self_test()
     rng=np.random.default_rng(SEED);n=240
     d=pd.DataFrame({"block":np.repeat(np.arange(30),8),"a":np.tile(np.arange(8)/7,30),"b":rng.normal(size=n),"c":rng.normal(size=n)})
     for o in OUTCOMES:d[o]=.5*d.a-.1*d.b+rng.normal(0,.001,n)
