@@ -66,15 +66,18 @@ def fit_common(d,draws=1999):
 
 def missingness_panels(f,tab,geo):
     result={}
+    # Keep primary spatial resolution and carrier floor fixed; this is a
+    # focused missingness audit, not another threshold search.
     for scope,v in f.items():
         for overlap,c in tab.items():
+            if overlap!=.5:continue
             d=v.merge(c,on="island_id",validate="one_to_one").merge(geo,on="island_id",validate="one_to_one")
             d=d[d.analysis_regime.eq("tropical")&d.total.gt(0)&d.range_area.gt(0)&d.distance_to_continent_km.ge(0)].copy()
             d["block"]=(np.floor(d.island_latitude/10).astype("Int64").astype(str)+"_"+np.floor(d.island_longitude/10).astype("Int64").astype(str))
             d["log_area"]=np.log2(d.range_area);d["log_distance"]=np.log2(1+d.distance_to_continent_km)
             d["log_n"]=np.log2(d.n_species);d["abs_lat"]=d.island_latitude.abs();d["log_unknown"]=np.log1p(d.unknown)
             for amin in (20,100):
-                for nmin in (5,50):
+                for nmin in (5,):
                     q=d[d.range_area.ge(amin)&d.n_species.ge(nmin)].copy()
                     for coverage in (.5,.8,.95):
                         a=q[q.match_share.ge(coverage)].copy()
