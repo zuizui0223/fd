@@ -92,6 +92,9 @@
     "shared_db_research/results/20261125_fd_syndrome_architecture/depth_factor_region_verified_job_log.json",
     "shared_db_research/results/20261125_fd_syndrome_architecture/depth_rao_verified_job_log.json",
     "shared_db_research/results/20261125_fd_syndrome_architecture/pair_atlas_all_endpoint_robustness.json",
+    "shared_db_research/results/20261125_fd_syndrome_architecture/rao_eligibility_all_recorded.json",
+    "shared_db_research/results/20261125_fd_syndrome_architecture/rao_eligibility_high_quality_only.json",
+    "shared_db_research/results/20261125_fd_syndrome_architecture/rao_eligibility_original_native.json",
     "shared_db_research/scripts/fd_depth_conditional_architecture.py",
     "shared_db_research/scripts/fd_original_global_joint_margin.py",
     "shared_db_research/scripts/fd_original_joint_cells.py",
@@ -521,6 +524,14 @@
     "scope": "All 24 anonymous categorical Rao decomposition panels from successful protected island run 45600622466; no raw protected IDs or source copies. Conditional common 465 islands, broad 2244 all-recorded islands. Scope and cohort sensitivity retained. Shared genus weights not calibrated CI, no realized pollination or causal inference.",
     "paths": [
       "shared_db_research/results/20261125_fd_syndrome_architecture/depth_rao_verified_job_log.json"
+    ]
+  },
+  "fd_rao_eligibility_completed_review_20261126": {
+    "scope": "All 12 anonymous nested selection panels from successful protected run 45659877133; order-dependent descriptive support/richness/depth balance accounting. No protected identity or raw source copied, no causal attribution, no data imputation or independent replication. Four support-qualified all-recorded panels. FD owns interpretation; protected execution remains island.",
+    "paths": [
+      "shared_db_research/results/20261125_fd_syndrome_architecture/rao_eligibility_all_recorded.json",
+      "shared_db_research/results/20261125_fd_syndrome_architecture/rao_eligibility_original_native.json",
+      "shared_db_research/results/20261125_fd_syndrome_architecture/rao_eligibility_high_quality_only.json"
     ]
   }
 }
