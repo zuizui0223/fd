@@ -7,6 +7,7 @@
   "source_pins": "https://github.com/zuizui0223/island/blob/64a58cd4817ccf1c54c179aa7fd1c5585f57dd43/config/fd_data_ownership_20261125.json",
   "allowed_paths": [
     ".github/workflows/external-db-boundary.yml",
+    ".github/workflows/external-floral-syndrome-preflight.yml",
     ".github/workflows/global_bird_source_audit.yml",
     ".github/workflows/pollinator_guild_source_sensitivity.yml",
     ".github/workflows/tropical_asian_butterfly_intake.yml",
@@ -21,6 +22,7 @@
     ".gitignore",
     "README.md",
     "config/external_db_ownership.json",
+    "docs/EXTERNAL_FLORAL_SYNDROME_SOURCE_AUDIT_20261125.md",
     "docs/EXTERNAL_SOURCE_RESEARCH_INDEX.md",
     "docs/legacy_external_workflows/acquire-thousand-island-lake-source.yml",
     "docs/legacy_external_workflows/audit-emln-pollination-source.yml",
@@ -44,6 +46,7 @@
     "scripts/bat_mdd_synonym_audit.py",
     "scripts/check_external_source_boundary.py",
     "scripts/export_mdd_bat_ranges.R",
+    "scripts/external_floral_syndrome_preflight.py",
     "scripts/global_bird_source_audit.py",
     "scripts/pollinator_guild_source_sensitivity.py",
     "scripts/run_emln_island_visitor_turnover.py",
@@ -445,5 +448,13 @@
       "mode": "100644"
     }
   ],
-  "scope_limit": "Reviewed external standalone candidates and source tools, not a claim that every old historical report was source-verified. Unknown/mixed paths not enabled; original history remains. Legacy external workflows imported under docs, not automatically run. Independent external GloBI catalog prepared in island is permitted only when provenance proves no focal own-plant/occurrence inputs."
+  "scope_limit": "Reviewed external standalone candidates and source tools, not a claim that every old historical report was source-verified. Unknown/mixed paths not enabled; original history remains. Legacy external workflows imported under docs, not automatically run. Independent external GloBI catalog prepared in island is permitted only when provenance proves no focal own-plant/occurrence inputs.",
+  "external_floral_syndrome_preflight_review_20261125": {
+    "scope": "Publisher GIFT 3.1 public metadata, NHM public resource metadata and CSV schema/coverage, Dryad published Antillean metadata only. No assembled flora/trait data or derived outputs; no biological inference; no independent-observation claim. Explicit review documented in docs/EXTERNAL_FLORAL_SYNDROME_SOURCE_AUDIT_20261125.md.",
+    "paths": [
+      "scripts/external_floral_syndrome_preflight.py",
+      "docs/EXTERNAL_FLORAL_SYNDROME_SOURCE_AUDIT_20261125.md",
+      ".github/workflows/external-floral-syndrome-preflight.yml"
+    ]
+  }
 }
