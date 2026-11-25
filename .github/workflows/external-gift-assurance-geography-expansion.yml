@@ -1,0 +1,47 @@
+name: External GIFT assurance geography expansion
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - scripts/external_gift_assurance_geography_expansion.py
+      - .github/workflows/external-gift-assurance-geography-expansion.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+  actions: read
+concurrency:
+  group: fd-assurance-geography-expansion-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  expansion:
+    runs-on: ubuntu-latest
+    timeout-minutes: 70
+    env:
+      OPENBLAS_NUM_THREADS: "1"
+      OMP_NUM_THREADS: "1"
+      GH_TOKEN: ${{ github.token }}
+      STAGE: /tmp/fd-assurance-expansion
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: pip install numpy scipy
+      - run: python scripts/external_gift_assurance_geography_expansion.py --self-test
+      - name: Verify original pilot artifact bytes
+        run: |
+          set -euo pipefail
+          umask 077
+          mkdir -p "$STAGE"
+          curl --fail --silent --show-error --location --max-time 180 --max-filesize 10000000 -H "Authorization: Bearer $GH_TOKEN" -H 'Accept: application/vnd.github+json' 'https://api.github.com/repos/zuizui0223/fd/actions/artifacts/15001073268/zip' -o "$STAGE/prior.zip"
+          printf '%s  %s\n' '1ee08e7e7f7f5326dc85223310d8fc85a91b248a9c56ae2216fa008c61148812' "$STAGE/prior.zip" | sha256sum -c -
+          curl --fail --silent --show-error --location --max-time 180 --max-filesize 10000000 -H "Authorization: Bearer $GH_TOKEN" -H 'Accept: application/vnd.github+json' 'https://api.github.com/repos/zuizui0223/fd/actions/artifacts/15002368064/zip' -o "$STAGE/comparison.zip"
+          printf '%s  %s\n' '85c15d81f65f29a1a8ad2ac3ad3ea2b57949d6684e2b9b08526556f56ca73800' "$STAGE/comparison.zip" | sha256sum -c -
+      - run: python -u scripts/external_gift_assurance_geography_expansion.py --prior "$STAGE/prior.zip" --comparison-pilot "$STAGE/comparison.zip" --out work/external_gift_assurance_geography_expansion.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: external-gift-assurance-geography-expansion
+          path: work/external_gift_assurance_geography_expansion.json
+      - name: Remove temporary input
+        if: always()
+        run: rm -rf "$STAGE"

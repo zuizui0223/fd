@@ -1,0 +1,4415 @@
+{
+  "data": {
+    "reference_id_audit": {
+      "raw_reference_rows": 949,
+      "distinct_reference_ids": 760,
+      "ids_with_multiple_rows": 2,
+      "ids_with_conflicting_citation_fields": 0,
+      "maximum_rows_per_id": 189,
+      "warning": "Reference IDs are publisher records, not independent studies. Repeated IDs can have several metadata rows; citation alternatives are retained, not arbitrarily selected."
+    },
+    "source_pair_concentration": {
+      "guild_broad__self_fertilization": {
+        "paired_species": 2683,
+        "state_counts": [
+          {
+            "axis_a": "bat",
+            "axis_b": "absent",
+            "species": 7
+          },
+          {
+            "axis_a": "bird",
+            "axis_b": "absent",
+            "species": 2
+          },
+          {
+            "axis_a": "bird",
+            "axis_b": "present",
+            "species": 2
+          },
+          {
+            "axis_a": "insect",
+            "axis_b": "absent",
+            "species": 1153
+          },
+          {
+            "axis_a": "insect",
+            "axis_b": "present",
+            "species": 947
+          },
+          {
+            "axis_a": "other",
+            "axis_b": "present",
+            "species": 6
+          },
+          {
+            "axis_a": "water",
+            "axis_b": "absent",
+            "species": 13
+          },
+          {
+            "axis_a": "wind",
+            "axis_b": "absent",
+            "species": 505
+          },
+          {
+            "axis_a": "wind",
+            "axis_b": "present",
+            "species": 48
+          }
+        ],
+        "axis_a_source_concentration": {
+          "reference_count": 5,
+          "species_equivalent_weight": 2682.999999999998,
+          "effective_reference_count": 3.0017574218118566,
+          "largest_reference_share": 0.5132625170828673,
+          "reference_ids_missing_from_metadata": 0,
+          "top_references": [
+            {
+              "ref_ID": "10313",
+              "fractional_species_weight": 1377.0833333333321,
+              "share": 0.5132625170828673,
+              "citation": {
+                "ref_ID": "10313",
+                "metadata_rows": 1,
+                "citation_field_candidates": {
+                  "ref_long": [
+                    "Bundesamt für Naturschutz (2016) Floraweb. Available at: www.floraweb.de, last accessed  15.9.2016."
+                  ]
+                },
+                "citation_conflict": false
+              }
+            },
+            {
+              "ref_ID": "10247",
+              "fractional_species_weight": 477.58333333333223,
+              "share": 0.17800347869300506,
+              "citation": {
+                "ref_ID": "10247",
+                "metadata_rows": 1,
+                "citation_field_candidates": {
+                  "ref_long": [
+                    "Schaefer, Hardy, Silva, Barraclough & Savolainen (2011) Testing Darwin's naturalization hypothesis in the Azores. Ecology Letters 14, 389-96."
+                  ]
+                },
+                "citation_conflict": false
+              }
+            },
+            {
+              "ref_ID": "10199",
+              "fractional_species_weight": 443.33333333333337,
+              "share": 0.16523791775375835,
+              "citation": {
+                "ref_ID": "10199",
+                "metadata_rows": 1,
+                "citation_field_candidates": {
+                  "ref_long": [
+                    "Fern & Fern (2015) Useful Tropical Plants Database."
+                  ]
+                },
+                "citation_conflict": false
+              }
+            },
+            {
+              "ref_ID": "10328",
+              "fractional_species_weight": 231.1666666666672,
+              "share": 0.0861597714001742,
+              "citation": {
+                "ref_ID": "10328",
+                "metadata_rows": 1,
+                "citation_field_candidates": {
+                  "ref_long": [
+                    "Landcare Research New Zealand (NA) Ecological Traits of New Zealand Flora. Available at: https://ecotraits.landcareresearch.co.nz/, last accessed  Nov/2018."
+                  ]
+                },
+                "citation_conflict": false
+              }
+            },
+            {
+              "ref_ID": "10315",
+              "fractional_species_weight": 153.83333333333334,
+              "share": 0.0573363150701951,
+              "citation": {
+                "ref_ID": "10315",
+                "metadata_rows": 1,
+                "citation_field_candidates": {
+                  "ref_long": [
+                    "Tamis, van der Meijden, Runhaar, Bekker, Ozinga, Odé & Hoste (2004) Standard List of the Flora of the Netherlands 2003. Gorteria 30, 101-195."
+                  ]
+                },
+                "citation_conflict": false
+              }
+            }
+          ]
+        },
+        "axis_b_source_concentration": {
+          "reference_count": 4,
+          "species_equivalent_weight": 2683,
+          "effective_reference_count": 2.8356314100280966,
+          "largest_reference_share": 0.5219281898372469,
+          "reference_ids_missing_from_metadata": 0,
+          "top_references": [
+            {
+              "ref_ID": "10313",
+              "fractional_species_weight": 1400.3333333333333,
+              "share": 0.5219281898372469,
+              "citation": {
+                "ref_ID": "10313",
+                "metadata_rows": 1,
+                "citation_field_candidates": {
+                  "ref_long": [
+                    "Bundesamt für Naturschutz (2016) Floraweb. Available at: www.floraweb.de, last accessed  15.9.2016."
+                  ]
+                },
+                "citation_conflict": false
+              }
+            },
+            {
+              "ref_ID": "10247",
+              "fractional_species_weight": 533.5,
+              "share": 0.19884457696608274,
+              "citation": {
+                "ref_ID": "10247",
+                "metadata_rows": 1,
+                "citation_field_candidates": {
+                  "ref_long": [
+                    "Schaefer, Hardy, Silva, Barraclough & Savolainen (2011) Testing Darwin's naturalization hypothesis in the Azores. Ecology Letters 14, 389-96."
+                  ]
+                },
+                "citation_conflict": false
+              }
+            },
+            {
+              "ref_ID": "10199",
+              "fractional_species_weight": 453.3333333333333,
+              "share": 0.16896508883091066,
+              "citation": {
+                "ref_ID": "10199",
+                "metadata_rows": 1,
+                "citation_field_candidates": {
+                  "ref_long": [
+                    "Fern & Fern (2015) Useful Tropical Plants Database."
+                  ]
+                },
+                "citation_conflict": false
+              }
+            },
+            {
+              "ref_ID": "10315",
+              "fractional_species_weight": 295.83333333333337,
+              "share": 0.11026214436575973,
+              "citation": {
+                "ref_ID": "10315",
+                "metadata_rows": 1,
+                "citation_field_candidates": {
+                  "ref_long": [
+                    "Tamis, van der Meijden, Runhaar, Bekker, Ozinga, Odé & Hoste (2004) Standard List of the Flora of the Netherlands 2003. Gorteria 30, 101-195."
+                  ]
+                },
+                "citation_conflict": false
+              }
+            }
+          ]
+        },
+        "shared_source_concentration": {
+          "reference_count": 4,
+          "species_equivalent_weight": 2663.0000000000005,
+          "effective_reference_count": 2.3202264092297757,
+          "largest_reference_share": 0.6022656152209287,
+          "reference_ids_missing_from_metadata": 0,
+          "top_references": [
+            {
+              "ref_ID": "10313",
+              "fractional_species_weight": 1603.8333333333335,
+              "share": 0.6022656152209287,
+              "citation": {
+                "ref_ID": "10313",
+                "metadata_rows": 1,
+                "citation_field_candidates": {
+                  "ref_long": [
+                    "Bundesamt für Naturschutz (2016) Floraweb. Available at: www.floraweb.de, last accessed  15.9.2016."
+                  ]
+                },
+                "citation_conflict": false
+              }
+            },
+            {
+              "ref_ID": "10247",
+              "fractional_species_weight": 534,
+              "share": 0.20052572286894477,
+              "citation": {
+                "ref_ID": "10247",
+                "metadata_rows": 1,
+                "citation_field_candidates": {
+                  "ref_long": [
+                    "Schaefer, Hardy, Silva, Barraclough & Savolainen (2011) Testing Darwin's naturalization hypothesis in the Azores. Ecology Letters 14, 389-96."
+                  ]
+                },
+                "citation_conflict": false
+              }
+            },
+            {
+              "ref_ID": "10199",
+              "fractional_species_weight": 437.33333333333337,
+              "share": 0.16422581048942295,
+              "citation": {
+                "ref_ID": "10199",
+                "metadata_rows": 1,
+                "citation_field_candidates": {
+                  "ref_long": [
+                    "Fern & Fern (2015) Useful Tropical Plants Database."
+                  ]
+                },
+                "citation_conflict": false
+              }
+            },
+            {
+              "ref_ID": "10315",
+              "fractional_species_weight": 87.83333333333334,
+              "share": 0.032982851420703466,
+              "citation": {
+                "ref_ID": "10315",
+                "metadata_rows": 1,
+                "citation_field_candidates": {
+                  "ref_long": [
+                    "Tamis, van der Meijden, Runhaar, Bekker, Ozinga, Odé & Hoste (2004) Standard List of the Flora of the Netherlands 2003. Gorteria 30, 101-195."
+                  ]
+                },
+                "citation_conflict": false
+              }
+            }
+          ]
+        },
+        "both_source_sets_disjoint_species": 20,
+        "disjoint_axis_a_sources": {
+          "reference_count": 2,
+          "species_equivalent_weight": 20,
+          "effective_reference_count": 1.0512483574244416,
+          "largest_reference_share": 0.975,
+          "reference_ids_missing_from_metadata": 0,
+          "top_references": [
+            {
+              "ref_ID": "10328",
+              "fractional_species_weight": 19.5,
+              "share": 0.975,
+              "citation": {
+                "ref_ID": "10328",
+                "metadata_rows": 1,
+                "citation_field_candidates": {
+                  "ref_long": [
+                    "Landcare Research New Zealand (NA) Ecological Traits of New Zealand Flora. Available at: https://ecotraits.landcareresearch.co.nz/, last accessed  Nov/2018."
+                  ]
+                },
+                "citation_conflict": false
+              }
+            },
+            {
+              "ref_ID": "10315",
+              "fractional_species_weight": 0.5,
+              "share": 0.025,
+              "citation": {
+                "ref_ID": "10315",
+                "metadata_rows": 1,
+                "citation_field_candidates": {
+                  "ref_long": [
+                    "Tamis, van der Meijden, Runhaar, Bekker, Ozinga, Odé & Hoste (2004) Standard List of the Flora of the Netherlands 2003. Gorteria 30, 101-195."
+                  ]
+                },
+                "citation_conflict": false
+              }
+            }
+          ]
+        },
+        "disjoint_axis_b_sources": {
+          "reference_count": 3,
+          "species_equivalent_weight": 20,
+          "effective_reference_count": 2.0050125313283207,
+          "largest_reference_share": 0.625,
+          "reference_ids_missing_from_metadata": 0,
+          "top_references": [
+            {
+              "ref_ID": "10199",
+              "fractional_species_weight": 12.5,
+              "share": 0.625,
+              "citation": {
+                "ref_ID": "10199",
+                "metadata_rows": 1,
+                "citation_field_candidates": {
+                  "ref_long": [
+                    "Fern & Fern (2015) Useful Tropical Plants Database."
+                  ]
+                },
+                "citation_conflict": false
+              }
+            },
+            {
+              "ref_ID": "10315",
+              "fractional_species_weight": 6.5,
+              "share": 0.325,
+              "citation": {
+                "ref_ID": "10315",
+                "metadata_rows": 1,
+                "citation_field_candidates": {
+                  "ref_long": [
+                    "Tamis, van der Meijden, Runhaar, Bekker, Ozinga, Odé & Hoste (2004) Standard List of the Flora of the Netherlands 2003. Gorteria 30, 101-195."
+                  ]
+                },
+                "citation_conflict": false
+              }
+            },
+            {
+              "ref_ID": "10313",
+              "fractional_species_weight": 1,
+              "share": 0.05,
+              "citation": {
+                "ref_ID": "10313",
+                "metadata_rows": 1,
+                "citation_field_candidates": {
+                  "ref_long": [
+                    "Bundesamt für Naturschutz (2016) Floraweb. Available at: www.floraweb.de, last accessed  15.9.2016."
+                  ]
+                },
+                "citation_conflict": false
+              }
+            }
+          ]
+        }
+      },
+      "guild_detailed__self_fertilization": {
+        "paired_species": 1319,
+        "state_counts": [
+          {
+            "axis_a": "bat",
+            "axis_b": "absent",
+            "species": 7
+          },
+          {
+            "axis_a": "bee",
+            "axis_b": "absent",
+            "species": 176
+          },
+          {
+            "axis_a": "bee",
+            "axis_b": "present",
+            "species": 87
+          },
+          {
+            "axis_a": "beetle",
+            "axis_b": "absent",
+            "species": 1
+          },
+          {
+            "axis_a": "bird",
+            "axis_b": "absent",
+            "species": 1
+          },
+          {
+            "axis_a": "bird",
+            "axis_b": "present",
+            "species": 2
+          },
+          {
+            "axis_a": "butterfly",
+            "axis_b": "absent",
+            "species": 16
+          },
+          {
+            "axis_a": "butterfly",
+            "axis_b": "present",
+            "species": 4
+          },
+          {
+            "axis_a": "fly",
+            "axis_b": "absent",
+            "species": 15
+          },
+          {
+            "axis_a": "fly",
+            "axis_b": "present",
+            "species": 28
+          },
+          {
+            "axis_a": "insect",
+            "axis_b": "absent",
+            "species": 270
+          },
+          {
+            "axis_a": "insect",
+            "axis_b": "present",
+            "species": 340
+          },
+          {
+            "axis_a": "moth",
+            "axis_b": "absent",
+            "species": 2
+          },
+          {
+            "axis_a": "moth",
+            "axis_b": "present",
+            "species": 1
+          },
+          {
+            "axis_a": "other",
+            "axis_b": "present",
+            "species": 3
+          },
+          {
+            "axis_a": "water",
+            "axis_b": "absent",
+            "species": 11
+          },
+          {
+            "axis_a": "wind",
+            "axis_b": "absent",
+            "species": 314
+          },
+          {
+            "axis_a": "wind",
+            "axis_b": "present",
+            "species": 41
+          }
+        ],
+        "axis_a_source_concentration": {
+          "reference_count": 2,
+          "species_equivalent_weight": 1319,
+          "effective_reference_count": 1.7729641868084556,
+          "largest_reference_share": 0.678923426838514,
+          "reference_ids_missing_from_metadata": 0,
+          "top_references": [
+            {
+              "ref_ID": "10315",
+              "fractional_species_weight": 895.5,
+              "share": 0.678923426838514,
+              "citation": {
+                "ref_ID": "10315",
+                "metadata_rows": 1,
+                "citation_field_candidates": {
+                  "ref_long": [
+                    "Tamis, van der Meijden, Runhaar, Bekker, Ozinga, Odé & Hoste (2004) Standard List of the Flora of the Netherlands 2003. Gorteria 30, 101-195."
+                  ]
+                },
+                "citation_conflict": false
+              }
+            },
+            {
+              "ref_ID": "10199",
+              "fractional_species_weight": 423.5,
+              "share": 0.32107657316148597,
+              "citation": {
+                "ref_ID": "10199",
+                "metadata_rows": 1,
+                "citation_field_candidates": {
+                  "ref_long": [
+                    "Fern & Fern (2015) Useful Tropical Plants Database."
+                  ]
+                },
+                "citation_conflict": false
+              }
+            }
+          ]
+        },
+        "axis_b_source_concentration": {
+          "reference_count": 4,
+          "species_equivalent_weight": 1319,
+          "effective_reference_count": 2.9628309481254544,
+          "largest_reference_share": 0.4746019711902957,
+          "reference_ids_missing_from_metadata": 0,
+          "top_references": [
+            {
+              "ref_ID": "10313",
+              "fractional_species_weight": 626,
+              "share": 0.4746019711902957,
+              "citation": {
+                "ref_ID": "10313",
+                "metadata_rows": 1,
+                "citation_field_candidates": {
+                  "ref_long": [
+                    "Bundesamt für Naturschutz (2016) Floraweb. Available at: www.floraweb.de, last accessed  15.9.2016."
+                  ]
+                },
+                "citation_conflict": false
+              }
+            },
+            {
+              "ref_ID": "10199",
+              "fractional_species_weight": 380.49999999999994,
+              "share": 0.2884761182714177,
+              "citation": {
+                "ref_ID": "10199",
+                "metadata_rows": 1,
+                "citation_field_candidates": {
+                  "ref_long": [
+                    "Fern & Fern (2015) Useful Tropical Plants Database."
+                  ]
+                },
+                "citation_conflict": false
+              }
+            },
+            {
+              "ref_ID": "10315",
+              "fractional_species_weight": 185.50000000000003,
+              "share": 0.14063684609552693,
+              "citation": {
+                "ref_ID": "10315",
+                "metadata_rows": 1,
+                "citation_field_candidates": {
+                  "ref_long": [
+                    "Tamis, van der Meijden, Runhaar, Bekker, Ozinga, Odé & Hoste (2004) Standard List of the Flora of the Netherlands 2003. Gorteria 30, 101-195."
+                  ]
+                },
+                "citation_conflict": false
+              }
+            },
+            {
+              "ref_ID": "10247",
+              "fractional_species_weight": 127,
+              "share": 0.09628506444275967,
+              "citation": {
+                "ref_ID": "10247",
+                "metadata_rows": 1,
+                "citation_field_candidates": {
+                  "ref_long": [
+                    "Schaefer, Hardy, Silva, Barraclough & Savolainen (2011) Testing Darwin's naturalization hypothesis in the Azores. Ecology Letters 14, 389-96."
+                  ]
+                },
+                "citation_conflict": false
+              }
+            }
+          ]
+        },
+        "shared_source_concentration": {
+          "reference_count": 2,
+          "species_equivalent_weight": 722,
+          "effective_reference_count": 1.9911991871471462,
+          "largest_reference_share": 0.5332409972299169,
+          "reference_ids_missing_from_metadata": 0,
+          "top_references": [
+            {
+              "ref_ID": "10199",
+              "fractional_species_weight": 385,
+              "share": 0.5332409972299169,
+              "citation": {
+                "ref_ID": "10199",
+                "metadata_rows": 1,
+                "citation_field_candidates": {
+                  "ref_long": [
+                    "Fern & Fern (2015) Useful Tropical Plants Database."
+                  ]
+                },
+                "citation_conflict": false
+              }
+            },
+            {
+              "ref_ID": "10315",
+              "fractional_species_weight": 337,
+              "share": 0.4667590027700831,
+              "citation": {
+                "ref_ID": "10315",
+                "metadata_rows": 1,
+                "citation_field_candidates": {
+                  "ref_long": [
+                    "Tamis, van der Meijden, Runhaar, Bekker, Ozinga, Odé & Hoste (2004) Standard List of the Flora of the Netherlands 2003. Gorteria 30, 101-195."
+                  ]
+                },
+                "citation_conflict": false
+              }
+            }
+          ]
+        },
+        "both_source_sets_disjoint_species": 597,
+        "disjoint_axis_a_sources": {
+          "reference_count": 2,
+          "species_equivalent_weight": 597,
+          "effective_reference_count": 1.1466843834153215,
+          "largest_reference_share": 0.931323283082077,
+          "reference_ids_missing_from_metadata": 0,
+          "top_references": [
+            {
+              "ref_ID": "10315",
+              "fractional_species_weight": 556,
+              "share": 0.931323283082077,
+              "citation": {
+                "ref_ID": "10315",
+                "metadata_rows": 1,
+                "citation_field_candidates": {
+                  "ref_long": [
+                    "Tamis, van der Meijden, Runhaar, Bekker, Ozinga, Odé & Hoste (2004) Standard List of the Flora of the Netherlands 2003. Gorteria 30, 101-195."
+                  ]
+                },
+                "citation_conflict": false
+              }
+            },
+            {
+              "ref_ID": "10199",
+              "fractional_species_weight": 41,
+              "share": 0.06867671691792294,
+              "citation": {
+                "ref_ID": "10199",
+                "metadata_rows": 1,
+                "citation_field_candidates": {
+                  "ref_long": [
+                    "Fern & Fern (2015) Useful Tropical Plants Database."
+                  ]
+                },
+                "citation_conflict": false
+              }
+            }
+          ]
+        },
+        "disjoint_axis_b_sources": {
+          "reference_count": 2,
+          "species_equivalent_weight": 597,
+          "effective_reference_count": 1.499299587324424,
+          "largest_reference_share": 0.7889447236180904,
+          "reference_ids_missing_from_metadata": 0,
+          "top_references": [
+            {
+              "ref_ID": "10313",
+              "fractional_species_weight": 471,
+              "share": 0.7889447236180904,
+              "citation": {
+                "ref_ID": "10313",
+                "metadata_rows": 1,
+                "citation_field_candidates": {
+                  "ref_long": [
+                    "Bundesamt für Naturschutz (2016) Floraweb. Available at: www.floraweb.de, last accessed  15.9.2016."
+                  ]
+                },
+                "citation_conflict": false
+              }
+            },
+            {
+              "ref_ID": "10247",
+              "fractional_species_weight": 126,
+              "share": 0.21105527638190955,
+              "citation": {
+                "ref_ID": "10247",
+                "metadata_rows": 1,
+                "citation_field_candidates": {
+                  "ref_long": [
+                    "Schaefer, Hardy, Silva, Barraclough & Savolainen (2011) Testing Darwin's naturalization hypothesis in the Azores. Ecology Letters 14, 389-96."
+                  ]
+                },
+                "citation_conflict": false
+              }
+            }
+          ]
+        }
+      },
+      "guild_detailed__colour": {
+        "paired_species": 123,
+        "state_counts": [
+          {
+            "axis_a": "bee",
+            "axis_b": "blue",
+            "species": 4
+          },
+          {
+            "axis_a": "bee",
+            "axis_b": "pink",
+            "species": 3
+          },
+          {
+            "axis_a": "bee",
+            "axis_b": "red",
+            "species": 1
+          },
+          {
+            "axis_a": "bee",
+            "axis_b": "violet",
+            "species": 2
+          },
+          {
+            "axis_a": "bee",
+            "axis_b": "white",
+            "species": 10
+          },
+          {
+            "axis_a": "bee",
+            "axis_b": "yellow",
+            "species": 17
+          },
+          {
+            "axis_a": "butterfly",
+            "axis_b": "blue",
+            "species": 1
+          },
+          {
+            "axis_a": "butterfly",
+            "axis_b": "pink",
+            "species": 1
+          },
+          {
+            "axis_a": "fly",
+            "axis_b": "blue",
+            "species": 1
+          },
+          {
+            "axis_a": "fly",
+            "axis_b": "white",
+            "species": 3
+          },
+          {
+            "axis_a": "fly",
+            "axis_b": "yellow",
+            "species": 4
+          },
+          {
+            "axis_a": "insect",
+            "axis_b": "blue",
+            "species": 2
+          },
+          {
+            "axis_a": "insect",
+            "axis_b": "pink",
+            "species": 3
+          },
+          {
+            "axis_a": "insect",
+            "axis_b": "red",
+            "species": 2
+          },
+          {
+            "axis_a": "insect",
+            "axis_b": "violet",
+            "species": 3
+          },
+          {
+            "axis_a": "insect",
+            "axis_b": "white",
+            "species": 27
+          },
+          {
+            "axis_a": "insect",
+            "axis_b": "yellow",
+            "species": 29
+          },
+          {
+            "axis_a": "water",
+            "axis_b": "white",
+            "species": 1
+          },
+          {
+            "axis_a": "wind",
+            "axis_b": "brown",
+            "species": 5
+          },
+          {
+            "axis_a": "wind",
+            "axis_b": "green",
+            "species": 1
+          },
+          {
+            "axis_a": "wind",
+            "axis_b": "red",
+            "species": 2
+          },
+          {
+            "axis_a": "wind",
+            "axis_b": "white",
+            "species": 1
+          }
+        ],
+        "axis_a_source_concentration": {
+          "reference_count": 2,
+          "species_equivalent_weight": 123,
+          "effective_reference_count": 1.706598984771574,
+          "largest_reference_share": 0.7073170731707317,
+          "reference_ids_missing_from_metadata": 0,
+          "top_references": [
+            {
+              "ref_ID": "10315",
+              "fractional_species_weight": 87,
+              "share": 0.7073170731707317,
+              "citation": {
+                "ref_ID": "10315",
+                "metadata_rows": 1,
+                "citation_field_candidates": {
+                  "ref_long": [
+                    "Tamis, van der Meijden, Runhaar, Bekker, Ozinga, Odé & Hoste (2004) Standard List of the Flora of the Netherlands 2003. Gorteria 30, 101-195."
+                  ]
+                },
+                "citation_conflict": false
+              }
+            },
+            {
+              "ref_ID": "10199",
+              "fractional_species_weight": 36,
+              "share": 0.2926829268292683,
+              "citation": {
+                "ref_ID": "10199",
+                "metadata_rows": 1,
+                "citation_field_candidates": {
+                  "ref_long": [
+                    "Fern & Fern (2015) Useful Tropical Plants Database."
+                  ]
+                },
+                "citation_conflict": false
+              }
+            }
+          ]
+        },
+        "axis_b_source_concentration": {
+          "reference_count": 1,
+          "species_equivalent_weight": 123,
+          "effective_reference_count": 1,
+          "largest_reference_share": 1,
+          "reference_ids_missing_from_metadata": 0,
+          "top_references": [
+            {
+              "ref_ID": "10342",
+              "fractional_species_weight": 123,
+              "share": 1,
+              "citation": {
+                "ref_ID": "10342",
+                "metadata_rows": 1,
+                "citation_field_candidates": {
+                  "ref_long": [
+                    "Muer, Sauerbier & Cabrera Calixto (2016) Die Farn- und Blütenpflanzen der Kanarischen Inseln. Margraf Publishers, Weikersheim, 1310p."
+                  ]
+                },
+                "citation_conflict": false
+              }
+            }
+          ]
+        },
+        "shared_source_concentration": {
+          "reference_count": 0,
+          "species_equivalent_weight": 0,
+          "effective_reference_count": null,
+          "largest_reference_share": null,
+          "reference_ids_missing_from_metadata": 0,
+          "top_references": []
+        },
+        "both_source_sets_disjoint_species": 123,
+        "disjoint_axis_a_sources": {
+          "reference_count": 2,
+          "species_equivalent_weight": 123,
+          "effective_reference_count": 1.706598984771574,
+          "largest_reference_share": 0.7073170731707317,
+          "reference_ids_missing_from_metadata": 0,
+          "top_references": [
+            {
+              "ref_ID": "10315",
+              "fractional_species_weight": 87,
+              "share": 0.7073170731707317,
+              "citation": {
+                "ref_ID": "10315",
+                "metadata_rows": 1,
+                "citation_field_candidates": {
+                  "ref_long": [
+                    "Tamis, van der Meijden, Runhaar, Bekker, Ozinga, Odé & Hoste (2004) Standard List of the Flora of the Netherlands 2003. Gorteria 30, 101-195."
+                  ]
+                },
+                "citation_conflict": false
+              }
+            },
+            {
+              "ref_ID": "10199",
+              "fractional_species_weight": 36,
+              "share": 0.2926829268292683,
+              "citation": {
+                "ref_ID": "10199",
+                "metadata_rows": 1,
+                "citation_field_candidates": {
+                  "ref_long": [
+                    "Fern & Fern (2015) Useful Tropical Plants Database."
+                  ]
+                },
+                "citation_conflict": false
+              }
+            }
+          ]
+        },
+        "disjoint_axis_b_sources": {
+          "reference_count": 1,
+          "species_equivalent_weight": 123,
+          "effective_reference_count": 1,
+          "largest_reference_share": 1,
+          "reference_ids_missing_from_metadata": 0,
+          "top_references": [
+            {
+              "ref_ID": "10342",
+              "fractional_species_weight": 123,
+              "share": 1,
+              "citation": {
+                "ref_ID": "10342",
+                "metadata_rows": 1,
+                "citation_field_candidates": {
+                  "ref_long": [
+                    "Muer, Sauerbier & Cabrera Calixto (2016) Die Farn- und Blütenpflanzen der Kanarischen Inseln. Margraf Publishers, Weikersheim, 1310p."
+                  ]
+                },
+                "citation_conflict": false
+              }
+            }
+          ]
+        }
+      },
+      "colour__flower_length": {
+        "paired_species": 404,
+        "state_counts": [
+          {
+            "axis_a": "blue",
+            "axis_b": "numeric_length",
+            "species": 17
+          },
+          {
+            "axis_a": "brown",
+            "axis_b": "numeric_length",
+            "species": 3
+          },
+          {
+            "axis_a": "green",
+            "axis_b": "numeric_length",
+            "species": 2
+          },
+          {
+            "axis_a": "orange",
+            "axis_b": "numeric_length",
+            "species": 1
+          },
+          {
+            "axis_a": "pink",
+            "axis_b": "numeric_length",
+            "species": 31
+          },
+          {
+            "axis_a": "red",
+            "axis_b": "numeric_length",
+            "species": 18
+          },
+          {
+            "axis_a": "violet",
+            "axis_b": "numeric_length",
+            "species": 24
+          },
+          {
+            "axis_a": "white",
+            "axis_b": "numeric_length",
+            "species": 117
+          },
+          {
+            "axis_a": "yellow",
+            "axis_b": "numeric_length",
+            "species": 191
+          }
+        ],
+        "axis_a_source_concentration": {
+          "reference_count": 1,
+          "species_equivalent_weight": 404,
+          "effective_reference_count": 1,
+          "largest_reference_share": 1,
+          "reference_ids_missing_from_metadata": 0,
+          "top_references": [
+            {
+              "ref_ID": "10342",
+              "fractional_species_weight": 404,
+              "share": 1,
+              "citation": {
+                "ref_ID": "10342",
+                "metadata_rows": 1,
+                "citation_field_candidates": {
+                  "ref_long": [
+                    "Muer, Sauerbier & Cabrera Calixto (2016) Die Farn- und Blütenpflanzen der Kanarischen Inseln. Margraf Publishers, Weikersheim, 1310p."
+                  ]
+                },
+                "citation_conflict": false
+              }
+            }
+          ]
+        },
+        "axis_b_source_concentration": {
+          "reference_count": 2,
+          "species_equivalent_weight": 404,
+          "effective_reference_count": 1.0250587215655735,
+          "largest_reference_share": 0.9876237623762376,
+          "reference_ids_missing_from_metadata": 0,
+          "top_references": [
+            {
+              "ref_ID": "10342",
+              "fractional_species_weight": 399,
+              "share": 0.9876237623762376,
+              "citation": {
+                "ref_ID": "10342",
+                "metadata_rows": 1,
+                "citation_field_candidates": {
+                  "ref_long": [
+                    "Muer, Sauerbier & Cabrera Calixto (2016) Die Farn- und Blütenpflanzen der Kanarischen Inseln. Margraf Publishers, Weikersheim, 1310p."
+                  ]
+                },
+                "citation_conflict": false
+              }
+            },
+            {
+              "ref_ID": "10353",
+              "fractional_species_weight": 5,
+              "share": 0.012376237623762377,
+              "citation": {
+                "ref_ID": "10353",
+                "metadata_rows": 1,
+                "citation_field_candidates": {
+                  "ref_long": [
+                    "Editorial Committee of Flora Reipublicae Popularis Sinicae (ed.) (1959–2004) Flora Reipublicae Popularis Sinicae. Science Press, Bejing, China."
+                  ]
+                },
+                "citation_conflict": false
+              }
+            }
+          ]
+        },
+        "shared_source_concentration": {
+          "reference_count": 1,
+          "species_equivalent_weight": 403,
+          "effective_reference_count": 1,
+          "largest_reference_share": 1,
+          "reference_ids_missing_from_metadata": 0,
+          "top_references": [
+            {
+              "ref_ID": "10342",
+              "fractional_species_weight": 403,
+              "share": 1,
+              "citation": {
+                "ref_ID": "10342",
+                "metadata_rows": 1,
+                "citation_field_candidates": {
+                  "ref_long": [
+                    "Muer, Sauerbier & Cabrera Calixto (2016) Die Farn- und Blütenpflanzen der Kanarischen Inseln. Margraf Publishers, Weikersheim, 1310p."
+                  ]
+                },
+                "citation_conflict": false
+              }
+            }
+          ]
+        },
+        "both_source_sets_disjoint_species": 1,
+        "disjoint_axis_a_sources": {
+          "reference_count": 1,
+          "species_equivalent_weight": 1,
+          "effective_reference_count": 1,
+          "largest_reference_share": 1,
+          "reference_ids_missing_from_metadata": 0,
+          "top_references": [
+            {
+              "ref_ID": "10342",
+              "fractional_species_weight": 1,
+              "share": 1,
+              "citation": {
+                "ref_ID": "10342",
+                "metadata_rows": 1,
+                "citation_field_candidates": {
+                  "ref_long": [
+                    "Muer, Sauerbier & Cabrera Calixto (2016) Die Farn- und Blütenpflanzen der Kanarischen Inseln. Margraf Publishers, Weikersheim, 1310p."
+                  ]
+                },
+                "citation_conflict": false
+              }
+            }
+          ]
+        },
+        "disjoint_axis_b_sources": {
+          "reference_count": 1,
+          "species_equivalent_weight": 1,
+          "effective_reference_count": 1,
+          "largest_reference_share": 1,
+          "reference_ids_missing_from_metadata": 0,
+          "top_references": [
+            {
+              "ref_ID": "10353",
+              "fractional_species_weight": 1,
+              "share": 1,
+              "citation": {
+                "ref_ID": "10353",
+                "metadata_rows": 1,
+                "citation_field_candidates": {
+                  "ref_long": [
+                    "Editorial Committee of Flora Reipublicae Popularis Sinicae (ed.) (1959–2004) Flora Reipublicae Popularis Sinicae. Science Press, Bejing, China."
+                  ]
+                },
+                "citation_conflict": false
+              }
+            }
+          ]
+        }
+      }
+    },
+    "native_flag_audit": {
+      "island": {
+        "selected": 24,
+        "success": 24,
+        "errors": [],
+        "summary": {
+          "all_named": {
+            "nonempty_lists": 24,
+            "total_names_counted_across_lists": 2718,
+            "coverage": {
+              "guild_broad__self_fertilization": {
+                "1": 20,
+                "5": 13,
+                "10": 10,
+                "30": 6
+              },
+              "guild_detailed__self_fertilization": {
+                "1": 17,
+                "5": 11,
+                "10": 8,
+                "30": 3
+              },
+              "guild_detailed__colour": {
+                "1": 11,
+                "5": 1,
+                "10": 0,
+                "30": 0
+              },
+              "colour__flower_length": {
+                "1": 14,
+                "5": 6,
+                "10": 0,
+                "30": 0
+              }
+            }
+          },
+          "literal_native": {
+            "nonempty_lists": 24,
+            "total_names_counted_across_lists": 2718,
+            "coverage": {
+              "guild_broad__self_fertilization": {
+                "1": 20,
+                "5": 13,
+                "10": 10,
+                "30": 6
+              },
+              "guild_detailed__self_fertilization": {
+                "1": 17,
+                "5": 11,
+                "10": 8,
+                "30": 3
+              },
+              "guild_detailed__colour": {
+                "1": 11,
+                "5": 1,
+                "10": 0,
+                "30": 0
+              },
+              "colour__flower_length": {
+                "1": 14,
+                "5": 6,
+                "10": 0,
+                "30": 0
+              }
+            }
+          },
+          "native_no_positive_question_flags": {
+            "nonempty_lists": 24,
+            "total_names_counted_across_lists": 2718,
+            "coverage": {
+              "guild_broad__self_fertilization": {
+                "1": 20,
+                "5": 13,
+                "10": 10,
+                "30": 6
+              },
+              "guild_detailed__self_fertilization": {
+                "1": 17,
+                "5": 11,
+                "10": 8,
+                "30": 3
+              },
+              "guild_detailed__colour": {
+                "1": 11,
+                "5": 1,
+                "10": 0,
+                "30": 0
+              },
+              "colour__flower_length": {
+                "1": 14,
+                "5": 6,
+                "10": 0,
+                "30": 0
+              }
+            }
+          },
+          "strict_native": {
+            "nonempty_lists": 4,
+            "total_names_counted_across_lists": 526,
+            "coverage": {
+              "guild_broad__self_fertilization": {
+                "1": 3,
+                "5": 2,
+                "10": 2,
+                "30": 1
+              },
+              "guild_detailed__self_fertilization": {
+                "1": 2,
+                "5": 2,
+                "10": 1,
+                "30": 0
+              },
+              "guild_detailed__colour": {
+                "1": 2,
+                "5": 0,
+                "10": 0,
+                "30": 0
+              },
+              "colour__flower_length": {
+                "1": 2,
+                "5": 0,
+                "10": 0,
+                "30": 0
+              }
+            }
+          }
+        },
+        "per_list": [
+          {
+            "source": {
+              "url": "https://gift.uni-goettingen.de/api/extended/index3.1.php?query=checklists&listid=1038&taxonid=6&namesmatched=0&filter=native",
+              "sha256": "e9f5b518408c90cc6d6fd57fd939069ae6ba8f59dd6b349480e5e17530b92b83",
+              "rows": 30
+            },
+            "entity_class": "Island",
+            "subset": "all",
+            "flag_census": [
+              {
+                "native": "1",
+                "questionable": "missing",
+                "quest_native": "0",
+                "rows": 28
+              },
+              {
+                "native": "1",
+                "questionable": "missing",
+                "quest_native": "1",
+                "rows": 2
+              }
+            ],
+            "native_filter_rows": 30,
+            "counts": {
+              "all_named": {
+                "named_species": 28,
+                "pair_carriers": {
+                  "guild_broad__self_fertilization": 2,
+                  "guild_detailed__self_fertilization": 1,
+                  "guild_detailed__colour": 0,
+                  "colour__flower_length": 1
+                }
+              },
+              "literal_native": {
+                "named_species": 28,
+                "pair_carriers": {
+                  "guild_broad__self_fertilization": 2,
+                  "guild_detailed__self_fertilization": 1,
+                  "guild_detailed__colour": 0,
+                  "colour__flower_length": 1
+                }
+              },
+              "native_no_positive_question_flags": {
+                "named_species": 28,
+                "pair_carriers": {
+                  "guild_broad__self_fertilization": 2,
+                  "guild_detailed__self_fertilization": 1,
+                  "guild_detailed__colour": 0,
+                  "colour__flower_length": 1
+                }
+              },
+              "strict_native": {
+                "named_species": 0,
+                "pair_carriers": {
+                  "guild_broad__self_fertilization": 0,
+                  "guild_detailed__self_fertilization": 0,
+                  "guild_detailed__colour": 0,
+                  "colour__flower_length": 0
+                }
+              }
+            },
+            "unfiltered_check": {
+              "source": {
+                "url": "https://gift.uni-goettingen.de/api/extended/index3.1.php?query=checklists&listid=1038&taxonid=6&namesmatched=0",
+                "sha256": "fb7fc345d6add18a5a98cde976b85e3af0417b7de40ccaad13fbd0b894581bd1",
+                "rows": 37
+              },
+              "rows": 37,
+              "flag_census": [
+                {
+                  "native": "0",
+                  "questionable": "missing",
+                  "quest_native": "0",
+                  "rows": 7
+                },
+                {
+                  "native": "1",
+                  "questionable": "missing",
+                  "quest_native": "0",
+                  "rows": 28
+                },
+                {
+                  "native": "1",
+                  "questionable": "missing",
+                  "quest_native": "1",
+                  "rows": 2
+                }
+              ],
+              "native_filter_names_missing_from_unfiltered": 0,
+              "unfiltered_literal_native_not_in_filter": 0
+            }
+          },
+          {
+            "source": {
+              "url": "https://gift.uni-goettingen.de/api/extended/index3.1.php?query=checklists&listid=810&taxonid=6&namesmatched=0&filter=native",
+              "sha256": "2793bb214cc56d92b7a54cb9daa4c5b0180356d4800345059d5fff6b1afdda57",
+              "rows": 26
+            },
+            "entity_class": "Island",
+            "subset": "native",
+            "flag_census": [
+              {
+                "native": "1",
+                "questionable": "0",
+                "quest_native": "0",
+                "rows": 26
+              }
+            ],
+            "native_filter_rows": 26,
+            "counts": {
+              "all_named": {
+                "named_species": 26,
+                "pair_carriers": {
+                  "guild_broad__self_fertilization": 2,
+                  "guild_detailed__self_fertilization": 0,
+                  "guild_detailed__colour": 0,
+                  "colour__flower_length": 0
+                }
+              },
+              "literal_native": {
+                "named_species": 26,
+                "pair_carriers": {
+                  "guild_broad__self_fertilization": 2,
+                  "guild_detailed__self_fertilization": 0,
+                  "guild_detailed__colour": 0,
+                  "colour__flower_length": 0
+                }
+              },
+              "native_no_positive_question_flags": {
+                "named_species": 26,
+                "pair_carriers": {
+                  "guild_broad__self_fertilization": 2,
+                  "guild_detailed__self_fertilization": 0,
+                  "guild_detailed__colour": 0,
+                  "colour__flower_length": 0
+                }
+              },
+              "strict_native": {
+                "named_species": 26,
+                "pair_carriers": {
+                  "guild_broad__self_fertilization": 2,
+                  "guild_detailed__self_fertilization": 0,
+                  "guild_detailed__colour": 0,
+                  "colour__flower_length": 0
+                }
+              }
+            },
+            "unfiltered_check": {
+              "source": {
+                "url": "https://gift.uni-goettingen.de/api/extended/index3.1.php?query=checklists&listid=810&taxonid=6&namesmatched=0",
+                "sha256": "2793bb214cc56d92b7a54cb9daa4c5b0180356d4800345059d5fff6b1afdda57",
+                "rows": 26
+              },
+              "rows": 26,
+              "flag_census": [
+                {
+                  "native": "1",
+                  "questionable": "0",
+                  "quest_native": "0",
+                  "rows": 26
+                }
+              ],
+              "native_filter_names_missing_from_unfiltered": 0,
+              "unfiltered_literal_native_not_in_filter": 0
+            }
+          },
+          {
+            "source": {
+              "url": "https://gift.uni-goettingen.de/api/extended/index3.1.php?query=checklists&listid=249&taxonid=6&namesmatched=0&filter=native",
+              "sha256": "4d42a9c71ec0361269b3822202b3941199c37b728a51b97108559f6dfd448c0c",
+              "rows": 443
+            },
+            "entity_class": "Island",
+            "subset": "native",
+            "flag_census": [
+              {
+                "native": "1",
+                "questionable": "missing",
+                "quest_native": "missing",
+                "rows": 443
+              }
+            ],
+            "native_filter_rows": 443,
+            "counts": {
+              "all_named": {
+                "named_species": 440,
+                "pair_carriers": {
+                  "guild_broad__self_fertilization": 50,
+                  "guild_detailed__self_fertilization": 32,
+                  "guild_detailed__colour": 2,
+                  "colour__flower_length": 6
+                }
+              },
+              "literal_native": {
+                "named_species": 440,
+                "pair_carriers": {
+                  "guild_broad__self_fertilization": 50,
+                  "guild_detailed__self_fertilization": 32,
+                  "guild_detailed__colour": 2,
+                  "colour__flower_length": 6
+                }
+              },
+              "native_no_positive_question_flags": {
+                "named_species": 440,
+                "pair_carriers": {
+                  "guild_broad__self_fertilization": 50,
+                  "guild_detailed__self_fertilization": 32,
+                  "guild_detailed__colour": 2,
+                  "colour__flower_length": 6
+                }
+              },
+              "strict_native": {
+                "named_species": 0,
+                "pair_carriers": {
+                  "guild_broad__self_fertilization": 0,
+                  "guild_detailed__self_fertilization": 0,
+                  "guild_detailed__colour": 0,
+                  "colour__flower_length": 0
+                }
+              }
+            },
+            "unfiltered_check": {
+              "source": {
+                "url": "https://gift.uni-goettingen.de/api/extended/index3.1.php?query=checklists&listid=249&taxonid=6&namesmatched=0",
+                "sha256": "4d42a9c71ec0361269b3822202b3941199c37b728a51b97108559f6dfd448c0c",
+                "rows": 443
+              },
+              "rows": 443,
+              "flag_census": [
+                {
+                  "native": "1",
+                  "questionable": "missing",
+                  "quest_native": "missing",
+                  "rows": 443
+                }
+              ],
+              "native_filter_names_missing_from_unfiltered": 0,
+              "unfiltered_literal_native_not_in_filter": 0
+            }
+          },
+          {
+            "source": {
+              "url": "https://gift.uni-goettingen.de/api/extended/index3.1.php?query=checklists&listid=1167&taxonid=6&namesmatched=0&filter=native",
+              "sha256": "f325fb216fd768a4f40313501a2f6c804498bb19e39a31639f822c64ea78b4bb",
+              "rows": 1
+            },
+            "entity_class": "Island",
+            "subset": "all",
+            "flag_census": [
+              {
+                "native": "1",
+                "questionable": "0",
+                "quest_native": "0",
+                "rows": 1
+              }
+            ],
+            "native_filter_rows": 1,
+            "counts": {
+              "all_named": {
+                "named_species": 1,
+                "pair_carriers": {
+                  "guild_broad__self_fertilization": 0,
+                  "guild_detailed__self_fertilization": 0,
+                  "guild_detailed__colour": 0,
+                  "colour__flower_length": 0
+                }
+              },
+              "literal_native": {
+                "named_species": 1,
+                "pair_carriers": {
+                  "guild_broad__self_fertilization": 0,
+                  "guild_detailed__self_fertilization": 0,
+                  "guild_detailed__colour": 0,
+                  "colour__flower_length": 0
+                }
+              },
+              "native_no_positive_question_flags": {
+                "named_species": 1,
+                "pair_carriers": {
+                  "guild_broad__self_fertilization": 0,
+                  "guild_detailed__self_fertilization": 0,
+                  "guild_detailed__colour": 0,
+                  "colour__flower_length": 0
+                }
+              },
+              "strict_native": {
+                "named_species": 1,
+                "pair_carriers": {
+                  "guild_broad__self_fertilization": 0,
+                  "guild_detailed__self_fertilization": 0,
+                  "guild_detailed__colour": 0,
+                  "colour__flower_length": 0
+                }
+              }
+            },
+            "unfiltered_check": {
+              "source": {
+                "url": "https://gift.uni-goettingen.de/api/extended/index3.1.php?query=checklists&listid=1167&taxonid=6&namesmatched=0",
+                "sha256": "f325fb216fd768a4f40313501a2f6c804498bb19e39a31639f822c64ea78b4bb",
+                "rows": 1
+              },
+              "rows": 1,
+              "flag_census": [
+                {
+                  "native": "1",
+                  "questionable": "0",
+                  "quest_native": "0",
+                  "rows": 1
+                }
+              ],
+              "native_filter_names_missing_from_unfiltered": 0,
+              "unfiltered_literal_native_not_in_filter": 0
+            }
+          },
+          {
+            "source": {
+              "url": "https://gift.uni-goettingen.de/api/extended/index3.1.php?query=checklists&listid=258&taxonid=6&namesmatched=0&filter=native",
+              "sha256": "1ec66c9fd8b640cd15f926e5215d7e27461fd8999a42550a2620344131a90dec",
+              "rows": 587
+            },
+            "entity_class": "Island",
+            "subset": "native",
+            "flag_census": [
+              {
+                "native": "1",
+                "questionable": "missing",
+                "quest_native": "missing",
+                "rows": 587
+              }
+            ],
+            "native_filter_rows": 587,
+            "counts": {
+              "all_named": {
+                "named_species": 581,
+                "pair_carriers": {
+                  "guild_broad__self_fertilization": 53,
+                  "guild_detailed__self_fertilization": 37,
+                  "guild_detailed__colour": 2,
+                  "colour__flower_length": 6
+                }
+              },
+              "literal_native": {
+                "named_species": 581,
+                "pair_carriers": {
+                  "guild_broad__self_fertilization": 53,
+                  "guild_detailed__self_fertilization": 37,
+                  "guild_detailed__colour": 2,
+                  "colour__flower_length": 6
+                }
+              },
+              "native_no_positive_question_flags": {
+                "named_species": 581,
+                "pair_carriers": {
+                  "guild_broad__self_fertilization": 53,
+                  "guild_detailed__self_fertilization": 37,
+                  "guild_detailed__colour": 2,
+                  "colour__flower_length": 6
+                }
+              },
+              "strict_native": {
+                "named_species": 0,
+                "pair_carriers": {
+                  "guild_broad__self_fertilization": 0,
+                  "guild_detailed__self_fertilization": 0,
+                  "guild_detailed__colour": 0,
+                  "colour__flower_length": 0
+                }
+              }
+            },
+            "unfiltered_check": {
+              "source": {
+                "url": "https://gift.uni-goettingen.de/api/extended/index3.1.php?query=checklists&listid=258&taxonid=6&namesmatched=0",
+                "sha256": "1ec66c9fd8b640cd15f926e5215d7e27461fd8999a42550a2620344131a90dec",
+                "rows": 587
+              },
+              "rows": 587,
+              "flag_census": [
+                {
+                  "native": "1",
+                  "questionable": "missing",
+                  "quest_native": "missing",
+                  "rows": 587
+                }
+              ],
+              "native_filter_names_missing_from_unfiltered": 0,
+              "unfiltered_literal_native_not_in_filter": 0
+            }
+          },
+          {
+            "source": {
+              "url": "https://gift.uni-goettingen.de/api/extended/index3.1.php?query=checklists&listid=13085&taxonid=6&namesmatched=0&filter=native",
+              "sha256": "e20900912f5981e1249e93d9ac67f39850e1b632902b05c43595bb80d791cd4d",
+              "rows": 2
+            },
+            "entity_class": "Island",
+            "subset": "all",
+            "flag_census": [
+              {
+                "native": "1",
+                "questionable": "missing",
+                "quest_native": "missing",
+                "rows": 2
+              }
+            ],
+            "native_filter_rows": 2,
+            "counts": {
+              "all_named": {
+                "named_species": 2,
+                "pair_carriers": {
+                  "guild_broad__self_fertilization": 0,
+                  "guild_detailed__self_fertilization": 0,
+                  "guild_detailed__colour": 0,
+                  "colour__flower_length": 0
+                }
+              },
+              "literal_native": {
+                "named_species": 2,
+                "pair_carriers": {
+                  "guild_broad__self_fertilization": 0,
+                  "guild_detailed__self_fertilization": 0,
+                  "guild_detailed__colour": 0,
+                  "colour__flower_length": 0
+                }
+              },
+              "native_no_positive_question_flags": {
+                "named_species": 2,
+                "pair_carriers": {
+                  "guild_broad__self_fertilization": 0,
+                  "guild_detailed__self_fertilization": 0,
+                  "guild_detailed__colour": 0,
+                  "colour__flower_length": 0
+                }
+              },
+              "strict_native": {
+                "named_species": 0,
+                "pair_carriers": {
+                  "guild_broad__self_fertilization": 0,
+                  "guild_detailed__self_fertilization": 0,
+                  "guild_detailed__colour": 0,
+                  "colour__flower_length": 0
+                }
+              }
+            },
+            "unfiltered_check": {
+              "source": {
+                "url": "https://gift.uni-goettingen.de/api/extended/index3.1.php?query=checklists&listid=13085&taxonid=6&namesmatched=0",
+                "sha256": "e20900912f5981e1249e93d9ac67f39850e1b632902b05c43595bb80d791cd4d",
+                "rows": 2
+              },
+              "rows": 2,
+              "flag_census": [
+                {
+                  "native": "1",
+                  "questionable": "missing",
+                  "quest_native": "missing",
+                  "rows": 2
+                }
+              ],
+              "native_filter_names_missing_from_unfiltered": 0,
+              "unfiltered_literal_native_not_in_filter": 0
+            }
+          },
+          {
+            "source": {
+              "url": "https://gift.uni-goettingen.de/api/extended/index3.1.php?query=checklists&listid=1104&taxonid=6&namesmatched=0&filter=native",
+              "sha256": "31bd3eb2250d23ba19b3196b311ed03ffe7af5103c0f687d04fc06deb44c9750",
+              "rows": 61
+            },
+            "entity_class": "Island",
+            "subset": "all",
+            "flag_census": [
+              {
+                "native": "1",
+                "questionable": "0",
+                "quest_native": "missing",
+                "rows": 61
+              }
+            ],
+            "native_filter_rows": 61,
+            "counts": {
+              "all_named": {
+                "named_species": 61,
+                "pair_carriers": {
+                  "guild_broad__self_fertilization": 1,
+                  "guild_detailed__self_fertilization": 1,
+                  "guild_detailed__colour": 1,
+                  "colour__flower_length": 1
+                }
+              },
+              "literal_native": {
+                "named_species": 61,
+                "pair_carriers": {
+                  "guild_broad__self_fertilization": 1,
+                  "guild_detailed__self_fertilization": 1,
+                  "guild_detailed__colour": 1,
+                  "colour__flower_length": 1
+                }
+              },
+              "native_no_positive_question_flags": {
+                "named_species": 61,
+                "pair_carriers": {
+                  "guild_broad__self_fertilization": 1,
+                  "guild_detailed__self_fertilization": 1,
+                  "guild_detailed__colour": 1,
+                  "colour__flower_length": 1
+                }
+              },
+              "strict_native": {
+                "named_species": 0,
+                "pair_carriers": {
+                  "guild_broad__self_fertilization": 0,
+                  "guild_detailed__self_fertilization": 0,
+                  "guild_detailed__colour": 0,
+                  "colour__flower_length": 0
+                }
+              }
+            }
+          },
+          {
+            "source": {
+              "url": "https://gift.uni-goettingen.de/api/extended/index3.1.php?query=checklists&listid=13017&taxonid=6&namesmatched=0&filter=native",
+              "sha256": "3eb15aad51178d0a0191addd4ee18431352d8c220f3728d7dd2a84e508c67208",
+              "rows": 6
+            },
+            "entity_class": "Island",
+            "subset": "all",
+            "flag_census": [
+              {
+                "native": "1",
+                "questionable": "missing",
+                "quest_native": "missing",
+                "rows": 6
+              }
+            ],
+            "native_filter_rows": 6,
+            "counts": {
+              "all_named": {
+                "named_species": 6,
+                "pair_carriers": {
+                  "guild_broad__self_fertilization": 0,
+                  "guild_detailed__self_fertilization": 0,
+                  "guild_detailed__colour": 0,
+                  "colour__flower_length": 0
+                }
+              },
+              "literal_native": {
+                "named_species": 6,
+                "pair_carriers": {
+                  "guild_broad__self_fertilization": 0,
+                  "guild_detailed__self_fertilization": 0,
+                  "guild_detailed__colour": 0,
+                  "colour__flower_length": 0
+                }
+              },
+              "native_no_positive_question_flags": {
+                "named_species": 6,
+                "pair_carriers": {
+                  "guild_broad__self_fertilization": 0,
+                  "guild_detailed__self_fertilization": 0,
+                  "guild_detailed__colour": 0,
+                  "colour__flower_length": 0
+                }
+              },
+              "strict_native": {
+                "named_species": 0,
+                "pair_carriers": {
+                  "guild_broad__self_fertilization": 0,
+                  "guild_detailed__self_fertilization": 0,
+                  "guild_detailed__colour": 0,
+                  "colour__flower_length": 0
+                }
+              }
+            }
+          },
+          {
+            "source": {
+              "url": "https://gift.uni-goettingen.de/api/extended/index3.1.php?query=checklists&listid=16282&taxonid=6&namesmatched=0&filter=native",
+              "sha256": "b844d3ccc567e398c741f7d1689dabbe877d859578363f102e4b6974cc213636",
+              "rows": 254
+            },
+            "entity_class": "Island",
+            "subset": "all",
+            "flag_census": [
+              {
+                "native": "1",
+                "questionable": "0",
+                "quest_native": "0",
+                "rows": 254
+              }
+            ],
+            "native_filter_rows": 254,
+            "counts": {
+              "all_named": {
+                "named_species": 238,
+                "pair_carriers": {
+                  "guild_broad__self_fertilization": 13,
+                  "guild_detailed__self_fertilization": 7,
+                  "guild_detailed__colour": 2,
+                  "colour__flower_length": 2
+                }
+              },
+              "literal_native": {
+                "named_species": 238,
+                "pair_carriers": {
+                  "guild_broad__self_fertilization": 13,
+                  "guild_detailed__self_fertilization": 7,
+                  "guild_detailed__colour": 2,
+                  "colour__flower_length": 2
+                }
+              },
+              "native_no_positive_question_flags": {
+                "named_species": 238,
+                "pair_carriers": {
+                  "guild_broad__self_fertilization": 13,
+                  "guild_detailed__self_fertilization": 7,
+                  "guild_detailed__colour": 2,
+                  "colour__flower_length": 2
+                }
+              },
+              "strict_native": {
+                "named_species": 238,
+                "pair_carriers": {
+                  "guild_broad__self_fertilization": 13,
+                  "guild_detailed__self_fertilization": 7,
+                  "guild_detailed__colour": 2,
+                  "colour__flower_length": 2
+                }
+              }
+            }
+          },
+          {
+            "source": {
+              "url": "https://gift.uni-goettingen.de/api/extended/index3.1.php?query=checklists&listid=261&taxonid=6&namesmatched=0&filter=native",
+              "sha256": "f67dc0f8c25f316b89cd4129e3c2e4c5b87a655bf7e3cd9ec87074bf07f440cf",
+              "rows": 18
+            },
+            "entity_class": "Island",
+            "subset": "native",
+            "flag_census": [
+              {
+                "native": "1",
+                "questionable": "missing",
+                "quest_native": "missing",
+                "rows": 18
+              }
+            ],
+            "native_filter_rows": 18,
+            "counts": {
+              "all_named": {
+                "named_species": 18,
+                "pair_carriers": {
+                  "guild_broad__self_fertilization": 2,
+                  "guild_detailed__self_fertilization": 1,
+                  "guild_detailed__colour": 0,
+                  "colour__flower_length": 0
+                }
+              },
+              "literal_native": {
+                "named_species": 18,
+                "pair_carriers": {
+                  "guild_broad__self_fertilization": 2,
+                  "guild_detailed__self_fertilization": 1,
+                  "guild_detailed__colour": 0,
+                  "colour__flower_length": 0
+                }
+              },
+              "native_no_positive_question_flags": {
+                "named_species": 18,
+                "pair_carriers": {
+                  "guild_broad__self_fertilization": 2,
+                  "guild_detailed__self_fertilization": 1,
+                  "guild_detailed__colour": 0,
+                  "colour__flower_length": 0
+                }
+              },
+              "strict_native": {
+                "named_species": 0,
+                "pair_carriers": {
+                  "guild_broad__self_fertilization": 0,
+                  "guild_detailed__self_fertilization": 0,
+                  "guild_detailed__colour": 0,
+                  "colour__flower_length": 0
+                }
+              }
+            }
+          },
+          {
+            "source": {
+              "url": "https://gift.uni-goettingen.de/api/extended/index3.1.php?query=checklists&listid=15531&taxonid=6&namesmatched=0&filter=native",
+              "sha256": "7fe03e0adf74e0f1edc684abe64e3c7ee92cabdb99d9c228e6e5203537ae6560",
+              "rows": 363
+            },
+            "entity_class": "Island",
+            "subset": "native",
+            "flag_census": [
+              {
+                "native": "1",
+                "questionable": "missing",
+                "quest_native": "missing",
+                "rows": 363
+              }
+            ],
+            "native_filter_rows": 363,
+            "counts": {
+              "all_named": {
+                "named_species": 361,
+                "pair_carriers": {
+                  "guild_broad__self_fertilization": 76,
+                  "guild_detailed__self_fertilization": 47,
+                  "guild_detailed__colour": 6,
+                  "colour__flower_length": 8
+                }
+              },
+              "literal_native": {
+                "named_species": 361,
+                "pair_carriers": {
+                  "guild_broad__self_fertilization": 76,
+                  "guild_detailed__self_fertilization": 47,
+                  "guild_detailed__colour": 6,
+                  "colour__flower_length": 8
+                }
+              },
+              "native_no_positive_question_flags": {
+                "named_species": 361,
+                "pair_carriers": {
+                  "guild_broad__self_fertilization": 76,
+                  "guild_detailed__self_fertilization": 47,
+                  "guild_detailed__colour": 6,
+                  "colour__flower_length": 8
+                }
+              },
+              "strict_native": {
+                "named_species": 0,
+                "pair_carriers": {
+                  "guild_broad__self_fertilization": 0,
+                  "guild_detailed__self_fertilization": 0,
+                  "guild_detailed__colour": 0,
+                  "colour__flower_length": 0
+                }
+              }
+            }
+          },
+          {
+            "source": {
+              "url": "https://gift.uni-goettingen.de/api/extended/index3.1.php?query=checklists&listid=13158&taxonid=6&namesmatched=0&filter=native",
+              "sha256": "0355d628904c22a0b2365fb3aa32a4819bc75e83ecd5e381504dd7a7292e1f14",
+              "rows": 86
+            },
+            "entity_class": "Island",
+            "subset": "all",
+            "flag_census": [
+              {
+                "native": "1",
+                "questionable": "missing",
+                "quest_native": "missing",
+                "rows": 86
+              }
+            ],
+            "native_filter_rows": 86,
+            "counts": {
+              "all_named": {
+                "named_species": 86,
+                "pair_carriers": {
+                  "guild_broad__self_fertilization": 30,
+                  "guild_detailed__self_fertilization": 11,
+                  "guild_detailed__colour": 1,
+                  "colour__flower_length": 5
+                }
+              },
+              "literal_native": {
+                "named_species": 86,
+                "pair_carriers": {
+                  "guild_broad__self_fertilization": 30,
+                  "guild_detailed__self_fertilization": 11,
+                  "guild_detailed__colour": 1,
+                  "colour__flower_length": 5
+                }
+              },
+              "native_no_positive_question_flags": {
+                "named_species": 86,
+                "pair_carriers": {
+                  "guild_broad__self_fertilization": 30,
+                  "guild_detailed__self_fertilization": 11,
+                  "guild_detailed__colour": 1,
+                  "colour__flower_length": 5
+                }
+              },
+              "strict_native": {
+                "named_species": 0,
+                "pair_carriers": {
+                  "guild_broad__self_fertilization": 0,
+                  "guild_detailed__self_fertilization": 0,
+                  "guild_detailed__colour": 0,
+                  "colour__flower_length": 0
+                }
+              }
+            }
+          },
+          {
+            "source": {
+              "url": "https://gift.uni-goettingen.de/api/extended/index3.1.php?query=checklists&listid=13692&taxonid=6&namesmatched=0&filter=native",
+              "sha256": "eb61defdd354fe7da5734aa87ef8144b9a23b1b343c2a7fe0185d18efd3d57eb",
+              "rows": 65
+            },
+            "entity_class": "Island",
+            "subset": "native and naturalized",
+            "flag_census": [
+              {
+                "native": "1",
+                "questionable": "missing",
+                "quest_native": "missing",
+                "rows": 65
+              }
+            ],
+            "native_filter_rows": 65,
+            "counts": {
+              "all_named": {
+                "named_species": 65,
+                "pair_carriers": {
+                  "guild_broad__self_fertilization": 7,
+                  "guild_detailed__self_fertilization": 2,
+                  "guild_detailed__colour": 0,
+                  "colour__flower_length": 0
+                }
+              },
+              "literal_native": {
+                "named_species": 65,
+                "pair_carriers": {
+                  "guild_broad__self_fertilization": 7,
+                  "guild_detailed__self_fertilization": 2,
+                  "guild_detailed__colour": 0,
+                  "colour__flower_length": 0
+                }
+              },
+              "native_no_positive_question_flags": {
+                "named_species": 65,
+                "pair_carriers": {
+                  "guild_broad__self_fertilization": 7,
+                  "guild_detailed__self_fertilization": 2,
+                  "guild_detailed__colour": 0,
+                  "colour__flower_length": 0
+                }
+              },
+              "strict_native": {
+                "named_species": 0,
+                "pair_carriers": {
+                  "guild_broad__self_fertilization": 0,
+                  "guild_detailed__self_fertilization": 0,
+                  "guild_detailed__colour": 0,
+                  "colour__flower_length": 0
+                }
+              }
+            }
+          },
+          {
+            "source": {
+              "url": "https://gift.uni-goettingen.de/api/extended/index3.1.php?query=checklists&listid=13203&taxonid=6&namesmatched=0&filter=native",
+              "sha256": "839a2f0e1d87dbd26a8e407d447b3d8bdcdc18b15c7c8ea425a272f8cdb66be0",
+              "rows": 70
+            },
+            "entity_class": "Island",
+            "subset": "all",
+            "flag_census": [
+              {
+                "native": "1",
+                "questionable": "missing",
+                "quest_native": "missing",
+                "rows": 70
+              }
+            ],
+            "native_filter_rows": 70,
+            "counts": {
+              "all_named": {
+                "named_species": 68,
+                "pair_carriers": {
+                  "guild_broad__self_fertilization": 28,
+                  "guild_detailed__self_fertilization": 14,
+                  "guild_detailed__colour": 2,
+                  "colour__flower_length": 7
+                }
+              },
+              "literal_native": {
+                "named_species": 68,
+                "pair_carriers": {
+                  "guild_broad__self_fertilization": 28,
+                  "guild_detailed__self_fertilization": 14,
+                  "guild_detailed__colour": 2,
+                  "colour__flower_length": 7
+                }
+              },
+              "native_no_positive_question_flags": {
+                "named_species": 68,
+                "pair_carriers": {
+                  "guild_broad__self_fertilization": 28,
+                  "guild_detailed__self_fertilization": 14,
+                  "guild_detailed__colour": 2,
+                  "colour__flower_length": 7
+                }
+              },
+              "strict_native": {
+                "named_species": 0,
+                "pair_carriers": {
+                  "guild_broad__self_fertilization": 0,
+                  "guild_detailed__self_fertilization": 0,
+                  "guild_detailed__colour": 0,
+                  "colour__flower_length": 0
+                }
+              }
+            }
+          },
+          {
+            "source": {
+              "url": "https://gift.uni-goettingen.de/api/extended/index3.1.php?query=checklists&listid=749&taxonid=6&namesmatched=0&filter=native",
+              "sha256": "e1cf9b44628873ea7c00baa89fe70a4903b5497106ba26afc0dea8554174777b",
+              "rows": 262
+            },
+            "entity_class": "Island",
+            "subset": "all",
+            "flag_census": [
+              {
+                "native": "1",
+                "questionable": "0",
+                "quest_native": "0",
+                "rows": 262
+              }
+            ],
+            "native_filter_rows": 262,
+            "counts": {
+              "all_named": {
+                "named_species": 261,
+                "pair_carriers": {
+                  "guild_broad__self_fertilization": 30,
+                  "guild_detailed__self_fertilization": 12,
+                  "guild_detailed__colour": 2,
+                  "colour__flower_length": 4
+                }
+              },
+              "literal_native": {
+                "named_species": 261,
+                "pair_carriers": {
+                  "guild_broad__self_fertilization": 30,
+                  "guild_detailed__self_fertilization": 12,
+                  "guild_detailed__colour": 2,
+                  "colour__flower_length": 4
+                }
+              },
+              "native_no_positive_question_flags": {
+                "named_species": 261,
+                "pair_carriers": {
+                  "guild_broad__self_fertilization": 30,
+                  "guild_detailed__self_fertilization": 12,
+                  "guild_detailed__colour": 2,
+                  "colour__flower_length": 4
+                }
+              },
+              "strict_native": {
+                "named_species": 261,
+                "pair_carriers": {
+                  "guild_broad__self_fertilization": 30,
+                  "guild_detailed__self_fertilization": 12,
+                  "guild_detailed__colour": 2,
+                  "colour__flower_length": 4
+                }
+              }
+            }
+          },
+          {
+            "source": {
+              "url": "https://gift.uni-goettingen.de/api/extended/index3.1.php?query=checklists&listid=353&taxonid=6&namesmatched=0&filter=native",
+              "sha256": "fb2ece7efd51fb57eb3c88ad8972fd1d46af9685033179a9904befe8ac441603",
+              "rows": 142
+            },
+            "entity_class": "Island",
+            "subset": "native",
+            "flag_census": [
+              {
+                "native": "1",
+                "questionable": "missing",
+                "quest_native": "missing",
+                "rows": 142
+              }
+            ],
+            "native_filter_rows": 142,
+            "counts": {
+              "all_named": {
+                "named_species": 142,
+                "pair_carriers": {
+                  "guild_broad__self_fertilization": 4,
+                  "guild_detailed__self_fertilization": 1,
+                  "guild_detailed__colour": 0,
+                  "colour__flower_length": 2
+                }
+              },
+              "literal_native": {
+                "named_species": 142,
+                "pair_carriers": {
+                  "guild_broad__self_fertilization": 4,
+                  "guild_detailed__self_fertilization": 1,
+                  "guild_detailed__colour": 0,
+                  "colour__flower_length": 2
+                }
+              },
+              "native_no_positive_question_flags": {
+                "named_species": 142,
+                "pair_carriers": {
+                  "guild_broad__self_fertilization": 4,
+                  "guild_detailed__self_fertilization": 1,
+                  "guild_detailed__colour": 0,
+                  "colour__flower_length": 2
+                }
+              },
+              "strict_native": {
+                "named_species": 0,
+                "pair_carriers": {
+                  "guild_broad__self_fertilization": 0,
+                  "guild_detailed__self_fertilization": 0,
+                  "guild_detailed__colour": 0,
+                  "colour__flower_length": 0
+                }
+              }
+            }
+          },
+          {
+            "source": {
+              "url": "https://gift.uni-goettingen.de/api/extended/index3.1.php?query=checklists&listid=13687&taxonid=6&namesmatched=0&filter=native",
+              "sha256": "036be8f558e49a24c04429b4755ef617bdd3a9e9843a074d202426141e69d83e",
+              "rows": 63
+            },
+            "entity_class": "Island",
+            "subset": "native and naturalized",
+            "flag_census": [
+              {
+                "native": "1",
+                "questionable": "missing",
+                "quest_native": "missing",
+                "rows": 63
+              }
+            ],
+            "native_filter_rows": 63,
+            "counts": {
+              "all_named": {
+                "named_species": 63,
+                "pair_carriers": {
+                  "guild_broad__self_fertilization": 9,
+                  "guild_detailed__self_fertilization": 3,
+                  "guild_detailed__colour": 0,
+                  "colour__flower_length": 0
+                }
+              },
+              "literal_native": {
+                "named_species": 63,
+                "pair_carriers": {
+                  "guild_broad__self_fertilization": 9,
+                  "guild_detailed__self_fertilization": 3,
+                  "guild_detailed__colour": 0,
+                  "colour__flower_length": 0
+                }
+              },
+              "native_no_positive_question_flags": {
+                "named_species": 63,
+                "pair_carriers": {
+                  "guild_broad__self_fertilization": 9,
+                  "guild_detailed__self_fertilization": 3,
+                  "guild_detailed__colour": 0,
+                  "colour__flower_length": 0
+                }
+              },
+              "strict_native": {
+                "named_species": 0,
+                "pair_carriers": {
+                  "guild_broad__self_fertilization": 0,
+                  "guild_detailed__self_fertilization": 0,
+                  "guild_detailed__colour": 0,
+                  "colour__flower_length": 0
+                }
+              }
+            }
+          },
+          {
+            "source": {
+              "url": "https://gift.uni-goettingen.de/api/extended/index3.1.php?query=checklists&listid=13076&taxonid=6&namesmatched=0&filter=native",
+              "sha256": "3f8da40d803bcc4f3d04c568c5a56d79cd33ca0a60aa265079ad21bc11c6b5fc",
+              "rows": 5
+            },
+            "entity_class": "Island",
+            "subset": "all",
+            "flag_census": [
+              {
+                "native": "1",
+                "questionable": "missing",
+                "quest_native": "missing",
+                "rows": 5
+              }
+            ],
+            "native_filter_rows": 5,
+            "counts": {
+              "all_named": {
+                "named_species": 5,
+                "pair_carriers": {
+                  "guild_broad__self_fertilization": 0,
+                  "guild_detailed__self_fertilization": 0,
+                  "guild_detailed__colour": 0,
+                  "colour__flower_length": 0
+                }
+              },
+              "literal_native": {
+                "named_species": 5,
+                "pair_carriers": {
+                  "guild_broad__self_fertilization": 0,
+                  "guild_detailed__self_fertilization": 0,
+                  "guild_detailed__colour": 0,
+                  "colour__flower_length": 0
+                }
+              },
+              "native_no_positive_question_flags": {
+                "named_species": 5,
+                "pair_carriers": {
+                  "guild_broad__self_fertilization": 0,
+                  "guild_detailed__self_fertilization": 0,
+                  "guild_detailed__colour": 0,
+                  "colour__flower_length": 0
+                }
+              },
+              "strict_native": {
+                "named_species": 0,
+                "pair_carriers": {
+                  "guild_broad__self_fertilization": 0,
+                  "guild_detailed__self_fertilization": 0,
+                  "guild_detailed__colour": 0,
+                  "colour__flower_length": 0
+                }
+              }
+            }
+          },
+          {
+            "source": {
+              "url": "https://gift.uni-goettingen.de/api/extended/index3.1.php?query=checklists&listid=13194&taxonid=6&namesmatched=0&filter=native",
+              "sha256": "6f85a6e29b39c02966b67667731b3111630fb09fe90faf74070b56cdadc6a7b0",
+              "rows": 24
+            },
+            "entity_class": "Island",
+            "subset": "all",
+            "flag_census": [
+              {
+                "native": "1",
+                "questionable": "missing",
+                "quest_native": "missing",
+                "rows": 24
+              }
+            ],
+            "native_filter_rows": 24,
+            "counts": {
+              "all_named": {
+                "named_species": 23,
+                "pair_carriers": {
+                  "guild_broad__self_fertilization": 14,
+                  "guild_detailed__self_fertilization": 6,
+                  "guild_detailed__colour": 0,
+                  "colour__flower_length": 2
+                }
+              },
+              "literal_native": {
+                "named_species": 23,
+                "pair_carriers": {
+                  "guild_broad__self_fertilization": 14,
+                  "guild_detailed__self_fertilization": 6,
+                  "guild_detailed__colour": 0,
+                  "colour__flower_length": 2
+                }
+              },
+              "native_no_positive_question_flags": {
+                "named_species": 23,
+                "pair_carriers": {
+                  "guild_broad__self_fertilization": 14,
+                  "guild_detailed__self_fertilization": 6,
+                  "guild_detailed__colour": 0,
+                  "colour__flower_length": 2
+                }
+              },
+              "strict_native": {
+                "named_species": 0,
+                "pair_carriers": {
+                  "guild_broad__self_fertilization": 0,
+                  "guild_detailed__self_fertilization": 0,
+                  "guild_detailed__colour": 0,
+                  "colour__flower_length": 0
+                }
+              }
+            }
+          },
+          {
+            "source": {
+              "url": "https://gift.uni-goettingen.de/api/extended/index3.1.php?query=checklists&listid=13698&taxonid=6&namesmatched=0&filter=native",
+              "sha256": "a7becce81f240dce6d599d6ce88f4d70ce7d90b2a3ab85bc9de57572e4f2fbfc",
+              "rows": 20
+            },
+            "entity_class": "Island",
+            "subset": "native and naturalized",
+            "flag_census": [
+              {
+                "native": "1",
+                "questionable": "missing",
+                "quest_native": "missing",
+                "rows": 20
+              }
+            ],
+            "native_filter_rows": 20,
+            "counts": {
+              "all_named": {
+                "named_species": 20,
+                "pair_carriers": {
+                  "guild_broad__self_fertilization": 3,
+                  "guild_detailed__self_fertilization": 0,
+                  "guild_detailed__colour": 0,
+                  "colour__flower_length": 0
+                }
+              },
+              "literal_native": {
+                "named_species": 20,
+                "pair_carriers": {
+                  "guild_broad__self_fertilization": 3,
+                  "guild_detailed__self_fertilization": 0,
+                  "guild_detailed__colour": 0,
+                  "colour__flower_length": 0
+                }
+              },
+              "native_no_positive_question_flags": {
+                "named_species": 20,
+                "pair_carriers": {
+                  "guild_broad__self_fertilization": 3,
+                  "guild_detailed__self_fertilization": 0,
+                  "guild_detailed__colour": 0,
+                  "colour__flower_length": 0
+                }
+              },
+              "strict_native": {
+                "named_species": 0,
+                "pair_carriers": {
+                  "guild_broad__self_fertilization": 0,
+                  "guild_detailed__self_fertilization": 0,
+                  "guild_detailed__colour": 0,
+                  "colour__flower_length": 0
+                }
+              }
+            }
+          },
+          {
+            "source": {
+              "url": "https://gift.uni-goettingen.de/api/extended/index3.1.php?query=checklists&listid=13211&taxonid=6&namesmatched=0&filter=native",
+              "sha256": "bb805f3b29fe4d6c736dd5811f750ea2083961122b41284444345afd0d87e29a",
+              "rows": 83
+            },
+            "entity_class": "Island",
+            "subset": "all",
+            "flag_census": [
+              {
+                "native": "1",
+                "questionable": "missing",
+                "quest_native": "missing",
+                "rows": 83
+              }
+            ],
+            "native_filter_rows": 83,
+            "counts": {
+              "all_named": {
+                "named_species": 82,
+                "pair_carriers": {
+                  "guild_broad__self_fertilization": 42,
+                  "guild_detailed__self_fertilization": 18,
+                  "guild_detailed__colour": 4,
+                  "colour__flower_length": 5
+                }
+              },
+              "literal_native": {
+                "named_species": 82,
+                "pair_carriers": {
+                  "guild_broad__self_fertilization": 42,
+                  "guild_detailed__self_fertilization": 18,
+                  "guild_detailed__colour": 4,
+                  "colour__flower_length": 5
+                }
+              },
+              "native_no_positive_question_flags": {
+                "named_species": 82,
+                "pair_carriers": {
+                  "guild_broad__self_fertilization": 42,
+                  "guild_detailed__self_fertilization": 18,
+                  "guild_detailed__colour": 4,
+                  "colour__flower_length": 5
+                }
+              },
+              "strict_native": {
+                "named_species": 0,
+                "pair_carriers": {
+                  "guild_broad__self_fertilization": 0,
+                  "guild_detailed__self_fertilization": 0,
+                  "guild_detailed__colour": 0,
+                  "colour__flower_length": 0
+                }
+              }
+            }
+          },
+          {
+            "source": {
+              "url": "https://gift.uni-goettingen.de/api/extended/index3.1.php?query=checklists&listid=13224&taxonid=6&namesmatched=0&filter=native",
+              "sha256": "d1a909056aee2d6b7e5439cb353cc132bf5685d2d916cab7b59db339495f90e9",
+              "rows": 34
+            },
+            "entity_class": "Island",
+            "subset": "all",
+            "flag_census": [
+              {
+                "native": "1",
+                "questionable": "missing",
+                "quest_native": "missing",
+                "rows": 34
+              }
+            ],
+            "native_filter_rows": 34,
+            "counts": {
+              "all_named": {
+                "named_species": 34,
+                "pair_carriers": {
+                  "guild_broad__self_fertilization": 23,
+                  "guild_detailed__self_fertilization": 14,
+                  "guild_detailed__colour": 1,
+                  "colour__flower_length": 3
+                }
+              },
+              "literal_native": {
+                "named_species": 34,
+                "pair_carriers": {
+                  "guild_broad__self_fertilization": 23,
+                  "guild_detailed__self_fertilization": 14,
+                  "guild_detailed__colour": 1,
+                  "colour__flower_length": 3
+                }
+              },
+              "native_no_positive_question_flags": {
+                "named_species": 34,
+                "pair_carriers": {
+                  "guild_broad__self_fertilization": 23,
+                  "guild_detailed__self_fertilization": 14,
+                  "guild_detailed__colour": 1,
+                  "colour__flower_length": 3
+                }
+              },
+              "strict_native": {
+                "named_species": 0,
+                "pair_carriers": {
+                  "guild_broad__self_fertilization": 0,
+                  "guild_detailed__self_fertilization": 0,
+                  "guild_detailed__colour": 0,
+                  "colour__flower_length": 0
+                }
+              }
+            }
+          },
+          {
+            "source": {
+              "url": "https://gift.uni-goettingen.de/api/extended/index3.1.php?query=checklists&listid=1239&taxonid=6&namesmatched=0&filter=native",
+              "sha256": "b9a4d83b654bc1d3f1ed0e37118c6f82f1bd3c74b59763df03777591d914af9c",
+              "rows": 97
+            },
+            "entity_class": "Island",
+            "subset": "all",
+            "flag_census": [
+              {
+                "native": "1",
+                "questionable": "0",
+                "quest_native": "missing",
+                "rows": 97
+              }
+            ],
+            "native_filter_rows": 97,
+            "counts": {
+              "all_named": {
+                "named_species": 93,
+                "pair_carriers": {
+                  "guild_broad__self_fertilization": 9,
+                  "guild_detailed__self_fertilization": 7,
+                  "guild_detailed__colour": 2,
+                  "colour__flower_length": 3
+                }
+              },
+              "literal_native": {
+                "named_species": 93,
+                "pair_carriers": {
+                  "guild_broad__self_fertilization": 9,
+                  "guild_detailed__self_fertilization": 7,
+                  "guild_detailed__colour": 2,
+                  "colour__flower_length": 3
+                }
+              },
+              "native_no_positive_question_flags": {
+                "named_species": 93,
+                "pair_carriers": {
+                  "guild_broad__self_fertilization": 9,
+                  "guild_detailed__self_fertilization": 7,
+                  "guild_detailed__colour": 2,
+                  "colour__flower_length": 3
+                }
+              },
+              "strict_native": {
+                "named_species": 0,
+                "pair_carriers": {
+                  "guild_broad__self_fertilization": 0,
+                  "guild_detailed__self_fertilization": 0,
+                  "guild_detailed__colour": 0,
+                  "colour__flower_length": 0
+                }
+              }
+            }
+          },
+          {
+            "source": {
+              "url": "https://gift.uni-goettingen.de/api/extended/index3.1.php?query=checklists&listid=1129&taxonid=6&namesmatched=0&filter=native",
+              "sha256": "aa874ea1a85f44ddb0f1ac3d878f36c61ed8f4e6814e3329169debfb295ea5bf",
+              "rows": 14
+            },
+            "entity_class": "Island",
+            "subset": "native",
+            "flag_census": [
+              {
+                "native": "1",
+                "questionable": "missing",
+                "quest_native": "missing",
+                "rows": 14
+              }
+            ],
+            "native_filter_rows": 14,
+            "counts": {
+              "all_named": {
+                "named_species": 14,
+                "pair_carriers": {
+                  "guild_broad__self_fertilization": 1,
+                  "guild_detailed__self_fertilization": 0,
+                  "guild_detailed__colour": 0,
+                  "colour__flower_length": 0
+                }
+              },
+              "literal_native": {
+                "named_species": 14,
+                "pair_carriers": {
+                  "guild_broad__self_fertilization": 1,
+                  "guild_detailed__self_fertilization": 0,
+                  "guild_detailed__colour": 0,
+                  "colour__flower_length": 0
+                }
+              },
+              "native_no_positive_question_flags": {
+                "named_species": 14,
+                "pair_carriers": {
+                  "guild_broad__self_fertilization": 1,
+                  "guild_detailed__self_fertilization": 0,
+                  "guild_detailed__colour": 0,
+                  "colour__flower_length": 0
+                }
+              },
+              "strict_native": {
+                "named_species": 0,
+                "pair_carriers": {
+                  "guild_broad__self_fertilization": 0,
+                  "guild_detailed__self_fertilization": 0,
+                  "guild_detailed__colour": 0,
+                  "colour__flower_length": 0
+                }
+              }
+            }
+          }
+        ]
+      },
+      "mainland": {
+        "selected": 24,
+        "success": 24,
+        "errors": [],
+        "summary": {
+          "all_named": {
+            "nonempty_lists": 24,
+            "total_names_counted_across_lists": 44527,
+            "coverage": {
+              "guild_broad__self_fertilization": {
+                "1": 24,
+                "5": 24,
+                "10": 24,
+                "30": 18
+              },
+              "guild_detailed__self_fertilization": {
+                "1": 24,
+                "5": 24,
+                "10": 21,
+                "30": 16
+              },
+              "guild_detailed__colour": {
+                "1": 21,
+                "5": 13,
+                "10": 8,
+                "30": 5
+              },
+              "colour__flower_length": {
+                "1": 24,
+                "5": 17,
+                "10": 9,
+                "30": 5
+              }
+            }
+          },
+          "literal_native": {
+            "nonempty_lists": 24,
+            "total_names_counted_across_lists": 44527,
+            "coverage": {
+              "guild_broad__self_fertilization": {
+                "1": 24,
+                "5": 24,
+                "10": 24,
+                "30": 18
+              },
+              "guild_detailed__self_fertilization": {
+                "1": 24,
+                "5": 24,
+                "10": 21,
+                "30": 16
+              },
+              "guild_detailed__colour": {
+                "1": 21,
+                "5": 13,
+                "10": 8,
+                "30": 5
+              },
+              "colour__flower_length": {
+                "1": 24,
+                "5": 17,
+                "10": 9,
+                "30": 5
+              }
+            }
+          },
+          "native_no_positive_question_flags": {
+            "nonempty_lists": 24,
+            "total_names_counted_across_lists": 44348,
+            "coverage": {
+              "guild_broad__self_fertilization": {
+                "1": 24,
+                "5": 24,
+                "10": 24,
+                "30": 18
+              },
+              "guild_detailed__self_fertilization": {
+                "1": 24,
+                "5": 24,
+                "10": 21,
+                "30": 16
+              },
+              "guild_detailed__colour": {
+                "1": 21,
+                "5": 12,
+                "10": 8,
+                "30": 5
+              },
+              "colour__flower_length": {
+                "1": 24,
+                "5": 16,
+                "10": 9,
+                "30": 5
+              }
+            }
+          },
+          "strict_native": {
+            "nonempty_lists": 1,
+            "total_names_counted_across_lists": 2387,
+            "coverage": {
+              "guild_broad__self_fertilization": {
+                "1": 1,
+                "5": 1,
+                "10": 1,
+                "30": 1
+              },
+              "guild_detailed__self_fertilization": {
+                "1": 1,
+                "5": 1,
+                "10": 1,
+                "30": 1
+              },
+              "guild_detailed__colour": {
+                "1": 1,
+                "5": 1,
+                "10": 1,
+                "30": 1
+              },
+              "colour__flower_length": {
+                "1": 1,
+                "5": 1,
+                "10": 1,
+                "30": 1
+              }
+            }
+          }
+        },
+        "per_list": [
+          {
+            "source": {
+              "url": "https://gift.uni-goettingen.de/api/extended/index3.1.php?query=checklists&listid=10080&taxonid=6&namesmatched=0&filter=native",
+              "sha256": "4ccbc15dfa7627101ebe2ba105030c01680b00a4b5018955b1253b9388348299",
+              "rows": 1122
+            },
+            "entity_class": "Mainland",
+            "subset": "all",
+            "flag_census": [
+              {
+                "native": "1",
+                "questionable": "missing",
+                "quest_native": "missing",
+                "rows": 1122
+              }
+            ],
+            "native_filter_rows": 1122,
+            "counts": {
+              "all_named": {
+                "named_species": 1090,
+                "pair_carriers": {
+                  "guild_broad__self_fertilization": 20,
+                  "guild_detailed__self_fertilization": 10,
+                  "guild_detailed__colour": 1,
+                  "colour__flower_length": 1
+                }
+              },
+              "literal_native": {
+                "named_species": 1090,
+                "pair_carriers": {
+                  "guild_broad__self_fertilization": 20,
+                  "guild_detailed__self_fertilization": 10,
+                  "guild_detailed__colour": 1,
+                  "colour__flower_length": 1
+                }
+              },
+              "native_no_positive_question_flags": {
+                "named_species": 1090,
+                "pair_carriers": {
+                  "guild_broad__self_fertilization": 20,
+                  "guild_detailed__self_fertilization": 10,
+                  "guild_detailed__colour": 1,
+                  "colour__flower_length": 1
+                }
+              },
+              "strict_native": {
+                "named_species": 0,
+                "pair_carriers": {
+                  "guild_broad__self_fertilization": 0,
+                  "guild_detailed__self_fertilization": 0,
+                  "guild_detailed__colour": 0,
+                  "colour__flower_length": 0
+                }
+              }
+            },
+            "unfiltered_check": {
+              "source": {
+                "url": "https://gift.uni-goettingen.de/api/extended/index3.1.php?query=checklists&listid=10080&taxonid=6&namesmatched=0",
+                "sha256": "21454b4785571c72e7ed4b197bfe2654dd532535a936747cf68430cbf861905c",
+                "rows": 1136
+              },
+              "rows": 1136,
+              "flag_census": [
+                {
+                  "native": "0",
+                  "questionable": "missing",
+                  "quest_native": "missing",
+                  "rows": 14
+                },
+                {
+                  "native": "1",
+                  "questionable": "missing",
+                  "quest_native": "missing",
+                  "rows": 1122
+                }
+              ],
+              "native_filter_names_missing_from_unfiltered": 0,
+              "unfiltered_literal_native_not_in_filter": 0
+            }
+          },
+          {
+            "source": {
+              "url": "https://gift.uni-goettingen.de/api/extended/index3.1.php?query=checklists&listid=10519&taxonid=6&namesmatched=0&filter=native",
+              "sha256": "7b06f1808245e09d182b62594491d77b535739fb3edbf4147419524129fa820e",
+              "rows": 3053
+            },
+            "entity_class": "Mainland",
+            "subset": "all",
+            "flag_census": [
+              {
+                "native": "1",
+                "questionable": "missing",
+                "quest_native": "missing",
+                "rows": 3053
+              }
+            ],
+            "native_filter_rows": 3053,
+            "counts": {
+              "all_named": {
+                "named_species": 3025,
+                "pair_carriers": {
+                  "guild_broad__self_fertilization": 58,
+                  "guild_detailed__self_fertilization": 34,
+                  "guild_detailed__colour": 2,
+                  "colour__flower_length": 7
+                }
+              },
+              "literal_native": {
+                "named_species": 3025,
+                "pair_carriers": {
+                  "guild_broad__self_fertilization": 58,
+                  "guild_detailed__self_fertilization": 34,
+                  "guild_detailed__colour": 2,
+                  "colour__flower_length": 7
+                }
+              },
+              "native_no_positive_question_flags": {
+                "named_species": 3025,
+                "pair_carriers": {
+                  "guild_broad__self_fertilization": 58,
+                  "guild_detailed__self_fertilization": 34,
+                  "guild_detailed__colour": 2,
+                  "colour__flower_length": 7
+                }
+              },
+              "strict_native": {
+                "named_species": 0,
+                "pair_carriers": {
+                  "guild_broad__self_fertilization": 0,
+                  "guild_detailed__self_fertilization": 0,
+                  "guild_detailed__colour": 0,
+                  "colour__flower_length": 0
+                }
+              }
+            },
+            "unfiltered_check": {
+              "source": {
+                "url": "https://gift.uni-goettingen.de/api/extended/index3.1.php?query=checklists&listid=10519&taxonid=6&namesmatched=0",
+                "sha256": "f4d1f4d718f63d067991a39036f56d3827dfa1bf59f50847d76ecc0310925536",
+                "rows": 3340
+              },
+              "rows": 3340,
+              "flag_census": [
+                {
+                  "native": "0",
+                  "questionable": "missing",
+                  "quest_native": "missing",
+                  "rows": 287
+                },
+                {
+                  "native": "1",
+                  "questionable": "missing",
+                  "quest_native": "missing",
+                  "rows": 3053
+                }
+              ],
+              "native_filter_names_missing_from_unfiltered": 0,
+              "unfiltered_literal_native_not_in_filter": 0
+            }
+          },
+          {
+            "source": {
+              "url": "https://gift.uni-goettingen.de/api/extended/index3.1.php?query=checklists&listid=10071&taxonid=6&namesmatched=0&filter=native",
+              "sha256": "85eb9d7c91ecda62b12a99dceb0c15b1c590b0567b8dd084ac0c954fabf08658",
+              "rows": 3445
+            },
+            "entity_class": "Mainland",
+            "subset": "all",
+            "flag_census": [
+              {
+                "native": "1",
+                "questionable": "missing",
+                "quest_native": "0",
+                "rows": 3445
+              }
+            ],
+            "native_filter_rows": 3445,
+            "counts": {
+              "all_named": {
+                "named_species": 3344,
+                "pair_carriers": {
+                  "guild_broad__self_fertilization": 898,
+                  "guild_detailed__self_fertilization": 462,
+                  "guild_detailed__colour": 60,
+                  "colour__flower_length": 122
+                }
+              },
+              "literal_native": {
+                "named_species": 3344,
+                "pair_carriers": {
+                  "guild_broad__self_fertilization": 898,
+                  "guild_detailed__self_fertilization": 462,
+                  "guild_detailed__colour": 60,
+                  "colour__flower_length": 122
+                }
+              },
+              "native_no_positive_question_flags": {
+                "named_species": 3344,
+                "pair_carriers": {
+                  "guild_broad__self_fertilization": 898,
+                  "guild_detailed__self_fertilization": 462,
+                  "guild_detailed__colour": 60,
+                  "colour__flower_length": 122
+                }
+              },
+              "strict_native": {
+                "named_species": 0,
+                "pair_carriers": {
+                  "guild_broad__self_fertilization": 0,
+                  "guild_detailed__self_fertilization": 0,
+                  "guild_detailed__colour": 0,
+                  "colour__flower_length": 0
+                }
+              }
+            },
+            "unfiltered_check": {
+              "source": {
+                "url": "https://gift.uni-goettingen.de/api/extended/index3.1.php?query=checklists&listid=10071&taxonid=6&namesmatched=0",
+                "sha256": "3d95ceffaca3ccfd74197bf5619c2ec3182bfee47600105e964c6214fd45ccc8",
+                "rows": 3781
+              },
+              "rows": 3781,
+              "flag_census": [
+                {
+                  "native": "0",
+                  "questionable": "missing",
+                  "quest_native": "0",
+                  "rows": 302
+                },
+                {
+                  "native": "0",
+                  "questionable": "missing",
+                  "quest_native": "1",
+                  "rows": 34
+                },
+                {
+                  "native": "1",
+                  "questionable": "missing",
+                  "quest_native": "0",
+                  "rows": 3445
+                }
+              ],
+              "native_filter_names_missing_from_unfiltered": 0,
+              "unfiltered_literal_native_not_in_filter": 0
+            }
+          },
+          {
+            "source": {
+              "url": "https://gift.uni-goettingen.de/api/extended/index3.1.php?query=checklists&listid=10188&taxonid=6&namesmatched=0&filter=native",
+              "sha256": "b23bf09f68eff872360789a23eb59c827d494980ea35b9d32ed190d109760c88",
+              "rows": 5333
+            },
+            "entity_class": "Mainland",
+            "subset": "all",
+            "flag_census": [
+              {
+                "native": "1",
+                "questionable": "0",
+                "quest_native": "missing",
+                "rows": 5264
+              },
+              {
+                "native": "1",
+                "questionable": "1",
+                "quest_native": "missing",
+                "rows": 69
+              }
+            ],
+            "native_filter_rows": 5333,
+            "counts": {
+              "all_named": {
+                "named_species": 4736,
+                "pair_carriers": {
+                  "guild_broad__self_fertilization": 62,
+                  "guild_detailed__self_fertilization": 35,
+                  "guild_detailed__colour": 1,
+                  "colour__flower_length": 6
+                }
+              },
+              "literal_native": {
+                "named_species": 4736,
+                "pair_carriers": {
+                  "guild_broad__self_fertilization": 62,
+                  "guild_detailed__self_fertilization": 35,
+                  "guild_detailed__colour": 1,
+                  "colour__flower_length": 6
+                }
+              },
+              "native_no_positive_question_flags": {
+                "named_species": 4678,
+                "pair_carriers": {
+                  "guild_broad__self_fertilization": 60,
+                  "guild_detailed__self_fertilization": 35,
+                  "guild_detailed__colour": 1,
+                  "colour__flower_length": 6
+                }
+              },
+              "strict_native": {
+                "named_species": 0,
+                "pair_carriers": {
+                  "guild_broad__self_fertilization": 0,
+                  "guild_detailed__self_fertilization": 0,
+                  "guild_detailed__colour": 0,
+                  "colour__flower_length": 0
+                }
+              }
+            },
+            "unfiltered_check": {
+              "source": {
+                "url": "https://gift.uni-goettingen.de/api/extended/index3.1.php?query=checklists&listid=10188&taxonid=6&namesmatched=0",
+                "sha256": "233934d0c38e9b19513558dc213ce1f80c6a1c677e308c556a5b904275a83426",
+                "rows": 5542
+              },
+              "rows": 5542,
+              "flag_census": [
+                {
+                  "native": "0",
+                  "questionable": "0",
+                  "quest_native": "missing",
+                  "rows": 206
+                },
+                {
+                  "native": "0",
+                  "questionable": "1",
+                  "quest_native": "missing",
+                  "rows": 3
+                },
+                {
+                  "native": "1",
+                  "questionable": "0",
+                  "quest_native": "missing",
+                  "rows": 5264
+                },
+                {
+                  "native": "1",
+                  "questionable": "1",
+                  "quest_native": "missing",
+                  "rows": 69
+                }
+              ],
+              "native_filter_names_missing_from_unfiltered": 0,
+              "unfiltered_literal_native_not_in_filter": 0
+            }
+          },
+          {
+            "source": {
+              "url": "https://gift.uni-goettingen.de/api/extended/index3.1.php?query=checklists&listid=16813&taxonid=6&namesmatched=0&filter=native",
+              "sha256": "8070b7a595cd6ed7857895f20d3f1ca77d81913f9bec2a90214e670616de0dc4",
+              "rows": 351
+            },
+            "entity_class": "Mainland",
+            "subset": "all",
+            "flag_census": [
+              {
+                "native": "1",
+                "questionable": "missing",
+                "quest_native": "missing",
+                "rows": 351
+              }
+            ],
+            "native_filter_rows": 351,
+            "counts": {
+              "all_named": {
+                "named_species": 341,
+                "pair_carriers": {
+                  "guild_broad__self_fertilization": 46,
+                  "guild_detailed__self_fertilization": 30,
+                  "guild_detailed__colour": 3,
+                  "colour__flower_length": 2
+                }
+              },
+              "literal_native": {
+                "named_species": 341,
+                "pair_carriers": {
+                  "guild_broad__self_fertilization": 46,
+                  "guild_detailed__self_fertilization": 30,
+                  "guild_detailed__colour": 3,
+                  "colour__flower_length": 2
+                }
+              },
+              "native_no_positive_question_flags": {
+                "named_species": 341,
+                "pair_carriers": {
+                  "guild_broad__self_fertilization": 46,
+                  "guild_detailed__self_fertilization": 30,
+                  "guild_detailed__colour": 3,
+                  "colour__flower_length": 2
+                }
+              },
+              "strict_native": {
+                "named_species": 0,
+                "pair_carriers": {
+                  "guild_broad__self_fertilization": 0,
+                  "guild_detailed__self_fertilization": 0,
+                  "guild_detailed__colour": 0,
+                  "colour__flower_length": 0
+                }
+              }
+            },
+            "unfiltered_check": {
+              "source": {
+                "url": "https://gift.uni-goettingen.de/api/extended/index3.1.php?query=checklists&listid=16813&taxonid=6&namesmatched=0",
+                "sha256": "8070b7a595cd6ed7857895f20d3f1ca77d81913f9bec2a90214e670616de0dc4",
+                "rows": 351
+              },
+              "rows": 351,
+              "flag_census": [
+                {
+                  "native": "1",
+                  "questionable": "missing",
+                  "quest_native": "missing",
+                  "rows": 351
+                }
+              ],
+              "native_filter_names_missing_from_unfiltered": 0,
+              "unfiltered_literal_native_not_in_filter": 0
+            }
+          },
+          {
+            "source": {
+              "url": "https://gift.uni-goettingen.de/api/extended/index3.1.php?query=checklists&listid=12960&taxonid=6&namesmatched=0&filter=native",
+              "sha256": "efcf1ecaa8535da070410c71ccfc0fa97f026bc6c92fef50ffb960d6e18b36bd",
+              "rows": 1408
+            },
+            "entity_class": "Mainland",
+            "subset": "all",
+            "flag_census": [
+              {
+                "native": "1",
+                "questionable": "missing",
+                "quest_native": "missing",
+                "rows": 1408
+              }
+            ],
+            "native_filter_rows": 1408,
+            "counts": {
+              "all_named": {
+                "named_species": 1398,
+                "pair_carriers": {
+                  "guild_broad__self_fertilization": 153,
+                  "guild_detailed__self_fertilization": 92,
+                  "guild_detailed__colour": 7,
+                  "colour__flower_length": 9
+                }
+              },
+              "literal_native": {
+                "named_species": 1398,
+                "pair_carriers": {
+                  "guild_broad__self_fertilization": 153,
+                  "guild_detailed__self_fertilization": 92,
+                  "guild_detailed__colour": 7,
+                  "colour__flower_length": 9
+                }
+              },
+              "native_no_positive_question_flags": {
+                "named_species": 1398,
+                "pair_carriers": {
+                  "guild_broad__self_fertilization": 153,
+                  "guild_detailed__self_fertilization": 92,
+                  "guild_detailed__colour": 7,
+                  "colour__flower_length": 9
+                }
+              },
+              "strict_native": {
+                "named_species": 0,
+                "pair_carriers": {
+                  "guild_broad__self_fertilization": 0,
+                  "guild_detailed__self_fertilization": 0,
+                  "guild_detailed__colour": 0,
+                  "colour__flower_length": 0
+                }
+              }
+            },
+            "unfiltered_check": {
+              "source": {
+                "url": "https://gift.uni-goettingen.de/api/extended/index3.1.php?query=checklists&listid=12960&taxonid=6&namesmatched=0",
+                "sha256": "04ede55dfda260f828cd875cf3fc2b6bfeb3790ae5044d0c77d5e094bb2184fb",
+                "rows": 1729
+              },
+              "rows": 1729,
+              "flag_census": [
+                {
+                  "native": "0",
+                  "questionable": "missing",
+                  "quest_native": "missing",
+                  "rows": 321
+                },
+                {
+                  "native": "1",
+                  "questionable": "missing",
+                  "quest_native": "missing",
+                  "rows": 1408
+                }
+              ],
+              "native_filter_names_missing_from_unfiltered": 0,
+              "unfiltered_literal_native_not_in_filter": 0
+            }
+          },
+          {
+            "source": {
+              "url": "https://gift.uni-goettingen.de/api/extended/index3.1.php?query=checklists&listid=13299&taxonid=6&namesmatched=0&filter=native",
+              "sha256": "bc5e1f36494c9ef8afcc833f944f1a7510c5d25c5025b655806f3568fb9feefd",
+              "rows": 2251
+            },
+            "entity_class": "Mainland",
+            "subset": "native and naturalized",
+            "flag_census": [
+              {
+                "native": "1",
+                "questionable": "0",
+                "quest_native": "missing",
+                "rows": 2224
+              },
+              {
+                "native": "1",
+                "questionable": "1",
+                "quest_native": "missing",
+                "rows": 27
+              }
+            ],
+            "native_filter_rows": 2251,
+            "counts": {
+              "all_named": {
+                "named_species": 1909,
+                "pair_carriers": {
+                  "guild_broad__self_fertilization": 38,
+                  "guild_detailed__self_fertilization": 26,
+                  "guild_detailed__colour": 4,
+                  "colour__flower_length": 4
+                }
+              },
+              "literal_native": {
+                "named_species": 1909,
+                "pair_carriers": {
+                  "guild_broad__self_fertilization": 38,
+                  "guild_detailed__self_fertilization": 26,
+                  "guild_detailed__colour": 4,
+                  "colour__flower_length": 4
+                }
+              },
+              "native_no_positive_question_flags": {
+                "named_species": 1886,
+                "pair_carriers": {
+                  "guild_broad__self_fertilization": 36,
+                  "guild_detailed__self_fertilization": 25,
+                  "guild_detailed__colour": 4,
+                  "colour__flower_length": 4
+                }
+              },
+              "strict_native": {
+                "named_species": 0,
+                "pair_carriers": {
+                  "guild_broad__self_fertilization": 0,
+                  "guild_detailed__self_fertilization": 0,
+                  "guild_detailed__colour": 0,
+                  "colour__flower_length": 0
+                }
+              }
+            }
+          },
+          {
+            "source": {
+              "url": "https://gift.uni-goettingen.de/api/extended/index3.1.php?query=checklists&listid=12939&taxonid=6&namesmatched=0&filter=native",
+              "sha256": "97f33219f1c4efe25d187bcc02e24b793e731acf29f3766284473812dbdf0fcf",
+              "rows": 1920
+            },
+            "entity_class": "Mainland",
+            "subset": "all",
+            "flag_census": [
+              {
+                "native": "1",
+                "questionable": "missing",
+                "quest_native": "missing",
+                "rows": 1920
+              }
+            ],
+            "native_filter_rows": 1920,
+            "counts": {
+              "all_named": {
+                "named_species": 1868,
+                "pair_carriers": {
+                  "guild_broad__self_fertilization": 220,
+                  "guild_detailed__self_fertilization": 134,
+                  "guild_detailed__colour": 7,
+                  "colour__flower_length": 8
+                }
+              },
+              "literal_native": {
+                "named_species": 1868,
+                "pair_carriers": {
+                  "guild_broad__self_fertilization": 220,
+                  "guild_detailed__self_fertilization": 134,
+                  "guild_detailed__colour": 7,
+                  "colour__flower_length": 8
+                }
+              },
+              "native_no_positive_question_flags": {
+                "named_species": 1868,
+                "pair_carriers": {
+                  "guild_broad__self_fertilization": 220,
+                  "guild_detailed__self_fertilization": 134,
+                  "guild_detailed__colour": 7,
+                  "colour__flower_length": 8
+                }
+              },
+              "strict_native": {
+                "named_species": 0,
+                "pair_carriers": {
+                  "guild_broad__self_fertilization": 0,
+                  "guild_detailed__self_fertilization": 0,
+                  "guild_detailed__colour": 0,
+                  "colour__flower_length": 0
+                }
+              }
+            }
+          },
+          {
+            "source": {
+              "url": "https://gift.uni-goettingen.de/api/extended/index3.1.php?query=checklists&listid=12886&taxonid=6&namesmatched=0&filter=native",
+              "sha256": "a8c57c9e8fcac344fe64c7095f45b542bf3f9f4aecb4a877d148b7c779b45eae",
+              "rows": 3664
+            },
+            "entity_class": "Mainland",
+            "subset": "all",
+            "flag_census": [
+              {
+                "native": "1",
+                "questionable": "missing",
+                "quest_native": "missing",
+                "rows": 3664
+              }
+            ],
+            "native_filter_rows": 3664,
+            "counts": {
+              "all_named": {
+                "named_species": 3004,
+                "pair_carriers": {
+                  "guild_broad__self_fertilization": 125,
+                  "guild_detailed__self_fertilization": 73,
+                  "guild_detailed__colour": 12,
+                  "colour__flower_length": 22
+                }
+              },
+              "literal_native": {
+                "named_species": 3004,
+                "pair_carriers": {
+                  "guild_broad__self_fertilization": 125,
+                  "guild_detailed__self_fertilization": 73,
+                  "guild_detailed__colour": 12,
+                  "colour__flower_length": 22
+                }
+              },
+              "native_no_positive_question_flags": {
+                "named_species": 3004,
+                "pair_carriers": {
+                  "guild_broad__self_fertilization": 125,
+                  "guild_detailed__self_fertilization": 73,
+                  "guild_detailed__colour": 12,
+                  "colour__flower_length": 22
+                }
+              },
+              "strict_native": {
+                "named_species": 0,
+                "pair_carriers": {
+                  "guild_broad__self_fertilization": 0,
+                  "guild_detailed__self_fertilization": 0,
+                  "guild_detailed__colour": 0,
+                  "colour__flower_length": 0
+                }
+              }
+            }
+          },
+          {
+            "source": {
+              "url": "https://gift.uni-goettingen.de/api/extended/index3.1.php?query=checklists&listid=13286&taxonid=6&namesmatched=0&filter=native",
+              "sha256": "73f43b4c800a048f58210fcf49e363bf8fd078b98bd0d5a12b82e69d98e3f8d2",
+              "rows": 1435
+            },
+            "entity_class": "Mainland",
+            "subset": "native and naturalized",
+            "flag_census": [
+              {
+                "native": "1",
+                "questionable": "missing",
+                "quest_native": "0",
+                "rows": 1426
+              },
+              {
+                "native": "1",
+                "questionable": "missing",
+                "quest_native": "1",
+                "rows": 9
+              }
+            ],
+            "native_filter_rows": 1435,
+            "counts": {
+              "all_named": {
+                "named_species": 1261,
+                "pair_carriers": {
+                  "guild_broad__self_fertilization": 14,
+                  "guild_detailed__self_fertilization": 7,
+                  "guild_detailed__colour": 1,
+                  "colour__flower_length": 2
+                }
+              },
+              "literal_native": {
+                "named_species": 1261,
+                "pair_carriers": {
+                  "guild_broad__self_fertilization": 14,
+                  "guild_detailed__self_fertilization": 7,
+                  "guild_detailed__colour": 1,
+                  "colour__flower_length": 2
+                }
+              },
+              "native_no_positive_question_flags": {
+                "named_species": 1253,
+                "pair_carriers": {
+                  "guild_broad__self_fertilization": 13,
+                  "guild_detailed__self_fertilization": 7,
+                  "guild_detailed__colour": 1,
+                  "colour__flower_length": 1
+                }
+              },
+              "strict_native": {
+                "named_species": 0,
+                "pair_carriers": {
+                  "guild_broad__self_fertilization": 0,
+                  "guild_detailed__self_fertilization": 0,
+                  "guild_detailed__colour": 0,
+                  "colour__flower_length": 0
+                }
+              }
+            }
+          },
+          {
+            "source": {
+              "url": "https://gift.uni-goettingen.de/api/extended/index3.1.php?query=checklists&listid=10192&taxonid=6&namesmatched=0&filter=native",
+              "sha256": "055c5b5e4ed1f61c99ebd09d070619db2aaef70c661faff8b86263e239de4ae8",
+              "rows": 1202
+            },
+            "entity_class": "Mainland",
+            "subset": "all",
+            "flag_census": [
+              {
+                "native": "1",
+                "questionable": "missing",
+                "quest_native": "missing",
+                "rows": 1202
+              }
+            ],
+            "native_filter_rows": 1202,
+            "counts": {
+              "all_named": {
+                "named_species": 1179,
+                "pair_carriers": {
+                  "guild_broad__self_fertilization": 766,
+                  "guild_detailed__self_fertilization": 385,
+                  "guild_detailed__colour": 51,
+                  "colour__flower_length": 68
+                }
+              },
+              "literal_native": {
+                "named_species": 1179,
+                "pair_carriers": {
+                  "guild_broad__self_fertilization": 766,
+                  "guild_detailed__self_fertilization": 385,
+                  "guild_detailed__colour": 51,
+                  "colour__flower_length": 68
+                }
+              },
+              "native_no_positive_question_flags": {
+                "named_species": 1179,
+                "pair_carriers": {
+                  "guild_broad__self_fertilization": 766,
+                  "guild_detailed__self_fertilization": 385,
+                  "guild_detailed__colour": 51,
+                  "colour__flower_length": 68
+                }
+              },
+              "strict_native": {
+                "named_species": 0,
+                "pair_carriers": {
+                  "guild_broad__self_fertilization": 0,
+                  "guild_detailed__self_fertilization": 0,
+                  "guild_detailed__colour": 0,
+                  "colour__flower_length": 0
+                }
+              }
+            }
+          },
+          {
+            "source": {
+              "url": "https://gift.uni-goettingen.de/api/extended/index3.1.php?query=checklists&listid=12847&taxonid=6&namesmatched=0&filter=native",
+              "sha256": "a512a68728a1563994754f6dc769280abc471510374c5126379ba88d6b43e136",
+              "rows": 2217
+            },
+            "entity_class": "Mainland",
+            "subset": "native",
+            "flag_census": [
+              {
+                "native": "1",
+                "questionable": "missing",
+                "quest_native": "missing",
+                "rows": 2217
+              }
+            ],
+            "native_filter_rows": 2217,
+            "counts": {
+              "all_named": {
+                "named_species": 2097,
+                "pair_carriers": {
+                  "guild_broad__self_fertilization": 50,
+                  "guild_detailed__self_fertilization": 31,
+                  "guild_detailed__colour": 2,
+                  "colour__flower_length": 6
+                }
+              },
+              "literal_native": {
+                "named_species": 2097,
+                "pair_carriers": {
+                  "guild_broad__self_fertilization": 50,
+                  "guild_detailed__self_fertilization": 31,
+                  "guild_detailed__colour": 2,
+                  "colour__flower_length": 6
+                }
+              },
+              "native_no_positive_question_flags": {
+                "named_species": 2097,
+                "pair_carriers": {
+                  "guild_broad__self_fertilization": 50,
+                  "guild_detailed__self_fertilization": 31,
+                  "guild_detailed__colour": 2,
+                  "colour__flower_length": 6
+                }
+              },
+              "strict_native": {
+                "named_species": 0,
+                "pair_carriers": {
+                  "guild_broad__self_fertilization": 0,
+                  "guild_detailed__self_fertilization": 0,
+                  "guild_detailed__colour": 0,
+                  "colour__flower_length": 0
+                }
+              }
+            }
+          },
+          {
+            "source": {
+              "url": "https://gift.uni-goettingen.de/api/extended/index3.1.php?query=checklists&listid=10180&taxonid=6&namesmatched=0&filter=native",
+              "sha256": "5bf12abc5d1861e2038c09659b3da0dc1dc0cc6aeacc393d49973e744846635d",
+              "rows": 725
+            },
+            "entity_class": "Mainland",
+            "subset": "all",
+            "flag_census": [
+              {
+                "native": "1",
+                "questionable": "missing",
+                "quest_native": "0",
+                "rows": 725
+              }
+            ],
+            "native_filter_rows": 725,
+            "counts": {
+              "all_named": {
+                "named_species": 695,
+                "pair_carriers": {
+                  "guild_broad__self_fertilization": 24,
+                  "guild_detailed__self_fertilization": 7,
+                  "guild_detailed__colour": 0,
+                  "colour__flower_length": 2
+                }
+              },
+              "literal_native": {
+                "named_species": 695,
+                "pair_carriers": {
+                  "guild_broad__self_fertilization": 24,
+                  "guild_detailed__self_fertilization": 7,
+                  "guild_detailed__colour": 0,
+                  "colour__flower_length": 2
+                }
+              },
+              "native_no_positive_question_flags": {
+                "named_species": 695,
+                "pair_carriers": {
+                  "guild_broad__self_fertilization": 24,
+                  "guild_detailed__self_fertilization": 7,
+                  "guild_detailed__colour": 0,
+                  "colour__flower_length": 2
+                }
+              },
+              "strict_native": {
+                "named_species": 0,
+                "pair_carriers": {
+                  "guild_broad__self_fertilization": 0,
+                  "guild_detailed__self_fertilization": 0,
+                  "guild_detailed__colour": 0,
+                  "colour__flower_length": 0
+                }
+              }
+            }
+          },
+          {
+            "source": {
+              "url": "https://gift.uni-goettingen.de/api/extended/index3.1.php?query=checklists&listid=10072&taxonid=6&namesmatched=0&filter=native",
+              "sha256": "a038dddc100229d5740b20fe45bdb1238a50f8776d6f8bb5560616ac1d15ecb2",
+              "rows": 1493
+            },
+            "entity_class": "Mainland",
+            "subset": "all",
+            "flag_census": [
+              {
+                "native": "1",
+                "questionable": "missing",
+                "quest_native": "0",
+                "rows": 1493
+              }
+            ],
+            "native_filter_rows": 1493,
+            "counts": {
+              "all_named": {
+                "named_species": 1475,
+                "pair_carriers": {
+                  "guild_broad__self_fertilization": 563,
+                  "guild_detailed__self_fertilization": 305,
+                  "guild_detailed__colour": 50,
+                  "colour__flower_length": 96
+                }
+              },
+              "literal_native": {
+                "named_species": 1475,
+                "pair_carriers": {
+                  "guild_broad__self_fertilization": 563,
+                  "guild_detailed__self_fertilization": 305,
+                  "guild_detailed__colour": 50,
+                  "colour__flower_length": 96
+                }
+              },
+              "native_no_positive_question_flags": {
+                "named_species": 1475,
+                "pair_carriers": {
+                  "guild_broad__self_fertilization": 563,
+                  "guild_detailed__self_fertilization": 305,
+                  "guild_detailed__colour": 50,
+                  "colour__flower_length": 96
+                }
+              },
+              "strict_native": {
+                "named_species": 0,
+                "pair_carriers": {
+                  "guild_broad__self_fertilization": 0,
+                  "guild_detailed__self_fertilization": 0,
+                  "guild_detailed__colour": 0,
+                  "colour__flower_length": 0
+                }
+              }
+            }
+          },
+          {
+            "source": {
+              "url": "https://gift.uni-goettingen.de/api/extended/index3.1.php?query=checklists&listid=10133&taxonid=6&namesmatched=0&filter=native",
+              "sha256": "c5599a1f312fcc8213334486bb9ad973788ae02bc11f77aa35ca16cc568971c3",
+              "rows": 742
+            },
+            "entity_class": "Mainland",
+            "subset": "all",
+            "flag_census": [
+              {
+                "native": "1",
+                "questionable": "missing",
+                "quest_native": "0",
+                "rows": 742
+              }
+            ],
+            "native_filter_rows": 742,
+            "counts": {
+              "all_named": {
+                "named_species": 718,
+                "pair_carriers": {
+                  "guild_broad__self_fertilization": 29,
+                  "guild_detailed__self_fertilization": 16,
+                  "guild_detailed__colour": 3,
+                  "colour__flower_length": 5
+                }
+              },
+              "literal_native": {
+                "named_species": 718,
+                "pair_carriers": {
+                  "guild_broad__self_fertilization": 29,
+                  "guild_detailed__self_fertilization": 16,
+                  "guild_detailed__colour": 3,
+                  "colour__flower_length": 5
+                }
+              },
+              "native_no_positive_question_flags": {
+                "named_species": 718,
+                "pair_carriers": {
+                  "guild_broad__self_fertilization": 29,
+                  "guild_detailed__self_fertilization": 16,
+                  "guild_detailed__colour": 3,
+                  "colour__flower_length": 5
+                }
+              },
+              "strict_native": {
+                "named_species": 0,
+                "pair_carriers": {
+                  "guild_broad__self_fertilization": 0,
+                  "guild_detailed__self_fertilization": 0,
+                  "guild_detailed__colour": 0,
+                  "colour__flower_length": 0
+                }
+              }
+            }
+          },
+          {
+            "source": {
+              "url": "https://gift.uni-goettingen.de/api/extended/index3.1.php?query=checklists&listid=16705&taxonid=6&namesmatched=0&filter=native",
+              "sha256": "f28a34ec199a6d51c0cc698a674b2fb29a507249fc86808525d06e24696d93ed",
+              "rows": 1918
+            },
+            "entity_class": "Mainland",
+            "subset": "all",
+            "flag_census": [
+              {
+                "native": "1",
+                "questionable": "missing",
+                "quest_native": "missing",
+                "rows": 1918
+              }
+            ],
+            "native_filter_rows": 1918,
+            "counts": {
+              "all_named": {
+                "named_species": 1551,
+                "pair_carriers": {
+                  "guild_broad__self_fertilization": 298,
+                  "guild_detailed__self_fertilization": 171,
+                  "guild_detailed__colour": 15,
+                  "colour__flower_length": 22
+                }
+              },
+              "literal_native": {
+                "named_species": 1551,
+                "pair_carriers": {
+                  "guild_broad__self_fertilization": 298,
+                  "guild_detailed__self_fertilization": 171,
+                  "guild_detailed__colour": 15,
+                  "colour__flower_length": 22
+                }
+              },
+              "native_no_positive_question_flags": {
+                "named_species": 1551,
+                "pair_carriers": {
+                  "guild_broad__self_fertilization": 298,
+                  "guild_detailed__self_fertilization": 171,
+                  "guild_detailed__colour": 15,
+                  "colour__flower_length": 22
+                }
+              },
+              "strict_native": {
+                "named_species": 0,
+                "pair_carriers": {
+                  "guild_broad__self_fertilization": 0,
+                  "guild_detailed__self_fertilization": 0,
+                  "guild_detailed__colour": 0,
+                  "colour__flower_length": 0
+                }
+              }
+            }
+          },
+          {
+            "source": {
+              "url": "https://gift.uni-goettingen.de/api/extended/index3.1.php?query=checklists&listid=10107&taxonid=6&namesmatched=0&filter=native",
+              "sha256": "482a56d38bead23d5c348374382043ff6b00a1d81273923681108f7ba259012a",
+              "rows": 2091
+            },
+            "entity_class": "Mainland",
+            "subset": "all",
+            "flag_census": [
+              {
+                "native": "1",
+                "questionable": "missing",
+                "quest_native": "0",
+                "rows": 2091
+              }
+            ],
+            "native_filter_rows": 2091,
+            "counts": {
+              "all_named": {
+                "named_species": 1969,
+                "pair_carriers": {
+                  "guild_broad__self_fertilization": 60,
+                  "guild_detailed__self_fertilization": 31,
+                  "guild_detailed__colour": 5,
+                  "colour__flower_length": 11
+                }
+              },
+              "literal_native": {
+                "named_species": 1969,
+                "pair_carriers": {
+                  "guild_broad__self_fertilization": 60,
+                  "guild_detailed__self_fertilization": 31,
+                  "guild_detailed__colour": 5,
+                  "colour__flower_length": 11
+                }
+              },
+              "native_no_positive_question_flags": {
+                "named_species": 1969,
+                "pair_carriers": {
+                  "guild_broad__self_fertilization": 60,
+                  "guild_detailed__self_fertilization": 31,
+                  "guild_detailed__colour": 5,
+                  "colour__flower_length": 11
+                }
+              },
+              "strict_native": {
+                "named_species": 0,
+                "pair_carriers": {
+                  "guild_broad__self_fertilization": 0,
+                  "guild_detailed__self_fertilization": 0,
+                  "guild_detailed__colour": 0,
+                  "colour__flower_length": 0
+                }
+              }
+            }
+          },
+          {
+            "source": {
+              "url": "https://gift.uni-goettingen.de/api/extended/index3.1.php?query=checklists&listid=12995&taxonid=6&namesmatched=0&filter=native",
+              "sha256": "ec164e194d24ef03c5d8ce0d4ef89085aa2bbc4a88c4980305705b8028f35c0c",
+              "rows": 2228
+            },
+            "entity_class": "Mainland",
+            "subset": "all",
+            "flag_census": [
+              {
+                "native": "1",
+                "questionable": "missing",
+                "quest_native": "0",
+                "rows": 2190
+              },
+              {
+                "native": "1",
+                "questionable": "missing",
+                "quest_native": "1",
+                "rows": 38
+              }
+            ],
+            "native_filter_rows": 2228,
+            "counts": {
+              "all_named": {
+                "named_species": 1563,
+                "pair_carriers": {
+                  "guild_broad__self_fertilization": 1175,
+                  "guild_detailed__self_fertilization": 613,
+                  "guild_detailed__colour": 47,
+                  "colour__flower_length": 60
+                }
+              },
+              "literal_native": {
+                "named_species": 1563,
+                "pair_carriers": {
+                  "guild_broad__self_fertilization": 1175,
+                  "guild_detailed__self_fertilization": 613,
+                  "guild_detailed__colour": 47,
+                  "colour__flower_length": 60
+                }
+              },
+              "native_no_positive_question_flags": {
+                "named_species": 1534,
+                "pair_carriers": {
+                  "guild_broad__self_fertilization": 1159,
+                  "guild_detailed__self_fertilization": 609,
+                  "guild_detailed__colour": 47,
+                  "colour__flower_length": 60
+                }
+              },
+              "strict_native": {
+                "named_species": 0,
+                "pair_carriers": {
+                  "guild_broad__self_fertilization": 0,
+                  "guild_detailed__self_fertilization": 0,
+                  "guild_detailed__colour": 0,
+                  "colour__flower_length": 0
+                }
+              }
+            }
+          },
+          {
+            "source": {
+              "url": "https://gift.uni-goettingen.de/api/extended/index3.1.php?query=checklists&listid=10407&taxonid=6&namesmatched=0&filter=native",
+              "sha256": "876b2b981735f386514425da885e448316bcda69940530534787ab04edb5b5fd",
+              "rows": 1343
+            },
+            "entity_class": "Mainland",
+            "subset": "all",
+            "flag_census": [
+              {
+                "native": "1",
+                "questionable": "missing",
+                "quest_native": "missing",
+                "rows": 1343
+              }
+            ],
+            "native_filter_rows": 1343,
+            "counts": {
+              "all_named": {
+                "named_species": 1321,
+                "pair_carriers": {
+                  "guild_broad__self_fertilization": 25,
+                  "guild_detailed__self_fertilization": 12,
+                  "guild_detailed__colour": 0,
+                  "colour__flower_length": 1
+                }
+              },
+              "literal_native": {
+                "named_species": 1321,
+                "pair_carriers": {
+                  "guild_broad__self_fertilization": 25,
+                  "guild_detailed__self_fertilization": 12,
+                  "guild_detailed__colour": 0,
+                  "colour__flower_length": 1
+                }
+              },
+              "native_no_positive_question_flags": {
+                "named_species": 1321,
+                "pair_carriers": {
+                  "guild_broad__self_fertilization": 25,
+                  "guild_detailed__self_fertilization": 12,
+                  "guild_detailed__colour": 0,
+                  "colour__flower_length": 1
+                }
+              },
+              "strict_native": {
+                "named_species": 0,
+                "pair_carriers": {
+                  "guild_broad__self_fertilization": 0,
+                  "guild_detailed__self_fertilization": 0,
+                  "guild_detailed__colour": 0,
+                  "colour__flower_length": 0
+                }
+              }
+            }
+          },
+          {
+            "source": {
+              "url": "https://gift.uni-goettingen.de/api/extended/index3.1.php?query=checklists&listid=10474&taxonid=6&namesmatched=0&filter=native",
+              "sha256": "635258997f4a5e52908e1636f5947622ac211728042a47f9002c24f950b732b0",
+              "rows": 2148
+            },
+            "entity_class": "Mainland",
+            "subset": "all",
+            "flag_census": [
+              {
+                "native": "1",
+                "questionable": "missing",
+                "quest_native": "missing",
+                "rows": 2148
+              }
+            ],
+            "native_filter_rows": 2148,
+            "counts": {
+              "all_named": {
+                "named_species": 2080,
+                "pair_carriers": {
+                  "guild_broad__self_fertilization": 299,
+                  "guild_detailed__self_fertilization": 170,
+                  "guild_detailed__colour": 17,
+                  "colour__flower_length": 28
+                }
+              },
+              "literal_native": {
+                "named_species": 2080,
+                "pair_carriers": {
+                  "guild_broad__self_fertilization": 299,
+                  "guild_detailed__self_fertilization": 170,
+                  "guild_detailed__colour": 17,
+                  "colour__flower_length": 28
+                }
+              },
+              "native_no_positive_question_flags": {
+                "named_species": 2080,
+                "pair_carriers": {
+                  "guild_broad__self_fertilization": 299,
+                  "guild_detailed__self_fertilization": 170,
+                  "guild_detailed__colour": 17,
+                  "colour__flower_length": 28
+                }
+              },
+              "strict_native": {
+                "named_species": 0,
+                "pair_carriers": {
+                  "guild_broad__self_fertilization": 0,
+                  "guild_detailed__self_fertilization": 0,
+                  "guild_detailed__colour": 0,
+                  "colour__flower_length": 0
+                }
+              }
+            }
+          },
+          {
+            "source": {
+              "url": "https://gift.uni-goettingen.de/api/extended/index3.1.php?query=checklists&listid=10528&taxonid=6&namesmatched=0&filter=native",
+              "sha256": "d6db2ccda26ad78028ac9e3f10073fa9fa217a187960f8e00011c0cc470dcc9b",
+              "rows": 1470
+            },
+            "entity_class": "Mainland",
+            "subset": "all",
+            "flag_census": [
+              {
+                "native": "1",
+                "questionable": "missing",
+                "quest_native": "missing",
+                "rows": 1470
+              }
+            ],
+            "native_filter_rows": 1470,
+            "counts": {
+              "all_named": {
+                "named_species": 1466,
+                "pair_carriers": {
+                  "guild_broad__self_fertilization": 12,
+                  "guild_detailed__self_fertilization": 8,
+                  "guild_detailed__colour": 0,
+                  "colour__flower_length": 1
+                }
+              },
+              "literal_native": {
+                "named_species": 1466,
+                "pair_carriers": {
+                  "guild_broad__self_fertilization": 12,
+                  "guild_detailed__self_fertilization": 8,
+                  "guild_detailed__colour": 0,
+                  "colour__flower_length": 1
+                }
+              },
+              "native_no_positive_question_flags": {
+                "named_species": 1466,
+                "pair_carriers": {
+                  "guild_broad__self_fertilization": 12,
+                  "guild_detailed__self_fertilization": 8,
+                  "guild_detailed__colour": 0,
+                  "colour__flower_length": 1
+                }
+              },
+              "strict_native": {
+                "named_species": 0,
+                "pair_carriers": {
+                  "guild_broad__self_fertilization": 0,
+                  "guild_detailed__self_fertilization": 0,
+                  "guild_detailed__colour": 0,
+                  "colour__flower_length": 0
+                }
+              }
+            }
+          },
+          {
+            "source": {
+              "url": "https://gift.uni-goettingen.de/api/extended/index3.1.php?query=checklists&listid=12944&taxonid=6&namesmatched=0&filter=native",
+              "sha256": "66df60ef102ea46720a1e50aa2a840de2d8f79daee5385221fec04a925ac766b",
+              "rows": 2140
+            },
+            "entity_class": "Mainland",
+            "subset": "all",
+            "flag_census": [
+              {
+                "native": "1",
+                "questionable": "missing",
+                "quest_native": "missing",
+                "rows": 2140
+              }
+            ],
+            "native_filter_rows": 2140,
+            "counts": {
+              "all_named": {
+                "named_species": 2105,
+                "pair_carriers": {
+                  "guild_broad__self_fertilization": 191,
+                  "guild_detailed__self_fertilization": 113,
+                  "guild_detailed__colour": 7,
+                  "colour__flower_length": 9
+                }
+              },
+              "literal_native": {
+                "named_species": 2105,
+                "pair_carriers": {
+                  "guild_broad__self_fertilization": 191,
+                  "guild_detailed__self_fertilization": 113,
+                  "guild_detailed__colour": 7,
+                  "colour__flower_length": 9
+                }
+              },
+              "native_no_positive_question_flags": {
+                "named_species": 2105,
+                "pair_carriers": {
+                  "guild_broad__self_fertilization": 191,
+                  "guild_detailed__self_fertilization": 113,
+                  "guild_detailed__colour": 7,
+                  "colour__flower_length": 9
+                }
+              },
+              "strict_native": {
+                "named_species": 0,
+                "pair_carriers": {
+                  "guild_broad__self_fertilization": 0,
+                  "guild_detailed__self_fertilization": 0,
+                  "guild_detailed__colour": 0,
+                  "colour__flower_length": 0
+                }
+              }
+            }
+          },
+          {
+            "source": {
+              "url": "https://gift.uni-goettingen.de/api/extended/index3.1.php?query=checklists&listid=13300&taxonid=6&namesmatched=0&filter=native",
+              "sha256": "0df15cebc4907a9c926fc8112300d66b5fdf6deb3d23a992521a1a451a2d31e0",
+              "rows": 2236
+            },
+            "entity_class": "Mainland",
+            "subset": "native and naturalized",
+            "flag_census": [
+              {
+                "native": "1",
+                "questionable": "0",
+                "quest_native": "missing",
+                "rows": 2207
+              },
+              {
+                "native": "1",
+                "questionable": "1",
+                "quest_native": "missing",
+                "rows": 29
+              }
+            ],
+            "native_filter_rows": 2236,
+            "counts": {
+              "all_named": {
+                "named_species": 1907,
+                "pair_carriers": {
+                  "guild_broad__self_fertilization": 43,
+                  "guild_detailed__self_fertilization": 27,
+                  "guild_detailed__colour": 5,
+                  "colour__flower_length": 6
+                }
+              },
+              "literal_native": {
+                "named_species": 1907,
+                "pair_carriers": {
+                  "guild_broad__self_fertilization": 43,
+                  "guild_detailed__self_fertilization": 27,
+                  "guild_detailed__colour": 5,
+                  "colour__flower_length": 6
+                }
+              },
+              "native_no_positive_question_flags": {
+                "named_species": 1884,
+                "pair_carriers": {
+                  "guild_broad__self_fertilization": 38,
+                  "guild_detailed__self_fertilization": 24,
+                  "guild_detailed__colour": 4,
+                  "colour__flower_length": 3
+                }
+              },
+              "strict_native": {
+                "named_species": 0,
+                "pair_carriers": {
+                  "guild_broad__self_fertilization": 0,
+                  "guild_detailed__self_fertilization": 0,
+                  "guild_detailed__colour": 0,
+                  "colour__flower_length": 0
+                }
+              }
+            }
+          },
+          {
+            "source": {
+              "url": "https://gift.uni-goettingen.de/api/extended/index3.1.php?query=checklists&listid=14071&taxonid=6&namesmatched=0&filter=native",
+              "sha256": "784359a7ffaa89e462e539eb54065c7ef4dc879e42e8027cf1ae3e415acb144d",
+              "rows": 3029
+            },
+            "entity_class": "Mainland",
+            "subset": "all",
+            "flag_census": [
+              {
+                "native": "1",
+                "questionable": "0",
+                "quest_native": "0",
+                "rows": 2981
+              },
+              {
+                "native": "1",
+                "questionable": "0",
+                "quest_native": "1",
+                "rows": 4
+              },
+              {
+                "native": "1",
+                "questionable": "1",
+                "quest_native": "0",
+                "rows": 44
+              }
+            ],
+            "native_filter_rows": 3029,
+            "counts": {
+              "all_named": {
+                "named_species": 2425,
+                "pair_carriers": {
+                  "guild_broad__self_fertilization": 639,
+                  "guild_detailed__self_fertilization": 357,
+                  "guild_detailed__colour": 34,
+                  "colour__flower_length": 57
+                }
+              },
+              "literal_native": {
+                "named_species": 2425,
+                "pair_carriers": {
+                  "guild_broad__self_fertilization": 639,
+                  "guild_detailed__self_fertilization": 357,
+                  "guild_detailed__colour": 34,
+                  "colour__flower_length": 57
+                }
+              },
+              "native_no_positive_question_flags": {
+                "named_species": 2387,
+                "pair_carriers": {
+                  "guild_broad__self_fertilization": 631,
+                  "guild_detailed__self_fertilization": 354,
+                  "guild_detailed__colour": 33,
+                  "colour__flower_length": 56
+                }
+              },
+              "strict_native": {
+                "named_species": 2387,
+                "pair_carriers": {
+                  "guild_broad__self_fertilization": 631,
+                  "guild_detailed__self_fertilization": 354,
+                  "guild_detailed__colour": 33,
+                  "colour__flower_length": 56
+                }
+              }
+            }
+          }
+        ]
+      }
+    }
+  },
+  "provenance": {
+    "run": 45566663728,
+    "artifact": 15000606537,
+    "digest_reported": "sha256:a6cbfc3d5dc5b9957453a2461970ad3c93308f579ca27e752e5cdd928b601bdc",
+    "method": "Completed job logs, source-only aggregates; archive ZIP digest from GitHub metadata not independently downloaded."
+  }
+}

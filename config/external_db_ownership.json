@@ -7,6 +7,10 @@
   "source_pins": "https://github.com/zuizui0223/island/blob/64a58cd4817ccf1c54c179aa7fd1c5585f57dd43/config/fd_data_ownership_20261125.json",
   "allowed_paths": [
     ".github/workflows/external-db-boundary.yml",
+    ".github/workflows/external-floral-syndrome-preflight.yml",
+    ".github/workflows/external-gift-assurance-exact-cohort.yml",
+    ".github/workflows/external-gift-assurance-geography-expansion.yml",
+    ".github/workflows/external-gift-reproductive-assurance.yml",
     ".github/workflows/global_bird_source_audit.yml",
     ".github/workflows/pollinator_guild_source_sensitivity.yml",
     ".github/workflows/tropical_asian_butterfly_intake.yml",
@@ -21,6 +25,7 @@
     ".gitignore",
     "README.md",
     "config/external_db_ownership.json",
+    "docs/EXTERNAL_FLORAL_SYNDROME_SOURCE_AUDIT_20261125.md",
     "docs/EXTERNAL_SOURCE_RESEARCH_INDEX.md",
     "docs/legacy_external_workflows/acquire-thousand-island-lake-source.yml",
     "docs/legacy_external_workflows/audit-emln-pollination-source.yml",
@@ -40,10 +45,22 @@
     "results/20261124_tropical_pollinator_source_intake/ORIGINAL_BEE_REVISED_BUTTERFLY.md",
     "results/20261124_tropical_pollinator_source_intake/THREE_GUILD_AND_LEPTRAITS_VERIFIED.md",
     "results/20261124_tropical_pollinator_source_intake/VERIFIED_BUTTERFLY_BEE_OVERLAP_AND_SENSITIVITY.md",
+    "results/20261125_external_floral_source/gift_assurance_exact_cohort_verified_job_log.json",
+    "results/20261125_external_floral_source/gift_assurance_expansion_verified_job_log.json",
+    "results/20261125_external_floral_source/gift_assurance_pilot_verified_job_log.json",
+    "results/20261125_external_floral_source/gift_coverage_source_verified_job_log.json",
+    "results/20261125_external_floral_source/gift_trait_overlap_verified_job_log.json",
+    "results/20261125_external_floral_source/preflight_verified_job_log.json",
     "scripts/audit_mdd_bat_diet_metadata.py",
     "scripts/bat_mdd_synonym_audit.py",
     "scripts/check_external_source_boundary.py",
     "scripts/export_mdd_bat_ranges.R",
+    "scripts/external_floral_syndrome_preflight.py",
+    "scripts/external_gift_assurance_exact_cohort.py",
+    "scripts/external_gift_assurance_geography_expansion.py",
+    "scripts/external_gift_coverage_source_audit.py",
+    "scripts/external_gift_floral_trait_overlap.py",
+    "scripts/external_gift_reproductive_assurance_pilot.py",
     "scripts/global_bird_source_audit.py",
     "scripts/pollinator_guild_source_sensitivity.py",
     "scripts/run_emln_island_visitor_turnover.py",
@@ -445,5 +462,58 @@
       "mode": "100644"
     }
   ],
-  "scope_limit": "Reviewed external standalone candidates and source tools, not a claim that every old historical report was source-verified. Unknown/mixed paths not enabled; original history remains. Legacy external workflows imported under docs, not automatically run. Independent external GloBI catalog prepared in island is permitted only when provenance proves no focal own-plant/occurrence inputs."
+  "scope_limit": "Reviewed external standalone candidates and source tools, not a claim that every old historical report was source-verified. Unknown/mixed paths not enabled; original history remains. Legacy external workflows imported under docs, not automatically run. Independent external GloBI catalog prepared in island is permitted only when provenance proves no focal own-plant/occurrence inputs.",
+  "external_floral_syndrome_preflight_review_20261125": {
+    "scope": "Publisher GIFT 3.1 public metadata, NHM public resource metadata and CSV schema/coverage, Dryad published Antillean metadata only. No assembled flora/trait data or derived outputs; no biological inference; no independent-observation claim. Explicit review documented in docs/EXTERNAL_FLORAL_SYNDROME_SOURCE_AUDIT_20261125.md.",
+    "paths": [
+      "scripts/external_floral_syndrome_preflight.py",
+      "docs/EXTERNAL_FLORAL_SYNDROME_SOURCE_AUDIT_20261125.md",
+      ".github/workflows/external-floral-syndrome-preflight.yml"
+    ]
+  },
+  "external_gift_trait_overlap_review_20261125": {
+    "scope": "Official public publisher v3.1 aggregated trait endpoints and metadata-selected bounded unrestricted native checklist retrieval; work_ID joins, reference overlap and carrier counts only. Archived completed external-only metadata audit. No own-project data, biological association or inferred labels as observation.",
+    "paths": [
+      "scripts/external_gift_floral_trait_overlap.py",
+      "results/20261125_external_floral_source/preflight_verified_job_log.json"
+    ]
+  },
+  "external_gift_coverage_source_audit_review_20261125": {
+    "scope": "Official GIFT publisher API v3.1 fixed sample native status flag attrition, source-reference concentration and archived trait overlap counts. No project flora or derived aggregates; no inference of complete native lists, actual pollination or independent studies.",
+    "paths": [
+      "scripts/external_gift_coverage_source_audit.py",
+      "results/20261125_external_floral_source/gift_trait_overlap_verified_job_log.json"
+    ]
+  },
+  "external_gift_assurance_pilot_review_20261125": {
+    "scope": "Only official publisher GIFT v3.1 trait, checklist, geographic centroid and overlap endpoints. Metadata-frozen nonoverlapping island and mainland region sample, same-reference-pattern contrasts and explicit missing/questionable status sensitivity. Conditional exploratory estimates, not actual pollination or autonomous selfing. No project-derived flora or traits. Archive official source concentration audit.",
+    "paths": [
+      "scripts/external_gift_reproductive_assurance_pilot.py",
+      ".github/workflows/external-gift-reproductive-assurance.yml",
+      "results/20261125_external_floral_source/gift_coverage_source_verified_job_log.json"
+    ]
+  },
+  "external_gift_assurance_exact_cohort_review_20261125": {
+    "scope": "Official publisher-only GIFT v3.1, reverified prior external-only pilot artifact and exact checklist source bytes. Post-pilot common-roster reference standardization decomposition and guild-specific genus matching; no project-derived inputs, no new geographic selection, no lowered support threshold or independent replication claim.",
+    "paths": [
+      "scripts/external_gift_assurance_exact_cohort.py",
+      ".github/workflows/external-gift-assurance-exact-cohort.yml",
+      "results/20261125_external_floral_source/gift_assurance_pilot_verified_job_log.json"
+    ]
+  },
+  "external_gift_assurance_geography_expansion_review_20261125": {
+    "scope": "Official external-only GIFT 3.1 publisher endpoints and previous external pilot artifact. Frozen geography prefix, up to 288 outcome-blind target entities, paired common-reference contrasts, disjoint roster sensitivity, coherent genus reweighting, leave-each-reference-out. Not independent observations or causal evolutionary evidence. No own-project inputs. Archived exact-cohort results.",
+    "paths": [
+      "scripts/external_gift_assurance_geography_expansion.py",
+      ".github/workflows/external-gift-assurance-geography-expansion.yml",
+      "results/20261125_external_floral_source/gift_assurance_exact_cohort_verified_job_log.json"
+    ],
+    "metadata_drift_policy": "Default remains exact original metadata. Explicit versioned mode verifies both archived pilot ZIP digests, identical 155 checklist manifests, prior counts and panel points, current canonical repeat stability at changed metadata endpoints, current original checklist set and byte hashes, and the original geography census. Does not claim historical metadata equivalence or exact historic pairing where original pair map was not archived. Current plan and metadata hash audit are retained."
+  },
+  "external_gift_assurance_expansion_result_review_20261125": {
+    "scope": "Verified official-only expansion results: 288 targets, 75 comparators, 363 public checklists and 155 original checklist hashes. Primary 78 supported pairs, no directional support; new target effect reverses sign. Full 18 + 10 panels retained. Overlap endpoint drift means a versioned snapshot, not exact historic pairing proof.",
+    "paths": [
+      "results/20261125_external_floral_source/gift_assurance_expansion_verified_job_log.json"
+    ]
+  }
 }

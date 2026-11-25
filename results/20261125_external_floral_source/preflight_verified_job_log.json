@@ -1,0 +1,349 @@
+{
+  "data": {
+    "official_gift_3_1": {
+      "versions": {
+        "status": "unavailable_or_invalid",
+        "error_type": "JSONDecodeError",
+        "detail": "Expecting value: line 1 column 1 (char 0)"
+      },
+      "regions": {
+        "status": "retrieved",
+        "url": "https://gift.uni-goettingen.de/api/extended/index3.1.php?query=regions",
+        "sha256": "d12d9129eb8aeb7aafb295ddf99b3ffdd810dcd628ab951ca31e560ab772b64b",
+        "rows": 4047,
+        "columns": [
+          "TDWG_lvl3_ID",
+          "country",
+          "entity_ID",
+          "entity_class",
+          "entity_type",
+          "geo_entity",
+          "suit_geo"
+        ],
+        "nonempty": {
+          "TDWG_lvl3_ID": 369,
+          "country": 4047,
+          "entity_ID": 4047,
+          "entity_class": 4047,
+          "entity_type": 2460,
+          "geo_entity": 4047,
+          "suit_geo": 4047
+        },
+        "categorical_field_counts": {
+          "entity_type": {
+            "None": 1587,
+            "Landscape/Region": 306,
+            "Protected Area": 194,
+            "Political Unit": 790,
+            "Botanical Country": 308,
+            "Urban Area": 1,
+            "Island": 861
+          }
+        }
+      },
+      "lists": {
+        "status": "retrieved",
+        "url": "https://gift.uni-goettingen.de/api/extended/index3.1.php?query=lists",
+        "sha256": "7cbf01e767f5abc061fb3622db031c95e4b24646b98d875eed9f1d9e742ba244",
+        "rows": 3611,
+        "columns": [
+          "end_list",
+          "end_ref",
+          "entity_ID",
+          "entity_class",
+          "entity_type",
+          "geo_entity",
+          "list_ID",
+          "native_indicated",
+          "natural_indicated",
+          "ref_ID",
+          "restricted",
+          "subset",
+          "suit_geo",
+          "taxon_ID",
+          "type"
+        ],
+        "nonempty": {
+          "end_list": 3611,
+          "end_ref": 3611,
+          "entity_ID": 3611,
+          "entity_class": 3611,
+          "entity_type": 2185,
+          "geo_entity": 3611,
+          "list_ID": 3611,
+          "native_indicated": 3611,
+          "natural_indicated": 3611,
+          "ref_ID": 3611,
+          "restricted": 3611,
+          "subset": 3611,
+          "suit_geo": 3611,
+          "taxon_ID": 3611,
+          "type": 3611
+        },
+        "categorical_field_counts": {
+          "entity_type": {
+            "None": 1426,
+            "Political Unit": 651,
+            "Protected Area": 174,
+            "Island": 808,
+            "Landscape/Region": 231,
+            "Botanical Country": 320,
+            "Urban Area": 1
+          },
+          "native_indicated": {
+            "0": 229,
+            "1": 3382
+          },
+          "taxon_ID": {
+            "1": 71,
+            "2": 2897,
+            "4": 20,
+            "5": 500,
+            "6": 46,
+            "141": 77
+          }
+        }
+      },
+      "traits_meta": {
+        "status": "retrieved",
+        "url": "https://gift.uni-goettingen.de/api/extended/index3.1.php?query=traits_meta",
+        "sha256": "7e05d141477295814dc8d04227b94ff4daa41ea2d1a4717ad803bc794c612393",
+        "rows": 109,
+        "columns": [
+          "Category",
+          "Lvl1",
+          "Lvl2",
+          "Lvl3",
+          "Trait1",
+          "Trait2",
+          "Units",
+          "comment",
+          "count",
+          "type"
+        ],
+        "nonempty": {
+          "Category": 109,
+          "Lvl1": 109,
+          "Lvl2": 109,
+          "Lvl3": 109,
+          "Trait1": 109,
+          "Trait2": 109,
+          "Units": 103,
+          "comment": 23,
+          "count": 109,
+          "type": 109
+        },
+        "floral_trait_metadata": [
+          {
+            "Lvl1": "3",
+            "Category": "Reproduction",
+            "Lvl2": "3.21",
+            "Trait1": "Flower colour ",
+            "Lvl3": "3.21.1",
+            "Trait2": "Flower_colour",
+            "Units": "red, pink, blue, yellow, orange, green, white, violet, black, grey, brown, other",
+            "type": "categorical",
+            "comment": "combinations possible",
+            "count": 1529
+          },
+          {
+            "Lvl1": "3",
+            "Category": "Reproduction",
+            "Lvl2": "3.25",
+            "Trait1": "Flower length",
+            "Lvl3": "3.25.1",
+            "Trait2": "Flower_length_min",
+            "Units": "cm",
+            "type": "numeric",
+            "comment": null,
+            "count": 1726
+          },
+          {
+            "Lvl1": "3",
+            "Category": "Reproduction",
+            "Lvl2": "3.25",
+            "Trait1": "Flower length",
+            "Lvl3": "3.25.2",
+            "Trait2": "Flower_length_max",
+            "Units": "cm",
+            "type": "numeric",
+            "comment": null,
+            "count": 1866
+          },
+          {
+            "Lvl1": "3",
+            "Category": "Reproduction",
+            "Lvl2": "3.26",
+            "Trait1": "Flower width",
+            "Lvl3": "3.26.1",
+            "Trait2": "Flower_width_min",
+            "Units": "cm",
+            "type": "numeric",
+            "comment": null,
+            "count": 287
+          },
+          {
+            "Lvl1": "3",
+            "Category": "Reproduction",
+            "Lvl2": "3.26",
+            "Trait1": "Flower width",
+            "Lvl3": "3.26.2",
+            "Trait2": "Flower_width_max",
+            "Units": "cm",
+            "type": "numeric",
+            "comment": null,
+            "count": 395
+          },
+          {
+            "Lvl1": "3",
+            "Category": "Reproduction",
+            "Lvl2": "3.4",
+            "Trait1": "Reproduction sexual",
+            "Lvl3": "3.4.1",
+            "Trait2": "Reproduction_sexual_1",
+            "Units": "dioecious, monoecious, bisexual",
+            "type": "categorical",
+            "comment": "see list of synonyms: http://en.wikipedia.org/wiki/Plant_reproductive_morphology#Terminology; monoecious in narrow sense; bisexual = hermaphrodite (flowers)\r\n",
+            "count": 2977
+          },
+          {
+            "Lvl1": "3",
+            "Category": "Reproduction",
+            "Lvl2": "3.6",
+            "Trait1": "Pollination syndrome",
+            "Lvl3": "3.6.1",
+            "Trait2": "Pollination_syndrome_1",
+            "Units": "biotic, abiotic",
+            "type": "categorical",
+            "comment": "",
+            "count": 5971
+          },
+          {
+            "Lvl1": "3",
+            "Category": "Reproduction",
+            "Lvl2": "3.6",
+            "Trait1": "Pollination syndrome",
+            "Lvl3": "3.6.2",
+            "Trait2": "Pollination_syndrome_2",
+            "Units": "wind, water, insect, bird, bat, other",
+            "type": "categorical",
+            "comment": "Combinations possible",
+            "count": 5938
+          },
+          {
+            "Lvl1": "3",
+            "Category": "Reproduction",
+            "Lvl2": "3.6",
+            "Trait1": "Pollination syndrome",
+            "Lvl3": "3.6.3",
+            "Trait2": "Pollination_syndrome_3",
+            "Units": "wind, water, bee, beetle, ant, butterfly, moth, fly, insect, bird, bat, other",
+            "type": "categorical",
+            "comment": "Combinations possible, add new categories if necessary [but set connections]",
+            "count": 4035
+          },
+          {
+            "Lvl1": "3",
+            "Category": "Reproduction",
+            "Lvl2": "3.7",
+            "Trait1": "Flowering time",
+            "Lvl3": "3.7.1",
+            "Trait2": "Flowering_start",
+            "Units": "Jan, Feb, Mar, Apr, May, Jun, Jul, Aug, Sep, Oct, Nov, Dec, variable",
+            "type": "categorical",
+            "comment": null,
+            "count": 19582
+          },
+          {
+            "Lvl1": "3",
+            "Category": "Reproduction",
+            "Lvl2": "3.7",
+            "Trait1": "Flowering time",
+            "Lvl3": "3.7.2",
+            "Trait2": "Flowering_end",
+            "Units": "Jan, Feb, Mar, Apr, May, Jun, Jul, Aug, Sep, Oct, Nov, Dec, variable",
+            "type": "categorical",
+            "comment": null,
+            "count": 19351
+          }
+        ]
+      },
+      "reference_traits": {
+        "status": "retrieved",
+        "url": "https://gift.uni-goettingen.de/api/extended/index3.1.php?query=reference_traits",
+        "sha256": "bffd1be6d8bedacc6d2c409bc1530b1eba87b9b22f3424d293cc490eaf1958b8",
+        "rows": 6164,
+        "columns": [
+          "bias",
+          "priority",
+          "ref_ID",
+          "trait_ID",
+          "trait_ID_child",
+          "trait_ID_child_2",
+          "trait_ID_child_3",
+          "trait_ID_child_4",
+          "trait_ID_child_5",
+          "trait_ID_child_6",
+          "trait_ID_child_7",
+          "trait_ID_parent"
+        ],
+        "nonempty": {
+          "bias": 6164,
+          "priority": 6164,
+          "ref_ID": 6164,
+          "trait_ID": 6164,
+          "trait_ID_child": 5246,
+          "trait_ID_child_2": 5011,
+          "trait_ID_child_3": 4807,
+          "trait_ID_child_4": 4748,
+          "trait_ID_child_5": 4443,
+          "trait_ID_child_6": 4209,
+          "trait_ID_child_7": 4209,
+          "trait_ID_parent": 5246
+        }
+      }
+    },
+    "nhm_adept": {
+      "status": "unavailable_or_invalid",
+      "error_type": "HTTPError",
+      "detail": "HTTP Error 403: Forbidden"
+    },
+    "antillean_gesneriaceae": {
+      "status": "retrieved",
+      "doi": "10.5061/dryad.hqbzkh1nh",
+      "metadata_sha256": "0db669a1694ed5e28b320e44395a6137477dae9721f20a870a2e153f25bee0e6",
+      "title": "Evolution of intraspecific floral variation in a generalist-specialist pollination system",
+      "version": 4,
+      "links": {
+        "self": {
+          "href": "/api/v2/datasets/doi%3A10.5061%2Fdryad.hqbzkh1nh"
+        },
+        "stash:versions": {
+          "href": "/api/v2/datasets/doi%3A10.5061%2Fdryad.hqbzkh1nh/versions"
+        },
+        "stash:version": {
+          "href": "/api/v2/versions/294654"
+        },
+        "stash:download": {
+          "href": "/api/v2/datasets/doi%3A10.5061%2Fdryad.hqbzkh1nh/download"
+        },
+        "curies": [
+          {
+            "name": "stash",
+            "href": "https://github.com/datadryad/dryad-app/blob/main/documentation/apis/link_relations.md#{rel}",
+            "templated": "true"
+          }
+        ]
+      },
+      "license": "https://spdx.org/licenses/CC0-1.0.html",
+      "warning": "Documented observed-versus-inferred pollination labels in publisher README; later measured morphology validation must use confirmed observations only. No raw images or inferred-label scores downloaded."
+    },
+    "scope": "Source-only readiness audit. No statistical estimates or new biological result."
+  },
+  "provenance": {
+    "run": 45560238653,
+    "artifact": 14996724377,
+    "digest_reported": "sha256:f7754885b053d1a9dec83516112fb925ce3bb928927edfde26d34724d3fd3efc",
+    "method": "Verified completed job stdout, reported archive digest; no original CSV redistributed."
+  }
+}

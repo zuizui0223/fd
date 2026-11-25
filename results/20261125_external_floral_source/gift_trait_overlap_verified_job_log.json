@@ -1,0 +1,966 @@
+{
+  "data": {
+    "traits": {
+      "strict": {
+        "guild_broad": {
+          "status": "retrieved",
+          "sources": [
+            {
+              "url": "https://gift.uni-goettingen.de/api/extended/index3.1.php?query=traits&traitid=3.6.2&biasref=0&biasderiv=0&startat=0&limit=10000",
+              "sha256": "66cfa0398c3222131e642f083e567651efc1719e04b15a18c1462911988e6b75",
+              "rows": 5938
+            }
+          ],
+          "columns": [
+            "agreement",
+            "coeff_var",
+            "n",
+            "references",
+            "trait_value",
+            "work_ID"
+          ],
+          "raw_rows": 5938,
+          "unique_work_ids": 5938,
+          "eligible_work_ids": 5852,
+          "duplicate_rows": 0,
+          "conflicting_work_ids_excluded": 0,
+          "low_agreement_excluded": 86,
+          "invalid_value_excluded": 0,
+          "categorical_states": {
+            "insect": 4420,
+            "wind": 1258,
+            "other": 17,
+            "bird": 44,
+            "water": 81,
+            "bat": 32
+          },
+          "numeric_min_max": null,
+          "records_with_reference_ids": 5852,
+          "metadata": {
+            "Lvl1": "3",
+            "Category": "Reproduction",
+            "Lvl2": "3.6",
+            "Trait1": "Pollination syndrome",
+            "Lvl3": "3.6.2",
+            "Trait2": "Pollination_syndrome_2",
+            "Units": "wind, water, insect, bird, bat, other",
+            "type": "categorical",
+            "comment": "Combinations possible",
+            "count": 5938
+          }
+        },
+        "guild_detailed": {
+          "status": "retrieved",
+          "sources": [
+            {
+              "url": "https://gift.uni-goettingen.de/api/extended/index3.1.php?query=traits&traitid=3.6.3&biasref=0&biasderiv=0&startat=0&limit=10000",
+              "sha256": "29e088a18c738c761a0d41f67966c4b455bbe3e9d7bf792b7eecac440b34ee52",
+              "rows": 4035
+            }
+          ],
+          "columns": [
+            "agreement",
+            "coeff_var",
+            "n",
+            "references",
+            "trait_value",
+            "work_ID"
+          ],
+          "raw_rows": 4035,
+          "unique_work_ids": 4035,
+          "eligible_work_ids": 3119,
+          "duplicate_rows": 0,
+          "conflicting_work_ids_excluded": 0,
+          "low_agreement_excluded": 916,
+          "invalid_value_excluded": 0,
+          "categorical_states": {
+            "insect": 1575,
+            "bee": 698,
+            "wind": 580,
+            "fly": 69,
+            "other": 14,
+            "bird": 42,
+            "beetle": 14,
+            "butterfly": 34,
+            "water": 21,
+            "bat": 32,
+            "moth": 37,
+            "ant": 3
+          },
+          "numeric_min_max": null,
+          "records_with_reference_ids": 3119,
+          "metadata": {
+            "Lvl1": "3",
+            "Category": "Reproduction",
+            "Lvl2": "3.6",
+            "Trait1": "Pollination syndrome",
+            "Lvl3": "3.6.3",
+            "Trait2": "Pollination_syndrome_3",
+            "Units": "wind, water, bee, beetle, ant, butterfly, moth, fly, insect, bird, bat, other",
+            "type": "categorical",
+            "comment": "Combinations possible, add new categories if necessary [but set connections]",
+            "count": 4035
+          }
+        },
+        "colour": {
+          "status": "retrieved",
+          "sources": [
+            {
+              "url": "https://gift.uni-goettingen.de/api/extended/index3.1.php?query=traits&traitid=3.21.1&biasref=0&biasderiv=0&startat=0&limit=10000",
+              "sha256": "07db04eaec9c67ffb6084591e07e75be1dd942a59bae58c3620943847bc07d66",
+              "rows": 1529
+            }
+          ],
+          "columns": [
+            "agreement",
+            "coeff_var",
+            "n",
+            "references",
+            "trait_value",
+            "work_ID"
+          ],
+          "raw_rows": 1529,
+          "unique_work_ids": 1529,
+          "eligible_work_ids": 729,
+          "duplicate_rows": 0,
+          "conflicting_work_ids_excluded": 0,
+          "low_agreement_excluded": 800,
+          "invalid_value_excluded": 0,
+          "categorical_states": {
+            "yellow": 365,
+            "white": 195,
+            "red": 26,
+            "blue": 26,
+            "violet": 42,
+            "pink": 53,
+            "green": 12,
+            "brown": 7,
+            "orange": 3
+          },
+          "numeric_min_max": null,
+          "records_with_reference_ids": 729,
+          "metadata": {
+            "Lvl1": "3",
+            "Category": "Reproduction",
+            "Lvl2": "3.21",
+            "Trait1": "Flower colour ",
+            "Lvl3": "3.21.1",
+            "Trait2": "Flower_colour",
+            "Units": "red, pink, blue, yellow, orange, green, white, violet, black, grey, brown, other",
+            "type": "categorical",
+            "comment": "combinations possible",
+            "count": 1529
+          }
+        },
+        "flower_max_length_cm": {
+          "status": "retrieved",
+          "sources": [
+            {
+              "url": "https://gift.uni-goettingen.de/api/extended/index3.1.php?query=traits&traitid=3.25.2&biasref=0&biasderiv=0&startat=0&limit=10000",
+              "sha256": "d7d2e1918ca70c578c215fbccf0f8ea9f466a22f256558b9e717f56445f6d114",
+              "rows": 1866
+            }
+          ],
+          "columns": [
+            "agreement",
+            "coeff_var",
+            "n",
+            "references",
+            "trait_value",
+            "work_ID"
+          ],
+          "raw_rows": 1866,
+          "unique_work_ids": 1866,
+          "eligible_work_ids": 1866,
+          "duplicate_rows": 0,
+          "conflicting_work_ids_excluded": 0,
+          "low_agreement_excluded": 0,
+          "invalid_value_excluded": 0,
+          "categorical_states": null,
+          "numeric_min_max": [
+            0.04,
+            80
+          ],
+          "records_with_reference_ids": 1866,
+          "metadata": {
+            "Lvl1": "3",
+            "Category": "Reproduction",
+            "Lvl2": "3.25",
+            "Trait1": "Flower length",
+            "Lvl3": "3.25.2",
+            "Trait2": "Flower_length_max",
+            "Units": "cm",
+            "type": "numeric",
+            "comment": null,
+            "count": 1866
+          }
+        },
+        "flower_max_width_cm": {
+          "status": "retrieved",
+          "sources": [
+            {
+              "url": "https://gift.uni-goettingen.de/api/extended/index3.1.php?query=traits&traitid=3.26.2&biasref=0&biasderiv=0&startat=0&limit=10000",
+              "sha256": "bfeec33254afee1440f6726ba3083ce80a5707ecc4d04e22a4125fe8845823e4",
+              "rows": 395
+            }
+          ],
+          "columns": [
+            "agreement",
+            "coeff_var",
+            "n",
+            "references",
+            "trait_value",
+            "work_ID"
+          ],
+          "raw_rows": 395,
+          "unique_work_ids": 395,
+          "eligible_work_ids": 395,
+          "duplicate_rows": 0,
+          "conflicting_work_ids_excluded": 0,
+          "low_agreement_excluded": 0,
+          "invalid_value_excluded": 0,
+          "categorical_states": null,
+          "numeric_min_max": [
+            0.1,
+            20
+          ],
+          "records_with_reference_ids": 395,
+          "metadata": {
+            "Lvl1": "3",
+            "Category": "Reproduction",
+            "Lvl2": "3.26",
+            "Trait1": "Flower width",
+            "Lvl3": "3.26.2",
+            "Trait2": "Flower_width_max",
+            "Units": "cm",
+            "type": "numeric",
+            "comment": null,
+            "count": 395
+          }
+        },
+        "self_fertilization": {
+          "status": "retrieved",
+          "sources": [
+            {
+              "url": "https://gift.uni-goettingen.de/api/extended/index3.1.php?query=traits&traitid=3.1.1&biasref=0&biasderiv=0&startat=0&limit=10000",
+              "sha256": "59d44b73c6267fb6bb08a677b58395c5480392415a50b5eccbfd9e111407fd17",
+              "rows": 3650
+            }
+          ],
+          "columns": [
+            "agreement",
+            "coeff_var",
+            "n",
+            "references",
+            "trait_value",
+            "work_ID"
+          ],
+          "raw_rows": 3650,
+          "unique_work_ids": 3650,
+          "eligible_work_ids": 3530,
+          "duplicate_rows": 0,
+          "conflicting_work_ids_excluded": 0,
+          "low_agreement_excluded": 120,
+          "invalid_value_excluded": 0,
+          "categorical_states": {
+            "present": 1112,
+            "absent": 2418
+          },
+          "numeric_min_max": null,
+          "records_with_reference_ids": 3530,
+          "metadata": {
+            "Lvl1": "3",
+            "Category": "Reproduction",
+            "Lvl2": "3.1",
+            "Trait1": "Self fertilization",
+            "Lvl3": "3.1.1",
+            "Trait2": "Self_fertilization_1",
+            "Units": "present, absent",
+            "type": "categorical",
+            "comment": null,
+            "count": 3650
+          }
+        }
+      },
+      "inclusive": {
+        "guild_broad": {
+          "status": "retrieved",
+          "sources": [
+            {
+              "url": "https://gift.uni-goettingen.de/api/extended/index3.1.php?query=traits&traitid=3.6.2&biasref=1&biasderiv=1&startat=0&limit=10000",
+              "sha256": "66cfa0398c3222131e642f083e567651efc1719e04b15a18c1462911988e6b75",
+              "rows": 5938
+            }
+          ],
+          "columns": [
+            "agreement",
+            "coeff_var",
+            "n",
+            "references",
+            "trait_value",
+            "work_ID"
+          ],
+          "raw_rows": 5938,
+          "unique_work_ids": 5938,
+          "eligible_work_ids": 5852,
+          "duplicate_rows": 0,
+          "conflicting_work_ids_excluded": 0,
+          "low_agreement_excluded": 86,
+          "invalid_value_excluded": 0,
+          "categorical_states": {
+            "insect": 4420,
+            "wind": 1258,
+            "other": 17,
+            "bird": 44,
+            "water": 81,
+            "bat": 32
+          },
+          "numeric_min_max": null,
+          "records_with_reference_ids": 5852,
+          "metadata": {
+            "Lvl1": "3",
+            "Category": "Reproduction",
+            "Lvl2": "3.6",
+            "Trait1": "Pollination syndrome",
+            "Lvl3": "3.6.2",
+            "Trait2": "Pollination_syndrome_2",
+            "Units": "wind, water, insect, bird, bat, other",
+            "type": "categorical",
+            "comment": "Combinations possible",
+            "count": 5938
+          }
+        },
+        "guild_detailed": {
+          "status": "retrieved",
+          "sources": [
+            {
+              "url": "https://gift.uni-goettingen.de/api/extended/index3.1.php?query=traits&traitid=3.6.3&biasref=1&biasderiv=1&startat=0&limit=10000",
+              "sha256": "29e088a18c738c761a0d41f67966c4b455bbe3e9d7bf792b7eecac440b34ee52",
+              "rows": 4035
+            }
+          ],
+          "columns": [
+            "agreement",
+            "coeff_var",
+            "n",
+            "references",
+            "trait_value",
+            "work_ID"
+          ],
+          "raw_rows": 4035,
+          "unique_work_ids": 4035,
+          "eligible_work_ids": 3119,
+          "duplicate_rows": 0,
+          "conflicting_work_ids_excluded": 0,
+          "low_agreement_excluded": 916,
+          "invalid_value_excluded": 0,
+          "categorical_states": {
+            "insect": 1575,
+            "bee": 698,
+            "wind": 580,
+            "fly": 69,
+            "other": 14,
+            "bird": 42,
+            "beetle": 14,
+            "butterfly": 34,
+            "water": 21,
+            "bat": 32,
+            "moth": 37,
+            "ant": 3
+          },
+          "numeric_min_max": null,
+          "records_with_reference_ids": 3119,
+          "metadata": {
+            "Lvl1": "3",
+            "Category": "Reproduction",
+            "Lvl2": "3.6",
+            "Trait1": "Pollination syndrome",
+            "Lvl3": "3.6.3",
+            "Trait2": "Pollination_syndrome_3",
+            "Units": "wind, water, bee, beetle, ant, butterfly, moth, fly, insect, bird, bat, other",
+            "type": "categorical",
+            "comment": "Combinations possible, add new categories if necessary [but set connections]",
+            "count": 4035
+          }
+        },
+        "colour": {
+          "status": "retrieved",
+          "sources": [
+            {
+              "url": "https://gift.uni-goettingen.de/api/extended/index3.1.php?query=traits&traitid=3.21.1&biasref=1&biasderiv=1&startat=0&limit=10000",
+              "sha256": "07db04eaec9c67ffb6084591e07e75be1dd942a59bae58c3620943847bc07d66",
+              "rows": 1529
+            }
+          ],
+          "columns": [
+            "agreement",
+            "coeff_var",
+            "n",
+            "references",
+            "trait_value",
+            "work_ID"
+          ],
+          "raw_rows": 1529,
+          "unique_work_ids": 1529,
+          "eligible_work_ids": 729,
+          "duplicate_rows": 0,
+          "conflicting_work_ids_excluded": 0,
+          "low_agreement_excluded": 800,
+          "invalid_value_excluded": 0,
+          "categorical_states": {
+            "yellow": 365,
+            "white": 195,
+            "red": 26,
+            "blue": 26,
+            "violet": 42,
+            "pink": 53,
+            "green": 12,
+            "brown": 7,
+            "orange": 3
+          },
+          "numeric_min_max": null,
+          "records_with_reference_ids": 729,
+          "metadata": {
+            "Lvl1": "3",
+            "Category": "Reproduction",
+            "Lvl2": "3.21",
+            "Trait1": "Flower colour ",
+            "Lvl3": "3.21.1",
+            "Trait2": "Flower_colour",
+            "Units": "red, pink, blue, yellow, orange, green, white, violet, black, grey, brown, other",
+            "type": "categorical",
+            "comment": "combinations possible",
+            "count": 1529
+          }
+        },
+        "flower_max_length_cm": {
+          "status": "retrieved",
+          "sources": [
+            {
+              "url": "https://gift.uni-goettingen.de/api/extended/index3.1.php?query=traits&traitid=3.25.2&biasref=1&biasderiv=1&startat=0&limit=10000",
+              "sha256": "d7d2e1918ca70c578c215fbccf0f8ea9f466a22f256558b9e717f56445f6d114",
+              "rows": 1866
+            }
+          ],
+          "columns": [
+            "agreement",
+            "coeff_var",
+            "n",
+            "references",
+            "trait_value",
+            "work_ID"
+          ],
+          "raw_rows": 1866,
+          "unique_work_ids": 1866,
+          "eligible_work_ids": 1866,
+          "duplicate_rows": 0,
+          "conflicting_work_ids_excluded": 0,
+          "low_agreement_excluded": 0,
+          "invalid_value_excluded": 0,
+          "categorical_states": null,
+          "numeric_min_max": [
+            0.04,
+            80
+          ],
+          "records_with_reference_ids": 1866,
+          "metadata": {
+            "Lvl1": "3",
+            "Category": "Reproduction",
+            "Lvl2": "3.25",
+            "Trait1": "Flower length",
+            "Lvl3": "3.25.2",
+            "Trait2": "Flower_length_max",
+            "Units": "cm",
+            "type": "numeric",
+            "comment": null,
+            "count": 1866
+          }
+        },
+        "flower_max_width_cm": {
+          "status": "retrieved",
+          "sources": [
+            {
+              "url": "https://gift.uni-goettingen.de/api/extended/index3.1.php?query=traits&traitid=3.26.2&biasref=1&biasderiv=1&startat=0&limit=10000",
+              "sha256": "bfeec33254afee1440f6726ba3083ce80a5707ecc4d04e22a4125fe8845823e4",
+              "rows": 395
+            }
+          ],
+          "columns": [
+            "agreement",
+            "coeff_var",
+            "n",
+            "references",
+            "trait_value",
+            "work_ID"
+          ],
+          "raw_rows": 395,
+          "unique_work_ids": 395,
+          "eligible_work_ids": 395,
+          "duplicate_rows": 0,
+          "conflicting_work_ids_excluded": 0,
+          "low_agreement_excluded": 0,
+          "invalid_value_excluded": 0,
+          "categorical_states": null,
+          "numeric_min_max": [
+            0.1,
+            20
+          ],
+          "records_with_reference_ids": 395,
+          "metadata": {
+            "Lvl1": "3",
+            "Category": "Reproduction",
+            "Lvl2": "3.26",
+            "Trait1": "Flower width",
+            "Lvl3": "3.26.2",
+            "Trait2": "Flower_width_max",
+            "Units": "cm",
+            "type": "numeric",
+            "comment": null,
+            "count": 395
+          }
+        },
+        "self_fertilization": {
+          "status": "retrieved",
+          "sources": [
+            {
+              "url": "https://gift.uni-goettingen.de/api/extended/index3.1.php?query=traits&traitid=3.1.1&biasref=1&biasderiv=1&startat=0&limit=10000",
+              "sha256": "59d44b73c6267fb6bb08a677b58395c5480392415a50b5eccbfd9e111407fd17",
+              "rows": 3650
+            }
+          ],
+          "columns": [
+            "agreement",
+            "coeff_var",
+            "n",
+            "references",
+            "trait_value",
+            "work_ID"
+          ],
+          "raw_rows": 3650,
+          "unique_work_ids": 3650,
+          "eligible_work_ids": 3530,
+          "duplicate_rows": 0,
+          "conflicting_work_ids_excluded": 0,
+          "low_agreement_excluded": 120,
+          "invalid_value_excluded": 0,
+          "categorical_states": {
+            "present": 1112,
+            "absent": 2418
+          },
+          "numeric_min_max": null,
+          "records_with_reference_ids": 3530,
+          "metadata": {
+            "Lvl1": "3",
+            "Category": "Reproduction",
+            "Lvl2": "3.1",
+            "Trait1": "Self fertilization",
+            "Lvl3": "3.1.1",
+            "Trait2": "Self_fertilization_1",
+            "Units": "present, absent",
+            "type": "categorical",
+            "comment": null,
+            "count": 3650
+          }
+        }
+      }
+    },
+    "overlap": {
+      "strict": {
+        "guild_broad__guild_detailed": {
+          "shared_work_ids": 3106,
+          "both_reference_ids_available": 3106,
+          "shared_reference": 2345,
+          "disjoint_references": 761
+        },
+        "guild_broad__colour": {
+          "shared_work_ids": 262,
+          "both_reference_ids_available": 262,
+          "shared_reference": 0,
+          "disjoint_references": 262
+        },
+        "guild_broad__flower_max_length_cm": {
+          "shared_work_ids": 493,
+          "both_reference_ids_available": 493,
+          "shared_reference": 0,
+          "disjoint_references": 493
+        },
+        "guild_broad__flower_max_width_cm": {
+          "shared_work_ids": 157,
+          "both_reference_ids_available": 157,
+          "shared_reference": 0,
+          "disjoint_references": 157
+        },
+        "guild_broad__self_fertilization": {
+          "shared_work_ids": 2683,
+          "both_reference_ids_available": 2683,
+          "shared_reference": 2663,
+          "disjoint_references": 20
+        },
+        "guild_detailed__colour": {
+          "shared_work_ids": 123,
+          "both_reference_ids_available": 123,
+          "shared_reference": 0,
+          "disjoint_references": 123
+        },
+        "guild_detailed__flower_max_length_cm": {
+          "shared_work_ids": 248,
+          "both_reference_ids_available": 248,
+          "shared_reference": 0,
+          "disjoint_references": 248
+        },
+        "guild_detailed__flower_max_width_cm": {
+          "shared_work_ids": 62,
+          "both_reference_ids_available": 62,
+          "shared_reference": 0,
+          "disjoint_references": 62
+        },
+        "guild_detailed__self_fertilization": {
+          "shared_work_ids": 1319,
+          "both_reference_ids_available": 1319,
+          "shared_reference": 722,
+          "disjoint_references": 597
+        },
+        "colour__flower_max_length_cm": {
+          "shared_work_ids": 404,
+          "both_reference_ids_available": 404,
+          "shared_reference": 403,
+          "disjoint_references": 1
+        },
+        "colour__flower_max_width_cm": {
+          "shared_work_ids": 184,
+          "both_reference_ids_available": 184,
+          "shared_reference": 184,
+          "disjoint_references": 0
+        },
+        "colour__self_fertilization": {
+          "shared_work_ids": 220,
+          "both_reference_ids_available": 220,
+          "shared_reference": 0,
+          "disjoint_references": 220
+        },
+        "flower_max_length_cm__flower_max_width_cm": {
+          "shared_work_ids": 177,
+          "both_reference_ids_available": 177,
+          "shared_reference": 175,
+          "disjoint_references": 2
+        },
+        "flower_max_length_cm__self_fertilization": {
+          "shared_work_ids": 400,
+          "both_reference_ids_available": 400,
+          "shared_reference": 1,
+          "disjoint_references": 399
+        },
+        "flower_max_width_cm__self_fertilization": {
+          "shared_work_ids": 127,
+          "both_reference_ids_available": 127,
+          "shared_reference": 0,
+          "disjoint_references": 127
+        }
+      },
+      "inclusive": {
+        "guild_broad__guild_detailed": {
+          "shared_work_ids": 3106,
+          "both_reference_ids_available": 3106,
+          "shared_reference": 2345,
+          "disjoint_references": 761
+        },
+        "guild_broad__colour": {
+          "shared_work_ids": 262,
+          "both_reference_ids_available": 262,
+          "shared_reference": 0,
+          "disjoint_references": 262
+        },
+        "guild_broad__flower_max_length_cm": {
+          "shared_work_ids": 493,
+          "both_reference_ids_available": 493,
+          "shared_reference": 0,
+          "disjoint_references": 493
+        },
+        "guild_broad__flower_max_width_cm": {
+          "shared_work_ids": 157,
+          "both_reference_ids_available": 157,
+          "shared_reference": 0,
+          "disjoint_references": 157
+        },
+        "guild_broad__self_fertilization": {
+          "shared_work_ids": 2683,
+          "both_reference_ids_available": 2683,
+          "shared_reference": 2663,
+          "disjoint_references": 20
+        },
+        "guild_detailed__colour": {
+          "shared_work_ids": 123,
+          "both_reference_ids_available": 123,
+          "shared_reference": 0,
+          "disjoint_references": 123
+        },
+        "guild_detailed__flower_max_length_cm": {
+          "shared_work_ids": 248,
+          "both_reference_ids_available": 248,
+          "shared_reference": 0,
+          "disjoint_references": 248
+        },
+        "guild_detailed__flower_max_width_cm": {
+          "shared_work_ids": 62,
+          "both_reference_ids_available": 62,
+          "shared_reference": 0,
+          "disjoint_references": 62
+        },
+        "guild_detailed__self_fertilization": {
+          "shared_work_ids": 1319,
+          "both_reference_ids_available": 1319,
+          "shared_reference": 722,
+          "disjoint_references": 597
+        },
+        "colour__flower_max_length_cm": {
+          "shared_work_ids": 404,
+          "both_reference_ids_available": 404,
+          "shared_reference": 403,
+          "disjoint_references": 1
+        },
+        "colour__flower_max_width_cm": {
+          "shared_work_ids": 184,
+          "both_reference_ids_available": 184,
+          "shared_reference": 184,
+          "disjoint_references": 0
+        },
+        "colour__self_fertilization": {
+          "shared_work_ids": 220,
+          "both_reference_ids_available": 220,
+          "shared_reference": 0,
+          "disjoint_references": 220
+        },
+        "flower_max_length_cm__flower_max_width_cm": {
+          "shared_work_ids": 177,
+          "both_reference_ids_available": 177,
+          "shared_reference": 175,
+          "disjoint_references": 2
+        },
+        "flower_max_length_cm__self_fertilization": {
+          "shared_work_ids": 400,
+          "both_reference_ids_available": 400,
+          "shared_reference": 1,
+          "disjoint_references": 399
+        },
+        "flower_max_width_cm__self_fertilization": {
+          "shared_work_ids": 127,
+          "both_reference_ids_available": 127,
+          "shared_reference": 0,
+          "disjoint_references": 127
+        }
+      }
+    },
+    "list_eligibility": {
+      "island": {
+        "entities": 1253,
+        "lists": 1496
+      },
+      "mainland": {
+        "entities": 751,
+        "lists": 810
+      }
+    },
+    "pilot": {
+      "island": {
+        "selected_lists": 24,
+        "success": 24,
+        "errors": [],
+        "coverage": {
+          "guild_broad__guild_detailed": {
+            "at_least_1": 2,
+            "at_least_5": 2,
+            "at_least_10": 2,
+            "max": 25
+          },
+          "guild_broad__colour": {
+            "at_least_1": 3,
+            "at_least_5": 1,
+            "at_least_10": 0,
+            "max": 7
+          },
+          "guild_broad__flower_max_length_cm": {
+            "at_least_1": 2,
+            "at_least_5": 2,
+            "at_least_10": 1,
+            "max": 14
+          },
+          "guild_broad__flower_max_width_cm": {
+            "at_least_1": 3,
+            "at_least_5": 1,
+            "at_least_10": 0,
+            "max": 5
+          },
+          "guild_broad__self_fertilization": {
+            "at_least_1": 3,
+            "at_least_5": 2,
+            "at_least_10": 2,
+            "max": 30
+          },
+          "guild_detailed__colour": {
+            "at_least_1": 2,
+            "at_least_5": 0,
+            "at_least_10": 0,
+            "max": 2
+          },
+          "guild_detailed__flower_max_length_cm": {
+            "at_least_1": 2,
+            "at_least_5": 1,
+            "at_least_10": 0,
+            "max": 7
+          },
+          "guild_detailed__flower_max_width_cm": {
+            "at_least_1": 2,
+            "at_least_5": 0,
+            "at_least_10": 0,
+            "max": 2
+          },
+          "guild_detailed__self_fertilization": {
+            "at_least_1": 2,
+            "at_least_5": 2,
+            "at_least_10": 1,
+            "max": 12
+          },
+          "colour__flower_max_length_cm": {
+            "at_least_1": 2,
+            "at_least_5": 0,
+            "at_least_10": 0,
+            "max": 4
+          },
+          "colour__flower_max_width_cm": {
+            "at_least_1": 3,
+            "at_least_5": 0,
+            "at_least_10": 0,
+            "max": 3
+          },
+          "colour__self_fertilization": {
+            "at_least_1": 3,
+            "at_least_5": 1,
+            "at_least_10": 0,
+            "max": 7
+          },
+          "flower_max_length_cm__flower_max_width_cm": {
+            "at_least_1": 3,
+            "at_least_5": 0,
+            "at_least_10": 0,
+            "max": 4
+          },
+          "flower_max_length_cm__self_fertilization": {
+            "at_least_1": 2,
+            "at_least_5": 1,
+            "at_least_10": 1,
+            "max": 13
+          },
+          "flower_max_width_cm__self_fertilization": {
+            "at_least_1": 3,
+            "at_least_5": 0,
+            "at_least_10": 0,
+            "max": 4
+          }
+        }
+      },
+      "mainland": {
+        "selected_lists": 24,
+        "success": 24,
+        "errors": [],
+        "coverage": {
+          "guild_broad__guild_detailed": {
+            "at_least_1": 1,
+            "at_least_5": 1,
+            "at_least_10": 1,
+            "max": 380
+          },
+          "guild_broad__colour": {
+            "at_least_1": 1,
+            "at_least_5": 1,
+            "at_least_10": 1,
+            "max": 67
+          },
+          "guild_broad__flower_max_length_cm": {
+            "at_least_1": 1,
+            "at_least_5": 1,
+            "at_least_10": 1,
+            "max": 150
+          },
+          "guild_broad__flower_max_width_cm": {
+            "at_least_1": 1,
+            "at_least_5": 1,
+            "at_least_10": 1,
+            "max": 35
+          },
+          "guild_broad__self_fertilization": {
+            "at_least_1": 1,
+            "at_least_5": 1,
+            "at_least_10": 1,
+            "max": 631
+          },
+          "guild_detailed__colour": {
+            "at_least_1": 1,
+            "at_least_5": 1,
+            "at_least_10": 1,
+            "max": 33
+          },
+          "guild_detailed__flower_max_length_cm": {
+            "at_least_1": 1,
+            "at_least_5": 1,
+            "at_least_10": 1,
+            "max": 84
+          },
+          "guild_detailed__flower_max_width_cm": {
+            "at_least_1": 1,
+            "at_least_5": 1,
+            "at_least_10": 1,
+            "max": 14
+          },
+          "guild_detailed__self_fertilization": {
+            "at_least_1": 1,
+            "at_least_5": 1,
+            "at_least_10": 1,
+            "max": 354
+          },
+          "colour__flower_max_length_cm": {
+            "at_least_1": 1,
+            "at_least_5": 1,
+            "at_least_10": 1,
+            "max": 56
+          },
+          "colour__flower_max_width_cm": {
+            "at_least_1": 1,
+            "at_least_5": 1,
+            "at_least_10": 1,
+            "max": 22
+          },
+          "colour__self_fertilization": {
+            "at_least_1": 1,
+            "at_least_5": 1,
+            "at_least_10": 1,
+            "max": 58
+          },
+          "flower_max_length_cm__flower_max_width_cm": {
+            "at_least_1": 1,
+            "at_least_5": 1,
+            "at_least_10": 1,
+            "max": 30
+          },
+          "flower_max_length_cm__self_fertilization": {
+            "at_least_1": 1,
+            "at_least_5": 1,
+            "at_least_10": 1,
+            "max": 132
+          },
+          "flower_max_width_cm__self_fertilization": {
+            "at_least_1": 1,
+            "at_least_5": 1,
+            "at_least_10": 1,
+            "max": 31
+          }
+        }
+      }
+    }
+  },
+  "provenance": {
+    "run": 45560668861,
+    "artifact": 14997299669,
+    "digest_reported": "sha256:664bcb0fffadc897c68b33c315d718aeb74852b683ff3c61af5843e0f478dfa7",
+    "method": "Completed source job stdout, aggregate only; ZIP digest from GitHub metadata not independently downloaded."
+  }
+}

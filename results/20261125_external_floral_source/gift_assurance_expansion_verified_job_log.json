@@ -1,0 +1,2859 @@
+{
+  "geography": {
+    "overlap_schema_audit": {
+      "raw_rows": 31752,
+      "irrelevant_rows": 26232,
+      "candidate_rows": 5520,
+      "valid_candidate_rows": 4980,
+      "invalid_candidate_rows": 540,
+      "invalid_reasons": {
+        "out_of_unit_interval": 540
+      },
+      "quarantined_candidate_entities": 283,
+      "eligible_candidate_entities": 1956,
+      "valid_fraction_range": [
+        0,
+        1
+      ],
+      "threshold": 0.1,
+      "rule": "candidate pairs first; quarantine both endpoints of any invalid relevant pair"
+    },
+    "eligible_island_entities": 1253,
+    "eligible_mainland_entities": 751,
+    "valid_island_centroids": 1133,
+    "valid_mainland_centroids": 540,
+    "nonoverlapping_mainland_candidates": 458,
+    "islands_without_comparator_within_2000km": 334,
+    "selected_island_entities": 288,
+    "selected_mainland_comparators": 75,
+    "selected_geographic_blocks": 103,
+    "skipped_overlap_in_selection": 36,
+    "centroid_distance_median_km": 773.4012493625145
+  },
+  "comparison": {
+    "checklist_manifests_identical": 155,
+    "six_panel_points_and_support_reproduced": true,
+    "metadata_comparison": [
+      {
+        "url": "https://gift.uni-goettingen.de/api/extended/index3.1.php?query=regions",
+        "old_sha256": "d12d9129eb8aeb7aafb295ddf99b3ffdd810dcd628ab951ca31e560ab772b64b",
+        "new_sha256": "d12d9129eb8aeb7aafb295ddf99b3ffdd810dcd628ab951ca31e560ab772b64b",
+        "old_rows": 4047,
+        "new_rows": 4047,
+        "raw_equal": true
+      },
+      {
+        "url": "https://gift.uni-goettingen.de/api/extended/index3.1.php?query=lists",
+        "old_sha256": "7cbf01e767f5abc061fb3622db031c95e4b24646b98d875eed9f1d9e742ba244",
+        "new_sha256": "7cbf01e767f5abc061fb3622db031c95e4b24646b98d875eed9f1d9e742ba244",
+        "old_rows": 3611,
+        "new_rows": 3611,
+        "raw_equal": true
+      },
+      {
+        "url": "https://gift.uni-goettingen.de/api/extended/index3.1.php?query=taxonomy",
+        "old_sha256": "ca6ece6d326efef2585ad96e9f19928d043233937e44f6a3b521d3728acb20c4",
+        "new_sha256": "ca6ece6d326efef2585ad96e9f19928d043233937e44f6a3b521d3728acb20c4",
+        "old_rows": 21192,
+        "new_rows": 21192,
+        "raw_equal": true
+      },
+      {
+        "url": "https://gift.uni-goettingen.de/api/extended/index3.1.php?query=geoentities_env_misc&envvar=longitude%2Clatitude",
+        "old_sha256": "7b77226f0704d6d8557d7f132e506449a0cc7cf205bca2e91a39ec63775e6d04",
+        "new_sha256": "7b77226f0704d6d8557d7f132e506449a0cc7cf205bca2e91a39ec63775e6d04",
+        "old_rows": 4047,
+        "new_rows": 4047,
+        "raw_equal": true
+      },
+      {
+        "url": "https://gift.uni-goettingen.de/api/extended/index3.1.php?query=overlap",
+        "old_sha256": "3826ceba45b69dff5454fd213959b9e058b64f12ff4ca298b7aa5393d15c0568",
+        "new_sha256": "2dcd0f4f5d78804a242225cfa3cb116b7be562840fe66b0f455a7fd414d11a40",
+        "old_rows": 31752,
+        "new_rows": 31752,
+        "raw_equal": false
+      }
+    ]
+  },
+  "metadata_audit": [
+    {
+      "endpoint": "regions",
+      "prior": {
+        "url": "https://gift.uni-goettingen.de/api/extended/index3.1.php?query=regions",
+        "sha256": "d12d9129eb8aeb7aafb295ddf99b3ffdd810dcd628ab951ca31e560ab772b64b",
+        "rows": 4047
+      },
+      "current": {
+        "url": "https://gift.uni-goettingen.de/api/extended/index3.1.php?query=regions",
+        "sha256": "d12d9129eb8aeb7aafb295ddf99b3ffdd810dcd628ab951ca31e560ab772b64b",
+        "rows": 4047
+      },
+      "current_canonical_rows_sha256": "f27f5c3675725a155b6deb70e5d530308d9908e5e976e6dddc6dea25065a0650",
+      "raw_exact_old": true,
+      "comparison_pilot": {
+        "url": "https://gift.uni-goettingen.de/api/extended/index3.1.php?query=regions",
+        "sha256": "d12d9129eb8aeb7aafb295ddf99b3ffdd810dcd628ab951ca31e560ab772b64b",
+        "rows": 4047
+      },
+      "raw_exact_comparison": true
+    },
+    {
+      "endpoint": "lists",
+      "prior": {
+        "url": "https://gift.uni-goettingen.de/api/extended/index3.1.php?query=lists",
+        "sha256": "7cbf01e767f5abc061fb3622db031c95e4b24646b98d875eed9f1d9e742ba244",
+        "rows": 3611
+      },
+      "current": {
+        "url": "https://gift.uni-goettingen.de/api/extended/index3.1.php?query=lists",
+        "sha256": "7cbf01e767f5abc061fb3622db031c95e4b24646b98d875eed9f1d9e742ba244",
+        "rows": 3611
+      },
+      "current_canonical_rows_sha256": "13d4a4fb28655716aeb858acb501df9fcb86c38b35196a657b800cf31e152953",
+      "raw_exact_old": true,
+      "comparison_pilot": {
+        "url": "https://gift.uni-goettingen.de/api/extended/index3.1.php?query=lists",
+        "sha256": "7cbf01e767f5abc061fb3622db031c95e4b24646b98d875eed9f1d9e742ba244",
+        "rows": 3611
+      },
+      "raw_exact_comparison": true
+    },
+    {
+      "endpoint": "taxonomy",
+      "prior": {
+        "url": "https://gift.uni-goettingen.de/api/extended/index3.1.php?query=taxonomy",
+        "sha256": "ca6ece6d326efef2585ad96e9f19928d043233937e44f6a3b521d3728acb20c4",
+        "rows": 21192
+      },
+      "current": {
+        "url": "https://gift.uni-goettingen.de/api/extended/index3.1.php?query=taxonomy",
+        "sha256": "ca6ece6d326efef2585ad96e9f19928d043233937e44f6a3b521d3728acb20c4",
+        "rows": 21192
+      },
+      "current_canonical_rows_sha256": "3e79a3b5287b27afb6fab54f0e8d181fa7af08bf34a6c04d31dffe3657b0bae3",
+      "raw_exact_old": true,
+      "comparison_pilot": {
+        "url": "https://gift.uni-goettingen.de/api/extended/index3.1.php?query=taxonomy",
+        "sha256": "ca6ece6d326efef2585ad96e9f19928d043233937e44f6a3b521d3728acb20c4",
+        "rows": 21192
+      },
+      "raw_exact_comparison": true
+    },
+    {
+      "endpoint": "geoentities_env_misc",
+      "prior": {
+        "url": "https://gift.uni-goettingen.de/api/extended/index3.1.php?query=geoentities_env_misc&envvar=longitude%2Clatitude",
+        "sha256": "7b77226f0704d6d8557d7f132e506449a0cc7cf205bca2e91a39ec63775e6d04",
+        "rows": 4047
+      },
+      "current": {
+        "url": "https://gift.uni-goettingen.de/api/extended/index3.1.php?query=geoentities_env_misc&envvar=longitude%2Clatitude",
+        "sha256": "7b77226f0704d6d8557d7f132e506449a0cc7cf205bca2e91a39ec63775e6d04",
+        "rows": 4047
+      },
+      "current_canonical_rows_sha256": "5791ee6eec7d1e2983bfc26c44b1917d9f6f50e69648e402c7f00fec0973954e",
+      "raw_exact_old": true,
+      "comparison_pilot": {
+        "url": "https://gift.uni-goettingen.de/api/extended/index3.1.php?query=geoentities_env_misc&envvar=longitude%2Clatitude",
+        "sha256": "7b77226f0704d6d8557d7f132e506449a0cc7cf205bca2e91a39ec63775e6d04",
+        "rows": 4047
+      },
+      "raw_exact_comparison": true
+    },
+    {
+      "endpoint": "overlap",
+      "prior": {
+        "url": "https://gift.uni-goettingen.de/api/extended/index3.1.php?query=overlap",
+        "sha256": "3826ceba45b69dff5454fd213959b9e058b64f12ff4ca298b7aa5393d15c0568",
+        "rows": 31752
+      },
+      "current": {
+        "url": "https://gift.uni-goettingen.de/api/extended/index3.1.php?query=overlap",
+        "sha256": "2dcd0f4f5d78804a242225cfa3cb116b7be562840fe66b0f455a7fd414d11a40",
+        "rows": 31752
+      },
+      "current_canonical_rows_sha256": "805bb2c0f59ac54dcc8a59733689f11da8731bf8caf91c1ca808efa01b057d07",
+      "raw_exact_old": false,
+      "comparison_pilot": {
+        "url": "https://gift.uni-goettingen.de/api/extended/index3.1.php?query=overlap",
+        "sha256": "2dcd0f4f5d78804a242225cfa3cb116b7be562840fe66b0f455a7fd414d11a40",
+        "rows": 31752
+      },
+      "raw_exact_comparison": true,
+      "repeat_current": {
+        "url": "https://gift.uni-goettingen.de/api/extended/index3.1.php?query=overlap",
+        "sha256": "2dcd0f4f5d78804a242225cfa3cb116b7be562840fe66b0f455a7fd414d11a40",
+        "rows": 31752
+      },
+      "repeat_canonical_rows_sha256": "805bb2c0f59ac54dcc8a59733689f11da8731bf8caf91c1ca808efa01b057d07",
+      "current_repeat_canonical_equal": true
+    }
+  ],
+  "panels": {
+    "native_no_positive_question_flags__original_96__inclusive": {
+      "pairs": 30,
+      "median_cell_counts": [
+        50.5,
+        18.5,
+        88.5,
+        35.5
+      ],
+      "median_matched_strata": 3,
+      "mean_island_equal_delta": 0.021967363514030044,
+      "block": {
+        "groups": 30,
+        "mean": [
+          0.02196736351403005,
+          0.11011245517639505,
+          0.08814509166236499,
+          0.02750347208682308
+        ],
+        "interval": [
+          [
+            -0.005769431467737643,
+            0.05026226374414056
+          ],
+          [
+            0.04762226635591905,
+            0.17526982419686804
+          ],
+          [
+            0.018902761957657853,
+            0.15740983710912065
+          ],
+          [
+            -0.004212480925989805,
+            0.06005230496507598
+          ]
+        ]
+      },
+      "donor": {
+        "groups": 24,
+        "mean": [
+          0.0135318421543512,
+          0.1205064863076521,
+          0.10697464415330088,
+          0.016557867930799528
+        ],
+        "interval": [
+          [
+            -0.01507196586388548,
+            0.04146392278976966
+          ],
+          [
+            0.056015159189221085,
+            0.19673970666795898
+          ],
+          [
+            0.04129290830043673,
+            0.18108728434739396
+          ],
+          [
+            -0.015603470208324399,
+            0.04918639363846914
+          ]
+        ]
+      },
+      "status": "insufficient_support",
+      "positive_direction_both_intervals": false,
+      "metric_order": [
+        "island_minus_mainland",
+        "island_insect_minus_wind",
+        "mainland_insect_minus_wind",
+        "overlap_weighted_delta"
+      ],
+      "distinct_matched_taxa": 1898,
+      "distinct_matched_reference_patterns": 14,
+      "genus_dependency_sensitivity": {
+        "status": "completed",
+        "distinct_species": 1898,
+        "distinct_genera": 723,
+        "draws": 999,
+        "groups": {
+          "block": {
+            "groups": 30,
+            "mean": 0.021967363514030044,
+            "genus_weight_interval": [
+              -0.010525080600529348,
+              0.05378344640821516
+            ],
+            "joint_genus_and_group_weight_interval": [
+              -0.026000201654356316,
+              0.07396745973854717
+            ]
+          },
+          "donor": {
+            "groups": 24,
+            "mean": 0.013531842154351199,
+            "genus_weight_interval": [
+              -0.018293155625403325,
+              0.04745178034785332
+            ],
+            "joint_genus_and_group_weight_interval": [
+              -0.035135618737852856,
+              0.07049429618488655
+            ]
+          }
+        },
+        "warning": "Shared positive genus weights in all carrier cells; exploratory dependence sensitivity, not calibrated CI."
+      },
+      "planned_pairs": 96,
+      "downloaded_pairs": 96
+    },
+    "native_no_positive_question_flags__original_96__disjoint": {
+      "pairs": 24,
+      "median_cell_counts": [
+        43.5,
+        19,
+        92.5,
+        30.5
+      ],
+      "median_matched_strata": 3,
+      "mean_island_equal_delta": 0.033007366801536264,
+      "block": {
+        "groups": 24,
+        "mean": [
+          0.033007366801536264,
+          0.14305426478107447,
+          0.11004689797953819,
+          0.03603921298172588
+        ],
+        "interval": [
+          [
+            -0.002261064755209865,
+            0.07249187781162157
+          ],
+          [
+            0.07401167002174626,
+            0.21905557878999513
+          ],
+          [
+            0.03890976163508997,
+            0.18349892408858376
+          ],
+          [
+            -0.004845353067554846,
+            0.0838743686380628
+          ]
+        ]
+      },
+      "donor": {
+        "groups": 20,
+        "mean": [
+          0.0319327943828637,
+          0.1570277110618392,
+          0.1250949166789755,
+          0.03263550527987856
+        ],
+        "interval": [
+          [
+            -0.001627237959934293,
+            0.07184245373450458
+          ],
+          [
+            0.07997310253448088,
+            0.2391822888643384
+          ],
+          [
+            0.049982776894806756,
+            0.1976524909105271
+          ],
+          [
+            -0.00447407053804692,
+            0.07649822506118735
+          ]
+        ]
+      },
+      "status": "insufficient_support",
+      "positive_direction_both_intervals": false,
+      "metric_order": [
+        "island_minus_mainland",
+        "island_insect_minus_wind",
+        "mainland_insect_minus_wind",
+        "overlap_weighted_delta"
+      ],
+      "distinct_matched_taxa": 1784,
+      "distinct_matched_reference_patterns": 11,
+      "genus_dependency_sensitivity": {
+        "status": "completed",
+        "distinct_species": 1784,
+        "distinct_genera": 681,
+        "draws": 999,
+        "groups": {
+          "block": {
+            "groups": 24,
+            "mean": 0.03300736680153626,
+            "genus_weight_interval": [
+              -0.015553638838776477,
+              0.08398866186365331
+            ],
+            "joint_genus_and_group_weight_interval": [
+              -0.0393000376072372,
+              0.1079149719819247
+            ]
+          },
+          "donor": {
+            "groups": 20,
+            "mean": 0.031932794382863686,
+            "genus_weight_interval": [
+              -0.022195030552028986,
+              0.08728151091550998
+            ],
+            "joint_genus_and_group_weight_interval": [
+              -0.04290215511528031,
+              0.11813922414713186
+            ]
+          }
+        },
+        "warning": "Shared positive genus weights in all carrier cells; exploratory dependence sensitivity, not calibrated CI."
+      },
+      "planned_pairs": 96,
+      "downloaded_pairs": 96
+    },
+    "native_no_positive_question_flags__original_96__inclusive_on_disjoint_eligible": {
+      "pairs": 24,
+      "median_cell_counts": [
+        50.5,
+        26,
+        108,
+        52
+      ],
+      "median_matched_strata": 3,
+      "mean_island_equal_delta": 0.015865066336181125,
+      "block": {
+        "groups": 24,
+        "mean": [
+          0.015865066336181125,
+          0.12362717693626844,
+          0.1077621106000873,
+          0.024341739428138793
+        ],
+        "interval": [
+          [
+            -0.009409256652338239,
+            0.04236901932824805
+          ],
+          [
+            0.056774410190653345,
+            0.19792354782487903
+          ],
+          [
+            0.03606243474814836,
+            0.18096314850886136
+          ],
+          [
+            -0.006538660622580032,
+            0.057704662625962175
+          ]
+        ]
+      },
+      "donor": {
+        "groups": 20,
+        "mean": [
+          0.01660811041928915,
+          0.1335369969304611,
+          0.11692888651117192,
+          0.023919984670729075
+        ],
+        "interval": [
+          [
+            -0.009423672116548168,
+            0.046034776694643904
+          ],
+          [
+            0.05921154907271639,
+            0.2140809326323346
+          ],
+          [
+            0.04216213536420744,
+            0.1959679873601604
+          ],
+          [
+            -0.00548045952611677,
+            0.057160523960244305
+          ]
+        ]
+      },
+      "status": "insufficient_support",
+      "positive_direction_both_intervals": false,
+      "metric_order": [
+        "island_minus_mainland",
+        "island_insect_minus_wind",
+        "mainland_insect_minus_wind",
+        "overlap_weighted_delta"
+      ],
+      "distinct_matched_taxa": 1865,
+      "distinct_matched_reference_patterns": 14,
+      "genus_dependency_sensitivity": {
+        "status": "completed",
+        "distinct_species": 1865,
+        "distinct_genera": 705,
+        "draws": 999,
+        "groups": {
+          "block": {
+            "groups": 24,
+            "mean": 0.015865066336181132,
+            "genus_weight_interval": [
+              -0.015652990869719916,
+              0.046440471212472585
+            ],
+            "joint_genus_and_group_weight_interval": [
+              -0.02855322024417511,
+              0.07413177333222702
+            ]
+          },
+          "donor": {
+            "groups": 20,
+            "mean": 0.016608110419289158,
+            "genus_weight_interval": [
+              -0.018016870435665976,
+              0.05000021119418975
+            ],
+            "joint_genus_and_group_weight_interval": [
+              -0.028111443735893527,
+              0.07267379028026302
+            ]
+          }
+        },
+        "warning": "Shared positive genus weights in all carrier cells; exploratory dependence sensitivity, not calibrated CI."
+      },
+      "planned_pairs": 96,
+      "downloaded_pairs": 96
+    },
+    "native_no_positive_question_flags__added_targets__inclusive": {
+      "pairs": 48,
+      "median_cell_counts": [
+        31,
+        16.5,
+        83.5,
+        41.5
+      ],
+      "median_matched_strata": 3,
+      "mean_island_equal_delta": -0.013626038547936656,
+      "block": {
+        "groups": 23,
+        "mean": [
+          -0.014534136315378143,
+          0.13314574830161047,
+          0.1476798846169886,
+          -0.018606374001693696
+        ],
+        "interval": [
+          [
+            -0.06206757709560807,
+            0.025488249257801215
+          ],
+          [
+            0.0753537516982128,
+            0.19557765797893023
+          ],
+          [
+            0.0956575756680572,
+            0.20496497048707435
+          ],
+          [
+            -0.07637662131676262,
+            0.029379955874644186
+          ]
+        ]
+      },
+      "donor": {
+        "groups": 20,
+        "mean": [
+          -0.01888554844245924,
+          0.11142777308878542,
+          0.13031332153124467,
+          -0.02343323712636828
+        ],
+        "interval": [
+          [
+            -0.0682113363249163,
+            0.02426123070973633
+          ],
+          [
+            0.059429780582986064,
+            0.1671278952820293
+          ],
+          [
+            0.07657905801554236,
+            0.1829042499260206
+          ],
+          [
+            -0.08405196693217287,
+            0.027849203490832326
+          ]
+        ]
+      },
+      "status": "insufficient_support",
+      "positive_direction_both_intervals": false,
+      "metric_order": [
+        "island_minus_mainland",
+        "island_insect_minus_wind",
+        "mainland_insect_minus_wind",
+        "overlap_weighted_delta"
+      ],
+      "distinct_matched_taxa": 1818,
+      "distinct_matched_reference_patterns": 14,
+      "genus_dependency_sensitivity": {
+        "status": "completed",
+        "distinct_species": 1818,
+        "distinct_genera": 696,
+        "draws": 999,
+        "groups": {
+          "block": {
+            "groups": 23,
+            "mean": -0.014534136315378143,
+            "genus_weight_interval": [
+              -0.048566058977930704,
+              0.01768548375855068
+            ],
+            "joint_genus_and_group_weight_interval": [
+              -0.08114446057129716,
+              0.049149552465448935
+            ]
+          },
+          "donor": {
+            "groups": 20,
+            "mean": -0.01888554844245923,
+            "genus_weight_interval": [
+              -0.04890579308785864,
+              0.011480862416611738
+            ],
+            "joint_genus_and_group_weight_interval": [
+              -0.08491233599028669,
+              0.04317773274000315
+            ]
+          }
+        },
+        "warning": "Shared positive genus weights in all carrier cells; exploratory dependence sensitivity, not calibrated CI."
+      },
+      "planned_pairs": 192,
+      "downloaded_pairs": 192
+    },
+    "native_no_positive_question_flags__added_targets__disjoint": {
+      "pairs": 37,
+      "median_cell_counts": [
+        44,
+        26,
+        92,
+        42
+      ],
+      "median_matched_strata": 3,
+      "mean_island_equal_delta": -0.0020122616100771195,
+      "block": {
+        "groups": 17,
+        "mean": [
+          -0.008088657993440352,
+          0.1784030417058086,
+          0.18649169969924895,
+          -0.015419912543717022
+        ],
+        "interval": [
+          [
+            -0.0647535784039721,
+            0.05004214103599894
+          ],
+          [
+            0.09342654378783585,
+            0.28327317191593626
+          ],
+          [
+            0.11363135682405082,
+            0.2681512687516126
+          ],
+          [
+            -0.07157123112109616,
+            0.043354619600476776
+          ]
+        ]
+      },
+      "donor": {
+        "groups": 16,
+        "mean": [
+          -0.014071815326556172,
+          0.1708547915807783,
+          0.18492660690733448,
+          -0.018685359696890405
+        ],
+        "interval": [
+          [
+            -0.07613010208500033,
+            0.04907473118562274
+          ],
+          [
+            0.09188927523891222,
+            0.2705783394780334
+          ],
+          [
+            0.11120593782667651,
+            0.267952159418829
+          ],
+          [
+            -0.07880667265738288,
+            0.042151854547278586
+          ]
+        ]
+      },
+      "status": "insufficient_support",
+      "positive_direction_both_intervals": false,
+      "metric_order": [
+        "island_minus_mainland",
+        "island_insect_minus_wind",
+        "mainland_insect_minus_wind",
+        "overlap_weighted_delta"
+      ],
+      "distinct_matched_taxa": 1656,
+      "distinct_matched_reference_patterns": 11,
+      "genus_dependency_sensitivity": {
+        "status": "completed",
+        "distinct_species": 1656,
+        "distinct_genera": 625,
+        "draws": 999,
+        "groups": {
+          "block": {
+            "groups": 17,
+            "mean": -0.008088657993440352,
+            "genus_weight_interval": [
+              -0.056713746898197595,
+              0.037115266837899175
+            ],
+            "joint_genus_and_group_weight_interval": [
+              -0.09747788104915064,
+              0.0727180943618236
+            ]
+          },
+          "donor": {
+            "groups": 16,
+            "mean": -0.014071815326556169,
+            "genus_weight_interval": [
+              -0.059215057451985964,
+              0.03190121689866975
+            ],
+            "joint_genus_and_group_weight_interval": [
+              -0.10627618068231404,
+              0.07288566291223045
+            ]
+          }
+        },
+        "warning": "Shared positive genus weights in all carrier cells; exploratory dependence sensitivity, not calibrated CI."
+      },
+      "planned_pairs": 192,
+      "downloaded_pairs": 192
+    },
+    "native_no_positive_question_flags__added_targets__inclusive_on_disjoint_eligible": {
+      "pairs": 37,
+      "median_cell_counts": [
+        53,
+        28,
+        104,
+        56
+      ],
+      "median_matched_strata": 4,
+      "mean_island_equal_delta": 0.00001789651465993477,
+      "block": {
+        "groups": 17,
+        "mean": [
+          0.0011510057488171536,
+          0.12406828194864582,
+          0.12291727619982866,
+          -0.0016833607255995104
+        ],
+        "interval": [
+          [
+            -0.035265273876031566,
+            0.03618239042791727
+          ],
+          [
+            0.061963582387076555,
+            0.20221063490214242
+          ],
+          [
+            0.07041322445438152,
+            0.18201939117945162
+          ],
+          [
+            -0.03818815940019605,
+            0.035330876771824664
+          ]
+        ]
+      },
+      "donor": {
+        "groups": 16,
+        "mean": [
+          -0.0030574601229930417,
+          0.11210663722757072,
+          0.11516409735056374,
+          -0.003949374414790825
+        ],
+        "interval": [
+          [
+            -0.03960039082168418,
+            0.029562562327354405
+          ],
+          [
+            0.05911077642263094,
+            0.17629833483657117
+          ],
+          [
+            0.06598050955694994,
+            0.16202956844676317
+          ],
+          [
+            -0.04007710252417887,
+            0.031234284544152568
+          ]
+        ]
+      },
+      "status": "insufficient_support",
+      "positive_direction_both_intervals": false,
+      "metric_order": [
+        "island_minus_mainland",
+        "island_insect_minus_wind",
+        "mainland_insect_minus_wind",
+        "overlap_weighted_delta"
+      ],
+      "distinct_matched_taxa": 1758,
+      "distinct_matched_reference_patterns": 14,
+      "genus_dependency_sensitivity": {
+        "status": "completed",
+        "distinct_species": 1758,
+        "distinct_genera": 665,
+        "draws": 999,
+        "groups": {
+          "block": {
+            "groups": 17,
+            "mean": 0.0011510057488171568,
+            "genus_weight_interval": [
+              -0.029660777617364516,
+              0.03375287844256503
+            ],
+            "joint_genus_and_group_weight_interval": [
+              -0.052312224153641736,
+              0.06572206027363967
+            ]
+          },
+          "donor": {
+            "groups": 16,
+            "mean": -0.0030574601229930373,
+            "genus_weight_interval": [
+              -0.029072710121876906,
+              0.02490786155867302
+            ],
+            "joint_genus_and_group_weight_interval": [
+              -0.05360178513715968,
+              0.04632318032991445
+            ]
+          }
+        },
+        "warning": "Shared positive genus weights in all carrier cells; exploratory dependence sensitivity, not calibrated CI."
+      },
+      "planned_pairs": 192,
+      "downloaded_pairs": 192
+    },
+    "native_no_positive_question_flags__pooled__inclusive": {
+      "pairs": 78,
+      "median_cell_counts": [
+        39.5,
+        16.5,
+        83.5,
+        39.5
+      ],
+      "median_matched_strata": 3,
+      "mean_island_equal_delta": 0.00006373147589668772,
+      "block": {
+        "groups": 39,
+        "mean": [
+          0.007188793432221836,
+          0.11874180996751231,
+          0.11155301653529044,
+          0.0071398955097006405
+        ],
+        "interval": [
+          [
+            -0.025169827344267672,
+            0.036800639670536484
+          ],
+          [
+            0.06852030143466413,
+            0.1769694993416541
+          ],
+          [
+            0.0550955873558136,
+            0.1660590671571094
+          ],
+          [
+            -0.03163648760929089,
+            0.04163809339940079
+          ]
+        ]
+      },
+      "donor": {
+        "groups": 30,
+        "mean": [
+          -0.003841586590222011,
+          0.10264040848874598,
+          0.106481995078968,
+          -0.005337427137920384
+        ],
+        "interval": [
+          [
+            -0.040257989635159024,
+            0.026847157694241553
+          ],
+          [
+            0.05263742217785187,
+            0.15962158032216897
+          ],
+          [
+            0.0526650877981177,
+            0.16186788973676858
+          ],
+          [
+            -0.04967192534019789,
+            0.03113385039822057
+          ]
+        ]
+      },
+      "status": "exploratory_estimable",
+      "positive_direction_both_intervals": false,
+      "metric_order": [
+        "island_minus_mainland",
+        "island_insect_minus_wind",
+        "mainland_insect_minus_wind",
+        "overlap_weighted_delta"
+      ],
+      "distinct_matched_taxa": 1965,
+      "distinct_matched_reference_patterns": 14,
+      "genus_dependency_sensitivity": {
+        "status": "completed",
+        "distinct_species": 1965,
+        "distinct_genera": 741,
+        "draws": 999,
+        "groups": {
+          "block": {
+            "groups": 39,
+            "mean": 0.007188793432221836,
+            "genus_weight_interval": [
+              -0.021783256670546407,
+              0.035227948058798336
+            ],
+            "joint_genus_and_group_weight_interval": [
+              -0.04171174650541902,
+              0.0575013863303946
+            ]
+          },
+          "donor": {
+            "groups": 30,
+            "mean": -0.0038415865902220107,
+            "genus_weight_interval": [
+              -0.03018610879714874,
+              0.025110002111650556
+            ],
+            "joint_genus_and_group_weight_interval": [
+              -0.05228097462711051,
+              0.04647004535803829
+            ]
+          }
+        },
+        "warning": "Shared positive genus weights in all carrier cells; exploratory dependence sensitivity, not calibrated CI."
+      },
+      "planned_pairs": 288,
+      "downloaded_pairs": 288
+    },
+    "native_no_positive_question_flags__pooled__disjoint": {
+      "pairs": 61,
+      "median_cell_counts": [
+        44,
+        25,
+        92,
+        37
+      ],
+      "median_matched_strata": 3,
+      "mean_island_equal_delta": 0.011765952846951097,
+      "block": {
+        "groups": 31,
+        "mean": [
+          0.02263991241826471,
+          0.16867087322996868,
+          0.14603096081170394,
+          0.020345123964541405
+        ],
+        "interval": [
+          [
+            -0.01707789891697874,
+            0.06742434086016806
+          ],
+          [
+            0.10291116265386586,
+            0.24003811709073594
+          ],
+          [
+            0.08017980021377405,
+            0.20719127005604457
+          ],
+          [
+            -0.023858285589709028,
+            0.0686280481537656
+          ]
+        ]
+      },
+      "donor": {
+        "groups": 26,
+        "mean": [
+          0.009508755403892597,
+          0.15888147718572831,
+          0.1493727217818357,
+          0.006739831373499511
+        ],
+        "interval": [
+          [
+            -0.028423100891593032,
+            0.05008421275977785
+          ],
+          [
+            0.09666555321014032,
+            0.22977167899046405
+          ],
+          [
+            0.0804431325712782,
+            0.21916671222202858
+          ],
+          [
+            -0.032357143019485134,
+            0.0489487584136459
+          ]
+        ]
+      },
+      "status": "insufficient_support",
+      "positive_direction_both_intervals": false,
+      "metric_order": [
+        "island_minus_mainland",
+        "island_insect_minus_wind",
+        "mainland_insect_minus_wind",
+        "overlap_weighted_delta"
+      ],
+      "distinct_matched_taxa": 1855,
+      "distinct_matched_reference_patterns": 11,
+      "genus_dependency_sensitivity": {
+        "status": "completed",
+        "distinct_species": 1855,
+        "distinct_genera": 698,
+        "draws": 999,
+        "groups": {
+          "block": {
+            "groups": 31,
+            "mean": 0.02263991241826471,
+            "genus_weight_interval": [
+              -0.029509913528617635,
+              0.070868851529849
+            ],
+            "joint_genus_and_group_weight_interval": [
+              -0.047298887052387995,
+              0.10148134418102873
+            ]
+          },
+          "donor": {
+            "groups": 26,
+            "mean": 0.009508755403892595,
+            "genus_weight_interval": [
+              -0.03680756203611633,
+              0.05623676988374576
+            ],
+            "joint_genus_and_group_weight_interval": [
+              -0.0639573200339183,
+              0.0874736785952008
+            ]
+          }
+        },
+        "warning": "Shared positive genus weights in all carrier cells; exploratory dependence sensitivity, not calibrated CI."
+      },
+      "planned_pairs": 288,
+      "downloaded_pairs": 288
+    },
+    "native_no_positive_question_flags__pooled__inclusive_on_disjoint_eligible": {
+      "pairs": 61,
+      "median_cell_counts": [
+        53,
+        28,
+        104,
+        56
+      ],
+      "median_matched_strata": 3,
+      "mean_island_equal_delta": 0.006252848575586308,
+      "block": {
+        "groups": 31,
+        "mean": [
+          0.014485672995333576,
+          0.13358435431262536,
+          0.11909868131729175,
+          0.018486645231782926
+        ],
+        "interval": [
+          [
+            -0.011659071273902916,
+            0.04000508772807526
+          ],
+          [
+            0.07566637197353444,
+            0.19678470186178998
+          ],
+          [
+            0.06170224009087545,
+            0.1748464437727229
+          ],
+          [
+            -0.01140114098596613,
+            0.05047500506151191
+          ]
+        ]
+      },
+      "donor": {
+        "groups": 26,
+        "mean": [
+          0.009960747539631772,
+          0.12269458688177642,
+          0.11273383934214466,
+          0.012866725151297583
+        ],
+        "interval": [
+          [
+            -0.014772754687791262,
+            0.035904248933936525
+          ],
+          [
+            0.06768931975812387,
+            0.18712757987394074
+          ],
+          [
+            0.05375089025235687,
+            0.17346766142331324
+          ],
+          [
+            -0.013226543598620548,
+            0.04220316179547487
+          ]
+        ]
+      },
+      "status": "insufficient_support",
+      "positive_direction_both_intervals": false,
+      "metric_order": [
+        "island_minus_mainland",
+        "island_insect_minus_wind",
+        "mainland_insect_minus_wind",
+        "overlap_weighted_delta"
+      ],
+      "distinct_matched_taxa": 1944,
+      "distinct_matched_reference_patterns": 14,
+      "genus_dependency_sensitivity": {
+        "status": "completed",
+        "distinct_species": 1944,
+        "distinct_genera": 732,
+        "draws": 999,
+        "groups": {
+          "block": {
+            "groups": 31,
+            "mean": 0.014485672995333581,
+            "genus_weight_interval": [
+              -0.01743963598509855,
+              0.045424467764811974
+            ],
+            "joint_genus_and_group_weight_interval": [
+              -0.030891902626279326,
+              0.06230631285000593
+            ]
+          },
+          "donor": {
+            "groups": 26,
+            "mean": 0.009960747539631776,
+            "genus_weight_interval": [
+              -0.019193055990717387,
+              0.03897439109218622
+            ],
+            "joint_genus_and_group_weight_interval": [
+              -0.031842637862817526,
+              0.06038091418919841
+            ]
+          }
+        },
+        "warning": "Shared positive genus weights in all carrier cells; exploratory dependence sensitivity, not calibrated CI."
+      },
+      "planned_pairs": 288,
+      "downloaded_pairs": 288
+    },
+    "strict_native__original_96__inclusive": {
+      "pairs": 4,
+      "median_cell_counts": [
+        212,
+        130,
+        484.5,
+        237
+      ],
+      "median_matched_strata": 10,
+      "mean_island_equal_delta": -0.006131587291010295,
+      "block": {
+        "groups": 4,
+        "mean": [
+          -0.006131587291010295,
+          0.058392364842701334,
+          0.06452395213371162,
+          -0.02235376870302066
+        ],
+        "interval": [
+          [
+            -0.013892011297908999,
+            0.0016288367158884091
+          ],
+          [
+            0.052097562830987564,
+            0.06692234848484849
+          ],
+          [
+            0.05195513539375668,
+            0.07996943933057243
+          ],
+          [
+            -0.05288493064332221,
+            0.0037965492074726
+          ]
+        ]
+      },
+      "donor": {
+        "groups": 4,
+        "mean": [
+          -0.006131587291010295,
+          0.058392364842701334,
+          0.06452395213371162,
+          -0.02235376870302066
+        ],
+        "interval": [
+          [
+            -0.013892011297908999,
+            0.0016288367158884091
+          ],
+          [
+            0.05209756283098756,
+            0.06692234848484849
+          ],
+          [
+            0.05195513539375668,
+            0.07996943933057243
+          ],
+          [
+            -0.05288493064332221,
+            0.0037965492074726
+          ]
+        ]
+      },
+      "status": "insufficient_support",
+      "positive_direction_both_intervals": false,
+      "metric_order": [
+        "island_minus_mainland",
+        "island_insect_minus_wind",
+        "mainland_insect_minus_wind",
+        "overlap_weighted_delta"
+      ],
+      "distinct_matched_taxa": 1381,
+      "distinct_matched_reference_patterns": 13,
+      "genus_dependency_sensitivity": {
+        "status": "completed",
+        "distinct_species": 1381,
+        "distinct_genera": 536,
+        "draws": 999,
+        "groups": {
+          "block": {
+            "groups": 4,
+            "mean": -0.006131587291010301,
+            "genus_weight_interval": [
+              -0.021848483804916077,
+              0.00807869024369019
+            ],
+            "joint_genus_and_group_weight_interval": [
+              -0.02651340870243342,
+              0.011520856949605736
+            ]
+          },
+          "donor": {
+            "groups": 4,
+            "mean": -0.0061315872910103,
+            "genus_weight_interval": [
+              -0.021848483804916077,
+              0.00807869024369019
+            ],
+            "joint_genus_and_group_weight_interval": [
+              -0.02769566156583205,
+              0.012393835311655105
+            ]
+          }
+        },
+        "warning": "Shared positive genus weights in all carrier cells; exploratory dependence sensitivity, not calibrated CI."
+      },
+      "planned_pairs": 96,
+      "downloaded_pairs": 96
+    },
+    "strict_native__original_96__disjoint": {
+      "pairs": 4,
+      "median_cell_counts": [
+        171.5,
+        112,
+        299.5,
+        108.5
+      ],
+      "median_matched_strata": 6.5,
+      "mean_island_equal_delta": -0.006042822152723899,
+      "block": {
+        "groups": 4,
+        "mean": [
+          -0.006042822152723899,
+          0.08655876307893472,
+          0.0926015852316586,
+          -0.027226574169135816
+        ],
+        "interval": [
+          [
+            -0.024237658691802413,
+            0.010476924314519326
+          ],
+          [
+            0.08158408818072684,
+            0.09155303030303032
+          ],
+          [
+            0.07372646042920868,
+            0.11147671003410854
+          ],
+          [
+            -0.057861274748838204,
+            0.01206315240814752
+          ]
+        ]
+      },
+      "donor": {
+        "groups": 4,
+        "mean": [
+          -0.006042822152723899,
+          0.08655876307893472,
+          0.0926015852316586,
+          -0.027226574169135816
+        ],
+        "interval": [
+          [
+            -0.024237658691802413,
+            0.010476924314519326
+          ],
+          [
+            0.08158408818072684,
+            0.09155303030303032
+          ],
+          [
+            0.07372646042920868,
+            0.11147671003410854
+          ],
+          [
+            -0.057861274748838204,
+            0.012063152408147522
+          ]
+        ]
+      },
+      "status": "insufficient_support",
+      "positive_direction_both_intervals": false,
+      "metric_order": [
+        "island_minus_mainland",
+        "island_insect_minus_wind",
+        "mainland_insect_minus_wind",
+        "overlap_weighted_delta"
+      ],
+      "distinct_matched_taxa": 1248,
+      "distinct_matched_reference_patterns": 8,
+      "genus_dependency_sensitivity": {
+        "status": "completed",
+        "distinct_species": 1248,
+        "distinct_genera": 502,
+        "draws": 999,
+        "groups": {
+          "block": {
+            "groups": 4,
+            "mean": -0.006042822152723909,
+            "genus_weight_interval": [
+              -0.04887893835747198,
+              0.032755687639686205
+            ],
+            "joint_genus_and_group_weight_interval": [
+              -0.06259343875019474,
+              0.04055766481887416
+            ]
+          },
+          "donor": {
+            "groups": 4,
+            "mean": -0.00604282215272391,
+            "genus_weight_interval": [
+              -0.04887893835747198,
+              0.032755687639686205
+            ],
+            "joint_genus_and_group_weight_interval": [
+              -0.058909850163862895,
+              0.04184919343189224
+            ]
+          }
+        },
+        "warning": "Shared positive genus weights in all carrier cells; exploratory dependence sensitivity, not calibrated CI."
+      },
+      "planned_pairs": 96,
+      "downloaded_pairs": 96
+    },
+    "strict_native__original_96__inclusive_on_disjoint_eligible": {
+      "pairs": 4,
+      "median_cell_counts": [
+        212,
+        130,
+        484.5,
+        237
+      ],
+      "median_matched_strata": 10,
+      "mean_island_equal_delta": -0.006131587291010295,
+      "block": {
+        "groups": 4,
+        "mean": [
+          -0.006131587291010295,
+          0.058392364842701334,
+          0.06452395213371162,
+          -0.02235376870302066
+        ],
+        "interval": [
+          [
+            -0.013892011297908999,
+            0.0016288367158884091
+          ],
+          [
+            0.052097562830987564,
+            0.06692234848484849
+          ],
+          [
+            0.05195513539375668,
+            0.07996943933057243
+          ],
+          [
+            -0.05288493064332221,
+            0.0037965492074726
+          ]
+        ]
+      },
+      "donor": {
+        "groups": 4,
+        "mean": [
+          -0.006131587291010295,
+          0.058392364842701334,
+          0.06452395213371162,
+          -0.02235376870302066
+        ],
+        "interval": [
+          [
+            -0.013892011297908999,
+            0.0016288367158884091
+          ],
+          [
+            0.05209756283098756,
+            0.06692234848484849
+          ],
+          [
+            0.05195513539375668,
+            0.07996943933057243
+          ],
+          [
+            -0.05288493064332221,
+            0.0037965492074726
+          ]
+        ]
+      },
+      "status": "insufficient_support",
+      "positive_direction_both_intervals": false,
+      "metric_order": [
+        "island_minus_mainland",
+        "island_insect_minus_wind",
+        "mainland_insect_minus_wind",
+        "overlap_weighted_delta"
+      ],
+      "distinct_matched_taxa": 1381,
+      "distinct_matched_reference_patterns": 13,
+      "genus_dependency_sensitivity": {
+        "status": "completed",
+        "distinct_species": 1381,
+        "distinct_genera": 536,
+        "draws": 999,
+        "groups": {
+          "block": {
+            "groups": 4,
+            "mean": -0.006131587291010301,
+            "genus_weight_interval": [
+              -0.021848483804916077,
+              0.00807869024369019
+            ],
+            "joint_genus_and_group_weight_interval": [
+              -0.02651340870243342,
+              0.011520856949605736
+            ]
+          },
+          "donor": {
+            "groups": 4,
+            "mean": -0.0061315872910103,
+            "genus_weight_interval": [
+              -0.021848483804916077,
+              0.00807869024369019
+            ],
+            "joint_genus_and_group_weight_interval": [
+              -0.02769566156583205,
+              0.012393835311655105
+            ]
+          }
+        },
+        "warning": "Shared positive genus weights in all carrier cells; exploratory dependence sensitivity, not calibrated CI."
+      },
+      "planned_pairs": 96,
+      "downloaded_pairs": 96
+    },
+    "strict_native__added_targets__inclusive": {
+      "pairs": 1,
+      "median_cell_counts": [
+        79,
+        45,
+        601,
+        270
+      ],
+      "median_matched_strata": 7,
+      "mean_island_equal_delta": 0.04864493431219184,
+      "block": {
+        "groups": 1,
+        "mean": [
+          0.04864493431219184,
+          0.11904761904761904,
+          0.0704026847354272,
+          0.0418764662105057
+        ],
+        "interval": null
+      },
+      "donor": {
+        "groups": 1,
+        "mean": [
+          0.04864493431219184,
+          0.11904761904761904,
+          0.0704026847354272,
+          0.0418764662105057
+        ],
+        "interval": null
+      },
+      "status": "insufficient_support",
+      "positive_direction_both_intervals": false,
+      "metric_order": [
+        "island_minus_mainland",
+        "island_insect_minus_wind",
+        "mainland_insect_minus_wind",
+        "overlap_weighted_delta"
+      ],
+      "distinct_matched_taxa": 872,
+      "distinct_matched_reference_patterns": 7,
+      "genus_dependency_sensitivity": {
+        "status": "completed",
+        "distinct_species": 872,
+        "distinct_genera": 417,
+        "draws": 999,
+        "groups": {
+          "block": {
+            "groups": 1,
+            "mean": 0.04864493431219184,
+            "genus_weight_interval": [
+              0.003953689709387761,
+              0.09736202388681148
+            ],
+            "joint_genus_and_group_weight_interval": [
+              0.003953689709387761,
+              0.09736202388681148
+            ]
+          },
+          "donor": {
+            "groups": 1,
+            "mean": 0.04864493431219184,
+            "genus_weight_interval": [
+              0.003953689709387761,
+              0.09736202388681148
+            ],
+            "joint_genus_and_group_weight_interval": [
+              0.003953689709387761,
+              0.09736202388681148
+            ]
+          }
+        },
+        "warning": "Shared positive genus weights in all carrier cells; exploratory dependence sensitivity, not calibrated CI."
+      },
+      "planned_pairs": 192,
+      "downloaded_pairs": 192
+    },
+    "strict_native__added_targets__disjoint": {
+      "pairs": 1,
+      "median_cell_counts": [
+        76,
+        43,
+        519,
+        225
+      ],
+      "median_matched_strata": 6,
+      "mean_island_equal_delta": 0.07022454931471657,
+      "block": {
+        "groups": 1,
+        "mean": [
+          0.07022454931471657,
+          0.13888888888888887,
+          0.0686643395741723,
+          0.058872633780834516
+        ],
+        "interval": null
+      },
+      "donor": {
+        "groups": 1,
+        "mean": [
+          0.07022454931471657,
+          0.13888888888888887,
+          0.0686643395741723,
+          0.058872633780834516
+        ],
+        "interval": null
+      },
+      "status": "insufficient_support",
+      "positive_direction_both_intervals": false,
+      "metric_order": [
+        "island_minus_mainland",
+        "island_insect_minus_wind",
+        "mainland_insect_minus_wind",
+        "overlap_weighted_delta"
+      ],
+      "distinct_matched_taxa": 863,
+      "distinct_matched_reference_patterns": 6,
+      "genus_dependency_sensitivity": {
+        "status": "completed",
+        "distinct_species": 863,
+        "distinct_genera": 411,
+        "draws": 999,
+        "groups": {
+          "block": {
+            "groups": 1,
+            "mean": 0.07022454931471658,
+            "genus_weight_interval": [
+              0.005505390977267374,
+              0.13079798461741055
+            ],
+            "joint_genus_and_group_weight_interval": [
+              0.005505390977267374,
+              0.13079798461741055
+            ]
+          },
+          "donor": {
+            "groups": 1,
+            "mean": 0.07022454931471658,
+            "genus_weight_interval": [
+              0.005505390977267374,
+              0.13079798461741055
+            ],
+            "joint_genus_and_group_weight_interval": [
+              0.005505390977267374,
+              0.13079798461741055
+            ]
+          }
+        },
+        "warning": "Shared positive genus weights in all carrier cells; exploratory dependence sensitivity, not calibrated CI."
+      },
+      "planned_pairs": 192,
+      "downloaded_pairs": 192
+    },
+    "strict_native__added_targets__inclusive_on_disjoint_eligible": {
+      "pairs": 1,
+      "median_cell_counts": [
+        79,
+        45,
+        601,
+        270
+      ],
+      "median_matched_strata": 7,
+      "mean_island_equal_delta": 0.04864493431219184,
+      "block": {
+        "groups": 1,
+        "mean": [
+          0.04864493431219184,
+          0.11904761904761904,
+          0.0704026847354272,
+          0.0418764662105057
+        ],
+        "interval": null
+      },
+      "donor": {
+        "groups": 1,
+        "mean": [
+          0.04864493431219184,
+          0.11904761904761904,
+          0.0704026847354272,
+          0.0418764662105057
+        ],
+        "interval": null
+      },
+      "status": "insufficient_support",
+      "positive_direction_both_intervals": false,
+      "metric_order": [
+        "island_minus_mainland",
+        "island_insect_minus_wind",
+        "mainland_insect_minus_wind",
+        "overlap_weighted_delta"
+      ],
+      "distinct_matched_taxa": 872,
+      "distinct_matched_reference_patterns": 7,
+      "genus_dependency_sensitivity": {
+        "status": "completed",
+        "distinct_species": 872,
+        "distinct_genera": 417,
+        "draws": 999,
+        "groups": {
+          "block": {
+            "groups": 1,
+            "mean": 0.04864493431219184,
+            "genus_weight_interval": [
+              0.003953689709387761,
+              0.09736202388681148
+            ],
+            "joint_genus_and_group_weight_interval": [
+              0.003953689709387761,
+              0.09736202388681148
+            ]
+          },
+          "donor": {
+            "groups": 1,
+            "mean": 0.04864493431219184,
+            "genus_weight_interval": [
+              0.003953689709387761,
+              0.09736202388681148
+            ],
+            "joint_genus_and_group_weight_interval": [
+              0.003953689709387761,
+              0.09736202388681148
+            ]
+          }
+        },
+        "warning": "Shared positive genus weights in all carrier cells; exploratory dependence sensitivity, not calibrated CI."
+      },
+      "planned_pairs": 192,
+      "downloaded_pairs": 192
+    },
+    "strict_native__pooled__inclusive": {
+      "pairs": 5,
+      "median_cell_counts": [
+        182,
+        108,
+        564,
+        259
+      ],
+      "median_matched_strata": 9,
+      "mean_island_equal_delta": 0.0048237170296301325,
+      "block": {
+        "groups": 5,
+        "mean": [
+          0.0048237170296301325,
+          0.07052341568368488,
+          0.06569969865405474,
+          -0.009507721720315387
+        ],
+        "interval": [
+          [
+            -0.012014565006199173,
+            0.027604670501971858
+          ],
+          [
+            0.05385884985735434,
+            0.0956795900178253
+          ],
+          [
+            0.0541128736051167,
+            0.07805608841154339
+          ],
+          [
+            -0.043056057795057646,
+            0.021844255122372737
+          ]
+        ]
+      },
+      "donor": {
+        "groups": 5,
+        "mean": [
+          0.0048237170296301325,
+          0.07052341568368488,
+          0.06569969865405474,
+          -0.009507721720315387
+        ],
+        "interval": [
+          [
+            -0.012014565006199173,
+            0.02760467050197186
+          ],
+          [
+            0.05385884985735434,
+            0.09670887445887447
+          ],
+          [
+            0.0541128736051167,
+            0.07745403654606937
+          ],
+          [
+            -0.04435162685813073,
+            0.021844255122372737
+          ]
+        ]
+      },
+      "status": "insufficient_support",
+      "positive_direction_both_intervals": false,
+      "metric_order": [
+        "island_minus_mainland",
+        "island_insect_minus_wind",
+        "mainland_insect_minus_wind",
+        "overlap_weighted_delta"
+      ],
+      "distinct_matched_taxa": 1468,
+      "distinct_matched_reference_patterns": 13,
+      "genus_dependency_sensitivity": {
+        "status": "completed",
+        "distinct_species": 1468,
+        "distinct_genera": 564,
+        "draws": 999,
+        "groups": {
+          "block": {
+            "groups": 5,
+            "mean": 0.004823717029630128,
+            "genus_weight_interval": [
+              -0.012041053229373221,
+              0.02108654155077364
+            ],
+            "joint_genus_and_group_weight_interval": [
+              -0.01953371709618586,
+              0.03551374937389704
+            ]
+          },
+          "donor": {
+            "groups": 5,
+            "mean": 0.004823717029630128,
+            "genus_weight_interval": [
+              -0.01204105322937322,
+              0.02108654155077364
+            ],
+            "joint_genus_and_group_weight_interval": [
+              -0.020330850460477123,
+              0.0353152014046255
+            ]
+          }
+        },
+        "warning": "Shared positive genus weights in all carrier cells; exploratory dependence sensitivity, not calibrated CI."
+      },
+      "planned_pairs": 288,
+      "downloaded_pairs": 288
+    },
+    "strict_native__pooled__disjoint": {
+      "pairs": 5,
+      "median_cell_counts": [
+        153,
+        92,
+        309,
+        118
+      ],
+      "median_matched_strata": 6,
+      "mean_island_equal_delta": 0.009210652140764195,
+      "block": {
+        "groups": 5,
+        "mean": [
+          0.009210652140764195,
+          0.09702478824092556,
+          0.08781413610016134,
+          -0.01000673257914175
+        ],
+        "interval": [
+          [
+            -0.02010375992436227,
+            0.04274795398089619
+          ],
+          [
+            0.08304226189705466,
+            0.1188833160382797
+          ],
+          [
+            0.07133884224101748,
+            0.10637039654705052
+          ],
+          [
+            -0.05013775052414746,
+            0.032742744656324776
+          ]
+        ]
+      },
+      "donor": {
+        "groups": 5,
+        "mean": [
+          0.009210652140764195,
+          0.09702478824092556,
+          0.08781413610016134,
+          -0.01000673257914175
+        ],
+        "interval": [
+          [
+            -0.01786628664808902,
+            0.04166201932154933
+          ],
+          [
+            0.08304226189705466,
+            0.11889898989898988
+          ],
+          [
+            0.07133884224101747,
+            0.10637039654705052
+          ],
+          [
+            -0.05013775052414746,
+            0.03355380898669869
+          ]
+        ]
+      },
+      "status": "insufficient_support",
+      "positive_direction_both_intervals": false,
+      "metric_order": [
+        "island_minus_mainland",
+        "island_insect_minus_wind",
+        "mainland_insect_minus_wind",
+        "overlap_weighted_delta"
+      ],
+      "distinct_matched_taxa": 1388,
+      "distinct_matched_reference_patterns": 9,
+      "genus_dependency_sensitivity": {
+        "status": "completed",
+        "distinct_species": 1388,
+        "distinct_genera": 543,
+        "draws": 999,
+        "groups": {
+          "block": {
+            "groups": 5,
+            "mean": 0.009210652140764188,
+            "genus_weight_interval": [
+              -0.02518593527128493,
+              0.04660532603409058
+            ],
+            "joint_genus_and_group_weight_interval": [
+              -0.04279273950734829,
+              0.06369197648705463
+            ]
+          },
+          "donor": {
+            "groups": 5,
+            "mean": 0.009210652140764188,
+            "genus_weight_interval": [
+              -0.02518593527128493,
+              0.04660532603409058
+            ],
+            "joint_genus_and_group_weight_interval": [
+              -0.04503536006501461,
+              0.06203258070745016
+            ]
+          }
+        },
+        "warning": "Shared positive genus weights in all carrier cells; exploratory dependence sensitivity, not calibrated CI."
+      },
+      "planned_pairs": 288,
+      "downloaded_pairs": 288
+    },
+    "strict_native__pooled__inclusive_on_disjoint_eligible": {
+      "pairs": 5,
+      "median_cell_counts": [
+        182,
+        108,
+        564,
+        259
+      ],
+      "median_matched_strata": 9,
+      "mean_island_equal_delta": 0.0048237170296301325,
+      "block": {
+        "groups": 5,
+        "mean": [
+          0.0048237170296301325,
+          0.07052341568368488,
+          0.06569969865405474,
+          -0.009507721720315387
+        ],
+        "interval": [
+          [
+            -0.012014565006199173,
+            0.027604670501971858
+          ],
+          [
+            0.05385884985735434,
+            0.0956795900178253
+          ],
+          [
+            0.0541128736051167,
+            0.07805608841154339
+          ],
+          [
+            -0.043056057795057646,
+            0.021844255122372737
+          ]
+        ]
+      },
+      "donor": {
+        "groups": 5,
+        "mean": [
+          0.0048237170296301325,
+          0.07052341568368488,
+          0.06569969865405474,
+          -0.009507721720315387
+        ],
+        "interval": [
+          [
+            -0.012014565006199173,
+            0.02760467050197186
+          ],
+          [
+            0.05385884985735434,
+            0.09670887445887447
+          ],
+          [
+            0.0541128736051167,
+            0.07745403654606937
+          ],
+          [
+            -0.04435162685813073,
+            0.021844255122372737
+          ]
+        ]
+      },
+      "status": "insufficient_support",
+      "positive_direction_both_intervals": false,
+      "metric_order": [
+        "island_minus_mainland",
+        "island_insect_minus_wind",
+        "mainland_insect_minus_wind",
+        "overlap_weighted_delta"
+      ],
+      "distinct_matched_taxa": 1468,
+      "distinct_matched_reference_patterns": 13,
+      "genus_dependency_sensitivity": {
+        "status": "completed",
+        "distinct_species": 1468,
+        "distinct_genera": 564,
+        "draws": 999,
+        "groups": {
+          "block": {
+            "groups": 5,
+            "mean": 0.004823717029630128,
+            "genus_weight_interval": [
+              -0.012041053229373221,
+              0.02108654155077364
+            ],
+            "joint_genus_and_group_weight_interval": [
+              -0.01953371709618586,
+              0.03551374937389704
+            ]
+          },
+          "donor": {
+            "groups": 5,
+            "mean": 0.004823717029630128,
+            "genus_weight_interval": [
+              -0.01204105322937322,
+              0.02108654155077364
+            ],
+            "joint_genus_and_group_weight_interval": [
+              -0.020330850460477123,
+              0.0353152014046255
+            ]
+          }
+        },
+        "warning": "Shared positive genus weights in all carrier cells; exploratory dependence sensitivity, not calibrated CI."
+      },
+      "planned_pairs": 288,
+      "downloaded_pairs": 288
+    }
+  },
+  "leave_each_reference_out": {
+    "added_targets__exclude_ref_10199": {
+      "pairs": 46,
+      "median_cell_counts": [
+        27.5,
+        18.5,
+        89.5,
+        44
+      ],
+      "median_matched_strata": 3,
+      "mean_island_equal_delta": -0.00972168520497289,
+      "block": {
+        "groups": 21,
+        "mean": [
+          -0.007509235290201916,
+          0.1529778004285712,
+          0.16048703571877304,
+          -0.006027398229511387
+        ],
+        "interval": [
+          [
+            -0.038502055863077124,
+            0.023433386856558477
+          ],
+          [
+            0.0957238921838306,
+            0.22141685161431982
+          ],
+          [
+            0.11195125550646859,
+            0.2132747364249756
+          ],
+          [
+            -0.03929932716030278,
+            0.027637893650385374
+          ]
+        ]
+      },
+      "donor": {
+        "groups": 18,
+        "mean": [
+          -0.011173320816095983,
+          0.13215205887992568,
+          0.14332537969602166,
+          -0.009294083517119418
+        ],
+        "interval": [
+          [
+            -0.040872546280116474,
+            0.01823617814684129
+          ],
+          [
+            0.07793200033893971,
+            0.1919804118913485
+          ],
+          [
+            0.09582339523345208,
+            0.1928859267547635
+          ],
+          [
+            -0.03993629827818123,
+            0.022723136527001732
+          ]
+        ]
+      },
+      "status": "insufficient_support",
+      "positive_direction_both_intervals": false,
+      "metric_order": [
+        "island_minus_mainland",
+        "island_insect_minus_wind",
+        "mainland_insect_minus_wind",
+        "overlap_weighted_delta"
+      ],
+      "distinct_matched_taxa": 1685,
+      "distinct_matched_reference_patterns": 13,
+      "planned_pairs": 192,
+      "downloaded_pairs": 192
+    },
+    "pooled__exclude_ref_10199": {
+      "pairs": 72,
+      "median_cell_counts": [
+        28.5,
+        21.5,
+        96,
+        44
+      ],
+      "median_matched_strata": 3,
+      "mean_island_equal_delta": -0.003300618091518989,
+      "block": {
+        "groups": 34,
+        "mean": [
+          0.0029955198746380697,
+          0.15459943108666566,
+          0.15160391121202754,
+          0.0023209168346500085
+        ],
+        "interval": [
+          [
+            -0.018320463677130406,
+            0.02471990473685534
+          ],
+          [
+            0.10057318820042427,
+            0.21038306811111684
+          ],
+          [
+            0.10855198514375372,
+            0.19615945179297678
+          ],
+          [
+            -0.02165923689616564,
+            0.025963448343592963
+          ]
+        ]
+      },
+      "donor": {
+        "groups": 26,
+        "mean": [
+          0.0007726453598442679,
+          0.1360187624717981,
+          0.1352461171119538,
+          0.0011776235552835286
+        ],
+        "interval": [
+          [
+            -0.01872570301060528,
+            0.021022523843852732
+          ],
+          [
+            0.08495217967022181,
+            0.1960385695106117
+          ],
+          [
+            0.09090142459827143,
+            0.18518876375360296
+          ],
+          [
+            -0.017699402060059367,
+            0.021548774284959035
+          ]
+        ]
+      },
+      "status": "insufficient_support",
+      "positive_direction_both_intervals": false,
+      "metric_order": [
+        "island_minus_mainland",
+        "island_insect_minus_wind",
+        "mainland_insect_minus_wind",
+        "overlap_weighted_delta"
+      ],
+      "distinct_matched_taxa": 1758,
+      "distinct_matched_reference_patterns": 13,
+      "planned_pairs": 288,
+      "downloaded_pairs": 288
+    },
+    "added_targets__exclude_ref_10247": {
+      "pairs": 33,
+      "median_cell_counts": [
+        25,
+        13,
+        73,
+        56
+      ],
+      "median_matched_strata": 3,
+      "mean_island_equal_delta": 0.0025595413700638626,
+      "block": {
+        "groups": 16,
+        "mean": [
+          -0.00151508606785802,
+          0.22077638627889834,
+          0.22229147234675634,
+          -0.0030040614577728324
+        ],
+        "interval": [
+          [
+            -0.07084559527538375,
+            0.05883345529129829
+          ],
+          [
+            0.14735638863097775,
+            0.3018456147425942
+          ],
+          [
+            0.15918409431723943,
+            0.2824774505548136
+          ],
+          [
+            -0.07114177338054219,
+            0.056065505209107636
+          ]
+        ]
+      },
+      "donor": {
+        "groups": 15,
+        "mean": [
+          0.0024201330782280374,
+          0.2094798451304413,
+          0.20705971205221335,
+          0.000726480131304567
+        ],
+        "interval": [
+          [
+            -0.07763554676306265,
+            0.06688605559083732
+          ],
+          [
+            0.13512792449373387,
+            0.2896584579391825
+          ],
+          [
+            0.1455647792441995,
+            0.2667981876795117
+          ],
+          [
+            -0.07249871254605157,
+            0.06222393479156965
+          ]
+        ]
+      },
+      "status": "insufficient_support",
+      "positive_direction_both_intervals": false,
+      "metric_order": [
+        "island_minus_mainland",
+        "island_insect_minus_wind",
+        "mainland_insect_minus_wind",
+        "overlap_weighted_delta"
+      ],
+      "distinct_matched_taxa": 1298,
+      "distinct_matched_reference_patterns": 7,
+      "planned_pairs": 192,
+      "downloaded_pairs": 192
+    },
+    "pooled__exclude_ref_10247": {
+      "pairs": 52,
+      "median_cell_counts": [
+        32.5,
+        15,
+        106.5,
+        63
+      ],
+      "median_matched_strata": 3,
+      "mean_island_equal_delta": 0.015658895217238265,
+      "block": {
+        "groups": 28,
+        "mean": [
+          0.028810426646306352,
+          0.20218931482252117,
+          0.17337888817621486,
+          0.024816286952816558
+        ],
+        "interval": [
+          [
+            -0.015953937781402434,
+            0.0778292629069571
+          ],
+          [
+            0.13742469422213827,
+            0.268911324900558
+          ],
+          [
+            0.09066402654011296,
+            0.24020859441757886
+          ],
+          [
+            -0.022258925361115945,
+            0.07481063761941167
+          ]
+        ]
+      },
+      "donor": {
+        "groups": 22,
+        "mean": [
+          0.024675642038256528,
+          0.20212232040471392,
+          0.1774466783664574,
+          0.021260807289508573
+        ],
+        "interval": [
+          [
+            -0.02679694117674617,
+            0.07827403213426876
+          ],
+          [
+            0.1394742331793938,
+            0.2731127682139813
+          ],
+          [
+            0.0980568640941424,
+            0.24347732829566646
+          ],
+          [
+            -0.03001427978309932,
+            0.07453762391305688
+          ]
+        ]
+      },
+      "status": "insufficient_support",
+      "positive_direction_both_intervals": false,
+      "metric_order": [
+        "island_minus_mainland",
+        "island_insect_minus_wind",
+        "mainland_insect_minus_wind",
+        "overlap_weighted_delta"
+      ],
+      "distinct_matched_taxa": 1448,
+      "distinct_matched_reference_patterns": 7,
+      "planned_pairs": 288,
+      "downloaded_pairs": 288
+    },
+    "added_targets__exclude_ref_10313": {
+      "pairs": 17,
+      "median_cell_counts": [
+        46,
+        13,
+        52,
+        7
+      ],
+      "median_matched_strata": 2,
+      "mean_island_equal_delta": -0.017449030127172166,
+      "block": {
+        "groups": 10,
+        "mean": [
+          -0.02966335121619269,
+          -0.014026096314231903,
+          0.015637254901960784,
+          -0.03995176375634999
+        ],
+        "interval": [
+          [
+            -0.11258141448669863,
+            0.04567329756761461
+          ],
+          [
+            -0.04309523809523809,
+            0.007344632768361586
+          ],
+          [
+            -0.07011204481792717,
+            0.09988095238095238
+          ],
+          [
+            -0.14915378151260505,
+            0.041810758201585724
+          ]
+        ]
+      },
+      "donor": {
+        "groups": 10,
+        "mean": [
+          -0.02966335121619269,
+          -0.014026096314231903,
+          0.015637254901960784,
+          -0.03995176375634999
+        ],
+        "interval": [
+          [
+            -0.12321428571428569,
+            0.03601694915254238
+          ],
+          [
+            -0.04309523809523809,
+            0.007344632768361586
+          ],
+          [
+            -0.06177871148459383,
+            0.10380952380952382
+          ],
+          [
+            -0.15445036319612587,
+            0.03531215876180981
+          ]
+        ]
+      },
+      "status": "insufficient_support",
+      "positive_direction_both_intervals": false,
+      "metric_order": [
+        "island_minus_mainland",
+        "island_insect_minus_wind",
+        "mainland_insect_minus_wind",
+        "overlap_weighted_delta"
+      ],
+      "distinct_matched_taxa": 426,
+      "distinct_matched_reference_patterns": 4,
+      "planned_pairs": 192,
+      "downloaded_pairs": 192
+    },
+    "pooled__exclude_ref_10313": {
+      "pairs": 33,
+      "median_cell_counts": [
+        46,
+        13,
+        52,
+        8
+      ],
+      "median_matched_strata": 2,
+      "mean_island_equal_delta": 0.00321850554666054,
+      "block": {
+        "groups": 20,
+        "mean": [
+          0.00006433491900102728,
+          -0.03466995792094198,
+          -0.03473429283994299,
+          0.0016118001666194383
+        ],
+        "interval": [
+          [
+            -0.055079007531434535,
+            0.05139100337505428
+          ],
+          [
+            -0.062203969924313395,
+            -0.012019253155825945
+          ],
+          [
+            -0.09857929750847708,
+            0.029359798085901022
+          ],
+          [
+            -0.06736614623463856,
+            0.06267883764463103
+          ]
+        ]
+      },
+      "donor": {
+        "groups": 18,
+        "mean": [
+          -0.01736471926675267,
+          -0.02917914776719768,
+          -0.011814428500445019,
+          -0.019891654207934397
+        ],
+        "interval": [
+          [
+            -0.07143986360845764,
+            0.029104308264706547
+          ],
+          [
+            -0.05348445824257285,
+            -0.010310318811199025
+          ],
+          [
+            -0.06421349363332075,
+            0.043762222481585226
+          ],
+          [
+            -0.08979438433147831,
+            0.03608002780354704
+          ]
+        ]
+      },
+      "status": "insufficient_support",
+      "positive_direction_both_intervals": false,
+      "metric_order": [
+        "island_minus_mainland",
+        "island_insect_minus_wind",
+        "mainland_insect_minus_wind",
+        "overlap_weighted_delta"
+      ],
+      "distinct_matched_taxa": 518,
+      "distinct_matched_reference_patterns": 4,
+      "planned_pairs": 288,
+      "downloaded_pairs": 288
+    },
+    "added_targets__exclude_ref_10315": {
+      "pairs": 45,
+      "median_cell_counts": [
+        31,
+        18,
+        79,
+        43
+      ],
+      "median_matched_strata": 3,
+      "mean_island_equal_delta": -0.0004658158951198082,
+      "block": {
+        "groups": 23,
+        "mean": [
+          0.0008150813917950326,
+          0.183903487554373,
+          0.18308840616257796,
+          -0.008208834811791101
+        ],
+        "interval": [
+          [
+            -0.0469089498933296,
+            0.042702648598731914
+          ],
+          [
+            0.10332568853304534,
+            0.26949481236670536
+          ],
+          [
+            0.11780023980485582,
+            0.25181906676452215
+          ],
+          [
+            -0.06617310177469915,
+            0.03989501639510738
+          ]
+        ]
+      },
+      "donor": {
+        "groups": 20,
+        "mean": [
+          -0.005701249292575581,
+          0.15889412197284852,
+          0.16459537126542417,
+          -0.01599463302837701
+        ],
+        "interval": [
+          [
+            -0.05826972573482985,
+            0.039042640256302545
+          ],
+          [
+            0.08206116490600955,
+            0.24375729423779424
+          ],
+          [
+            0.09935018403054491,
+            0.23259718080967468
+          ],
+          [
+            -0.07950748824691309,
+            0.035133896311176846
+          ]
+        ]
+      },
+      "status": "insufficient_support",
+      "positive_direction_both_intervals": false,
+      "metric_order": [
+        "island_minus_mainland",
+        "island_insect_minus_wind",
+        "mainland_insect_minus_wind",
+        "overlap_weighted_delta"
+      ],
+      "distinct_matched_taxa": 1382,
+      "distinct_matched_reference_patterns": 7,
+      "planned_pairs": 192,
+      "downloaded_pairs": 192
+    },
+    "pooled__exclude_ref_10315": {
+      "pairs": 75,
+      "median_cell_counts": [
+        38,
+        18,
+        76,
+        39
+      ],
+      "median_matched_strata": 3,
+      "mean_island_equal_delta": 0.008282386295715772,
+      "block": {
+        "groups": 39,
+        "mean": [
+          0.01223528068190236,
+          0.15367961831585308,
+          0.1414443376339507,
+          0.010111025059997628
+        ],
+        "interval": [
+          [
+            -0.02005384903118868,
+            0.04253888487245913
+          ],
+          [
+            0.09259962513071339,
+            0.22010194473593944
+          ],
+          [
+            0.07859955497533797,
+            0.20016297575730027
+          ],
+          [
+            -0.029478118855005866,
+            0.04484260910205784
+          ]
+        ]
+      },
+      "donor": {
+        "groups": 30,
+        "mean": [
+          0.0017116836076976122,
+          0.13187397249722754,
+          0.13016228888952994,
+          -0.00278255747335656
+        ],
+        "interval": [
+          [
+            -0.03443240491281462,
+            0.03297910516196116
+          ],
+          [
+            0.0720920878046467,
+            0.19966017429740274
+          ],
+          [
+            0.0709275962187849,
+            0.1906013062052363
+          ],
+          [
+            -0.046271548401086667,
+            0.034789300731954034
+          ]
+        ]
+      },
+      "status": "exploratory_estimable",
+      "positive_direction_both_intervals": false,
+      "metric_order": [
+        "island_minus_mainland",
+        "island_insect_minus_wind",
+        "mainland_insect_minus_wind",
+        "overlap_weighted_delta"
+      ],
+      "distinct_matched_taxa": 1521,
+      "distinct_matched_reference_patterns": 7,
+      "planned_pairs": 288,
+      "downloaded_pairs": 288
+    },
+    "added_targets__exclude_ref_10328": {
+      "pairs": 40,
+      "median_cell_counts": [
+        44.5,
+        13.5,
+        67,
+        30.5
+      ],
+      "median_matched_strata": 3,
+      "mean_island_equal_delta": -0.018639002994842578,
+      "block": {
+        "groups": 19,
+        "mean": [
+          -0.03334851499242797,
+          0.13859303790139024,
+          0.17194155289381827,
+          -0.03522130107107247
+        ],
+        "interval": [
+          [
+            -0.09579566701141361,
+            0.02217771083689721
+          ],
+          [
+            0.07493228102207691,
+            0.20917774492289312
+          ],
+          [
+            0.10530926249139624,
+            0.2371955321148481
+          ],
+          [
+            -0.10680563986138307,
+            0.02935040921486678
+          ]
+        ]
+      },
+      "donor": {
+        "groups": 17,
+        "mean": [
+          -0.039277020331102835,
+          0.11999347013956983,
+          0.15927049047067268,
+          -0.04052658813647446
+        ],
+        "interval": [
+          [
+            -0.10934606687316942,
+            0.02045291895985854
+          ],
+          [
+            0.06558567708292064,
+            0.18053976575981354
+          ],
+          [
+            0.0937330823911734,
+            0.22060807454717635
+          ],
+          [
+            -0.12171310210025546,
+            0.027739698082829084
+          ]
+        ]
+      },
+      "status": "insufficient_support",
+      "positive_direction_both_intervals": false,
+      "metric_order": [
+        "island_minus_mainland",
+        "island_insect_minus_wind",
+        "mainland_insect_minus_wind",
+        "overlap_weighted_delta"
+      ],
+      "distinct_matched_taxa": 1422,
+      "distinct_matched_reference_patterns": 8,
+      "planned_pairs": 192,
+      "downloaded_pairs": 192
+    },
+    "pooled__exclude_ref_10328": {
+      "pairs": 64,
+      "median_cell_counts": [
+        49,
+        16,
+        68,
+        33.5
+      ],
+      "median_matched_strata": 2.5,
+      "mean_island_equal_delta": 0.0003589467514484479,
+      "block": {
+        "groups": 33,
+        "mean": [
+          0.007217570991056068,
+          0.1287773208395448,
+          0.12155974984848875,
+          0.005976281965605596
+        ],
+        "interval": [
+          [
+            -0.035844643484746676,
+            0.046802180893290836
+          ],
+          [
+            0.06935116440932197,
+            0.1897613201356806
+          ],
+          [
+            0.0495689586861236,
+            0.1862306964757371
+          ],
+          [
+            -0.04611757561229681,
+            0.054225114227876826
+          ]
+        ]
+      },
+      "donor": {
+        "groups": 25,
+        "mean": [
+          -0.009848170655600032,
+          0.11554667016311931,
+          0.12539484081871938,
+          -0.011055196483083184
+        ],
+        "interval": [
+          [
+            -0.06005309533743436,
+            0.035078381384856715
+          ],
+          [
+            0.05856966782208796,
+            0.17753313103738075
+          ],
+          [
+            0.05406668907435078,
+            0.18909855367139533
+          ],
+          [
+            -0.06956167763618858,
+            0.041382859320659236
+          ]
+        ]
+      },
+      "status": "insufficient_support",
+      "positive_direction_both_intervals": false,
+      "metric_order": [
+        "island_minus_mainland",
+        "island_insect_minus_wind",
+        "mainland_insect_minus_wind",
+        "overlap_weighted_delta"
+      ],
+      "distinct_matched_taxa": 1580,
+      "distinct_matched_reference_patterns": 8,
+      "planned_pairs": 288,
+      "downloaded_pairs": 288
+    }
+  },
+  "verification": {
+    "panels": 18,
+    "leaveout_panels": 10,
+    "original_checklist_hashes_verified": 155,
+    "distinct_checklists_downloaded": 363,
+    "new_download_errors": 0
+  },
+  "snapshot_class": "versioned_current_metadata_original_checklist_manifest_and_census_required",
+  "provenance": {
+    "run": 45573747562,
+    "artifact": 15003189673,
+    "digest_reported": "sha256:8ca085f5c6d00838990127d9c5fe7b05fd6b6982c1a82a19f5573acddf072e2a",
+    "method": "Completed job stdout; prior pilot archive digests and 155 checklist source bytes verified in runner. Current output archive digest reported by GitHub. Historical exact geographic pairing map not archived."
+  }
+}

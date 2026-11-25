@@ -1,0 +1,29 @@
+name: External GIFT reproductive assurance pilot
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - scripts/external_gift_reproductive_assurance_pilot.py
+      - .github/workflows/external-gift-reproductive-assurance.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  pilot:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    env:
+      OPENBLAS_NUM_THREADS: "1"
+      OMP_NUM_THREADS: "1"
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: pip install numpy
+      - run: python scripts/external_gift_reproductive_assurance_pilot.py --self-test
+      - run: python -u scripts/external_gift_reproductive_assurance_pilot.py --out work/external_gift_reproductive_assurance_pilot.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: external-gift-reproductive-assurance-pilot
+          path: work/external_gift_reproductive_assurance_pilot.json
