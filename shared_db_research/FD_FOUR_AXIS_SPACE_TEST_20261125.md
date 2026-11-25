@@ -15,3 +15,6 @@ Protected script 08fc0c374206701ca01fcbd96958befe9d02ee3c, workflow 4a952773d300
 - Preserve endpoint-specific pair analysis; four-axis results apply to restricted complete carriers. Next assess coverage selection by pair state and genus-grade, especially color, before any transport or imputation claims. No independent confirmation, no pollinator mechanism. ZIP not independently verified.
 
 
+
+## Color documentation diagnostic (post-result)
+Protected script 6244114dbac1bf577c6ae17546b95bce797a5519; workflow d22a7d8b239a9fb4687debe27ea769688165ddb1. Among pair-documented carriers, compare weighted color availability for radial-deep versus bilateral-deep in target and candidate donor rosters. Species-coherent color-availability label exchange within genus x pair evidence grade; fixed pair states and geographic roster weights. Seven primary tests for k5 disjoint, two other role contrasts per region plus paired regional contrast; Holm, support gates. Diagnostic not causal recording bias or missing data correction. Outcome pending.
