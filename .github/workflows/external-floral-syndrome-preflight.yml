@@ -5,6 +5,7 @@ on:
     paths:
       - scripts/external_floral_syndrome_preflight.py
       - scripts/external_gift_floral_trait_overlap.py
+      - scripts/external_gift_coverage_source_audit.py
       - .github/workflows/external-floral-syndrome-preflight.yml
   workflow_dispatch:
 permissions:
@@ -29,3 +30,9 @@ jobs:
         with:
           name: external-gift-floral-trait-overlap
           path: work/external_gift_floral_trait_overlap.json
+      - run: python scripts/external_gift_coverage_source_audit.py --self-test
+      - run: python -u scripts/external_gift_coverage_source_audit.py --out work/external_gift_coverage_source_audit.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: external-gift-coverage-source-audit
+          path: work/external_gift_coverage_source_audit.json
