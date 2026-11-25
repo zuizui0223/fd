@@ -137,13 +137,37 @@ def variant_stats(frame,variant):
     gen=pd.factorize(frame.genus,sort=True)[0]
     gg=pd.factorize(pd.MultiIndex.from_frame(frame[["genus","grade_pattern"]]),sort=True)[0]
     h=score[:,:4].mean(1)-score[:,4]
+    if variant=="size_expanded":
+        from itertools import combinations
+        is_size=[];core_w=[]
+        for k,spec in TEMPLATES.items():
+            a=[v for v in axes if v in spec]
+            cp=list(combinations([v for v in a if v!=SIZE],2))
+            for j,l in combinations(a,2):
+                z=SIZE in (j,l);is_size.append(z)
+                core_w.append(0. if z else 1/(len(TEMPLATES)*len(cp)))
+        is_size=np.asarray(is_size,bool);core_w=np.asarray(core_w,float)
+        assert len(is_size)==len(weights) and np.isclose(core_w.sum(),1)
+        assert np.isclose(weights[is_size].sum()+weights[~is_size].sum(),1)
     def stat(ids):
         ix=np.asarray(sorted(ids),int)
         n=len(ix);assert n>=10
         a=components(X[ix],pairs,gg[ix]);b=components(X[ix],pairs,gen[ix])
         vals=np.array([weights@a["total"],weights@a["within"],weights@a["between"],weights@b["within"],weights@b["between"]])
-        return {"metrics":vals,"phi":a["phi"],"score":score[ix].mean(0),"strict":strict[ix].mean(0),
+        out={"metrics":vals,"phi":a["phi"],"score":score[ix].mean(0),"strict":strict[ix].mean(0),
                 "h":float(h[ix].mean()),"unclassified":float((strict[ix].sum(1)==0).mean()),"n":n}
+        if variant=="size_expanded":
+            mat=np.stack([a["total"],a["within"],a["between"],b["within"],b["between"]])
+            c0=mat@core_w
+            c1=mat@(weights*(~is_size))
+            c2=mat@(weights*is_size)
+            assert np.allclose(c1+c2,vals,atol=1e-12)
+            assert np.allclose(vals-c0,(c1-c0)+c2,atol=1e-12)
+            out["size_parts"]=np.stack([c0,c1,c2,c1-c0,vals-c0])
+            # For each template, isolate the new size-pair contribution
+            # under the expanded weights. All five templates are returned.
+            out["size_by_template"]=np.array([mat[0]@(weights*is_size*(labels==k)) for k in TEMPLATES])
+        return out
     return stat,labels
 
 def analyze(f,t,a,m,g):
@@ -194,10 +218,24 @@ def analyze(f,t,a,m,g):
                         "target_coherence":u["metrics"][0],"source_coherence":v["metrics"][0],
                         "score_delta":u["score"]-v["score"],"strict_delta":u["strict"]-v["strict"],
                         "h_delta":u["h"]-v["h"],"unclassified_delta":u["unclassified"]-v["unclassified"]})
+                    if variant=="size_expanded":
+                        rows[tag][-1]["size_parts"]=u["size_parts"]-v["size_parts"]
+                        rows[tag][-1]["size_by_template"]=u["size_by_template"]-v["size_by_template"]
             assert len(rows["inclusive"])==len(rows["disjoint"])==common_eligible
             for tag,rr in rows.items():
                 key=f"{variant}_{mode}_{tag}"
                 p=summarize(rr)
+                if variant=="size_expanded" and rr:
+                    parts=np.stack([x["size_parts"] for x in rr])
+                    bt=np.stack([x["size_by_template"] for x in rr])
+                    assert np.allclose(parts[:,4],parts[:,3]+parts[:,2],atol=1e-12)
+                    assert np.allclose(bt.sum(1),parts[:,2,0],atol=1e-12)
+                    X=np.column_stack([parts.reshape(len(rr),-1),bt])
+                    p["size_decomposition"]={"part_order":["core_original_weights","core_expanded_weights","size_pairs_expanded_weights","core_reweighting","expanded_minus_core"],
+                        "component_order":list(METRICS),"size_template_order":list(TEMPLATES),
+                        "spatial_block":bootstrap(X,[x["block"] for x in rr]),
+                        "first_source_group":bootstrap(X,[x["first_source"] for x in rr]),
+                        "warning":"Post-outcome paired algebraic diagnostic; size contribution and reweighting are not causal effects."}
                 p["support_census"]={"complete_trait_species":len(frame),"target_geographic_eligible":target_geographic_eligible,
                     "missing_assignment":missing_assignment,"missing_candidate_flora":missing_donors,
                     "inclusive_donor_eligible":donor_inclusive_eligible,"paired_donor_eligible":common_eligible}
@@ -216,7 +254,12 @@ def analyze(f,t,a,m,g):
     assert len(panels)==24
     for mode in MODES:
         for tag in ("inclusive","disjoint"):
-            assert panels[f"size_core_{mode}_{tag}"]["eligible_islands"]==panels[f"size_expanded_{mode}_{tag}"]["eligible_islands"]
+            p0=panels[f"size_core_{mode}_{tag}"];p1=panels[f"size_expanded_{mode}_{tag}"]
+            assert p0["eligible_islands"]==p1["eligible_islands"]
+            if p0["eligible_islands"]:
+                for gr in ("spatial_block","first_source_group"):
+                    assert np.allclose(p1["size_decomposition"][gr]["mean"][:5],p0[gr]["mean"],atol=1e-12)
+                    assert np.allclose(np.array(p1["size_decomposition"][gr]["mean"][20:25]),np.array(p1[gr]["mean"])-np.array(p0[gr]["mean"]),atol=1e-12)
     return panels
 
 def self_test():
