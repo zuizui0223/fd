@@ -455,7 +455,8 @@
     "paths": [
       "scripts/external_breeding_system_source_audit.py",
       ".github/workflows/external-breeding-system-source-audit.yml"
-    ]
+    ],
+    "public_cloud_update": "The NLM official public PMC Cloud Service replaces legacy FTP/OA distribution in August 2026: https://pmc.ncbi.nlm.nih.gov/tools/pmcaws/ and https://pmc-oa-opendata.s3.amazonaws.com/README.txt. Restrict retrieval to two named PMCIDs, validate DOI and CC license metadata, use only explicitly advertised tabular media URLs and verify publisher MD5. Archive hashes and schema only; no redistribution of supplements or imputed values. Europe PMC retained as historical route, no repeated access-control challenges."
   },
   "external_breeding_calibration_scope_review_20261125": {
     "scope": "Archive external supplementary-file retrieval timeouts and freeze measurement calibration conditional on measured SC. Explicitly distinguish already published 2019 Baker-law test; no further geography mining, no source workbook acquired, no biological inference.",
