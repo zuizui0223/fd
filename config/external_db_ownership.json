@@ -46,6 +46,7 @@
     "results/20261124_tropical_pollinator_source_intake/THREE_GUILD_AND_LEPTRAITS_VERIFIED.md",
     "results/20261124_tropical_pollinator_source_intake/VERIFIED_BUTTERFLY_BEE_OVERLAP_AND_SENSITIVITY.md",
     "results/20261125_external_floral_source/gift_assurance_exact_cohort_verified_job_log.json",
+    "results/20261125_external_floral_source/gift_assurance_expansion_verified_job_log.json",
     "results/20261125_external_floral_source/gift_assurance_pilot_verified_job_log.json",
     "results/20261125_external_floral_source/gift_coverage_source_verified_job_log.json",
     "results/20261125_external_floral_source/gift_trait_overlap_verified_job_log.json",
@@ -508,5 +509,11 @@
       "results/20261125_external_floral_source/gift_assurance_exact_cohort_verified_job_log.json"
     ],
     "metadata_drift_policy": "Default remains exact original metadata. Explicit versioned mode verifies both archived pilot ZIP digests, identical 155 checklist manifests, prior counts and panel points, current canonical repeat stability at changed metadata endpoints, current original checklist set and byte hashes, and the original geography census. Does not claim historical metadata equivalence or exact historic pairing where original pair map was not archived. Current plan and metadata hash audit are retained."
+  },
+  "external_gift_assurance_expansion_result_review_20261125": {
+    "scope": "Verified official-only expansion results: 288 targets, 75 comparators, 363 public checklists and 155 original checklist hashes. Primary 78 supported pairs, no directional support; new target effect reverses sign. Full 18 + 10 panels retained. Overlap endpoint drift means a versioned snapshot, not exact historic pairing proof.",
+    "paths": [
+      "results/20261125_external_floral_source/gift_assurance_expansion_verified_job_log.json"
+    ]
   }
 }
