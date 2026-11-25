@@ -1,0 +1,42 @@
+name: External GIFT exact-cohort assurance diagnostic
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - scripts/external_gift_assurance_exact_cohort.py
+      - .github/workflows/external-gift-assurance-exact-cohort.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+  actions: read
+jobs:
+  exact-cohort:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    env:
+      OPENBLAS_NUM_THREADS: "1"
+      OMP_NUM_THREADS: "1"
+      GH_TOKEN: ${{ github.token }}
+      STAGE: /tmp/fd-assurance-exact
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: pip install numpy
+      - run: python scripts/external_gift_assurance_exact_cohort.py --self-test
+      - name: Verify previous pilot artifact bytes
+        run: |
+          set -euo pipefail
+          umask 077
+          mkdir -p "$STAGE"
+          curl --fail --silent --show-error --location --max-time 180 --max-filesize 10000000 -H "Authorization: Bearer $GH_TOKEN" -H 'Accept: application/vnd.github+json' 'https://api.github.com/repos/zuizui0223/fd/actions/artifacts/15001073268/zip' -o "$STAGE/prior.zip"
+          printf '%s  %s\n' '1ee08e7e7f7f5326dc85223310d8fc85a91b248a9c56ae2216fa008c61148812' "$STAGE/prior.zip" | sha256sum -c -
+      - run: python -u scripts/external_gift_assurance_exact_cohort.py --prior "$STAGE/prior.zip" --out work/external_gift_assurance_exact_cohort.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: external-gift-assurance-exact-cohort
+          path: work/external_gift_assurance_exact_cohort.json
+      - name: Remove temporary input
+        if: always()
+        run: rm -rf "$STAGE"
