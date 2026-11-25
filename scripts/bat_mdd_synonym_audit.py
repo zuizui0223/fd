@@ -88,7 +88,7 @@ def singleton_crosswalk(map_names,diet_names,idx):
     assert not set(matches)&diet and not set(matches.values())&maps
     return matches,dict(blocked)
 
-def build(map_names,diet):
+def build(map_names,diet,return_taxonomy=False):
     c,cm=read("MDD_v2.5_6904species.csv")
     s,sm=read("Species_Syn_v2.5.csv")
     idx,stats=index_names(c,s)
@@ -101,6 +101,10 @@ def build(map_names,diet):
             "exact_matches":len(set(map_names)&set(diet.index)),"reciprocal_singleton_added":len(matches),
             "remaining_unmatched":len(set(map_names)-set(augmented.index)),"blocked":blocked,
             "warning":"Nomenclatural sensitivity only; singleton does not certify historical taxonomic circumscription or measured donor trait. No fuzzy or genus-based trait imputation."}
+    if return_taxonomy:
+        from bat_family_local_completeness import taxonomy
+        family_map,family_audit=taxonomy(c,s,set(map_names),augmented)
+        return augmented,report,family_map,family_audit
     return augmented,report
 
 def self_test():
