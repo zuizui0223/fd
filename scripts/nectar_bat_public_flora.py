@@ -289,7 +289,7 @@ def self_test():
     print("BAT_SYNTHETIC_ESTIMATOR_TEST_PASS",flush=True)
 
 def main():
-    p=argparse.ArgumentParser();p.add_argument("--out",type=pathlib.Path);p.add_argument("--self-test",action="store_true");p.add_argument("--shared-support",action="store_true")
+    p=argparse.ArgumentParser();p.add_argument("--out",type=pathlib.Path);p.add_argument("--self-test",action="store_true");p.add_argument("--shared-support",action="store_true");p.add_argument("--synonym-sensitivity",action="store_true")
     a=p.parse_args()
     if a.self_test:self_test();return
     if a.out is None:p.error("--out required")
@@ -319,4 +319,28 @@ def main():
             shared=same_cohort_support(tab,geo)
             (a.out/"multiguild_shared_support.json").write_text(json.dumps(shared,indent=2,allow_nan=False))
             print("MULTIGUILD_SHARED_SUPPORT",json.dumps(shared,allow_nan=False),flush=True)
+        if a.synonym_sensitivity:
+            from bat_mdd_synonym_audit import build
+            aug,audit=build(set(p.name),d)
+            print("BAT_MDD_CROSSWALK",json.dumps(audit,allow_nan=False),flush=True)
+            (a.out/"mdd_crosswalk_audit.json").write_text(json.dumps(audit,indent=2,allow_nan=False))
+            tab2,counts2=incidence(units[units.area_km2.ge(20)],p,aug)
+            print("BAT_MDD_COVERAGE",json.dumps(counts2,allow_nan=False),flush=True)
+            for t in tab:
+                old=tab[t].set_index("island_id");new=tab2[t].set_index("island_id").loc[old.index]
+                assert np.array_equal(old.total,new.total)
+                assert (new.unknown<=old.unknown).all() and (new.nectar>=old.nectar).all()
+                assert (new.loc[old.complete,["other","partial","specialist","unknown"]]==old.loc[old.complete,["other","partial","specialist","unknown"]]).all().all()
+                assert new.loc[old.complete,"complete"].all()
+            res2=panels(f,tab2,geo)
+            # Same original fully mapped cohort has exactly the same counts.
+            # Expanded complete cohorts are a sensitivity, not a fresh test.
+            summary={"crosswalk":audit,"coverage":counts2,"panels":res2,
+                     "warning":"Post-pilot nomenclatural sensitivity; original exact-match primary unchanged. Expanded complete cohort is not independent confirmation. Singleton synonym linkage is not proof of equal historical circumscription."}
+            (a.out/"bat_mdd_synonym_sensitivity.json").write_text(json.dumps(summary,indent=2,allow_nan=False))
+            for k,v in res2.items():print("BAT_MDD_PANEL",k,json.dumps(v),flush=True)
+            if a.shared_support:
+                m2=same_cohort_support(tab2,geo)
+                (a.out/"multiguild_mdd_sensitivity.json").write_text(json.dumps(m2,indent=2,allow_nan=False))
+                print("MULTIGUILD_MDD_SUPPORT",json.dumps(m2,allow_nan=False),flush=True)
 if __name__=="__main__":main()
