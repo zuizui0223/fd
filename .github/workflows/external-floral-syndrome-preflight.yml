@@ -4,6 +4,7 @@ on:
     branches: [main]
     paths:
       - scripts/external_floral_syndrome_preflight.py
+      - scripts/external_gift_floral_trait_overlap.py
       - .github/workflows/external-floral-syndrome-preflight.yml
   workflow_dispatch:
 permissions:
@@ -11,7 +12,7 @@ permissions:
 jobs:
   source-audit:
     runs-on: ubuntu-latest
-    timeout-minutes: 12
+    timeout-minutes: 35
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -22,3 +23,9 @@ jobs:
         with:
           name: external-floral-source-audit
           path: work/external_floral_preflight.json
+      - run: python scripts/external_gift_floral_trait_overlap.py --self-test
+      - run: python -u scripts/external_gift_floral_trait_overlap.py --out work/external_gift_floral_trait_overlap.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: external-gift-floral-trait-overlap
+          path: work/external_gift_floral_trait_overlap.json
