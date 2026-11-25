@@ -1,7 +1,7 @@
 {
-  "contract": "fd_external_only_20261125",
+  "contract": "fd_scientific_ownership_20261125",
   "owner": "fd",
-  "policy": "Independent external-source inputs only; own island roster, own trait DB, derived public plant aggregates and any joint models containing them belong to island. Generic methods are neutral.",
+  "policy": "Scientific ownership follows the research estimand. FD owns floral functional diversity, syndrome composition, pollinator channels and functional assembly, including shared canonical island inputs. island owns data custody, protected execution, reproductive assurance and Chapter 1. Active external-only paths retain strict source screening; shared_db_research contains reviewed archival snapshots only.",
   "source_main": "43b80ab0b3b5fe580f4ad74ffe6af6809af718e2",
   "source_migration": "https://github.com/zuizui0223/island/pull/347",
   "source_pins": "https://github.com/zuizui0223/island/blob/64a58cd4817ccf1c54c179aa7fd1c5585f57dd43/config/fd_data_ownership_20261125.json",
@@ -467,6 +467,7 @@
       "mode": "100644"
     }
   ],
-  "scope_limit": "Reviewed external standalone candidates and source tools, not a claim that every old historical report was source-verified. Unknown/mixed paths not enabled; original history remains. Legacy external workflows imported under docs, not automatically run. Independent external GloBI catalog prepared in island is permitted only when provenance proves no focal own-plant/occurrence inputs.",
-  "shared_db_research_policy": "Reviewed archival namespace only; active external paths retain original marker screen; protected execution remains island."
+  "scope_limit": "No protected raw rows or credentials copied. No independent replication inferred from shared inputs. Archived scripts are not activated workflows. Prior external-only inventory retained as provenance; historical files require dependency and export review before promotion.",
+  "shared_db_research_policy": "Reviewed archival namespace only; active external paths retain original marker screen; protected execution remains island.",
+  "prior_source_only_contract": "fd_external_only_20261125"
 }
