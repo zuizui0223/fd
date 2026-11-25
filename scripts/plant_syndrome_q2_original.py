@@ -102,6 +102,18 @@ def summarize(rows):
     bound=min(1.,4*p) if p is not None else None
     ok=bool(support and bound<.05 and g["interval"][0][1]<0 and s["interval"][0][1]<0)
     phi=z[z.phi.notna()]
+    # Q1 was frozen before Q2 inspection. Formal H inference uses exactly
+    # the original paired island cohort and BOTH grouping definitions.
+    comp=np.column_stack([z.h_delta.to_numpy(float),np.vstack(z.score_delta),np.vstack(z.strict_delta),z.unclassified_delta])
+    cg=bootstrap(comp,z.block);cs=bootstrap(comp,z.first_source)
+    cg_support=all(v["groups"]>=30 and v["islands"]>=200 and v["valid_draws"]>=1800 and v["nondegenerate"] for v in (cg,cs))
+    q1p=max(cg["tail_negative"][0],cs["tail_negative"][0]) if cg_support else None
+    q1={"status":"exploratory_estimable" if cg_support else "insufficient_support",
+        "endpoint_order":["specialist_minus_generalist",*["soft_"+k for k in TEMPLATES],*["strict_"+k for k in TEMPLATES],"unclassified"],
+        "spatial_block":cg,"first_source_group":cs,
+        "worst_directional_bootstrap_tail":q1p,
+        "interim_four_question_p_upper_bound":min(1.,4*q1p) if q1p is not None else None,
+        "interim_directional_candidate":bool(cg_support and 4*q1p<.05 and cg["interval"][0][1]<0 and cs["interval"][0][1]<0)}
     return ans|{"status":"exploratory_estimable" if support else "insufficient_support",
         "spatial_block":g,"first_source_group":s,
         "interim_four_question_p_upper_bound":bound,"interim_directional_candidate":ok,
@@ -109,6 +121,7 @@ def summarize(rows):
         "median_shared_scored_names":float(z.shared_n.median()),
         "target_coherence_island_equal":float(z.target_coherence.mean()),
         "source_coherence_island_equal":float(z.source_coherence.mean()),
+        "composition_q1_inference":q1,
         "composition_q1_descriptive_only":{"template_order":list(TEMPLATES),
             "target_minus_source_soft_scores":np.vstack(z.score_delta).mean(0).tolist(),
             "target_minus_source_strict_matches":np.vstack(z.strict_delta).mean(0).tolist(),
