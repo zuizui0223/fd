@@ -98,6 +98,9 @@
     "shared_db_research/results/20261125_fd_syndrome_architecture/rao_eligibility_all_recorded.json",
     "shared_db_research/results/20261125_fd_syndrome_architecture/rao_eligibility_high_quality_only.json",
     "shared_db_research/results/20261125_fd_syndrome_architecture/rao_eligibility_original_native.json",
+    "shared_db_research/results/20261125_fd_syndrome_architecture/source_aggregation_all_recorded.json",
+    "shared_db_research/results/20261125_fd_syndrome_architecture/source_aggregation_high_quality_only.json",
+    "shared_db_research/results/20261125_fd_syndrome_architecture/source_aggregation_original_native.json",
     "shared_db_research/scripts/fd_depth_conditional_architecture.py",
     "shared_db_research/scripts/fd_original_global_joint_margin.py",
     "shared_db_research/scripts/fd_original_joint_cells.py",
@@ -543,6 +546,14 @@
       "shared_db_research/results/20261125_fd_syndrome_architecture/hierarchical_diversity_all_recorded.json",
       "shared_db_research/results/20261125_fd_syndrome_architecture/hierarchical_diversity_original_native.json",
       "shared_db_research/results/20261125_fd_syndrome_architecture/hierarchical_diversity_high_quality_only.json"
+    ]
+  },
+  "fd_source_aggregation_completed_review_20261126": {
+    "scope": "Complete anonymous 12-panel source aggregation control from protected run 45716038903. Common eligible 2190 all-recorded islands; identical finite sample sizes, paired first-ranked versus pooled candidate references. Eight panels meet support gates; no causal or independent ecological inference. No raw protected data or identities copied. FD scientific interpretation, island protected custody.",
+    "paths": [
+      "shared_db_research/results/20261125_fd_syndrome_architecture/source_aggregation_all_recorded.json",
+      "shared_db_research/results/20261125_fd_syndrome_architecture/source_aggregation_original_native.json",
+      "shared_db_research/results/20261125_fd_syndrome_architecture/source_aggregation_high_quality_only.json"
     ]
   }
 }
