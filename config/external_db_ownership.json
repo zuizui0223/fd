@@ -42,12 +42,14 @@
     "results/20261124_tropical_pollinator_source_intake/ORIGINAL_BEE_REVISED_BUTTERFLY.md",
     "results/20261124_tropical_pollinator_source_intake/THREE_GUILD_AND_LEPTRAITS_VERIFIED.md",
     "results/20261124_tropical_pollinator_source_intake/VERIFIED_BUTTERFLY_BEE_OVERLAP_AND_SENSITIVITY.md",
+    "results/20261125_external_floral_source/gift_trait_overlap_verified_job_log.json",
     "results/20261125_external_floral_source/preflight_verified_job_log.json",
     "scripts/audit_mdd_bat_diet_metadata.py",
     "scripts/bat_mdd_synonym_audit.py",
     "scripts/check_external_source_boundary.py",
     "scripts/export_mdd_bat_ranges.R",
     "scripts/external_floral_syndrome_preflight.py",
+    "scripts/external_gift_coverage_source_audit.py",
     "scripts/external_gift_floral_trait_overlap.py",
     "scripts/global_bird_source_audit.py",
     "scripts/pollinator_guild_source_sensitivity.py",
@@ -464,6 +466,13 @@
     "paths": [
       "scripts/external_gift_floral_trait_overlap.py",
       "results/20261125_external_floral_source/preflight_verified_job_log.json"
+    ]
+  },
+  "external_gift_coverage_source_audit_review_20261125": {
+    "scope": "Official GIFT publisher API v3.1 fixed sample native status flag attrition, source-reference concentration and archived trait overlap counts. No project flora or derived aggregates; no inference of complete native lists, actual pollination or independent studies.",
+    "paths": [
+      "scripts/external_gift_coverage_source_audit.py",
+      "results/20261125_external_floral_source/gift_trait_overlap_verified_job_log.json"
     ]
   }
 }
