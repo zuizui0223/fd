@@ -338,6 +338,21 @@ def main():
                 assert (new.loc[old.complete,["other","partial","specialist","unknown"]]==old.loc[old.complete,["other","partial","specialist","unknown"]]).all().all()
                 assert new.loc[old.complete,"complete"].all()
             res2=panels(f,tab2,geo)
+            from bat_synonym_cohort_diagnostic import diagnostic
+            cohort=diagnostic(f,tab,tab2,geo,estimate)
+            for t in (.5,.1):
+                for ck,pr in (("original",res),("expanded_all",res2)):
+                    expected=pr[f"direct_cover{t}_area20_n5_broad"]
+                    found=cohort["panels"][str(t)]["fits"][ck]
+                    assert found["eligible"]==expected["eligible"]
+                    assert found["informative_blocks"]==expected["informative_blocks"]
+                    assert found["informative_islands"]==expected["informative_islands"]
+                    assert found["status"]==expected["status"]
+                    if "endpoints" in expected:
+                        for endpoint in expected["endpoints"]:
+                            assert np.isclose(found["endpoints"][endpoint]["contrast"],expected["endpoints"][endpoint]["contrast"],rtol=1e-9,atol=1e-10)
+            (a.out/"bat_synonym_cohort_diagnostic.json").write_text(json.dumps(cohort,indent=2,allow_nan=False))
+            print("BAT_SYNONYM_COHORT_DIAGNOSTIC",json.dumps(cohort,allow_nan=False),flush=True)
             # Same original fully mapped cohort has exactly the same counts.
             # Expanded complete cohorts are a sensitivity, not a fresh test.
             summary={"crosswalk":audit,"coverage":counts2,"panels":res2,
