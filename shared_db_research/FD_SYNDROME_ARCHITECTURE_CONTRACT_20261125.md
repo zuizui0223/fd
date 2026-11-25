@@ -38,3 +38,7 @@ Next animal-channel prediction only after morphology result and independently do
 ## Execution
 
 The exact algebra kernel is archived in scripts/fd_depth_conditional_architecture.py. Synthetic algebra check only; full protected source integration and empirical execution require the island data custodian, as stated in main. No raw protected rows or credentials to FD. No new biological result from the proposed conditional test. The audit is actual computation on previously verified anonymous aggregate panels, not a new protected-model run.
+
+## Protected execution receipt
+
+Custodian [island PR #357](https://github.com/zuizui0223/island/pull/357), workflow commit `2aaa667831f4b17cfe6ad88107035e27bcc7df56`. Frozen kernel copied byte-for-byte (Git blob `e919803fd148f43424d1390de2233021662d15a0`). Driver implements all 64 scope × donor mode × overlap × macroregion panels, on the original verified archive only, with 1,999 geographic/source-group bootstrap draws and coherent genus-weight sensitivity. Influence-ranked genus deletion retains the original estimate on the reduced eligible cohort to distinguish attrition from change in the estimand. This is execution infrastructure, not a new empirical result; return anonymous outcomes to FD after successful run. Neither repository's main or Chapter 1 submission freeze changed.
