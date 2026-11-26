@@ -7,6 +7,7 @@
   "source_pins": "https://github.com/zuizui0223/island/blob/64a58cd4817ccf1c54c179aa7fd1c5585f57dd43/config/fd_data_ownership_20261125.json",
   "allowed_paths": [
     ".github/workflows/external-db-boundary.yml",
+    ".github/workflows/external-floral-replication-intake.yml",
     ".github/workflows/global_bird_source_audit.yml",
     ".github/workflows/pollinator_guild_source_sensitivity.yml",
     ".github/workflows/tropical_asian_butterfly_intake.yml",
@@ -21,6 +22,7 @@
     ".gitignore",
     "README.md",
     "config/external_db_ownership.json",
+    "docs/EXTERNAL_FLORAL_REPLICATION_INTAKE_20261126.md",
     "docs/EXTERNAL_SOURCE_RESEARCH_INDEX.md",
     "docs/legacy_external_workflows/acquire-thousand-island-lake-source.yml",
     "docs/legacy_external_workflows/audit-emln-pollination-source.yml",
@@ -44,6 +46,7 @@
     "scripts/bat_mdd_synonym_audit.py",
     "scripts/check_external_source_boundary.py",
     "scripts/export_mdd_bat_ranges.R",
+    "scripts/external_floral_replication_intake.py",
     "scripts/global_bird_source_audit.py",
     "scripts/pollinator_guild_source_sensitivity.py",
     "scripts/run_emln_island_visitor_turnover.py",
