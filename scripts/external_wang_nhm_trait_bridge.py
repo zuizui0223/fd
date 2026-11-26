@@ -42,29 +42,81 @@ def parse_symmetry(x):
     if z in {"zygomorphic","zygomorphy","zygomorph","bilateral","monosymmetric"}:return "bilateral"
     # Never interpret numeric codes or abbreviations without the actual publisher dictionary.
     return None
+CONTROVERSIAL={"asteraceae","poaceae","apiaceae","brassicaceae"}
+WANG_COLUMNS=["Order","Family_E","Genus_E","Species_E1","Species_E2","Symmtry","Note1","Note2"]
+WANG_LABELS={"RadSymmetry":"radial","BiSymmetry":"bilateral"}
+def wang_candidate(raw,genus):
+    # Accept an exact binomial consistent with the published genus.
+    # Epithet-only fields may be combined with that genus, never with
+    # a guessed genus or a synonym. Conflicting valid names are excluded.
+    raw=str(raw).strip().replace("_"," ")
+    gen=str(genus).strip()
+    direct=name(raw)
+    if direct is not None:
+        return direct if direct.split()[0]==gen.casefold() else None
+    if re.fullmatch(r"[a-z][a-z-]+",raw):
+        return name(gen+" "+raw)
+    return None
+def wang_keys(d):
+    e1=[wang_candidate(x,g) for x,g in zip(d.Species_E1,d.Genus_E)]
+    e2=[wang_candidate(x,g) for x,g in zip(d.Species_E2,d.Genus_E)]
+    merged=[];counts=Counter()
+    for x,y in zip(e1,e2):
+        if x is not None and y is not None and x!=y:
+            counts["conflicting_candidate_names"]+=1;merged.append(None)
+        elif x is not None or y is not None:
+            counts["both_agree" if x==y else "e1_only" if x is not None else "e2_only"]+=1
+            merged.append(x if x is not None else y)
+        else:
+            counts["no_genus_consistent_binomial"]+=1;merged.append(None)
+    assert sum(counts.values())==len(d)
+    return pd.Series(merged,index=d.index,dtype=object),dict(counts)
+def wang_tables(d):
+    assert list(d.columns)==WANG_COLUMNS and len(d)==279877
+    assert set(d.Symmtry)==set(WANG_LABELS)
+    keys,census=wang_keys(d)
+    v=d.Symmtry.map(WANG_LABELS)
+    notes=d.Note1.str.strip()
+    note_clear=notes.eq("")
+    family=d.Family_E.str.strip().str.casefold()
+    known_family=family.ne("")&~family.isin(["na","nan","unknown","none"])
+    # Exclude the whole species across duplicate records when there is
+    # any annotation, label conflict or family disagreement.
+    bad_notes=set(keys[~note_clear].dropna())
+    fam_conf=Counter()
+    families={}
+    for k,f in zip(keys,family):
+        if k is not None:families.setdefault(k,set()).add(f)
+    fam_bad={k for k,z in families.items() if len(z)!=1}
+    tab,conf=consensus(zip(keys,v))
+    strict={k:x for k,x in tab.items() if k not in bad_notes and k not in fam_bad}
+    nofam={k:x for k,x in strict.items() if len(families[k])==1 and next(iter(families[k])) not in CONTROVERSIAL|{"","na","nan","unknown","none"}}
+    out={"key_census":census,"exact_binomial_rows":int(keys.notna().sum()),"conflicting_symmetry_names":conf,"family_conflicts":len(fam_bad),"note1_counts":dict(Counter(notes).most_common(30)),"note1_annotated_distinct_names":len(bad_notes),"explicit_reference_note_rows":int(d.Note2.map(valid).sum()),"family_known_rows":int(known_family.sum())}
+    return {"all_publisher_binary":tab,"unannotated":strict,"unannotated_without_four_families":nofam},out
 def audit_table(d,nhm):
-    cols=list(d.columns)
-    c=column(cols,["species","species_name","scientific_name","scientificName","accepted_name","taxon","taxon_name","name","binomial","sp","species_full","speciesname","species_name_accepted"])
-    s=column(cols,["floral_symmetry","flower_symmetry","symmetry","floral symmetry","symmetry_type","floral_symmetry_type"])
-    if c is None or s is None:
-        return {"rows":len(d),"columns":cols,"status":"schema_unresolved","candidate_low_cardinality":{k:dict(Counter(d[k]).most_common(20)) for k in cols if d[k].nunique()<=20}}
-    k=d[c].str.replace("_"," ",regex=False).map(name)
-    raw=d[s]
-    v=raw.map(parse_symmetry)
-    t,conf=consensus((x,y) for x,y in zip(k,v) if y is not None)
-    out={"status":"audited","rows":len(d),"columns":cols,"name_column":c,"symmetry_column":s,"raw_state_counts":dict(Counter(raw).most_common(30)),"exact_name_rows":int(k.notna().sum()),"accepted_word_label_species":len(t),"conflicting_species":conf,"source_fields":{},"joint_coverage":{}}
-    for col in cols:
-        if re.search(r"source|refer|origin|assign|infer|level|imput|method|evidence|data.?type|record",col,re.I):
-            out["source_fields"][col]={"distinct_values":int(d[col].nunique()),"nonempty":int(d[col].map(valid).sum()),"top_values":dict(Counter(d[col]).most_common(15)) if d[col].nunique()<=30 else None}
-    out["direct_evidence_classification"]="not established; inspect actual publisher README and columns"
-    for a,b in nhm.items():
-        ids=t.keys()&b.keys()
-        out["joint_coverage"][a]={"species":len(ids),"radial":sum(t[x]=="radial" for x in ids),"bilateral":sum(t[x]=="bilateral" for x in ids)}
-    ids=t.keys()&nhm["flower colour"].keys()&nhm["flower shape"].keys()
-    out["color_shape_symmetry_common_species"]=len(ids)
+    tabs,info=wang_tables(d)
+    out={"status":"audited_publisher_binary","rows":len(d),"columns":list(d.columns),"raw_state_counts":dict(Counter(d.Symmtry)),**info,"scopes":{}}
+    for scope,t in tabs.items():
+        z={"distinct_exact_names":len(t),"states":dict(Counter(t.values())),"joint_coverage":{}}
+        for a,b in nhm.items():
+            ids=t.keys()&b.keys()
+            z["joint_coverage"][a]={"species":len(ids),"radial":sum(t[x]=="radial" for x in ids),"bilateral":sum(t[x]=="bilateral" for x in ids)}
+        for label,aa in [("flower_color_form",["flower colour","flower shape"]),("corolla_color_tube",["corolla colour","corolla_tube_range_cm"]),("flower_color_tube",["flower colour","corolla_tube_range_cm"])]:
+            ids=set(t).intersection(*(nhm[a].keys() for a in aa))
+            z[label+"_symmetry_common_species"]=len(ids)
+        out["scopes"][scope]=z
+    out["direct_evidence_classification"]="Unavailable for most rows. Binary publisher-coded states, not certified direct observations. Unannotated is a Note1 filter only; not a direct-evidence flag."
     return out
+def self_test():
+    assert wang_candidate("Abelia biflora","Abelia")=="abelia biflora"
+    assert wang_candidate("Abelia_biflora","Abelia")=="abelia biflora"
+    assert wang_candidate("biflora","Abelia")=="abelia biflora"
+    assert wang_candidate("Other biflora","Abelia") is None
+    d=pd.DataFrame({"Species_E1":["Abelia biflora","Abelia biflora","biflora"],"Species_E2":["Abelia_biflora","Abelia other",""],"Genus_E":["Abelia"]*3})
+    k,c=wang_keys(d);assert list(k)==["abelia biflora",None,"abelia biflora"] and c["conflicting_candidate_names"]==1
+    print("FD_WANG_SCHEMA_SELF_TEST_PASS",flush=True)
 def main():
-    p=argparse.ArgumentParser();p.add_argument("--out",required=True,type=pathlib.Path);a=p.parse_args()
+    p=argparse.ArgumentParser();p.add_argument("--out",required=True,type=pathlib.Path);a=p.parse_args();self_test()
     out={"publisher":"Wang et al., Zenodo 6547106, Dryad DOI 10.5061/dryad.ghx3ffbrh","source_files":{},"tables":{}}
     raw=get(NHM_ROOT+"combined.csv",maxbytes=25_000_000);assert blobsha(raw)==NHM["combined.csv"]
     nhm,audit=strict_nhm(raw);out["nhm_strict"]=audit
@@ -85,7 +137,7 @@ def main():
             d=pd.read_csv(f,dtype=str,keep_default_na=False)
             out["tables"][f.name]=audit_table(d,nhm)
             print("FD_WANG_TABLE",f.name,json.dumps(out["tables"][f.name],allow_nan=False),flush=True)
-    out["warning"]="Publisher-only source coverage. Strict color lexical coding is intentionally conservative, no imputation. Symmetry numeric/abbreviated codes not interpreted without documentation; no direct evidence claim. Exact names do not establish taxonomic identity or independent observations. Tube length is not tube depth. No island results, no raw taxon rows exported."
+    out["warning"]="Publisher-only source coverage. Strict color lexical coding is intentionally conservative, no imputation. Publisher RadSymmetry and BiSymmetry labels mapped explicitly according to the study binary symmetry definitions; no direct evidence claim. Note1 exclusions are polymorphism/annotation sensitivity, not proof of species-level measurement. Exact names do not establish taxonomic identity or independent observations. Tube length is not tube depth. No island results, no raw taxon rows exported."
     a.out.parent.mkdir(parents=True,exist_ok=True);a.out.write_text(json.dumps(out,indent=2,allow_nan=False))
-    assert out["tables"],"no tabular publisher objects"
+    assert len(out["tables"])==1 and next(iter(out["tables"].values()))["status"]=="audited_publisher_binary","publisher schema not audited"
 if __name__=="__main__":main()
