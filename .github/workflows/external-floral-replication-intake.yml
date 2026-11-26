@@ -1,0 +1,27 @@
+name: External floral replication source intake
+on:
+  push:
+    branches: [analysis/external-floral-replication-intake-20261126]
+    paths:
+      - "scripts/external_floral_replication_intake.py"
+      - ".github/workflows/external-floral-replication-intake.yml"
+      - "config/external_db_ownership.json"
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: pip install pandas
+      - run: python scripts/external_floral_replication_intake.py --self-test
+      - run: python -u scripts/external_floral_replication_intake.py --out /tmp/anonymous_external_floral_source_intake.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: external-floral-replication-source-audit
+          path: /tmp/anonymous_external_floral_source_intake.json
