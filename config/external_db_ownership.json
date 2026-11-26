@@ -8,6 +8,7 @@
   "allowed_paths": [
     ".github/workflows/external-db-boundary.yml",
     ".github/workflows/external-floral-replication-intake.yml",
+    ".github/workflows/external-wang-nhm-trait-bridge.yml",
     ".github/workflows/global_bird_source_audit.yml",
     ".github/workflows/pollinator_guild_source_sensitivity.yml",
     ".github/workflows/tropical_asian_butterfly_intake.yml",
@@ -48,6 +49,7 @@
     "scripts/check_external_source_boundary.py",
     "scripts/export_mdd_bat_ranges.R",
     "scripts/external_floral_replication_intake.py",
+    "scripts/external_wang_nhm_trait_bridge.py",
     "scripts/global_bird_source_audit.py",
     "scripts/pollinator_guild_source_sensitivity.py",
     "scripts/run_emln_island_visitor_turnover.py",
