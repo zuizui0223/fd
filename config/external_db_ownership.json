@@ -48,6 +48,7 @@
     "results/20261124_tropical_pollinator_source_intake/VERIFIED_BUTTERFLY_BEE_OVERLAP_AND_SENSITIVITY.md",
     "results/20261126_external_floral_replication/continuous_space_from_verified_job_log.json",
     "results/20261126_external_floral_replication/intake_from_verified_job_log.json",
+    "results/20261126_external_floral_replication/length_holdout_from_verified_job_log.json",
     "results/20261126_external_floral_replication/native_coverage_from_verified_job_log.json",
     "results/20261126_external_floral_replication/wang_nhm_bridge_from_verified_job_log.json",
     "scripts/audit_mdd_bat_diet_metadata.py",
