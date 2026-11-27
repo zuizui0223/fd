@@ -187,7 +187,7 @@ def consistent_names(data):
     clean={w:next(iter(v))[0] for w,v in byid.items() if w not in badid and next(iter(v))[0] not in badname}
     out={i:{s:{clean[w] for w in r if w in clean} for s,r in v.items()} for i,v in data.items()}
     return out,{"distinct_work_ids":len(byid),"conflicting_work_ids":len(badid),"ambiguous_binomials":len(badname),"clean_distinct_binomials":len(clean)}
-def cohort():
+def cohort(start_after=0,expected_prefix_sha256=None):
     pins=[];rows=[]
     for query,params in [("regions",{}),("lists",{}),("taxonomy",{}),("geoentities_env_misc",{"envvar":"longitude,latitude"}),("overlap",{})]:
         v,p=fetch(query,**params)
@@ -204,8 +204,18 @@ def cohort():
     # Manifest digest and metadata census recorded before reading any trait values.
     plan_sha=hashlib.sha256(json.dumps(manifest,sort_keys=True,separators=(",",":")).encode()).hexdigest()
     print("FD_EXTERNAL_GIFT_GEOGRAPHY",json.dumps({"census":census,"metadata_pins":pins,"plan_sha256":plan_sha,"planned_regions":dict(collections.Counter(x["region"] for x in manifest))},allow_nan=False),flush=True)
+    previous=manifest[:start_after];selected=manifest[start_after:]
+    assert selected,"no new metadata-selected target entities"
+    prefix=hashlib.sha256(json.dumps(previous,sort_keys=True,separators=(",",":")).encode()).hexdigest()
+    if expected_prefix_sha256 is not None:
+        assert start_after>0 and len(previous)==start_after and prefix==expected_prefix_sha256,"previous metadata manifest changed"
+    old_donors={x["donor"] for x in previous};new_donors={x["donor"] for x in selected}
+    old_blocks={x["block"] for x in previous};new_blocks={x["block"] for x in selected}
+    assert not ({x["target"] for x in previous}&{x["target"] for x in selected})
+    selection={"previous_targets":len(previous),"previous_manifest_sha256":prefix,"selected_targets":len(selected),"selected_manifest_sha256":hashlib.sha256(json.dumps(selected,sort_keys=True,separators=(",",":")).encode()).hexdigest(),"selected_regions":dict(collections.Counter(x["region"] for x in selected)),"shared_donors_with_previous":len(old_donors&new_donors),"selected_donors":len(new_donors),"shared_blocks_with_previous":len(old_blocks&new_blocks),"selected_blocks":len(new_blocks)}
+    print("FD_EXTERNAL_GIFT_SELECTION",json.dumps(selection,allow_nan=False),flush=True)
     data={};sources=[];errors=[]
-    for kind,ids in (("Island",sorted({x["target"] for x in manifest})),("Mainland",sorted({x["donor"] for x in manifest}))):
+    for kind,ids in (("Island",sorted({x["target"] for x in selected})),("Mainland",sorted({x["donor"] for x in selected}))):
         for j,i in enumerate(ids):
             try:
                 data[i],z=native_names(i,eligible[kind][i],zid)
@@ -221,7 +231,7 @@ def cohort():
             time.sleep(.25)
     native,audit=consistent_names(data)
     print("FD_EXTERNAL_GIFT_CHECKLIST_STATUS",json.dumps({"attempted":len(sources)+len(errors),"successful":len(data),"errors":len(errors),"error_types":dict(collections.Counter(x["error_type"] for x in errors)),"taxonomy_audit":audit},allow_nan=False),flush=True)
-    return manifest,native,{"metadata_pins":pins,"geography":census,"plan_sha256":plan_sha,"planned_regions":dict(collections.Counter(x["region"] for x in manifest)),"successful_lists":len(data),"checklist_sources":sources,"download_errors":errors,"taxonomy_audit":audit}
+    return selected,native,{"selection":selection,"metadata_pins":pins,"geography":census,"plan_sha256":plan_sha,"planned_regions":dict(collections.Counter(x["region"] for x in manifest)),"successful_lists":len(data),"checklist_sources":sources,"download_errors":errors,"taxonomy_audit":audit}
 def self_test():
     d={"a":{SCOPES[0]:{"1":("plant one","2"),"2":("plant two","2")},SCOPES[1]:{"1":("plant one","2")}},
        "b":{SCOPES[0]:{"3":("plant two","2")},SCOPES[1]:{}}}
