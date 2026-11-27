@@ -113,6 +113,7 @@
     "shared_db_research/results/20261125_global_source_architecture/quality_genus_audit_from_job_log.json",
     "shared_db_research/results/20261127_source_repertoire_turnover/baseline_partition_from_verified_job_log.json",
     "shared_db_research/results/20261127_source_repertoire_turnover/cell_partition_from_verified_job_log.json",
+    "shared_db_research/results/20261127_source_repertoire_turnover/directional_heterogeneity_partition.json",
     "shared_db_research/results/20261127_source_repertoire_turnover/panels_from_verified_job_log.json",
     "shared_db_research/scripts/fd_color_documentation_audit.py",
     "shared_db_research/scripts/fd_common_carrier_isolation_gradient.py",
