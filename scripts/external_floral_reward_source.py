@@ -16,7 +16,15 @@ ALLOWED={".csv",".tsv",".xlsx",".xls"}
 def digest(raw):return hashlib.sha256(raw).hexdigest()
 def csv_table(raw,ext):
     if ext==".tsv":return pd.read_csv(io.BytesIO(raw),sep="\t",dtype=str,keep_default_na=False)
-    return pd.read_csv(io.BytesIO(raw),dtype=str,keep_default_na=False,sep=",",encoding="utf-8-sig")
+    # Files are checksum-verified before parsing. Legacy 0xA0 bytes are
+    # compatible with Windows-1252; do not silently replace invalid bytes.
+    try:
+        raw.decode("utf-8-sig",errors="strict");enc="utf-8-sig"
+    except UnicodeDecodeError:
+        raw.decode("cp1252",errors="strict");enc="cp1252"
+    d=pd.read_csv(io.BytesIO(raw),dtype=str,keep_default_na=False,sep=",",encoding=enc)
+    d.attrs["decode_encoding"]=enc
+    return d
 def tables(raw,filename):
     ext=pathlib.PurePosixPath(filename).suffix.lower()
     if ext in {".csv",".tsv"}:
@@ -98,6 +106,8 @@ def main():
     assert normalize_reward_name("abelia BIFLORA","Abelia")=="abelia biflora"
     assert normalize_reward_name("Abelia_biflora","Other") is None
     assert normalize_reward_name("Abelia biflora L.") is None
+    d2=csv_table(b"Species,Genus,log10Nectar\nAbelia\xa0biflora,Abelia,0.5\n",".csv")
+    assert d2.attrs["decode_encoding"]=="cp1252" and resolve_names(d2)[1].iloc[0]=="abelia biflora"
     print("FD_REWARD_SOURCE_SELF_TEST_PASS",flush=True)
     if a.self_test:return
     # Retrieve the fixed record, verify the published file checksums before reading.
@@ -120,6 +130,7 @@ def main():
             try:
                 frames[key]=csv_table(raw,".csv")
                 out["files"][key]["parse_status"]="parsed"
+                out["files"][key]["decode_encoding"]=frames[key].attrs.get("decode_encoding")
             except Exception as e:
                 out["files"][key]["parse_status"]="failed"
                 out["files"][key]["parse_error"]=str(e)[:300]
@@ -138,6 +149,18 @@ def main():
         print("FD_REWARD_TABLE",json.dumps({"table":key,"audit":out["tables"][key]},ensure_ascii=False,allow_nan=False),flush=True)
     out["exact_name_pair_overlap"]={a+"__"+b:len(name_sets[a]&name_sets[b]) for i,a in enumerate(name_sets) for b in list(name_sets)[i+1:]}
     print("FD_REWARD_NAME_OVERLAP",json.dumps(out["exact_name_pair_overlap"]),flush=True)
+    # Audit the authors\u0027 code as text only for the reward variables and units.
+    codefile=next((f for f in files if f["key"]=="Flower_shape_and_nectar_pollen_rewards_V5.R"),None)
+    if codefile is not None:
+        try:
+            assert codefile["checksum"]=="md5:73405584049dbe3ae3413b0adc81bb8e"
+            b=get(f"https://zenodo.org/records/{RECORD}/files/"+urllib.parse.quote(codefile["key"],safe="")+"?download=1",maxbytes=100_000)
+            assert hashlib.md5(b).hexdigest()=="73405584049dbe3ae3413b0adc81bb8e" and len(b)==13437
+            # Extract only lines defining log transformation or explicitly naming units.
+            lines=[x.strip() for x in b.decode("cp1252").splitlines() if re.search(r"log10|microgram|milligram|mg/|ug/|sugar.*day",x,re.I)]
+            out["publisher_code_units_audit"]={"sha256":digest(b),"lines":lines[:30]}
+            print("FD_REWARD_PUBLISHER_UNITS",json.dumps(out["publisher_code_units_audit"]),flush=True)
+        except Exception as e:out["publisher_code_units_audit"]={"status":"unavailable","detail":str(e)[:200]}
     out["trait_bridge"]={"source_pins":pinned["source_pins"],"common_carriers":{k:len(v) for k,v in carriers.items()}}
     out["warning"]="Publisher-only readiness; exact binomial names, no taxonomic synonyms or unknown units guessed; tables may contain repeated source measurements, not independent species. No raw names exported. Actual measured nectar and pollen must be harmonized with source units and references before community tests. Reward quantity is not accessibility, pollinator identity or realized pollination."
     a.out.parent.mkdir(parents=True,exist_ok=True);a.out.write_text(json.dumps(out,indent=2,ensure_ascii=False,allow_nan=False))
