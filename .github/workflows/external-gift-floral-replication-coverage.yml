@@ -1,0 +1,29 @@
+name: External native flora replication coverage
+on:
+  push:
+    branches: [analysis/external-floral-replication-intake-20261126]
+    paths:
+      - "scripts/external_gift_native_flora_roster.py"
+      - "scripts/external_gift_floral_replication_coverage.py"
+      - ".github/workflows/external-gift-floral-replication-coverage.yml"
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - uses: r-lib/actions/setup-r@v2
+        with:
+          r-version: "4.4.3"
+      - run: pip install numpy pandas
+      - run: python -u scripts/external_gift_floral_replication_coverage.py --out /tmp/external_native_coverage.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: external-native-floral-coverage
+          path: /tmp/external_native_coverage.json

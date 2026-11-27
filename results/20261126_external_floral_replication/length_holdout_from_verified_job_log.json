@@ -1,0 +1,3539 @@
+{
+  "source_run": 45952465045,
+  "source_head": "e2f845c35226e16ca0af14328e757a18768a595b",
+  "artifact_metadata": [
+    {
+      "id": 15178070134,
+      "digest": "sha256:ffd354eb8483d1d6956a185d7a010514394e94d9f8fe9b8a1e652972d5377547"
+    }
+  ],
+  "provenance": "complete aggregate job log; ZIP not independently verified",
+  "cohort": {
+    "selection": {
+      "previous_targets": 288,
+      "previous_manifest_sha256": "8945ce01bd1b5a9294fe18ee570ec6ed9d207e93363c70ec3732ffe013f3c935",
+      "selected_targets": 288,
+      "selected_manifest_sha256": "c3d27d61305c3aaaef0963c4d2cbc84259621979b063faf4cb3c0f4c2921e79d",
+      "selected_regions": {
+        "south": 69,
+        "north": 140,
+        "tropical": 79
+      },
+      "shared_donors_with_previous": 31,
+      "selected_donors": 34,
+      "shared_blocks_with_previous": 27,
+      "selected_blocks": 27
+    },
+    "metadata_pins": [
+      {
+        "url": "https://gift.uni-goettingen.de/api/extended/index3.1.php?query=regions",
+        "sha256": "d12d9129eb8aeb7aafb295ddf99b3ffdd810dcd628ab951ca31e560ab772b64b",
+        "rows": 4047,
+        "canonical_rows_sha256": "f27f5c3675725a155b6deb70e5d530308d9908e5e976e6dddc6dea25065a0650"
+      },
+      {
+        "url": "https://gift.uni-goettingen.de/api/extended/index3.1.php?query=lists",
+        "sha256": "7cbf01e767f5abc061fb3622db031c95e4b24646b98d875eed9f1d9e742ba244",
+        "rows": 3611,
+        "canonical_rows_sha256": "13d4a4fb28655716aeb858acb501df9fcb86c38b35196a657b800cf31e152953"
+      },
+      {
+        "url": "https://gift.uni-goettingen.de/api/extended/index3.1.php?query=taxonomy",
+        "sha256": "ca6ece6d326efef2585ad96e9f19928d043233937e44f6a3b521d3728acb20c4",
+        "rows": 21192,
+        "canonical_rows_sha256": "3e79a3b5287b27afb6fab54f0e8d181fa7af08bf34a6c04d31dffe3657b0bae3"
+      },
+      {
+        "url": "https://gift.uni-goettingen.de/api/extended/index3.1.php?query=geoentities_env_misc&envvar=longitude%2Clatitude",
+        "sha256": "7b77226f0704d6d8557d7f132e506449a0cc7cf205bca2e91a39ec63775e6d04",
+        "rows": 4047,
+        "canonical_rows_sha256": "5791ee6eec7d1e2983bfc26c44b1917d9f6f50e69648e402c7f00fec0973954e"
+      },
+      {
+        "url": "https://gift.uni-goettingen.de/api/extended/index3.1.php?query=overlap",
+        "sha256": "2dcd0f4f5d78804a242225cfa3cb116b7be562840fe66b0f455a7fd414d11a40",
+        "rows": 31752,
+        "canonical_rows_sha256": "805bb2c0f59ac54dcc8a59733689f11da8731bf8caf91c1ca808efa01b057d07"
+      }
+    ],
+    "geography": {
+      "overlap_schema_audit": {
+        "raw_rows": 31752,
+        "irrelevant_rows": 26232,
+        "candidate_rows": 5520,
+        "valid_candidate_rows": 4980,
+        "invalid_candidate_rows": 540,
+        "invalid_reasons": {
+          "out_of_unit_interval": 540
+        },
+        "quarantined_candidate_entities": 283,
+        "eligible_candidate_entities": 1956,
+        "valid_fraction_range": [
+          0,
+          1
+        ],
+        "threshold": 0.1,
+        "rule": "candidate pairs first; quarantine both endpoints of any invalid relevant pair"
+      },
+      "eligible_island_entities": 1253,
+      "eligible_mainland_entities": 751,
+      "valid_island_centroids": 1133,
+      "valid_mainland_centroids": 540,
+      "nonoverlapping_mainland_candidates": 458,
+      "islands_without_comparator_within_2000km": 334,
+      "selected_island_entities": 576,
+      "selected_mainland_comparators": 78,
+      "selected_geographic_blocks": 103,
+      "skipped_overlap_in_selection": 65,
+      "centroid_distance_median_km": 684.5884184040085
+    },
+    "plan_sha256": "bcd9b41251cc24e3861fbefc861ddc81e256c18f05789266d250de8b0318e663",
+    "planned_regions": {
+      "north": 295,
+      "south": 104,
+      "tropical": 177
+    },
+    "successful_lists": 322,
+    "download_errors": [],
+    "taxonomy_audit": {
+      "distinct_work_ids": 60792,
+      "conflicting_work_ids": 0,
+      "ambiguous_binomials": 0,
+      "clean_distinct_binomials": 60792
+    }
+  },
+  "verdict": {
+    "raw_regional_contrast_reproduced": false,
+    "conditional_length_residual_supported": false
+  },
+  "panels": {
+    "loose__disjoint__midpoint__n5": {
+      "all_pairs": {
+        "status": "estimated",
+        "pairs": 161,
+        "species": 2063,
+        "support": {
+          "north": {
+            "pairs": 110,
+            "blocks": 12,
+            "donors": 16,
+            "movable_species": 1411,
+            "movable_genera": 268
+          },
+          "tropical": {
+            "pairs": 47,
+            "blocks": 6,
+            "donors": 8,
+            "movable_species": 452,
+            "movable_genera": 165
+          },
+          "south": {
+            "pairs": 4,
+            "blocks": 1,
+            "donors": 1,
+            "movable_species": 39,
+            "movable_genera": 29
+          }
+        },
+        "group_weightings": {
+          "block": {
+            "north": {
+              "geography_gate": false,
+              "null_gate": false,
+              "metrics": {
+                "total": {
+                  "observed": -0.3750206574015164,
+                  "observed_ci": [
+                    -0.5375084067462239,
+                    -0.2225375520557833
+                  ],
+                  "conditional_null_mean": -0.29343003247341387,
+                  "residual": -0.08159062492810254,
+                  "residual_ci": [
+                    -0.16212752950305118,
+                    -0.005345557479178817
+                  ],
+                  "coherent_p": 0.096,
+                  "residual_leave_range": [
+                    -0.10426398169125141,
+                    -0.05907226381597282
+                  ]
+                }
+              }
+            },
+            "tropical": {
+              "geography_gate": false,
+              "null_gate": false,
+              "metrics": {
+                "total": {
+                  "observed": 0.25923819276807075,
+                  "observed_ci": [
+                    -0.09429679580848817,
+                    0.6659795908036011
+                  ],
+                  "conditional_null_mean": 0.2455209051645478,
+                  "residual": 0.013717287603522949,
+                  "residual_ci": [
+                    -0.0827613159445418,
+                    0.12435767521550374
+                  ],
+                  "coherent_p": 0.86,
+                  "residual_leave_range": [
+                    -0.026494607058585928,
+                    0.04351007202661774
+                  ]
+                }
+              }
+            },
+            "south": {
+              "geography_gate": false,
+              "null_gate": false,
+              "metrics": {
+                "total": {
+                  "observed": 0.5628971104344339,
+                  "observed_ci": null,
+                  "conditional_null_mean": 0.4024731934579828,
+                  "residual": 0.1604239169764511,
+                  "residual_ci": null,
+                  "coherent_p": 0.376,
+                  "residual_leave_range": null
+                }
+              }
+            },
+            "tropical_minus_north": {
+              "geography_gate": false,
+              "null_gate": false,
+              "metrics": {
+                "total": {
+                  "observed": 0.6342588501695872,
+                  "observed_ci": [
+                    0.26487181009830324,
+                    1.0353406236942033
+                  ],
+                  "conditional_null_mean": 0.5389509376379616,
+                  "residual": 0.09530791253162552,
+                  "residual_ci": [
+                    -0.023342654492856735,
+                    0.23467252753548504
+                  ],
+                  "coherent_p": 0.376,
+                  "residual_leave_range": [
+                    0.055096017869516595,
+                    0.12510069695472026
+                  ]
+                }
+              }
+            }
+          },
+          "donor": {
+            "north": {
+              "geography_gate": false,
+              "null_gate": false,
+              "metrics": {
+                "total": {
+                  "observed": -0.38115730480711424,
+                  "observed_ci": [
+                    -0.49697610949300713,
+                    -0.27681757423866044
+                  ],
+                  "conditional_null_mean": -0.28231515109304794,
+                  "residual": -0.0988421537140663,
+                  "residual_ci": [
+                    -0.16635513190907977,
+                    -0.029144549970869623
+                  ],
+                  "coherent_p": 0.03,
+                  "residual_leave_range": [
+                    -0.11661938392610637,
+                    -0.08197565636835279
+                  ]
+                }
+              }
+            },
+            "tropical": {
+              "geography_gate": false,
+              "null_gate": false,
+              "metrics": {
+                "total": {
+                  "observed": 0.2158249557386191,
+                  "observed_ci": [
+                    -0.08215527909374756,
+                    0.5297174278529332
+                  ],
+                  "conditional_null_mean": 0.22696231446327106,
+                  "residual": -0.011137358724651963,
+                  "residual_ci": [
+                    -0.07739697827780449,
+                    0.068588688026553
+                  ],
+                  "coherent_p": 0.874,
+                  "residual_leave_range": [
+                    -0.04341080438732625,
+                    0.006592537816390651
+                  ]
+                }
+              }
+            },
+            "south": {
+              "geography_gate": false,
+              "null_gate": false,
+              "metrics": {
+                "total": {
+                  "observed": 0.5628971104344339,
+                  "observed_ci": null,
+                  "conditional_null_mean": 0.4024731934579828,
+                  "residual": 0.1604239169764511,
+                  "residual_ci": null,
+                  "coherent_p": 0.376,
+                  "residual_leave_range": null
+                }
+              }
+            },
+            "tropical_minus_north": {
+              "geography_gate": false,
+              "null_gate": false,
+              "metrics": {
+                "total": {
+                  "observed": 0.5969822605457333,
+                  "observed_ci": [
+                    0.28165469133391463,
+                    0.9366925854465379
+                  ],
+                  "conditional_null_mean": 0.509277465556319,
+                  "residual": 0.0877047949894143,
+                  "residual_ci": [
+                    -0.010977882008020474,
+                    0.18647388654199598
+                  ],
+                  "coherent_p": 0.324,
+                  "residual_leave_range": [
+                    0.05543134932674,
+                    0.10548202520145435
+                  ]
+                }
+              }
+            }
+          }
+        }
+      },
+      "matched_symmetry_cells": {
+        "status": "estimated",
+        "pairs": 152,
+        "species": 2061,
+        "support": {
+          "north": {
+            "pairs": 102,
+            "blocks": 12,
+            "donors": 16,
+            "movable_species": 1410,
+            "movable_genera": 268
+          },
+          "tropical": {
+            "pairs": 46,
+            "blocks": 6,
+            "donors": 8,
+            "movable_species": 452,
+            "movable_genera": 165
+          },
+          "south": {
+            "pairs": 4,
+            "blocks": 1,
+            "donors": 1,
+            "movable_species": 39,
+            "movable_genera": 29
+          }
+        },
+        "group_weightings": {
+          "block": {
+            "north": {
+              "geography_gate": false,
+              "null_gate": false,
+              "metrics": {
+                "total": {
+                  "observed": -0.36915670769006304,
+                  "observed_ci": [
+                    -0.5393634524100874,
+                    -0.21832509373872033
+                  ],
+                  "conditional_null_mean": -0.2879863205030193,
+                  "residual": -0.08117038718704372,
+                  "residual_ci": [
+                    -0.16385995903056216,
+                    -0.006339678051134979
+                  ],
+                  "coherent_p": 0.074,
+                  "residual_leave_range": [
+                    -0.10379670941767749,
+                    -0.058627310202029645
+                  ]
+                },
+                "composition": {
+                  "observed": -0.08607479346524444,
+                  "observed_ci": [
+                    -0.16245174867738268,
+                    -0.032211017300609546
+                  ],
+                  "conditional_null_mean": -0.084016351042141,
+                  "residual": -0.002058442423103435,
+                  "residual_ci": [
+                    -0.015260610147501257,
+                    0.009561221453612325
+                  ],
+                  "coherent_p": 0.656,
+                  "residual_leave_range": [
+                    -0.004328334148069952,
+                    0.0017939805754655805
+                  ]
+                },
+                "within_radial": {
+                  "observed": -0.1727498138758956,
+                  "observed_ci": [
+                    -0.33270748669477257,
+                    -0.026155542330610813
+                  ],
+                  "conditional_null_mean": -0.10393494401399493,
+                  "residual": -0.06881486986190068,
+                  "residual_ci": [
+                    -0.12773051559175322,
+                    -0.01762483833039507
+                  ],
+                  "coherent_p": 0.064,
+                  "residual_leave_range": [
+                    -0.0785345416554769,
+                    -0.052548563872537306
+                  ]
+                },
+                "within_bilateral": {
+                  "observed": -0.11033210034892309,
+                  "observed_ci": [
+                    -0.18686507391880267,
+                    -0.019952396357783137
+                  ],
+                  "conditional_null_mean": -0.10003502544688336,
+                  "residual": -0.010297074902039724,
+                  "residual_ci": [
+                    -0.052993290355240336,
+                    0.03650754974519569
+                  ],
+                  "coherent_p": 0.826,
+                  "residual_leave_range": [
+                    -0.02705614833766621,
+                    0.0025414826068035595
+                  ]
+                }
+              }
+            },
+            "tropical": {
+              "geography_gate": false,
+              "null_gate": false,
+              "metrics": {
+                "total": {
+                  "observed": 0.24563180351417138,
+                  "observed_ci": [
+                    -0.0972320977698664,
+                    0.5718237722331618
+                  ],
+                  "conditional_null_mean": 0.2341104383028302,
+                  "residual": 0.011521365211341172,
+                  "residual_ci": [
+                    -0.09048248405300788,
+                    0.11554241813850064
+                  ],
+                  "coherent_p": 0.88,
+                  "residual_leave_range": [
+                    -0.02649438185443088,
+                    0.040874965155999546
+                  ]
+                },
+                "composition": {
+                  "observed": 0.006222866075795333,
+                  "observed_ci": [
+                    -0.004239387299163541,
+                    0.01922362433520946
+                  ],
+                  "conditional_null_mean": 0.008906951409062601,
+                  "residual": -0.002684085333267268,
+                  "residual_ci": [
+                    -0.005108146167043054,
+                    -0.0001329958573255889
+                  ],
+                  "coherent_p": 0.318,
+                  "residual_leave_range": [
+                    -0.0032393211103586214,
+                    -0.0017052931336712725
+                  ]
+                },
+                "within_radial": {
+                  "observed": 0.2903658629161121,
+                  "observed_ci": [
+                    0.07730148556414293,
+                    0.5574265649960602
+                  ],
+                  "conditional_null_mean": 0.21729655736527284,
+                  "residual": 0.07306930555083926,
+                  "residual_ci": [
+                    -0.006742520260730439,
+                    0.1632885220850205
+                  ],
+                  "coherent_p": 0.38,
+                  "residual_leave_range": [
+                    0.03541749210233874,
+                    0.09519466196041837
+                  ]
+                },
+                "within_bilateral": {
+                  "observed": -0.05095692547773598,
+                  "observed_ci": [
+                    -0.27090501584785404,
+                    0.12118804844184182
+                  ],
+                  "conditional_null_mean": 0.007906929528494816,
+                  "residual": -0.0588638550062308,
+                  "residual_ci": [
+                    -0.09552746466663682,
+                    -0.02985203478323877
+                  ],
+                  "coherent_p": 0.056,
+                  "residual_leave_range": [
+                    -0.06911390447817486,
+                    -0.043866893518674024
+                  ]
+                }
+              }
+            },
+            "south": {
+              "geography_gate": false,
+              "null_gate": false,
+              "metrics": {
+                "total": {
+                  "observed": 0.5628971104344339,
+                  "observed_ci": null,
+                  "conditional_null_mean": 0.4024731934579828,
+                  "residual": 0.1604239169764511,
+                  "residual_ci": null,
+                  "coherent_p": 0.376,
+                  "residual_leave_range": null
+                },
+                "composition": {
+                  "observed": -0.17733075825030126,
+                  "observed_ci": null,
+                  "conditional_null_mean": -0.18552696135761726,
+                  "residual": 0.008196203107316002,
+                  "residual_ci": null,
+                  "coherent_p": 0.774,
+                  "residual_leave_range": null
+                },
+                "within_radial": {
+                  "observed": 0.49472066994823743,
+                  "observed_ci": null,
+                  "conditional_null_mean": 0.4294919139384671,
+                  "residual": 0.06522875600977035,
+                  "residual_ci": null,
+                  "coherent_p": 0.648,
+                  "residual_leave_range": null
+                },
+                "within_bilateral": {
+                  "observed": 0.24550719873649768,
+                  "observed_ci": null,
+                  "conditional_null_mean": 0.15850824087713286,
+                  "residual": 0.08699895785936482,
+                  "residual_ci": null,
+                  "coherent_p": 0.282,
+                  "residual_leave_range": null
+                }
+              }
+            },
+            "tropical_minus_north": {
+              "geography_gate": false,
+              "null_gate": false,
+              "metrics": {
+                "total": {
+                  "observed": 0.6147885112042344,
+                  "observed_ci": [
+                    0.24287264061628722,
+                    0.9967605095928311
+                  ],
+                  "conditional_null_mean": 0.5220967588058495,
+                  "residual": 0.0926917523983849,
+                  "residual_ci": [
+                    -0.03890189344045794,
+                    0.22797805690204911
+                  ],
+                  "coherent_p": 0.338,
+                  "residual_leave_range": [
+                    0.05467600533261295,
+                    0.12204535234304338
+                  ]
+                },
+                "composition": {
+                  "observed": 0.09229765954103977,
+                  "observed_ci": [
+                    0.03644292031252876,
+                    0.17028854540758268
+                  ],
+                  "conditional_null_mean": 0.0929233024512036,
+                  "residual": -0.0006256429101638289,
+                  "residual_ci": [
+                    -0.012720722685905532,
+                    0.012844136856903771
+                  ],
+                  "coherent_p": 0.888,
+                  "residual_leave_range": [
+                    -0.004478065908732848,
+                    0.0016442488148026842
+                  ]
+                },
+                "within_radial": {
+                  "observed": 0.4631156767920077,
+                  "observed_ci": [
+                    0.1942330892469111,
+                    0.7565704643389695
+                  ],
+                  "conditional_null_mean": 0.32123150137926776,
+                  "residual": 0.14188417541273995,
+                  "residual_ci": [
+                    0.04366483288742506,
+                    0.248162502790514
+                  ],
+                  "coherent_p": 0.114,
+                  "residual_leave_range": [
+                    0.10423236196423946,
+                    0.1640095318223191
+                  ]
+                },
+                "within_bilateral": {
+                  "observed": 0.059375174871187104,
+                  "observed_ci": [
+                    -0.18044419223440739,
+                    0.2543046853472625
+                  ],
+                  "conditional_null_mean": 0.10794195497537817,
+                  "residual": -0.04856678010419107,
+                  "residual_ci": [
+                    -0.10747320927249515,
+                    0.0009023506129863059
+                  ],
+                  "coherent_p": 0.318,
+                  "residual_leave_range": [
+                    -0.061405337613034336,
+                    -0.03180770666856457
+                  ]
+                }
+              }
+            }
+          },
+          "donor": {
+            "north": {
+              "geography_gate": false,
+              "null_gate": false,
+              "metrics": {
+                "total": {
+                  "observed": -0.3643895443999981,
+                  "observed_ci": [
+                    -0.48552292173131645,
+                    -0.25757295541803027
+                  ],
+                  "conditional_null_mean": -0.26274897589568313,
+                  "residual": -0.10164056850431497,
+                  "residual_ci": [
+                    -0.17195378197598696,
+                    -0.032620962850434795
+                  ],
+                  "coherent_p": 0.008,
+                  "residual_leave_range": [
+                    -0.11959788356126437,
+                    -0.0819438692330208
+                  ]
+                },
+                "composition": {
+                  "observed": -0.06903083023366975,
+                  "observed_ci": [
+                    -0.1285316493234927,
+                    -0.026445814920828363
+                  ],
+                  "conditional_null_mean": -0.06521349705219057,
+                  "residual": -0.003817333181479185,
+                  "residual_ci": [
+                    -0.013472990726486186,
+                    0.005600509571694132
+                  ],
+                  "coherent_p": 0.496,
+                  "residual_leave_range": [
+                    -0.005599179830346353,
+                    -0.0011094823664202955
+                  ]
+                },
+                "within_radial": {
+                  "observed": -0.16797958700098825,
+                  "observed_ci": [
+                    -0.2764469211218185,
+                    -0.07130376686813733
+                  ],
+                  "conditional_null_mean": -0.09567655781537195,
+                  "residual": -0.0723030291856163,
+                  "residual_ci": [
+                    -0.1279643030792249,
+                    -0.023427938961038616
+                  ],
+                  "coherent_p": 0.036,
+                  "residual_leave_range": [
+                    -0.07966333245581987,
+                    -0.05427553894228069
+                  ]
+                },
+                "within_bilateral": {
+                  "observed": -0.12737912716534003,
+                  "observed_ci": [
+                    -0.1885482994500279,
+                    -0.058267540411380284
+                  ],
+                  "conditional_null_mean": -0.10185892102812052,
+                  "residual": -0.025520206137219503,
+                  "residual_ci": [
+                    -0.06350507529069639,
+                    0.014051712218896513
+                  ],
+                  "coherent_p": 0.318,
+                  "residual_leave_range": [
+                    -0.03882506873902425,
+                    -0.01641191741777567
+                  ]
+                }
+              }
+            },
+            "tropical": {
+              "geography_gate": false,
+              "null_gate": false,
+              "metrics": {
+                "total": {
+                  "observed": 0.20562016379819453,
+                  "observed_ci": [
+                    -0.0850156955312843,
+                    0.530655978666243
+                  ],
+                  "conditional_null_mean": 0.21840424679024226,
+                  "residual": -0.012784082992047724,
+                  "residual_ci": [
+                    -0.07759131576241293,
+                    0.0661309620571857
+                  ],
+                  "coherent_p": 0.878,
+                  "residual_leave_range": [
+                    -0.04341039492522617,
+                    0.004710567225081274
+                  ]
+                },
+                "composition": {
+                  "observed": 0.015179464206752244,
+                  "observed_ci": [
+                    0.0027732244349716363,
+                    0.029181275336078772
+                  ],
+                  "conditional_null_mean": 0.015666628393240706,
+                  "residual": -0.0004871641864884618,
+                  "residual_ci": [
+                    -0.003775166307797465,
+                    0.0033513183593958896
+                  ],
+                  "coherent_p": 0.802,
+                  "residual_leave_range": [
+                    -0.001945730701410155,
+                    0.0005406424515688829
+                  ]
+                },
+                "within_radial": {
+                  "observed": 0.26917470983761727,
+                  "observed_ci": [
+                    0.06648337657233504,
+                    0.5138840782418684
+                  ],
+                  "conditional_null_mean": 0.22808903400348943,
+                  "residual": 0.04108567583412784,
+                  "residual_ci": [
+                    -0.02019731746408537,
+                    0.12331177045681521
+                  ],
+                  "coherent_p": 0.492,
+                  "residual_leave_range": [
+                    0.009622433411383005,
+                    0.05813977328267163
+                  ]
+                },
+                "within_bilateral": {
+                  "observed": -0.07873401024617493,
+                  "observed_ci": [
+                    -0.2512770192066791,
+                    0.06689609691508648
+                  ],
+                  "conditional_null_mean": -0.025351415606487855,
+                  "residual": -0.05338259463968708,
+                  "residual_ci": [
+                    -0.08072163713042975,
+                    -0.032111482552363874
+                  ],
+                  "coherent_p": 0.05,
+                  "residual_leave_range": [
+                    -0.059628618358180244,
+                    -0.041887442096211716
+                  ]
+                }
+              }
+            },
+            "south": {
+              "geography_gate": false,
+              "null_gate": false,
+              "metrics": {
+                "total": {
+                  "observed": 0.5628971104344339,
+                  "observed_ci": null,
+                  "conditional_null_mean": 0.4024731934579828,
+                  "residual": 0.1604239169764511,
+                  "residual_ci": null,
+                  "coherent_p": 0.376,
+                  "residual_leave_range": null
+                },
+                "composition": {
+                  "observed": -0.17733075825030126,
+                  "observed_ci": null,
+                  "conditional_null_mean": -0.18552696135761726,
+                  "residual": 0.008196203107316002,
+                  "residual_ci": null,
+                  "coherent_p": 0.774,
+                  "residual_leave_range": null
+                },
+                "within_radial": {
+                  "observed": 0.49472066994823743,
+                  "observed_ci": null,
+                  "conditional_null_mean": 0.4294919139384671,
+                  "residual": 0.06522875600977035,
+                  "residual_ci": null,
+                  "coherent_p": 0.648,
+                  "residual_leave_range": null
+                },
+                "within_bilateral": {
+                  "observed": 0.24550719873649768,
+                  "observed_ci": null,
+                  "conditional_null_mean": 0.15850824087713286,
+                  "residual": 0.08699895785936482,
+                  "residual_ci": null,
+                  "coherent_p": 0.282,
+                  "residual_leave_range": null
+                }
+              }
+            },
+            "tropical_minus_north": {
+              "geography_gate": false,
+              "null_gate": false,
+              "metrics": {
+                "total": {
+                  "observed": 0.5700097081981926,
+                  "observed_ci": [
+                    0.2632947628680794,
+                    0.9139689773637044
+                  ],
+                  "conditional_null_mean": 0.4811532226859254,
+                  "residual": 0.08885648551226721,
+                  "residual_ci": [
+                    -0.014300496119526867,
+                    0.19304354246106784
+                  ],
+                  "coherent_p": 0.244,
+                  "residual_leave_range": [
+                    0.05823017357908878,
+                    0.10681380056921665
+                  ]
+                },
+                "composition": {
+                  "observed": 0.084210294440422,
+                  "observed_ci": [
+                    0.03946020269170449,
+                    0.14406646242191448
+                  ],
+                  "conditional_null_mean": 0.08088012544543127,
+                  "residual": 0.003330168994990723,
+                  "residual_ci": [
+                    -0.0064606246157486585,
+                    0.013915479222311462
+                  ],
+                  "coherent_p": 0.578,
+                  "residual_leave_range": [
+                    0.0006223181799318337,
+                    0.005112015643857891
+                  ]
+                },
+                "within_radial": {
+                  "observed": 0.4371542968386055,
+                  "observed_ci": [
+                    0.20492286668955445,
+                    0.6904759262237167
+                  ],
+                  "conditional_null_mean": 0.3237655918188614,
+                  "residual": 0.11338870501974413,
+                  "residual_ci": [
+                    0.029491452180158775,
+                    0.20992614998096484
+                  ],
+                  "coherent_p": 0.098,
+                  "residual_leave_range": [
+                    0.08192546259699932,
+                    0.13044280246828793
+                  ]
+                },
+                "within_bilateral": {
+                  "observed": 0.04864511691916509,
+                  "observed_ci": [
+                    -0.1361802006819182,
+                    0.20709196034719868
+                  ],
+                  "conditional_null_mean": 0.07650750542163268,
+                  "residual": -0.027862388502467583,
+                  "residual_ci": [
+                    -0.07384303009759277,
+                    0.018165727893714824
+                  ],
+                  "coherent_p": 0.486,
+                  "residual_leave_range": [
+                    -0.03697067722191141,
+                    -0.014557525900662838
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "loose__inclusive__midpoint__n5": {
+      "all_pairs": {
+        "status": "estimated",
+        "pairs": 161,
+        "species": 2063,
+        "support": {
+          "north": {
+            "pairs": 110,
+            "blocks": 12,
+            "donors": 16,
+            "movable_species": 1411,
+            "movable_genera": 268
+          },
+          "tropical": {
+            "pairs": 47,
+            "blocks": 6,
+            "donors": 8,
+            "movable_species": 452,
+            "movable_genera": 165
+          },
+          "south": {
+            "pairs": 4,
+            "blocks": 1,
+            "donors": 1,
+            "movable_species": 39,
+            "movable_genera": 29
+          }
+        },
+        "group_weightings": {
+          "block": {
+            "north": {
+              "geography_gate": false,
+              "null_gate": false,
+              "metrics": {
+                "total": {
+                  "observed": -0.31566854311172954,
+                  "observed_ci": [
+                    -0.50098923340306,
+                    -0.15562287900039273
+                  ],
+                  "conditional_null_mean": -0.24997565278713177,
+                  "residual": -0.06569289032459777,
+                  "residual_ci": [
+                    -0.14444518066795217,
+                    0.0028914627998485156
+                  ],
+                  "coherent_p": 0.14,
+                  "residual_leave_range": [
+                    -0.08660625332262571,
+                    -0.045194644281352565
+                  ]
+                }
+              }
+            },
+            "tropical": {
+              "geography_gate": false,
+              "null_gate": false,
+              "metrics": {
+                "total": {
+                  "observed": 0.24420994602099924,
+                  "observed_ci": [
+                    -0.04377332949116048,
+                    0.5743401851772639
+                  ],
+                  "conditional_null_mean": 0.21507607903550077,
+                  "residual": 0.02913386698549847,
+                  "residual_ci": [
+                    -0.05117252689146102,
+                    0.11216034293274252
+                  ],
+                  "coherent_p": 0.77,
+                  "residual_leave_range": [
+                    -0.0071506461410411224,
+                    0.051946628108163896
+                  ]
+                }
+              }
+            },
+            "south": {
+              "geography_gate": false,
+              "null_gate": false,
+              "metrics": {
+                "total": {
+                  "observed": 0.48683181822603566,
+                  "observed_ci": null,
+                  "conditional_null_mean": 0.3482153188833606,
+                  "residual": 0.13861649934267506,
+                  "residual_ci": null,
+                  "coherent_p": 0.41,
+                  "residual_leave_range": null
+                }
+              }
+            },
+            "tropical_minus_north": {
+              "geography_gate": false,
+              "null_gate": false,
+              "metrics": {
+                "total": {
+                  "observed": 0.5598784891327288,
+                  "observed_ci": [
+                    0.21923697814052057,
+                    0.9397399384458042
+                  ],
+                  "conditional_null_mean": 0.46505173182263254,
+                  "residual": 0.09482675731009621,
+                  "residual_ci": [
+                    -0.01583187679007028,
+                    0.2014842739691679
+                  ],
+                  "coherent_p": 0.38,
+                  "residual_leave_range": [
+                    0.05854224418355661,
+                    0.11763951843276163
+                  ]
+                }
+              }
+            }
+          },
+          "donor": {
+            "north": {
+              "geography_gate": false,
+              "null_gate": false,
+              "metrics": {
+                "total": {
+                  "observed": -0.32746840040567365,
+                  "observed_ci": [
+                    -0.4488372262098784,
+                    -0.21382801404776347
+                  ],
+                  "conditional_null_mean": -0.24417211134317987,
+                  "residual": -0.08329628906249378,
+                  "residual_ci": [
+                    -0.15544881098039623,
+                    -0.02471640886280317
+                  ],
+                  "coherent_p": 0.05,
+                  "residual_leave_range": [
+                    -0.09980631517690738,
+                    -0.06556513649580906
+                  ]
+                }
+              }
+            },
+            "tropical": {
+              "geography_gate": false,
+              "null_gate": false,
+              "metrics": {
+                "total": {
+                  "observed": 0.19843028573678373,
+                  "observed_ci": [
+                    -0.05113060503316075,
+                    0.49314324094211615
+                  ],
+                  "conditional_null_mean": 0.18679549642682164,
+                  "residual": 0.01163478930996209,
+                  "residual_ci": [
+                    -0.04303194651760593,
+                    0.07848746328170389
+                  ],
+                  "coherent_p": 0.92,
+                  "residual_leave_range": [
+                    -0.01678258830549997,
+                    0.025429750443932187
+                  ]
+                }
+              }
+            },
+            "south": {
+              "geography_gate": false,
+              "null_gate": false,
+              "metrics": {
+                "total": {
+                  "observed": 0.48683181822603566,
+                  "observed_ci": null,
+                  "conditional_null_mean": 0.3482153188833606,
+                  "residual": 0.13861649934267506,
+                  "residual_ci": null,
+                  "coherent_p": 0.41,
+                  "residual_leave_range": null
+                }
+              }
+            },
+            "tropical_minus_north": {
+              "geography_gate": false,
+              "null_gate": false,
+              "metrics": {
+                "total": {
+                  "observed": 0.5258986861424574,
+                  "observed_ci": [
+                    0.24822179661401023,
+                    0.8416952127510438
+                  ],
+                  "conditional_null_mean": 0.43096760777000154,
+                  "residual": 0.09493107837245585,
+                  "residual_ci": [
+                    0.012132129801155953,
+                    0.1901413284368909
+                  ],
+                  "coherent_p": 0.19,
+                  "residual_leave_range": [
+                    0.06651370075699382,
+                    0.11144110448686947
+                  ]
+                }
+              }
+            }
+          }
+        }
+      },
+      "matched_symmetry_cells": {
+        "status": "estimated",
+        "pairs": 152,
+        "species": 2061,
+        "support": {
+          "north": {
+            "pairs": 102,
+            "blocks": 12,
+            "donors": 16,
+            "movable_species": 1410,
+            "movable_genera": 268
+          },
+          "tropical": {
+            "pairs": 46,
+            "blocks": 6,
+            "donors": 8,
+            "movable_species": 452,
+            "movable_genera": 165
+          },
+          "south": {
+            "pairs": 4,
+            "blocks": 1,
+            "donors": 1,
+            "movable_species": 39,
+            "movable_genera": 29
+          }
+        },
+        "group_weightings": {
+          "block": {
+            "north": {
+              "geography_gate": false,
+              "null_gate": false,
+              "metrics": {
+                "total": {
+                  "observed": -0.3110253959883929,
+                  "observed_ci": [
+                    -0.49760803358225836,
+                    -0.14986278016952922
+                  ],
+                  "conditional_null_mean": -0.24582716500186472,
+                  "residual": -0.06519823098652819,
+                  "residual_ci": [
+                    -0.13511262878700417,
+                    0.0044296044580280055
+                  ],
+                  "coherent_p": 0.1,
+                  "residual_leave_range": [
+                    -0.08605802624972068,
+                    -0.044666788853816315
+                  ]
+                },
+                "composition": {
+                  "observed": -0.07703293577692598,
+                  "observed_ci": [
+                    -0.15812317878704016,
+                    -0.02175310800823163
+                  ],
+                  "conditional_null_mean": -0.07475346867384317,
+                  "residual": -0.0022794671030828134,
+                  "residual_ci": [
+                    -0.015343801018029388,
+                    0.008992539478562243
+                  ],
+                  "coherent_p": 0.64,
+                  "residual_leave_range": [
+                    -0.004702865832664684,
+                    0.001369441320019124
+                  ]
+                },
+                "within_radial": {
+                  "observed": -0.13947307332061126,
+                  "observed_ci": [
+                    -0.3155391838837939,
+                    0.010480280598551042
+                  ],
+                  "conditional_null_mean": -0.08526543363510158,
+                  "residual": -0.05420763968550968,
+                  "residual_ci": [
+                    -0.0979451522754541,
+                    -0.010950993226230823
+                  ],
+                  "coherent_p": 0.09,
+                  "residual_leave_range": [
+                    -0.062373647476673615,
+                    -0.039898677995360184
+                  ]
+                },
+                "within_bilateral": {
+                  "observed": -0.09451938689085553,
+                  "observed_ci": [
+                    -0.16201217110555988,
+                    -0.018425903577624005
+                  ],
+                  "conditional_null_mean": -0.08580826269291997,
+                  "residual": -0.008711124197935557,
+                  "residual_ci": [
+                    -0.044932926136279125,
+                    0.03449377403108665
+                  ],
+                  "coherent_p": 0.94,
+                  "residual_leave_range": [
+                    -0.025053820093066215,
+                    0.0002604816298114144
+                  ]
+                }
+              }
+            },
+            "tropical": {
+              "geography_gate": false,
+              "null_gate": false,
+              "metrics": {
+                "total": {
+                  "observed": 0.23016382115871292,
+                  "observed_ci": [
+                    -0.02685584031754033,
+                    0.5344557505557358
+                  ],
+                  "conditional_null_mean": 0.2033263605724408,
+                  "residual": 0.02683746058627212,
+                  "residual_ci": [
+                    -0.04992704319712515,
+                    0.1145752879919655
+                  ],
+                  "coherent_p": 0.77,
+                  "residual_leave_range": [
+                    -0.007150420936886076,
+                    0.04919094042909229
+                  ]
+                },
+                "composition": {
+                  "observed": 0.010394076295528807,
+                  "observed_ci": [
+                    0.0015045970463377076,
+                    0.022306592927570958
+                  ],
+                  "conditional_null_mean": 0.011876828803502491,
+                  "residual": -0.0014827525079736843,
+                  "residual_ci": [
+                    -0.0043656598067174455,
+                    0.0008778192717138659
+                  ],
+                  "coherent_p": 0.45,
+                  "residual_leave_range": [
+                    -0.002068010942539948,
+                    -0.0003629999778225478
+                  ]
+                },
+                "within_radial": {
+                  "observed": 0.25950627818366034,
+                  "observed_ci": [
+                    0.07730426168648247,
+                    0.527571137877441
+                  ],
+                  "conditional_null_mean": 0.18788225168367811,
+                  "residual": 0.07162402649998223,
+                  "residual_ci": [
+                    0.0026788706964204676,
+                    0.1596494261225468
+                  ],
+                  "coherent_p": 0.35,
+                  "residual_leave_range": [
+                    0.03467959640079678,
+                    0.09018322930712744
+                  ]
+                },
+                "within_bilateral": {
+                  "observed": -0.039736533320476226,
+                  "observed_ci": [
+                    -0.20793960567079528,
+                    0.09935347465311282
+                  ],
+                  "conditional_null_mean": 0.003567280085260189,
+                  "residual": -0.04330381340573641,
+                  "residual_ci": [
+                    -0.06875466620421355,
+                    -0.01821337388599088
+                  ],
+                  "coherent_p": 0.1,
+                  "residual_leave_range": [
+                    -0.0510044992577368,
+                    -0.034012058624195644
+                  ]
+                }
+              }
+            },
+            "south": {
+              "geography_gate": false,
+              "null_gate": false,
+              "metrics": {
+                "total": {
+                  "observed": 0.48683181822603566,
+                  "observed_ci": null,
+                  "conditional_null_mean": 0.3482153188833606,
+                  "residual": 0.13861649934267506,
+                  "residual_ci": null,
+                  "coherent_p": 0.41,
+                  "residual_leave_range": null
+                },
+                "composition": {
+                  "observed": -0.13754665478582098,
+                  "observed_ci": null,
+                  "conditional_null_mean": -0.14963357475816683,
+                  "residual": 0.012086919972345844,
+                  "residual_ci": null,
+                  "coherent_p": 0.67,
+                  "residual_leave_range": null
+                },
+                "within_radial": {
+                  "observed": 0.39683577236437484,
+                  "observed_ci": null,
+                  "conditional_null_mean": 0.33503523712780897,
+                  "residual": 0.06180053523656587,
+                  "residual_ci": null,
+                  "coherent_p": 0.64,
+                  "residual_leave_range": null
+                },
+                "within_bilateral": {
+                  "observed": 0.2275427006474819,
+                  "observed_ci": null,
+                  "conditional_null_mean": 0.16281365651371832,
+                  "residual": 0.06472904413376357,
+                  "residual_ci": null,
+                  "coherent_p": 0.27,
+                  "residual_leave_range": null
+                }
+              }
+            },
+            "tropical_minus_north": {
+              "geography_gate": false,
+              "null_gate": false,
+              "metrics": {
+                "total": {
+                  "observed": 0.5411892171471058,
+                  "observed_ci": [
+                    0.22255359185761464,
+                    0.8970413395898245
+                  ],
+                  "conditional_null_mean": 0.44915352557430555,
+                  "residual": 0.09203569157280023,
+                  "residual_ci": [
+                    -0.00940188911323587,
+                    0.19902005000705036
+                  ],
+                  "coherent_p": 0.3,
+                  "residual_leave_range": [
+                    0.05804781004964202,
+                    0.11438917141562038
+                  ]
+                },
+                "composition": {
+                  "observed": 0.08742701207245479,
+                  "observed_ci": [
+                    0.03144635281196065,
+                    0.16737328755063727
+                  ],
+                  "conditional_null_mean": 0.08663029747734566,
+                  "residual": 0.0007967145951091326,
+                  "residual_ci": [
+                    -0.010308010354448905,
+                    0.014189994932912888
+                  ],
+                  "coherent_p": 0.8,
+                  "residual_leave_range": [
+                    -0.0028521938279928057,
+                    0.0032201133246910025
+                  ]
+                },
+                "within_radial": {
+                  "observed": 0.3989793515042716,
+                  "observed_ci": [
+                    0.15299126755418196,
+                    0.6964204782741773
+                  ],
+                  "conditional_null_mean": 0.2731476853187797,
+                  "residual": 0.1258316661854919,
+                  "residual_ci": [
+                    0.040878490720012706,
+                    0.2203384380701138
+                  ],
+                  "coherent_p": 0.09,
+                  "residual_leave_range": [
+                    0.08888723608630647,
+                    0.14439086899263712
+                  ]
+                },
+                "within_bilateral": {
+                  "observed": 0.0547828535703793,
+                  "observed_ci": [
+                    -0.1144530294113249,
+                    0.21298981850802234
+                  ],
+                  "conditional_null_mean": 0.08937554277818016,
+                  "residual": -0.03459268920780086,
+                  "residual_ci": [
+                    -0.08241003021406615,
+                    0.009361255988474069
+                  ],
+                  "coherent_p": 0.37,
+                  "residual_leave_range": [
+                    -0.043564295035547825,
+                    -0.018249993312670198
+                  ]
+                }
+              }
+            }
+          },
+          "donor": {
+            "north": {
+              "geography_gate": false,
+              "null_gate": false,
+              "metrics": {
+                "total": {
+                  "observed": -0.31368495626392995,
+                  "observed_ci": [
+                    -0.43461603174238755,
+                    -0.19879608130472481
+                  ],
+                  "conditional_null_mean": -0.227490578110386,
+                  "residual": -0.08619437815354394,
+                  "residual_ci": [
+                    -0.15723281485734142,
+                    -0.029117072565950166
+                  ],
+                  "coherent_p": 0.01,
+                  "residual_leave_range": [
+                    -0.10289130449101959,
+                    -0.06546793285886507
+                  ]
+                },
+                "composition": {
+                  "observed": -0.06201994258837355,
+                  "observed_ci": [
+                    -0.1162320346464147,
+                    -0.018962210194127926
+                  ],
+                  "conditional_null_mean": -0.05802924943451642,
+                  "residual": -0.003990693153857132,
+                  "residual_ci": [
+                    -0.014105168585159372,
+                    0.004578015606542971
+                  ],
+                  "coherent_p": 0.44,
+                  "residual_leave_range": [
+                    -0.005881933958935439,
+                    -0.0014289087136339798
+                  ]
+                },
+                "within_radial": {
+                  "observed": -0.13851884848637247,
+                  "observed_ci": [
+                    -0.24584901788429828,
+                    -0.04204529768909755
+                  ],
+                  "conditional_null_mean": -0.07710054663039888,
+                  "residual": -0.06141830185597359,
+                  "residual_ci": [
+                    -0.11683985275596413,
+                    -0.01830917862539457
+                  ],
+                  "coherent_p": 0.04,
+                  "residual_leave_range": [
+                    -0.06788741838085807,
+                    -0.04266516312399513
+                  ]
+                },
+                "within_bilateral": {
+                  "observed": -0.11314616518918387,
+                  "observed_ci": [
+                    -0.1713175069338018,
+                    -0.05718977197740453
+                  ],
+                  "conditional_null_mean": -0.09236078204547064,
+                  "residual": -0.020785383143713226,
+                  "residual_ci": [
+                    -0.05149087761334217,
+                    0.01472384114659119
+                  ],
+                  "coherent_p": 0.42,
+                  "residual_leave_range": [
+                    -0.03357497739652756,
+                    -0.013871803574571458
+                  ]
+                }
+              }
+            },
+            "tropical": {
+              "geography_gate": false,
+              "null_gate": false,
+              "metrics": {
+                "total": {
+                  "observed": 0.187895692090069,
+                  "observed_ci": [
+                    -0.03325101942750849,
+                    0.45952263529811177
+                  ],
+                  "conditional_null_mean": 0.177982990052786,
+                  "residual": 0.009912702037283005,
+                  "residual_ci": [
+                    -0.039078453150558294,
+                    0.06947135525528768
+                  ],
+                  "coherent_p": 0.88,
+                  "residual_leave_range": [
+                    -0.016782178843399883,
+                    0.023461650703727518
+                  ]
+                },
+                "composition": {
+                  "observed": 0.016920280290179335,
+                  "observed_ci": [
+                    0.006815327135211622,
+                    0.02953941077254553
+                  ],
+                  "conditional_null_mean": 0.01642261566499363,
+                  "residual": 0.0004976646251857036,
+                  "residual_ci": [
+                    -0.0023916673594498276,
+                    0.003490454403051718
+                  ],
+                  "coherent_p": 0.9,
+                  "residual_leave_range": [
+                    -0.0006089576306271041,
+                    0.0015689496700240534
+                  ]
+                },
+                "within_radial": {
+                  "observed": 0.2320083181347018,
+                  "observed_ci": [
+                    0.059176442142576675,
+                    0.43517029602063073
+                  ],
+                  "conditional_null_mean": 0.1859471506903497,
+                  "residual": 0.0460611674443521,
+                  "residual_ci": [
+                    -0.006575411771327151,
+                    0.11309806592851022
+                  ],
+                  "coherent_p": 0.4,
+                  "residual_leave_range": [
+                    0.016020451794129552,
+                    0.06147143758995328
+                  ]
+                },
+                "within_bilateral": {
+                  "observed": -0.06103290633481206,
+                  "observed_ci": [
+                    -0.17879825590648687,
+                    0.06105739523800052
+                  ],
+                  "conditional_null_mean": -0.02438677630255733,
+                  "residual": -0.036646130032254726,
+                  "residual_ci": [
+                    -0.057175602937211675,
+                    -0.01937508109900789
+                  ],
+                  "coherent_p": 0.09,
+                  "residual_leave_range": [
+                    -0.04099995097333968,
+                    -0.029058064706371074
+                  ]
+                }
+              }
+            },
+            "south": {
+              "geography_gate": false,
+              "null_gate": false,
+              "metrics": {
+                "total": {
+                  "observed": 0.48683181822603566,
+                  "observed_ci": null,
+                  "conditional_null_mean": 0.3482153188833606,
+                  "residual": 0.13861649934267506,
+                  "residual_ci": null,
+                  "coherent_p": 0.41,
+                  "residual_leave_range": null
+                },
+                "composition": {
+                  "observed": -0.13754665478582098,
+                  "observed_ci": null,
+                  "conditional_null_mean": -0.14963357475816683,
+                  "residual": 0.012086919972345844,
+                  "residual_ci": null,
+                  "coherent_p": 0.67,
+                  "residual_leave_range": null
+                },
+                "within_radial": {
+                  "observed": 0.39683577236437484,
+                  "observed_ci": null,
+                  "conditional_null_mean": 0.33503523712780897,
+                  "residual": 0.06180053523656587,
+                  "residual_ci": null,
+                  "coherent_p": 0.64,
+                  "residual_leave_range": null
+                },
+                "within_bilateral": {
+                  "observed": 0.2275427006474819,
+                  "observed_ci": null,
+                  "conditional_null_mean": 0.16281365651371832,
+                  "residual": 0.06472904413376357,
+                  "residual_ci": null,
+                  "coherent_p": 0.27,
+                  "residual_leave_range": null
+                }
+              }
+            },
+            "tropical_minus_north": {
+              "geography_gate": false,
+              "null_gate": false,
+              "metrics": {
+                "total": {
+                  "observed": 0.501580648353999,
+                  "observed_ci": [
+                    0.2416246303557506,
+                    0.778285356545046
+                  ],
+                  "conditional_null_mean": 0.40547356816317204,
+                  "residual": 0.09610708019082692,
+                  "residual_ci": [
+                    0.016399449129633422,
+                    0.18994702345120293
+                  ],
+                  "coherent_p": 0.11,
+                  "residual_leave_range": [
+                    0.06941219931014404,
+                    0.1128040065283026
+                  ]
+                },
+                "composition": {
+                  "observed": 0.07894022287855289,
+                  "observed_ci": [
+                    0.03500135804263941,
+                    0.1342929490378201
+                  ],
+                  "conditional_null_mean": 0.07445186509951005,
+                  "residual": 0.0044883577790428425,
+                  "residual_ci": [
+                    -0.004459506578109082,
+                    0.015410270144525213
+                  ],
+                  "coherent_p": 0.44,
+                  "residual_leave_range": [
+                    0.0019265733388196843,
+                    0.006379598584121143
+                  ]
+                },
+                "within_radial": {
+                  "observed": 0.37052716662107427,
+                  "observed_ci": [
+                    0.16629547045120985,
+                    0.582814436498834
+                  ],
+                  "conditional_null_mean": 0.26304769732074856,
+                  "residual": 0.1074794693003257,
+                  "residual_ci": [
+                    0.03732365122569376,
+                    0.1941342518063653
+                  ],
+                  "coherent_p": 0.08,
+                  "residual_leave_range": [
+                    0.07743875365010314,
+                    0.12288973944592686
+                  ]
+                },
+                "within_bilateral": {
+                  "observed": 0.05211325885437181,
+                  "observed_ci": [
+                    -0.08115225993075968,
+                    0.19529653465990474
+                  ],
+                  "conditional_null_mean": 0.06797400574291332,
+                  "residual": -0.015860746888541506,
+                  "residual_ci": [
+                    -0.05677913658505133,
+                    0.01987561503847503
+                  ],
+                  "coherent_p": 0.55,
+                  "residual_leave_range": [
+                    -0.022774326457683267,
+                    -0.003071152635727166
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "loose__disjoint__max__n5": {
+      "all_pairs": {
+        "status": "estimated",
+        "pairs": 161,
+        "species": 2063,
+        "support": {
+          "north": {
+            "pairs": 110,
+            "blocks": 12,
+            "donors": 16,
+            "movable_species": 1387,
+            "movable_genera": 257
+          },
+          "tropical": {
+            "pairs": 47,
+            "blocks": 6,
+            "donors": 8,
+            "movable_species": 442,
+            "movable_genera": 158
+          },
+          "south": {
+            "pairs": 4,
+            "blocks": 1,
+            "donors": 1,
+            "movable_species": 36,
+            "movable_genera": 26
+          }
+        },
+        "group_weightings": {
+          "block": {
+            "north": {
+              "geography_gate": false,
+              "null_gate": false,
+              "metrics": {
+                "total": {
+                  "observed": -0.39268604572874316,
+                  "observed_ci": [
+                    -0.6085534208262079,
+                    -0.2246339514534
+                  ],
+                  "conditional_null_mean": -0.3092234954039297,
+                  "residual": -0.08346255032481348,
+                  "residual_ci": [
+                    -0.1661459352140806,
+                    -0.007798169271996887
+                  ],
+                  "coherent_p": 0.18,
+                  "residual_leave_range": [
+                    -0.09899677242033614,
+                    -0.0580109365980662
+                  ]
+                }
+              }
+            },
+            "tropical": {
+              "geography_gate": false,
+              "null_gate": false,
+              "metrics": {
+                "total": {
+                  "observed": 0.22679319663925898,
+                  "observed_ci": [
+                    -0.12089079125994504,
+                    0.5879861461593152
+                  ],
+                  "conditional_null_mean": 0.219192724373762,
+                  "residual": 0.0076004722654969825,
+                  "residual_ci": [
+                    -0.09468949077276113,
+                    0.11581896288277954
+                  ],
+                  "coherent_p": 1,
+                  "residual_leave_range": [
+                    -0.03654778769875748,
+                    0.04205908443160315
+                  ]
+                }
+              }
+            },
+            "south": {
+              "geography_gate": false,
+              "null_gate": false,
+              "metrics": {
+                "total": {
+                  "observed": 0.6409544679996153,
+                  "observed_ci": null,
+                  "conditional_null_mean": 0.4174251996640674,
+                  "residual": 0.22352926833554793,
+                  "residual_ci": null,
+                  "coherent_p": 0.25,
+                  "residual_leave_range": null
+                }
+              }
+            },
+            "tropical_minus_north": {
+              "geography_gate": false,
+              "null_gate": false,
+              "metrics": {
+                "total": {
+                  "observed": 0.6194792423680021,
+                  "observed_ci": [
+                    0.2149266600450103,
+                    1.0209741105623527
+                  ],
+                  "conditional_null_mean": 0.5284162197776917,
+                  "residual": 0.0910630225903104,
+                  "residual_ci": [
+                    -0.03638395804479146,
+                    0.21805312918012307
+                  ],
+                  "coherent_p": 0.5,
+                  "residual_leave_range": [
+                    0.04691476262605604,
+                    0.12552163475641667
+                  ]
+                }
+              }
+            }
+          },
+          "donor": {
+            "north": {
+              "geography_gate": false,
+              "null_gate": false,
+              "metrics": {
+                "total": {
+                  "observed": -0.3773818070680808,
+                  "observed_ci": [
+                    -0.5142599061906354,
+                    -0.25539595497009226
+                  ],
+                  "conditional_null_mean": -0.28431709016864426,
+                  "residual": -0.09306471689943652,
+                  "residual_ci": [
+                    -0.17040987986701683,
+                    -0.029123864327033143
+                  ],
+                  "coherent_p": 0.13,
+                  "residual_leave_range": [
+                    -0.1048657977532905,
+                    -0.07437604503594517
+                  ]
+                }
+              }
+            },
+            "tropical": {
+              "geography_gate": false,
+              "null_gate": false,
+              "metrics": {
+                "total": {
+                  "observed": 0.21373613106162126,
+                  "observed_ci": [
+                    -0.07369041146986771,
+                    0.5340803875317254
+                  ],
+                  "conditional_null_mean": 0.21123182339784907,
+                  "residual": 0.0025043076637721873,
+                  "residual_ci": [
+                    -0.0704782660082573,
+                    0.07897334188978597
+                  ],
+                  "coherent_p": 0.95,
+                  "residual_leave_range": [
+                    -0.029758187253798803,
+                    0.02638957855360165
+                  ]
+                }
+              }
+            },
+            "south": {
+              "geography_gate": false,
+              "null_gate": false,
+              "metrics": {
+                "total": {
+                  "observed": 0.6409544679996153,
+                  "observed_ci": null,
+                  "conditional_null_mean": 0.4174251996640674,
+                  "residual": 0.22352926833554793,
+                  "residual_ci": null,
+                  "coherent_p": 0.25,
+                  "residual_leave_range": null
+                }
+              }
+            },
+            "tropical_minus_north": {
+              "geography_gate": false,
+              "null_gate": false,
+              "metrics": {
+                "total": {
+                  "observed": 0.591117938129702,
+                  "observed_ci": [
+                    0.26993028649803436,
+                    0.9581863708046573
+                  ],
+                  "conditional_null_mean": 0.49554891356649333,
+                  "residual": 0.0955690245632087,
+                  "residual_ci": [
+                    -0.006190596551451145,
+                    0.20762869410910278
+                  ],
+                  "coherent_p": 0.32,
+                  "residual_leave_range": [
+                    0.0633065296456377,
+                    0.11945429545303815
+                  ]
+                }
+              }
+            }
+          }
+        }
+      },
+      "matched_symmetry_cells": {
+        "status": "estimated",
+        "pairs": 152,
+        "species": 2061,
+        "support": {
+          "north": {
+            "pairs": 102,
+            "blocks": 12,
+            "donors": 16,
+            "movable_species": 1386,
+            "movable_genera": 257
+          },
+          "tropical": {
+            "pairs": 46,
+            "blocks": 6,
+            "donors": 8,
+            "movable_species": 442,
+            "movable_genera": 158
+          },
+          "south": {
+            "pairs": 4,
+            "blocks": 1,
+            "donors": 1,
+            "movable_species": 36,
+            "movable_genera": 26
+          }
+        },
+        "group_weightings": {
+          "block": {
+            "north": {
+              "geography_gate": false,
+              "null_gate": false,
+              "metrics": {
+                "total": {
+                  "observed": -0.39322002148600116,
+                  "observed_ci": [
+                    -0.6030227215208016,
+                    -0.2274898170854414
+                  ],
+                  "conditional_null_mean": -0.3079340570277938,
+                  "residual": -0.08528596445820735,
+                  "residual_ci": [
+                    -0.1600708441084179,
+                    -0.020051268372026237
+                  ],
+                  "coherent_p": 0.1,
+                  "residual_leave_range": [
+                    -0.10105421170400479,
+                    -0.060067166830233096
+                  ]
+                },
+                "composition": {
+                  "observed": -0.08276987419179892,
+                  "observed_ci": [
+                    -0.16520061510290365,
+                    -0.027675623971415524
+                  ],
+                  "conditional_null_mean": -0.08400759172704185,
+                  "residual": 0.0012377175352429326,
+                  "residual_ci": [
+                    -0.010844397867483748,
+                    0.012599397816661567
+                  ],
+                  "coherent_p": 0.72,
+                  "residual_leave_range": [
+                    -0.0018212482748012342,
+                    0.004371826650159777
+                  ]
+                },
+                "within_radial": {
+                  "observed": -0.19976229484914607,
+                  "observed_ci": [
+                    -0.3692064479874278,
+                    -0.05265741321221502
+                  ],
+                  "conditional_null_mean": -0.12727127556181814,
+                  "residual": -0.07249101928732793,
+                  "residual_ci": [
+                    -0.12386534286415998,
+                    -0.019449348862001465
+                  ],
+                  "coherent_p": 0.08,
+                  "residual_leave_range": [
+                    -0.08369783800309259,
+                    -0.05810391581103246
+                  ]
+                },
+                "within_bilateral": {
+                  "observed": -0.11068785244505626,
+                  "observed_ci": [
+                    -0.18659086503272213,
+                    -0.030076610924380066
+                  ],
+                  "conditional_null_mean": -0.09665518973893374,
+                  "residual": -0.014032662706122523,
+                  "residual_ci": [
+                    -0.05326206979237517,
+                    0.02328234222722145
+                  ],
+                  "coherent_p": 0.94,
+                  "residual_leave_range": [
+                    -0.025447028364998237,
+                    -0.002870628234045669
+                  ]
+                }
+              }
+            },
+            "tropical": {
+              "geography_gate": false,
+              "null_gate": false,
+              "metrics": {
+                "total": {
+                  "observed": 0.21393659708700827,
+                  "observed_ci": [
+                    -0.1064749960506379,
+                    0.5638934263935319
+                  ],
+                  "conditional_null_mean": 0.20892882377821964,
+                  "residual": 0.005007773308788627,
+                  "residual_ci": [
+                    -0.0952590046836808,
+                    0.1131289488456909
+                  ],
+                  "coherent_p": 0.99,
+                  "residual_leave_range": [
+                    -0.03654666813332904,
+                    0.03894784568355315
+                  ]
+                },
+                "composition": {
+                  "observed": 0.007760881748745726,
+                  "observed_ci": [
+                    -0.0051186246748679025,
+                    0.023310639499120912
+                  ],
+                  "conditional_null_mean": 0.009161020048564809,
+                  "residual": -0.0014001382998190832,
+                  "residual_ci": [
+                    -0.003866779711550697,
+                    0.0006117075063011447
+                  ],
+                  "coherent_p": 0.61,
+                  "residual_leave_range": [
+                    -0.0021325243454843037,
+                    -0.0004775334657009833
+                  ]
+                },
+                "within_radial": {
+                  "observed": 0.2764646535541984,
+                  "observed_ci": [
+                    0.056752804050670465,
+                    0.54387546834952
+                  ],
+                  "conditional_null_mean": 0.20682670190732258,
+                  "residual": 0.06963795164687583,
+                  "residual_ci": [
+                    -0.004447016360931387,
+                    0.16308363948807691
+                  ],
+                  "coherent_p": 0.48,
+                  "residual_leave_range": [
+                    0.03191106323570022,
+                    0.08665146472124216
+                  ]
+                },
+                "within_bilateral": {
+                  "observed": -0.07028893821593579,
+                  "observed_ci": [
+                    -0.29523878475651155,
+                    0.13547891025790895
+                  ],
+                  "conditional_null_mean": -0.007058898177667754,
+                  "residual": -0.06323004003826804,
+                  "residual_ci": [
+                    -0.10656820375718233,
+                    -0.03232705708821946
+                  ],
+                  "coherent_p": 0.07,
+                  "residual_leave_range": [
+                    -0.07142422469508025,
+                    -0.04439338154703985
+                  ]
+                }
+              }
+            },
+            "south": {
+              "geography_gate": false,
+              "null_gate": false,
+              "metrics": {
+                "total": {
+                  "observed": 0.6409544679996153,
+                  "observed_ci": null,
+                  "conditional_null_mean": 0.4174251996640674,
+                  "residual": 0.22352926833554793,
+                  "residual_ci": null,
+                  "coherent_p": 0.23,
+                  "residual_leave_range": null
+                },
+                "composition": {
+                  "observed": -0.1691095797700022,
+                  "observed_ci": null,
+                  "conditional_null_mean": -0.19415961215507277,
+                  "residual": 0.02505003238507056,
+                  "residual_ci": null,
+                  "coherent_p": 0.48,
+                  "residual_leave_range": null
+                },
+                "within_radial": {
+                  "observed": 0.49974151019806384,
+                  "observed_ci": null,
+                  "conditional_null_mean": 0.4241734080749461,
+                  "residual": 0.07556810212311776,
+                  "residual_ci": null,
+                  "coherent_p": 0.69,
+                  "residual_leave_range": null
+                },
+                "within_bilateral": {
+                  "observed": 0.31032253757155354,
+                  "observed_ci": null,
+                  "conditional_null_mean": 0.18741140374419388,
+                  "residual": 0.12291113382735966,
+                  "residual_ci": null,
+                  "coherent_p": 0.15,
+                  "residual_leave_range": null
+                }
+              }
+            },
+            "tropical_minus_north": {
+              "geography_gate": false,
+              "null_gate": false,
+              "metrics": {
+                "total": {
+                  "observed": 0.6071566185730094,
+                  "observed_ci": [
+                    0.2345023805376753,
+                    1.0061447451358168
+                  ],
+                  "conditional_null_mean": 0.5168628808060134,
+                  "residual": 0.09029373776699601,
+                  "residual_ci": [
+                    -0.02995849430285538,
+                    0.21367402590837814
+                  ],
+                  "coherent_p": 0.39,
+                  "residual_leave_range": [
+                    0.04873929632487841,
+                    0.1242338101417606
+                  ]
+                },
+                "composition": {
+                  "observed": 0.09053075594054465,
+                  "observed_ci": [
+                    0.03461057745861938,
+                    0.1725093862497827
+                  ],
+                  "conditional_null_mean": 0.09316861177560666,
+                  "residual": -0.002637855835062014,
+                  "residual_ci": [
+                    -0.014113603579183398,
+                    0.009510737956296263
+                  ],
+                  "coherent_p": 0.86,
+                  "residual_leave_range": [
+                    -0.0057719649499788596,
+                    0.0004211099749821521
+                  ]
+                },
+                "within_radial": {
+                  "observed": 0.47622694840334445,
+                  "observed_ci": [
+                    0.19984593953694665,
+                    0.7711981255272531
+                  ],
+                  "conditional_null_mean": 0.3340979774691407,
+                  "residual": 0.14212897093420374,
+                  "residual_ci": [
+                    0.044494667607001666,
+                    0.2448074565090419
+                  ],
+                  "coherent_p": 0.16,
+                  "residual_leave_range": [
+                    0.10440208252302818,
+                    0.15914248400857012
+                  ]
+                },
+                "within_bilateral": {
+                  "observed": 0.04039891422912047,
+                  "observed_ci": [
+                    -0.190493515094816,
+                    0.2594697030830866
+                  ],
+                  "conditional_null_mean": 0.08959629156126599,
+                  "residual": -0.04919737733214552,
+                  "residual_ci": [
+                    -0.1056751585240092,
+                    0.0028470255196224453
+                  ],
+                  "coherent_p": 0.37,
+                  "residual_leave_range": [
+                    -0.06035941180422237,
+                    -0.030360718840917345
+                  ]
+                }
+              }
+            }
+          },
+          "donor": {
+            "north": {
+              "geography_gate": false,
+              "null_gate": false,
+              "metrics": {
+                "total": {
+                  "observed": -0.3689402034655359,
+                  "observed_ci": [
+                    -0.5075568763232671,
+                    -0.241967442340631
+                  ],
+                  "conditional_null_mean": -0.27093926233848636,
+                  "residual": -0.09800094112704955,
+                  "residual_ci": [
+                    -0.1762129759674927,
+                    -0.03330291124079498
+                  ],
+                  "coherent_p": 0.03,
+                  "residual_leave_range": [
+                    -0.11017480735925708,
+                    -0.07623280134114288
+                  ]
+                },
+                "composition": {
+                  "observed": -0.06558315128065301,
+                  "observed_ci": [
+                    -0.12232234917269764,
+                    -0.021680663687336867
+                  ],
+                  "conditional_null_mean": -0.06480946636298232,
+                  "residual": -0.0007736849176706861,
+                  "residual_ci": [
+                    -0.010365660018412442,
+                    0.007904374565503148
+                  ],
+                  "coherent_p": 0.59,
+                  "residual_leave_range": [
+                    -0.003201162315336641,
+                    0.0015433655517741202
+                  ]
+                },
+                "within_radial": {
+                  "observed": -0.18050209720104,
+                  "observed_ci": [
+                    -0.2877227368638078,
+                    -0.08063627325759748
+                  ],
+                  "conditional_null_mean": -0.11072677480441862,
+                  "residual": -0.06977532239662138,
+                  "residual_ci": [
+                    -0.13568414853876748,
+                    -0.01749212260122247
+                  ],
+                  "coherent_p": 0.05,
+                  "residual_leave_range": [
+                    -0.07800774432261326,
+                    -0.048704206338812644
+                  ]
+                },
+                "within_bilateral": {
+                  "observed": -0.12285495498384294,
+                  "observed_ci": [
+                    -0.18449543562712814,
+                    -0.06011834287321109
+                  ],
+                  "conditional_null_mean": -0.09540302117108532,
+                  "residual": -0.027451933812757623,
+                  "residual_ci": [
+                    -0.05865847866688475,
+                    0.00783121559415856
+                  ],
+                  "coherent_p": 0.42,
+                  "residual_leave_range": [
+                    -0.036717086703042176,
+                    -0.01965427663295778
+                  ]
+                }
+              }
+            },
+            "tropical": {
+              "geography_gate": false,
+              "null_gate": false,
+              "metrics": {
+                "total": {
+                  "observed": 0.20409368139743322,
+                  "observed_ci": [
+                    -0.055055473587919526,
+                    0.5155184392918197
+                  ],
+                  "conditional_null_mean": 0.20353281655276712,
+                  "residual": 0.0005608648446661091,
+                  "residual_ci": [
+                    -0.07004757803547167,
+                    0.07269309423209362
+                  ],
+                  "coherent_p": 0.88,
+                  "residual_leave_range": [
+                    -0.029756151680292546,
+                    0.024168501046051876
+                  ]
+                },
+                "composition": {
+                  "observed": 0.01891097202563998,
+                  "observed_ci": [
+                    0.003033097788181707,
+                    0.03602308713875292
+                  ],
+                  "conditional_null_mean": 0.018906086277359724,
+                  "residual": 0.000004885748280256813,
+                  "residual_ci": [
+                    -0.002568059645138489,
+                    0.0026903427819909564
+                  ],
+                  "coherent_p": 0.99,
+                  "residual_leave_range": [
+                    -0.0010646490075677869,
+                    0.0007941728059050433
+                  ]
+                },
+                "within_radial": {
+                  "observed": 0.2743213500722192,
+                  "observed_ci": [
+                    0.08314898002128603,
+                    0.4933488963316107
+                  ],
+                  "conditional_null_mean": 0.22328974211262692,
+                  "residual": 0.05103160795959227,
+                  "residual_ci": [
+                    -0.012449399137977305,
+                    0.11818453468780683
+                  ],
+                  "coherent_p": 0.52,
+                  "residual_leave_range": [
+                    0.021425781424854923,
+                    0.06760812463265051
+                  ]
+                },
+                "within_bilateral": {
+                  "observed": -0.0891386407004259,
+                  "observed_ci": [
+                    -0.25171921785682955,
+                    0.08691765286075342
+                  ],
+                  "conditional_null_mean": -0.038663011837219534,
+                  "residual": -0.05047562886320637,
+                  "residual_ci": [
+                    -0.08836065847343927,
+                    -0.01992525916495825
+                  ],
+                  "coherent_p": 0.12,
+                  "residual_leave_range": [
+                    -0.059502622547638065,
+                    -0.03519881405874883
+                  ]
+                }
+              }
+            },
+            "south": {
+              "geography_gate": false,
+              "null_gate": false,
+              "metrics": {
+                "total": {
+                  "observed": 0.6409544679996153,
+                  "observed_ci": null,
+                  "conditional_null_mean": 0.4174251996640674,
+                  "residual": 0.22352926833554793,
+                  "residual_ci": null,
+                  "coherent_p": 0.23,
+                  "residual_leave_range": null
+                },
+                "composition": {
+                  "observed": -0.1691095797700022,
+                  "observed_ci": null,
+                  "conditional_null_mean": -0.19415961215507277,
+                  "residual": 0.02505003238507056,
+                  "residual_ci": null,
+                  "coherent_p": 0.48,
+                  "residual_leave_range": null
+                },
+                "within_radial": {
+                  "observed": 0.49974151019806384,
+                  "observed_ci": null,
+                  "conditional_null_mean": 0.4241734080749461,
+                  "residual": 0.07556810212311776,
+                  "residual_ci": null,
+                  "coherent_p": 0.69,
+                  "residual_leave_range": null
+                },
+                "within_bilateral": {
+                  "observed": 0.31032253757155354,
+                  "observed_ci": null,
+                  "conditional_null_mean": 0.18741140374419388,
+                  "residual": 0.12291113382735966,
+                  "residual_ci": null,
+                  "coherent_p": 0.15,
+                  "residual_leave_range": null
+                }
+              }
+            },
+            "tropical_minus_north": {
+              "geography_gate": false,
+              "null_gate": false,
+              "metrics": {
+                "total": {
+                  "observed": 0.5730338848629691,
+                  "observed_ci": [
+                    0.26773560370336236,
+                    0.8892501679231247
+                  ],
+                  "conditional_null_mean": 0.4744720788912535,
+                  "residual": 0.09856180597171565,
+                  "residual_ci": [
+                    -0.0032667201649256156,
+                    0.2036949772137289
+                  ],
+                  "coherent_p": 0.25,
+                  "residual_leave_range": [
+                    0.06824478944675699,
+                    0.12216944217310143
+                  ]
+                },
+                "composition": {
+                  "observed": 0.084494123306293,
+                  "observed_ci": [
+                    0.03808587808200607,
+                    0.14502273255831288
+                  ],
+                  "conditional_null_mean": 0.08371555264034204,
+                  "residual": 0.0007785706659509534,
+                  "residual_ci": [
+                    -0.008167670938525629,
+                    0.010826496761575275
+                  ],
+                  "coherent_p": 0.68,
+                  "residual_leave_range": [
+                    -0.001538479803493861,
+                    0.0032060480636169003
+                  ]
+                },
+                "within_radial": {
+                  "observed": 0.4548234472732592,
+                  "observed_ci": [
+                    0.23644522788558378,
+                    0.683218279164801
+                  ],
+                  "conditional_null_mean": 0.33401651691704554,
+                  "residual": 0.12080693035621365,
+                  "residual_ci": [
+                    0.04373251005371552,
+                    0.21664716243767976
+                  ],
+                  "coherent_p": 0.14,
+                  "residual_leave_range": [
+                    0.09120110382147621,
+                    0.1373834470292718
+                  ]
+                },
+                "within_bilateral": {
+                  "observed": 0.03371631428341704,
+                  "observed_ci": [
+                    -0.15210125457309512,
+                    0.222697449619147
+                  ],
+                  "conditional_null_mean": 0.05674000933386578,
+                  "residual": -0.023023695050448746,
+                  "residual_ci": [
+                    -0.07936451154846515,
+                    0.020131390823848534
+                  ],
+                  "coherent_p": 0.6,
+                  "residual_leave_range": [
+                    -0.03205068873488044,
+                    -0.007746880245991201
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "loose__disjoint__midpoint__n10": {
+      "all_pairs": {
+        "status": "estimated",
+        "pairs": 132,
+        "species": 2047,
+        "support": {
+          "north": {
+            "pairs": 90,
+            "blocks": 11,
+            "donors": 15,
+            "movable_species": 1397,
+            "movable_genera": 266
+          },
+          "tropical": {
+            "pairs": 39,
+            "blocks": 6,
+            "donors": 8,
+            "movable_species": 449,
+            "movable_genera": 164
+          },
+          "south": {
+            "pairs": 3,
+            "blocks": 1,
+            "donors": 1,
+            "movable_species": 38,
+            "movable_genera": 29
+          }
+        },
+        "group_weightings": {
+          "block": {
+            "north": {
+              "geography_gate": false,
+              "null_gate": false,
+              "metrics": {
+                "total": {
+                  "observed": -0.3418911200480033,
+                  "observed_ci": [
+                    -0.5157229251054273,
+                    -0.18510742959564425
+                  ],
+                  "conditional_null_mean": -0.22679926889241064,
+                  "residual": -0.11509185115559267,
+                  "residual_ci": [
+                    -0.18188603862460948,
+                    -0.046333369017323205
+                  ],
+                  "coherent_p": 0.05,
+                  "residual_leave_range": [
+                    -0.13172073802027556,
+                    -0.09318131643689972
+                  ]
+                }
+              }
+            },
+            "tropical": {
+              "geography_gate": false,
+              "null_gate": false,
+              "metrics": {
+                "total": {
+                  "observed": 0.21527734286431646,
+                  "observed_ci": [
+                    -0.1048965361805974,
+                    0.5014738230302412
+                  ],
+                  "conditional_null_mean": 0.2225434222228875,
+                  "residual": -0.007266079358571043,
+                  "residual_ci": [
+                    -0.07843219634936546,
+                    0.0706542242474828
+                  ],
+                  "coherent_p": 0.97,
+                  "residual_leave_range": [
+                    -0.03357912209133158,
+                    0.01597611148144496
+                  ]
+                }
+              }
+            },
+            "south": {
+              "geography_gate": false,
+              "null_gate": false,
+              "metrics": {
+                "total": {
+                  "observed": 0.21296104378348163,
+                  "observed_ci": null,
+                  "conditional_null_mean": 0.08495279142529208,
+                  "residual": 0.12800825235818955,
+                  "residual_ci": null,
+                  "coherent_p": 0.43,
+                  "residual_leave_range": null
+                }
+              }
+            },
+            "tropical_minus_north": {
+              "geography_gate": false,
+              "null_gate": false,
+              "metrics": {
+                "total": {
+                  "observed": 0.5571684629123198,
+                  "observed_ci": [
+                    0.1919546088027751,
+                    0.8968094097224057
+                  ],
+                  "conditional_null_mean": 0.4493426911152981,
+                  "residual": 0.10782577179702169,
+                  "residual_ci": [
+                    0.005123394090258163,
+                    0.21038780345551528
+                  ],
+                  "coherent_p": 0.26,
+                  "residual_leave_range": [
+                    0.0815127290642611,
+                    0.13106796263703765
+                  ]
+                }
+              }
+            }
+          },
+          "donor": {
+            "north": {
+              "geography_gate": false,
+              "null_gate": false,
+              "metrics": {
+                "total": {
+                  "observed": -0.3467525611374527,
+                  "observed_ci": [
+                    -0.4638654858547975,
+                    -0.24962118666578503
+                  ],
+                  "conditional_null_mean": -0.22301294307841266,
+                  "residual": -0.12373961805904002,
+                  "residual_ci": [
+                    -0.20006037202367163,
+                    -0.054517994072665915
+                  ],
+                  "coherent_p": 0.02,
+                  "residual_leave_range": [
+                    -0.13892643597534443,
+                    -0.10440455171322235
+                  ]
+                }
+              }
+            },
+            "tropical": {
+              "geography_gate": false,
+              "null_gate": false,
+              "metrics": {
+                "total": {
+                  "observed": 0.1820760036189945,
+                  "observed_ci": [
+                    -0.08239991336105633,
+                    0.4876481836547717
+                  ],
+                  "conditional_null_mean": 0.20896831689092718,
+                  "residual": -0.026892313271932672,
+                  "residual_ci": [
+                    -0.07367602123401083,
+                    0.02329304279180962
+                  ],
+                  "coherent_p": 0.71,
+                  "residual_leave_range": [
+                    -0.04376789024955292,
+                    -0.013094496088115764
+                  ]
+                }
+              }
+            },
+            "south": {
+              "geography_gate": false,
+              "null_gate": false,
+              "metrics": {
+                "total": {
+                  "observed": 0.21296104378348163,
+                  "observed_ci": null,
+                  "conditional_null_mean": 0.08495279142529208,
+                  "residual": 0.12800825235818955,
+                  "residual_ci": null,
+                  "coherent_p": 0.43,
+                  "residual_leave_range": null
+                }
+              }
+            },
+            "tropical_minus_north": {
+              "geography_gate": false,
+              "null_gate": false,
+              "metrics": {
+                "total": {
+                  "observed": 0.5288285647564472,
+                  "observed_ci": [
+                    0.24720251477588603,
+                    0.8508944737972146
+                  ],
+                  "conditional_null_mean": 0.43198125996933984,
+                  "residual": 0.0968473047871074,
+                  "residual_ci": [
+                    0.013925837486169147,
+                    0.18269128736530357
+                  ],
+                  "coherent_p": 0.19,
+                  "residual_leave_range": [
+                    0.0775122384412897,
+                    0.11203412270341177
+                  ]
+                }
+              }
+            }
+          }
+        }
+      },
+      "matched_symmetry_cells": {
+        "status": "estimated",
+        "pairs": 132,
+        "species": 2047,
+        "support": {
+          "north": {
+            "pairs": 90,
+            "blocks": 11,
+            "donors": 15,
+            "movable_species": 1397,
+            "movable_genera": 266
+          },
+          "tropical": {
+            "pairs": 39,
+            "blocks": 6,
+            "donors": 8,
+            "movable_species": 449,
+            "movable_genera": 164
+          },
+          "south": {
+            "pairs": 3,
+            "blocks": 1,
+            "donors": 1,
+            "movable_species": 38,
+            "movable_genera": 29
+          }
+        },
+        "group_weightings": {
+          "block": {
+            "north": {
+              "geography_gate": false,
+              "null_gate": false,
+              "metrics": {
+                "total": {
+                  "observed": -0.3418911200480033,
+                  "observed_ci": [
+                    -0.5157229251054273,
+                    -0.18510742959564425
+                  ],
+                  "conditional_null_mean": -0.22679926889241067,
+                  "residual": -0.11509185115559264,
+                  "residual_ci": [
+                    -0.18188603862460948,
+                    -0.04633336901732321
+                  ],
+                  "coherent_p": 0.05,
+                  "residual_leave_range": [
+                    -0.13172073802027556,
+                    -0.09318131643689972
+                  ]
+                },
+                "composition": {
+                  "observed": -0.053221454788611594,
+                  "observed_ci": [
+                    -0.086231849527816,
+                    -0.021298580806106932
+                  ],
+                  "conditional_null_mean": -0.05425025448352245,
+                  "residual": 0.001028799694910855,
+                  "residual_ci": [
+                    -0.010384029223642035,
+                    0.011219905406254099
+                  ],
+                  "coherent_p": 0.83,
+                  "residual_leave_range": [
+                    -0.0011414416332611117,
+                    0.005548315803099754
+                  ]
+                },
+                "within_radial": {
+                  "observed": -0.13617501055770218,
+                  "observed_ci": [
+                    -0.2845114479906732,
+                    0.013033035195789288
+                  ],
+                  "conditional_null_mean": -0.055892040868719885,
+                  "residual": -0.0802829696889823,
+                  "residual_ci": [
+                    -0.13258038159847918,
+                    -0.025256829214626707
+                  ],
+                  "coherent_p": 0.06,
+                  "residual_leave_range": [
+                    -0.0908856946484785,
+                    -0.06358368557981783
+                  ]
+                },
+                "within_bilateral": {
+                  "observed": -0.15249465470168955,
+                  "observed_ci": [
+                    -0.21627258142022965,
+                    -0.08332257196245181
+                  ],
+                  "conditional_null_mean": -0.11665697354016834,
+                  "residual": -0.03583768116152121,
+                  "residual_ci": [
+                    -0.07037461236455254,
+                    -0.006572356464069895
+                  ],
+                  "coherent_p": 0.19,
+                  "residual_leave_range": [
+                    -0.043333022409447,
+                    -0.02409466877152191
+                  ]
+                }
+              }
+            },
+            "tropical": {
+              "geography_gate": false,
+              "null_gate": false,
+              "metrics": {
+                "total": {
+                  "observed": 0.21527734286431646,
+                  "observed_ci": [
+                    -0.1048965361805974,
+                    0.5014738230302412
+                  ],
+                  "conditional_null_mean": 0.2225434222228875,
+                  "residual": -0.007266079358571043,
+                  "residual_ci": [
+                    -0.07843219634936546,
+                    0.0706542242474828
+                  ],
+                  "coherent_p": 0.97,
+                  "residual_leave_range": [
+                    -0.03357912209133158,
+                    0.01597611148144496
+                  ]
+                },
+                "composition": {
+                  "observed": -0.019133757636686385,
+                  "observed_ci": [
+                    -0.07723529720259249,
+                    0.01851220787256448
+                  ],
+                  "conditional_null_mean": -0.011678364341050162,
+                  "residual": -0.007455393295636223,
+                  "residual_ci": [
+                    -0.018743214679967528,
+                    -0.00012182198634273057
+                  ],
+                  "coherent_p": 0.54,
+                  "residual_leave_range": [
+                    -0.009102502717381788,
+                    -0.0020614628120875942
+                  ]
+                },
+                "within_radial": {
+                  "observed": 0.2605799209376572,
+                  "observed_ci": [
+                    0.07996333429035962,
+                    0.46046576768789
+                  ],
+                  "conditional_null_mean": 0.19803365478910975,
+                  "residual": 0.06254626614854744,
+                  "residual_ci": [
+                    -0.0032510013602124743,
+                    0.13721267710378174
+                  ],
+                  "coherent_p": 0.34,
+                  "residual_leave_range": [
+                    0.03592288102838091,
+                    0.08110157800058235
+                  ]
+                },
+                "within_bilateral": {
+                  "observed": -0.026168820436654295,
+                  "observed_ci": [
+                    -0.27571060885930004,
+                    0.1743474159243595
+                  ],
+                  "conditional_null_mean": 0.03618813177482789,
+                  "residual": -0.062356952211482186,
+                  "residual_ci": [
+                    -0.09346222646369702,
+                    -0.035454322270264155
+                  ],
+                  "coherent_p": 0.04,
+                  "residual_leave_range": [
+                    -0.07177880425302996,
+                    -0.05014680496636319
+                  ]
+                }
+              }
+            },
+            "south": {
+              "geography_gate": false,
+              "null_gate": false,
+              "metrics": {
+                "total": {
+                  "observed": 0.21296104378348163,
+                  "observed_ci": null,
+                  "conditional_null_mean": 0.08495279142529208,
+                  "residual": 0.12800825235818955,
+                  "residual_ci": null,
+                  "coherent_p": 0.43,
+                  "residual_leave_range": null
+                },
+                "composition": {
+                  "observed": -0.24268499524712756,
+                  "observed_ci": null,
+                  "conditional_null_mean": -0.25158560931451585,
+                  "residual": 0.00890061406738829,
+                  "residual_ci": null,
+                  "coherent_p": 0.76,
+                  "residual_leave_range": null
+                },
+                "within_radial": {
+                  "observed": 0.36500123003014556,
+                  "observed_ci": null,
+                  "conditional_null_mean": 0.3519433521325999,
+                  "residual": 0.013057877897545644,
+                  "residual_ci": null,
+                  "coherent_p": 0.98,
+                  "residual_leave_range": null
+                },
+                "within_bilateral": {
+                  "observed": 0.09064480900046346,
+                  "observed_ci": null,
+                  "conditional_null_mean": -0.015404951392792047,
+                  "residual": 0.1060497603932555,
+                  "residual_ci": null,
+                  "coherent_p": 0.26,
+                  "residual_leave_range": null
+                }
+              }
+            },
+            "tropical_minus_north": {
+              "geography_gate": false,
+              "null_gate": false,
+              "metrics": {
+                "total": {
+                  "observed": 0.5571684629123198,
+                  "observed_ci": [
+                    0.1919546088027752,
+                    0.8968094097224056
+                  ],
+                  "conditional_null_mean": 0.4493426911152982,
+                  "residual": 0.10782577179702163,
+                  "residual_ci": [
+                    0.005123394090258163,
+                    0.21038780345551528
+                  ],
+                  "coherent_p": 0.26,
+                  "residual_leave_range": [
+                    0.0815127290642611,
+                    0.13106796263703765
+                  ]
+                },
+                "composition": {
+                  "observed": 0.03408769715192521,
+                  "observed_ci": [
+                    -0.039110069614269,
+                    0.08788865773792791
+                  ],
+                  "conditional_null_mean": 0.042571890142472285,
+                  "residual": -0.008484192990547076,
+                  "residual_ci": [
+                    -0.024001124762137272,
+                    0.006269495239821178
+                  ],
+                  "coherent_p": 0.55,
+                  "residual_leave_range": [
+                    -0.013003709098735973,
+                    -0.0030902625069984422
+                  ]
+                },
+                "within_radial": {
+                  "observed": 0.39675493149535934,
+                  "observed_ci": [
+                    0.152704616249867,
+                    0.6429542985746156
+                  ],
+                  "conditional_null_mean": 0.25392569565782963,
+                  "residual": 0.1428292358375297,
+                  "residual_ci": [
+                    0.0535399443565231,
+                    0.23387697273034538
+                  ],
+                  "coherent_p": 0.16,
+                  "residual_leave_range": [
+                    0.11620585071736321,
+                    0.16138454768956464
+                  ]
+                },
+                "within_bilateral": {
+                  "observed": 0.12632583426503524,
+                  "observed_ci": [
+                    -0.12746079933765853,
+                    0.33029646785264855
+                  ],
+                  "conditional_null_mean": 0.15284510531499623,
+                  "residual": -0.02651927104996099,
+                  "residual_ci": [
+                    -0.07036095021087514,
+                    0.019985217117267733
+                  ],
+                  "coherent_p": 0.59,
+                  "residual_leave_range": [
+                    -0.03826228343996026,
+                    -0.01430912380484197
+                  ]
+                }
+              }
+            }
+          },
+          "donor": {
+            "north": {
+              "geography_gate": false,
+              "null_gate": false,
+              "metrics": {
+                "total": {
+                  "observed": -0.3467525611374527,
+                  "observed_ci": [
+                    -0.4638654858547975,
+                    -0.24962118666578503
+                  ],
+                  "conditional_null_mean": -0.22301294307841266,
+                  "residual": -0.12373961805904002,
+                  "residual_ci": [
+                    -0.20006037202367163,
+                    -0.054517994072665915
+                  ],
+                  "coherent_p": 0.02,
+                  "residual_leave_range": [
+                    -0.13892643597534443,
+                    -0.10440455171322234
+                  ]
+                },
+                "composition": {
+                  "observed": -0.044072966467594225,
+                  "observed_ci": [
+                    -0.06952755470110389,
+                    -0.02179145253665857
+                  ],
+                  "conditional_null_mean": -0.04206281230385622,
+                  "residual": -0.0020101541637380024,
+                  "residual_ci": [
+                    -0.012307711036262102,
+                    0.006460394997334039
+                  ],
+                  "coherent_p": 0.63,
+                  "residual_leave_range": [
+                    -0.0037773946737643354,
+                    0.00132920606915759
+                  ]
+                },
+                "within_radial": {
+                  "observed": -0.14366565253995264,
+                  "observed_ci": [
+                    -0.23955421261103355,
+                    -0.0502666083414887
+                  ],
+                  "conditional_null_mean": -0.06514962866492675,
+                  "residual": -0.07851602387502589,
+                  "residual_ci": [
+                    -0.14031922751281403,
+                    -0.025051952461278594
+                  ],
+                  "coherent_p": 0.05,
+                  "residual_leave_range": [
+                    -0.08672853597765884,
+                    -0.05993209315537031
+                  ]
+                },
+                "within_bilateral": {
+                  "observed": -0.15901394212990583,
+                  "observed_ci": [
+                    -0.2112864763007167,
+                    -0.10494173449014917
+                  ],
+                  "conditional_null_mean": -0.1158005021096297,
+                  "residual": -0.043213440020276134,
+                  "residual_ci": [
+                    -0.07434392218563056,
+                    -0.01544304416492182
+                  ],
+                  "coherent_p": 0.06,
+                  "residual_leave_range": [
+                    -0.04991954853559788,
+                    -0.034591541434936826
+                  ]
+                }
+              }
+            },
+            "tropical": {
+              "geography_gate": false,
+              "null_gate": false,
+              "metrics": {
+                "total": {
+                  "observed": 0.1820760036189945,
+                  "observed_ci": [
+                    -0.08239991336105633,
+                    0.4876481836547717
+                  ],
+                  "conditional_null_mean": 0.20896831689092715,
+                  "residual": -0.026892313271932644,
+                  "residual_ci": [
+                    -0.07367602123401085,
+                    0.02329304279180962
+                  ],
+                  "coherent_p": 0.71,
+                  "residual_leave_range": [
+                    -0.04376789024955292,
+                    -0.013094496088115764
+                  ]
+                },
+                "composition": {
+                  "observed": -0.003566335720551245,
+                  "observed_ci": [
+                    -0.051304064419831194,
+                    0.02842498043686782
+                  ],
+                  "conditional_null_mean": 0.0005584988128655329,
+                  "residual": -0.004124834533416778,
+                  "residual_ci": [
+                    -0.013842513404095248,
+                    0.0024981652465097958
+                  ],
+                  "coherent_p": 0.59,
+                  "residual_leave_range": [
+                    -0.005923890170650421,
+                    0.00020376706372073162
+                  ]
+                },
+                "within_radial": {
+                  "observed": 0.24770046350216496,
+                  "observed_ci": [
+                    0.05943585044923877,
+                    0.45109695402405975
+                  ],
+                  "conditional_null_mean": 0.2139302003864767,
+                  "residual": 0.03377026311568826,
+                  "residual_ci": [
+                    -0.016010115282389402,
+                    0.09435904767421649
+                  ],
+                  "coherent_p": 0.5,
+                  "residual_leave_range": [
+                    0.010642701882303684,
+                    0.04980764248365134
+                  ]
+                },
+                "within_bilateral": {
+                  "observed": -0.06205812416261914,
+                  "observed_ci": [
+                    -0.22818488933604686,
+                    0.10260374864091867
+                  ],
+                  "conditional_null_mean": -0.0055203823084150755,
+                  "residual": -0.056537741854204064,
+                  "residual_ci": [
+                    -0.0793217393090697,
+                    -0.036157594505792874
+                  ],
+                  "coherent_p": 0.01,
+                  "residual_leave_range": [
+                    -0.06293937349667211,
+                    -0.04698489234236507
+                  ]
+                }
+              }
+            },
+            "south": {
+              "geography_gate": false,
+              "null_gate": false,
+              "metrics": {
+                "total": {
+                  "observed": 0.21296104378348163,
+                  "observed_ci": null,
+                  "conditional_null_mean": 0.08495279142529208,
+                  "residual": 0.12800825235818955,
+                  "residual_ci": null,
+                  "coherent_p": 0.43,
+                  "residual_leave_range": null
+                },
+                "composition": {
+                  "observed": -0.24268499524712756,
+                  "observed_ci": null,
+                  "conditional_null_mean": -0.25158560931451585,
+                  "residual": 0.00890061406738829,
+                  "residual_ci": null,
+                  "coherent_p": 0.76,
+                  "residual_leave_range": null
+                },
+                "within_radial": {
+                  "observed": 0.36500123003014556,
+                  "observed_ci": null,
+                  "conditional_null_mean": 0.3519433521325999,
+                  "residual": 0.013057877897545644,
+                  "residual_ci": null,
+                  "coherent_p": 0.98,
+                  "residual_leave_range": null
+                },
+                "within_bilateral": {
+                  "observed": 0.09064480900046346,
+                  "observed_ci": null,
+                  "conditional_null_mean": -0.015404951392792047,
+                  "residual": 0.1060497603932555,
+                  "residual_ci": null,
+                  "coherent_p": 0.26,
+                  "residual_leave_range": null
+                }
+              }
+            },
+            "tropical_minus_north": {
+              "geography_gate": false,
+              "null_gate": false,
+              "metrics": {
+                "total": {
+                  "observed": 0.5288285647564472,
+                  "observed_ci": [
+                    0.24720251477588603,
+                    0.8508944737972147
+                  ],
+                  "conditional_null_mean": 0.4319812599693398,
+                  "residual": 0.09684730478710746,
+                  "residual_ci": [
+                    0.013925837486169147,
+                    0.18269128736530357
+                  ],
+                  "coherent_p": 0.19,
+                  "residual_leave_range": [
+                    0.07751223844128968,
+                    0.11203412270341177
+                  ]
+                },
+                "composition": {
+                  "observed": 0.04050663074704298,
+                  "observed_ci": [
+                    -0.012397118537979373,
+                    0.0859093240810527
+                  ],
+                  "conditional_null_mean": 0.04262131111672175,
+                  "residual": -0.0021146803696787744,
+                  "residual_ci": [
+                    -0.0152576803557622,
+                    0.01013959761384456
+                  ],
+                  "coherent_p": 0.78,
+                  "residual_leave_range": [
+                    -0.005454040602574367,
+                    0.0022139212274587482
+                  ]
+                },
+                "within_radial": {
+                  "observed": 0.3913661160421176,
+                  "observed_ci": [
+                    0.19355789471422577,
+                    0.6126559040672077
+                  ],
+                  "conditional_null_mean": 0.27907982905140344,
+                  "residual": 0.11228628699071413,
+                  "residual_ci": [
+                    0.034069762390899275,
+                    0.19153479157285647
+                  ],
+                  "coherent_p": 0.11,
+                  "residual_leave_range": [
+                    0.08915872575732954,
+                    0.1283236663586772
+                  ]
+                },
+                "within_bilateral": {
+                  "observed": 0.0969558179672867,
+                  "observed_ci": [
+                    -0.07389386970372729,
+                    0.27863896297599705
+                  ],
+                  "conditional_null_mean": 0.11028011980121462,
+                  "residual": -0.013324301833927923,
+                  "residual_ci": [
+                    -0.051285893942821785,
+                    0.023394865893422948
+                  ],
+                  "coherent_p": 0.72,
+                  "residual_leave_range": [
+                    -0.021946200419267238,
+                    -0.003771452322088975
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "strict__disjoint__midpoint__n5": {
+      "all_pairs": {
+        "status": "estimated",
+        "pairs": 1,
+        "species": 184,
+        "support": {
+          "north": {
+            "pairs": 1,
+            "blocks": 1,
+            "donors": 1,
+            "movable_species": 128,
+            "movable_genera": 34
+          },
+          "tropical": {
+            "pairs": 0,
+            "blocks": 0,
+            "donors": 0,
+            "movable_species": 0,
+            "movable_genera": 0
+          },
+          "south": {
+            "pairs": 0,
+            "blocks": 0,
+            "donors": 0,
+            "movable_species": 0,
+            "movable_genera": 0
+          }
+        },
+        "group_weightings": {
+          "block": {
+            "north": {
+              "geography_gate": false,
+              "null_gate": false,
+              "metrics": {
+                "total": {
+                  "observed": -0.2694031622709662,
+                  "observed_ci": [
+                    -0.2694031622709662,
+                    -0.2694031622709662
+                  ],
+                  "conditional_null_mean": -0.3005171944427761,
+                  "residual": 0.031114032171809858,
+                  "residual_ci": [
+                    0.031114032171809858,
+                    0.031114032171809858
+                  ],
+                  "coherent_p": 0.47,
+                  "residual_leave_range": null
+                }
+              }
+            }
+          },
+          "donor": {
+            "north": {
+              "geography_gate": false,
+              "null_gate": false,
+              "metrics": {
+                "total": {
+                  "observed": -0.2694031622709662,
+                  "observed_ci": [
+                    -0.2694031622709662,
+                    -0.2694031622709662
+                  ],
+                  "conditional_null_mean": -0.3005171944427761,
+                  "residual": 0.031114032171809858,
+                  "residual_ci": [
+                    0.031114032171809858,
+                    0.031114032171809858
+                  ],
+                  "coherent_p": 0.47,
+                  "residual_leave_range": null
+                }
+              }
+            }
+          }
+        }
+      },
+      "matched_symmetry_cells": {
+        "status": "estimated",
+        "pairs": 1,
+        "species": 184,
+        "support": {
+          "north": {
+            "pairs": 1,
+            "blocks": 1,
+            "donors": 1,
+            "movable_species": 128,
+            "movable_genera": 34
+          },
+          "tropical": {
+            "pairs": 0,
+            "blocks": 0,
+            "donors": 0,
+            "movable_species": 0,
+            "movable_genera": 0
+          },
+          "south": {
+            "pairs": 0,
+            "blocks": 0,
+            "donors": 0,
+            "movable_species": 0,
+            "movable_genera": 0
+          }
+        },
+        "group_weightings": {
+          "block": {
+            "north": {
+              "geography_gate": false,
+              "null_gate": false,
+              "metrics": {
+                "total": {
+                  "observed": -0.2694031622709662,
+                  "observed_ci": [
+                    -0.2694031622709662,
+                    -0.2694031622709662
+                  ],
+                  "conditional_null_mean": -0.3005171944427761,
+                  "residual": 0.031114032171809858,
+                  "residual_ci": [
+                    0.031114032171809858,
+                    0.031114032171809858
+                  ],
+                  "coherent_p": 0.47,
+                  "residual_leave_range": null
+                },
+                "composition": {
+                  "observed": -0.010887978883254547,
+                  "observed_ci": [
+                    -0.010887978883254547,
+                    -0.010887978883254547
+                  ],
+                  "conditional_null_mean": -0.010589797170704166,
+                  "residual": -0.00029818171255038134,
+                  "residual_ci": [
+                    -0.00029818171255038134,
+                    -0.00029818171255038134
+                  ],
+                  "coherent_p": 0.25,
+                  "residual_leave_range": null
+                },
+                "within_radial": {
+                  "observed": -0.09877355702838929,
+                  "observed_ci": [
+                    -0.09877355702838929,
+                    -0.09877355702838929
+                  ],
+                  "conditional_null_mean": -0.14277827402731014,
+                  "residual": 0.04400471699892085,
+                  "residual_ci": [
+                    0.04400471699892085,
+                    0.04400471699892085
+                  ],
+                  "coherent_p": 0.22,
+                  "residual_leave_range": null
+                },
+                "within_bilateral": {
+                  "observed": -0.15974162635932238,
+                  "observed_ci": [
+                    -0.15974162635932238,
+                    -0.15974162635932238
+                  ],
+                  "conditional_null_mean": -0.14714912324476137,
+                  "residual": -0.012592503114561004,
+                  "residual_ci": [
+                    -0.012592503114561004,
+                    -0.012592503114561004
+                  ],
+                  "coherent_p": 0.74,
+                  "residual_leave_range": null
+                }
+              }
+            }
+          },
+          "donor": {
+            "north": {
+              "geography_gate": false,
+              "null_gate": false,
+              "metrics": {
+                "total": {
+                  "observed": -0.2694031622709662,
+                  "observed_ci": [
+                    -0.2694031622709662,
+                    -0.2694031622709662
+                  ],
+                  "conditional_null_mean": -0.3005171944427761,
+                  "residual": 0.031114032171809858,
+                  "residual_ci": [
+                    0.031114032171809858,
+                    0.031114032171809858
+                  ],
+                  "coherent_p": 0.47,
+                  "residual_leave_range": null
+                },
+                "composition": {
+                  "observed": -0.010887978883254547,
+                  "observed_ci": [
+                    -0.010887978883254547,
+                    -0.010887978883254547
+                  ],
+                  "conditional_null_mean": -0.010589797170704166,
+                  "residual": -0.00029818171255038134,
+                  "residual_ci": [
+                    -0.00029818171255038134,
+                    -0.00029818171255038134
+                  ],
+                  "coherent_p": 0.25,
+                  "residual_leave_range": null
+                },
+                "within_radial": {
+                  "observed": -0.09877355702838929,
+                  "observed_ci": [
+                    -0.09877355702838929,
+                    -0.09877355702838929
+                  ],
+                  "conditional_null_mean": -0.14277827402731014,
+                  "residual": 0.04400471699892085,
+                  "residual_ci": [
+                    0.04400471699892085,
+                    0.04400471699892085
+                  ],
+                  "coherent_p": 0.22,
+                  "residual_leave_range": null
+                },
+                "within_bilateral": {
+                  "observed": -0.15974162635932238,
+                  "observed_ci": [
+                    -0.15974162635932238,
+                    -0.15974162635932238
+                  ],
+                  "conditional_null_mean": -0.14714912324476137,
+                  "residual": -0.012592503114561004,
+                  "residual_ci": [
+                    -0.012592503114561004,
+                    -0.012592503114561004
+                  ],
+                  "coherent_p": 0.74,
+                  "residual_leave_range": null
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

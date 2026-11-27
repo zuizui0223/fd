@@ -1,0 +1,247 @@
+{
+  "source_run": 45759340796,
+  "source_head": "e96ec2af6912748b0d15d4ede0db94a8eec7456c",
+  "artifact_metadata": [
+    {
+      "id": 15089171041,
+      "digest": "sha256:1f7085b37e5041212d33b70a4f420775b203e7932df147713971bb950c2d067c"
+    }
+  ],
+  "provenance": "complete aggregate job log; ZIP not independently verified",
+  "table": {
+    "status": "audited_publisher_binary",
+    "rows": 279877,
+    "columns": [
+      "Order",
+      "Family_E",
+      "Genus_E",
+      "Species_E1",
+      "Species_E2",
+      "Symmtry",
+      "Note1",
+      "Note2"
+    ],
+    "raw_state_counts": {
+      "RadSymmetry": 170289,
+      "BiSymmetry": 109588
+    },
+    "key_census": {
+      "both_agree": 262475,
+      "no_genus_consistent_binomial": 17402
+    },
+    "exact_binomial_rows": 262475,
+    "conflicting_symmetry_names": 0,
+    "family_conflicts": 0,
+    "note1_counts": {
+      "": 256010,
+      "discoid": 5949,
+      "radiate or discoid": 2882,
+      "ligulate": 2555,
+      "radiate": 2091,
+      "discoid, disciform or radiate": 2002,
+      "disciform or discoid": 1462,
+      "*": 1187,
+      "radiant": 683,
+      "discoid [radiant]": 586,
+      "radiate, sometimes discoid or disciform": 463,
+      "discoid, radiate or disciform": 460,
+      "disciform": 379,
+      "zygomorphy": 308,
+      "eradiate": 249,
+      "radiate or disciform": 210,
+      "disciform or radiate, discoid": 159,
+      "discoid or radiate": 154,
+      "disciform or radiate": 150,
+      "discoid to radiate": 149,
+      "radiate, sometimes discoid": 148,
+      "disciform, radiate": 138,
+      "radiate [discoid]": 134,
+      "radiate (discoid)": 124,
+      "discoid or disciform": 109,
+      "radiate, disciform": 106,
+      "disciform, radiate, discoid": 105,
+      "discoid, disciform or radiant": 102,
+      "discoid, disciform, radiant": 102,
+      "discoid, rarely radiate": 79
+    },
+    "note1_annotated_distinct_names": 21908,
+    "explicit_reference_note_rows": 16,
+    "family_known_rows": 279877,
+    "scopes": {
+      "all_publisher_binary": {
+        "distinct_exact_names": 262473,
+        "states": {
+          "radial": 159583,
+          "bilateral": 102890
+        },
+        "joint_coverage": {
+          "flower colour": {
+            "species": 4445,
+            "radial": 2949,
+            "bilateral": 1496
+          },
+          "corolla colour": {
+            "species": 5075,
+            "radial": 3005,
+            "bilateral": 2070
+          },
+          "flower shape": {
+            "species": 759,
+            "radial": 564,
+            "bilateral": 195
+          },
+          "corolla_tube_range_cm": {
+            "species": 10180,
+            "radial": 5956,
+            "bilateral": 4224
+          }
+        },
+        "flower_color_form_symmetry_common_species": 157,
+        "corolla_color_tube_symmetry_common_species": 3000,
+        "flower_color_tube_symmetry_common_species": 687
+      },
+      "unannotated": {
+        "distinct_exact_names": 240565,
+        "states": {
+          "bilateral": 100232,
+          "radial": 140333
+        },
+        "joint_coverage": {
+          "flower colour": {
+            "species": 3686,
+            "radial": 2302,
+            "bilateral": 1384
+          },
+          "corolla colour": {
+            "species": 4173,
+            "radial": 2167,
+            "bilateral": 2006
+          },
+          "flower shape": {
+            "species": 704,
+            "radial": 521,
+            "bilateral": 183
+          },
+          "corolla_tube_range_cm": {
+            "species": 7865,
+            "radial": 3791,
+            "bilateral": 4074
+          }
+        },
+        "flower_color_form_symmetry_common_species": 147,
+        "corolla_color_tube_symmetry_common_species": 2268,
+        "flower_color_tube_symmetry_common_species": 511
+      },
+      "unannotated_without_four_families": {
+        "distinct_exact_names": 222113,
+        "states": {
+          "bilateral": 88852,
+          "radial": 133261
+        },
+        "joint_coverage": {
+          "flower colour": {
+            "species": 3371,
+            "radial": 2068,
+            "bilateral": 1303
+          },
+          "corolla colour": {
+            "species": 4138,
+            "radial": 2142,
+            "bilateral": 1996
+          },
+          "flower shape": {
+            "species": 674,
+            "radial": 517,
+            "bilateral": 157
+          },
+          "corolla_tube_range_cm": {
+            "species": 7813,
+            "radial": 3753,
+            "bilateral": 4060
+          }
+        },
+        "flower_color_form_symmetry_common_species": 146,
+        "corolla_color_tube_symmetry_common_species": 2249,
+        "flower_color_tube_symmetry_common_species": 511
+      }
+    },
+    "direct_evidence_classification": "Unavailable for most rows. Binary publisher-coded states, not certified direct observations. Unannotated is a Note1 filter only; not a direct-evidence flag."
+  },
+  "nhm": {
+    "traits": {
+      "flower colour": {
+        "accepted_species": 5412,
+        "raw_nonmissing": 13315,
+        "conflict": 0,
+        "states": {
+          "white": 1721,
+          "yellow": 1819,
+          "pink": 231,
+          "red": 195,
+          "green": 402,
+          "orange": 48,
+          "blue": 221,
+          "violet": 455,
+          "brown": 265,
+          "black": 47,
+          "grey": 8
+        }
+      },
+      "corolla colour": {
+        "accepted_species": 5693,
+        "raw_nonmissing": 14146,
+        "conflict": 0,
+        "states": {
+          "yellow": 1701,
+          "red": 378,
+          "violet": 908,
+          "pink": 247,
+          "white": 1771,
+          "blue": 550,
+          "green": 71,
+          "grey": 3,
+          "orange": 42,
+          "black": 8,
+          "brown": 14
+        }
+      },
+      "flower shape": {
+        "accepted_species": 1029,
+        "raw_nonmissing": 1124,
+        "conflict": 0,
+        "states": {
+          "campanulate": 687,
+          "urceolate": 93,
+          "calyciform": 12,
+          "tubular": 168,
+          "rotate": 29,
+          "infundibuliform": 9,
+          "ligulate": 31
+        }
+      },
+      "corolla_tube_range_cm": {
+        "accepted_species": 11244,
+        "raw_min": 11277,
+        "raw_max": 11276,
+        "parsed_both": 11253,
+        "reversed_bounds": 9,
+        "max_length_quantiles": [
+          0.02,
+          0.6,
+          1.2,
+          2.2,
+          91.44
+        ]
+      }
+    },
+    "joint": {
+      "flower colour__corolla colour": 332,
+      "flower colour__flower shape": 202,
+      "flower colour__corolla_tube_range_cm": 764,
+      "corolla colour__flower shape": 64,
+      "corolla colour__corolla_tube_range_cm": 3332,
+      "flower shape__corolla_tube_range_cm": 159
+    }
+  },
+  "objects": "dataset data.frame 279877 8 \n"
+}
