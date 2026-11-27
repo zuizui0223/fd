@@ -8,6 +8,7 @@
   "allowed_paths": [
     ".github/workflows/external-db-boundary.yml",
     ".github/workflows/external-floral-replication-intake.yml",
+    ".github/workflows/external-gift-continuous-flower-space.yml",
     ".github/workflows/external-gift-floral-replication-coverage.yml",
     ".github/workflows/external-wang-nhm-trait-bridge.yml",
     ".github/workflows/global_bird_source_audit.yml",
@@ -52,6 +53,7 @@
     "scripts/check_external_source_boundary.py",
     "scripts/export_mdd_bat_ranges.R",
     "scripts/external_floral_replication_intake.py",
+    "scripts/external_gift_continuous_flower_space.py",
     "scripts/external_gift_floral_replication_coverage.py",
     "scripts/external_gift_native_flora_roster.py",
     "scripts/external_wang_nhm_trait_bridge.py",
