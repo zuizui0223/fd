@@ -1,0 +1,902 @@
+{
+  "source_run": 46068916636,
+  "provenance": "verified job log, artifact ZIP bytes not independently checked",
+  "panels": {
+    "pollen__loose__disjoint__n5": {
+      "status": "estimated",
+      "pairs": 151,
+      "species": 904,
+      "support": {
+        "north": {
+          "pairs": 90,
+          "blocks": 38,
+          "donors": 25,
+          "movable_species": 418,
+          "movable_genera": 108
+        },
+        "tropical": {
+          "pairs": 56,
+          "blocks": 31,
+          "donors": 22,
+          "movable_species": 276,
+          "movable_genera": 101
+        },
+        "south": {
+          "pairs": 5,
+          "blocks": 5,
+          "donors": 3,
+          "movable_species": 36,
+          "movable_genera": 27
+        }
+      },
+      "group_weightings": {
+        "block": {
+          "north": {
+            "geography_gate": true,
+            "null_gate": true,
+            "metrics": {
+              "total": {
+                "observed": -0.03537359276290177,
+                "observed_ci": [
+                  -0.109054154174933,
+                  0.041368197092736265
+                ],
+                "conditional_null_mean": -0.030238699008122788,
+                "residual": -0.005134893754778984,
+                "residual_ci": [
+                  -0.028672577298423534,
+                  0.0173731694986219
+                ],
+                "coherent_p": 0.82,
+                "residual_leave_range": [
+                  -0.00950957639210541,
+                  -0.0009998975103392952
+                ]
+              }
+            }
+          },
+          "tropical": {
+            "geography_gate": true,
+            "null_gate": true,
+            "metrics": {
+              "total": {
+                "observed": -0.10158122130661136,
+                "observed_ci": [
+                  -0.21207960287797162,
+                  0.014445580468878519
+                ],
+                "conditional_null_mean": -0.0771513691238163,
+                "residual": -0.02442985218279506,
+                "residual_ci": [
+                  -0.05935973892965621,
+                  0.015429208290192674
+                ],
+                "coherent_p": 0.612,
+                "residual_leave_range": [
+                  -0.03399944320548735,
+                  -0.015087941376009445
+                ]
+              }
+            }
+          },
+          "south": {
+            "geography_gate": false,
+            "null_gate": false,
+            "metrics": {
+              "total": {
+                "observed": -0.10129653169483115,
+                "observed_ci": [
+                  -0.20065153755081971,
+                  0.015047414009249513
+                ],
+                "conditional_null_mean": -0.18661069042145104,
+                "residual": 0.08531415872661989,
+                "residual_ci": [
+                  0.011461761220648126,
+                  0.1376063466375684
+                ],
+                "coherent_p": 0.278,
+                "residual_leave_range": [
+                  0.06994816956865729,
+                  0.10985461282759318
+                ]
+              }
+            }
+          },
+          "tropical_minus_north": {
+            "geography_gate": true,
+            "null_gate": true,
+            "metrics": {
+              "total": {
+                "observed": -0.0662076285437096,
+                "observed_ci": [
+                  -0.19598346251197216,
+                  0.07692365563287895
+                ],
+                "conditional_null_mean": -0.046912670115693514,
+                "residual": -0.019294958428016082,
+                "residual_ci": [
+                  -0.06406405590391454,
+                  0.027595418111071544
+                ],
+                "coherent_p": 0.682,
+                "residual_leave_range": [
+                  -0.028864549450708384,
+                  -0.00995304762123048
+                ]
+              }
+            }
+          }
+        },
+        "donor": {
+          "north": {
+            "geography_gate": true,
+            "null_gate": true,
+            "metrics": {
+              "total": {
+                "observed": -0.07233623769254895,
+                "observed_ci": [
+                  -0.1390186836235828,
+                  0.001625532483152589
+                ],
+                "conditional_null_mean": -0.056624629461202856,
+                "residual": -0.01571160823134609,
+                "residual_ci": [
+                  -0.03828043813177619,
+                  0.0034000234218028408
+                ],
+                "coherent_p": 0.332,
+                "residual_leave_range": [
+                  -0.01902577919315999,
+                  -0.011722097855866379
+                ]
+              }
+            }
+          },
+          "tropical": {
+            "geography_gate": true,
+            "null_gate": true,
+            "metrics": {
+              "total": {
+                "observed": -0.16759979922244253,
+                "observed_ci": [
+                  -0.3023157603730326,
+                  -0.03423722255069857
+                ],
+                "conditional_null_mean": -0.15170227637939906,
+                "residual": -0.015897522843043466,
+                "residual_ci": [
+                  -0.051052792913848524,
+                  0.018129080473341753
+                ],
+                "coherent_p": 0.676,
+                "residual_leave_range": [
+                  -0.0227094951985358,
+                  -0.007777858326217842
+                ]
+              }
+            }
+          },
+          "south": {
+            "geography_gate": false,
+            "null_gate": false,
+            "metrics": {
+              "total": {
+                "observed": -0.08775059853205631,
+                "observed_ci": [
+                  -0.157832804,
+                  -0.020020932718182283
+                ],
+                "conditional_null_mean": -0.15670445452469403,
+                "residual": 0.06895385599263772,
+                "residual_ci": [
+                  -0.012847657677273194,
+                  0.12843457791666646
+                ],
+                "coherent_p": 0.29,
+                "residual_leave_range": [
+                  0.03921349503062335,
+                  0.10985461282759318
+                ]
+              }
+            }
+          },
+          "tropical_minus_north": {
+            "geography_gate": true,
+            "null_gate": true,
+            "metrics": {
+              "total": {
+                "observed": -0.09526356152989358,
+                "observed_ci": [
+                  -0.24198558049964827,
+                  0.05851458667323391
+                ],
+                "conditional_null_mean": -0.0950776469181962,
+                "residual": -0.00018591461169738255,
+                "residual_ci": [
+                  -0.03920142251665885,
+                  0.04161490202729505
+                ],
+                "coherent_p": 1,
+                "residual_leave_range": [
+                  -0.0069978869671897155,
+                  0.00793374990512824
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "pollen__loose__inclusive__n5": {
+      "status": "estimated",
+      "pairs": 151,
+      "species": 904,
+      "support": {
+        "north": {
+          "pairs": 90,
+          "blocks": 38,
+          "donors": 25,
+          "movable_species": 418,
+          "movable_genera": 108
+        },
+        "tropical": {
+          "pairs": 56,
+          "blocks": 31,
+          "donors": 22,
+          "movable_species": 276,
+          "movable_genera": 101
+        },
+        "south": {
+          "pairs": 5,
+          "blocks": 5,
+          "donors": 3,
+          "movable_species": 36,
+          "movable_genera": 27
+        }
+      },
+      "group_weightings": {
+        "block": {
+          "north": {
+            "geography_gate": true,
+            "null_gate": true,
+            "metrics": {
+              "total": {
+                "observed": -0.017483959190050424,
+                "observed_ci": [
+                  -0.07862150294376724,
+                  0.04530000143141193
+                ],
+                "conditional_null_mean": -0.01662457969339147,
+                "residual": -0.0008593794966589539,
+                "residual_ci": [
+                  -0.018142402730322776,
+                  0.015209934531325358
+                ],
+                "coherent_p": 0.96,
+                "residual_leave_range": [
+                  -0.004643005673287112,
+                  0.002648552843954272
+                ]
+              }
+            }
+          },
+          "tropical": {
+            "geography_gate": true,
+            "null_gate": true,
+            "metrics": {
+              "total": {
+                "observed": -0.08298456630954622,
+                "observed_ci": [
+                  -0.18972938390365643,
+                  0.011958906022881579
+                ],
+                "conditional_null_mean": -0.055363303715294895,
+                "residual": -0.027621262594251322,
+                "residual_ci": [
+                  -0.06080062936318914,
+                  0.007697724182781471
+                ],
+                "coherent_p": 0.48,
+                "residual_leave_range": [
+                  -0.036591164398137366,
+                  -0.01921678793136739
+                ]
+              }
+            }
+          },
+          "south": {
+            "geography_gate": false,
+            "null_gate": false,
+            "metrics": {
+              "total": {
+                "observed": -0.13248723989719152,
+                "observed_ci": [
+                  -0.24097852724843774,
+                  0.028265178255458896
+                ],
+                "conditional_null_mean": -0.20299508512942896,
+                "residual": 0.07050784523223744,
+                "residual_ci": [
+                  0.011638110007937547,
+                  0.11548264136432278
+                ],
+                "coherent_p": 0.38,
+                "residual_leave_range": [
+                  0.0549679167123021,
+                  0.08647623745636825
+                ]
+              }
+            }
+          },
+          "tropical_minus_north": {
+            "geography_gate": true,
+            "null_gate": true,
+            "metrics": {
+              "total": {
+                "observed": -0.06550060711949579,
+                "observed_ci": [
+                  -0.1786879681590131,
+                  0.04850377752054448
+                ],
+                "conditional_null_mean": -0.038738724021903426,
+                "residual": -0.026761883097592365,
+                "residual_ci": [
+                  -0.061347920189947974,
+                  0.011513453873759776
+                ],
+                "coherent_p": 0.44,
+                "residual_leave_range": [
+                  -0.03573178490147841,
+                  -0.018357408434708435
+                ]
+              }
+            }
+          }
+        },
+        "donor": {
+          "north": {
+            "geography_gate": true,
+            "null_gate": true,
+            "metrics": {
+              "total": {
+                "observed": -0.035060207548750194,
+                "observed_ci": [
+                  -0.09641414789702393,
+                  0.02132383772658141
+                ],
+                "conditional_null_mean": -0.02905176810483793,
+                "residual": -0.006008439443912265,
+                "residual_ci": [
+                  -0.019033209474895858,
+                  0.007017941666540393
+                ],
+                "coherent_p": 0.62,
+                "residual_leave_range": [
+                  -0.008849184527100198,
+                  -0.0027814139950166467
+                ]
+              }
+            }
+          },
+          "tropical": {
+            "geography_gate": true,
+            "null_gate": true,
+            "metrics": {
+              "total": {
+                "observed": -0.11863413642755988,
+                "observed_ci": [
+                  -0.24103776650165043,
+                  -0.014746487852085424
+                ],
+                "conditional_null_mean": -0.09900957976476303,
+                "residual": -0.019624556662796847,
+                "residual_ci": [
+                  -0.0477392244894958,
+                  0.011638691503164279
+                ],
+                "coherent_p": 0.54,
+                "residual_leave_range": [
+                  -0.024807661540666943,
+                  -0.012511012993925178
+                ]
+              }
+            }
+          },
+          "south": {
+            "geography_gate": false,
+            "null_gate": false,
+            "metrics": {
+              "total": {
+                "observed": -0.10778654455242141,
+                "observed_ci": [
+                  -0.2370095014999999,
+                  0.01571693217142911
+                ],
+                "conditional_null_mean": -0.16764879496857166,
+                "residual": 0.059862250416150245,
+                "residual_ci": [
+                  0.006634276335714284,
+                  0.09829772341666665
+                ],
+                "coherent_p": 0.39,
+                "residual_leave_range": [
+                  0.04064451391589206,
+                  0.08647623745636823
+                ]
+              }
+            }
+          },
+          "tropical_minus_north": {
+            "geography_gate": true,
+            "null_gate": true,
+            "metrics": {
+              "total": {
+                "observed": -0.08357392887880968,
+                "observed_ci": [
+                  -0.22538911730839323,
+                  0.04569196228885346
+                ],
+                "conditional_null_mean": -0.0699578116599251,
+                "residual": -0.013616117218884588,
+                "residual_ci": [
+                  -0.04560959582126012,
+                  0.019018279517224002
+                ],
+                "coherent_p": 0.62,
+                "residual_leave_range": [
+                  -0.017947076166969864,
+                  -0.0065025735500129035
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "pollen__loose__disjoint__n10": {
+      "status": "estimated",
+      "pairs": 93,
+      "species": 864,
+      "support": {
+        "north": {
+          "pairs": 61,
+          "blocks": 30,
+          "donors": 22,
+          "movable_species": 400,
+          "movable_genera": 102
+        },
+        "tropical": {
+          "pairs": 30,
+          "blocks": 20,
+          "donors": 17,
+          "movable_species": 269,
+          "movable_genera": 100
+        },
+        "south": {
+          "pairs": 2,
+          "blocks": 2,
+          "donors": 2,
+          "movable_species": 32,
+          "movable_genera": 24
+        }
+      },
+      "group_weightings": {
+        "block": {
+          "north": {
+            "geography_gate": true,
+            "null_gate": true,
+            "metrics": {
+              "total": {
+                "observed": -0.06112232230407795,
+                "observed_ci": [
+                  -0.14033573442917177,
+                  0.02361624328608208
+                ],
+                "conditional_null_mean": -0.05102589641989749,
+                "residual": -0.010096425884180457,
+                "residual_ci": [
+                  -0.0407147368038016,
+                  0.019816879560876237
+                ],
+                "coherent_p": 0.6,
+                "residual_leave_range": [
+                  -0.015770774206605633,
+                  -0.0045929739095351176
+                ]
+              }
+            }
+          },
+          "tropical": {
+            "geography_gate": false,
+            "null_gate": false,
+            "metrics": {
+              "total": {
+                "observed": -0.1863570225023253,
+                "observed_ci": [
+                  -0.3363542484086865,
+                  -0.04969829067245748
+                ],
+                "conditional_null_mean": -0.18337040771269134,
+                "residual": -0.002986614789633968,
+                "residual_ci": [
+                  -0.033201782349290165,
+                  0.02818684321089123
+                ],
+                "coherent_p": 0.92,
+                "residual_leave_range": [
+                  -0.010228361411040504,
+                  0.004206565758629593
+                ]
+              }
+            }
+          },
+          "south": {
+            "geography_gate": false,
+            "null_gate": false,
+            "metrics": {
+              "total": {
+                "observed": 0.026326610313741866,
+                "observed_ci": null,
+                "conditional_null_mean": 0.014926841613927072,
+                "residual": 0.011399768699814794,
+                "residual_ci": null,
+                "coherent_p": 0.94,
+                "residual_leave_range": [
+                  -0.012971642718939858,
+                  0.035771180118569446
+                ]
+              }
+            }
+          },
+          "tropical_minus_north": {
+            "geography_gate": false,
+            "null_gate": false,
+            "metrics": {
+              "total": {
+                "observed": -0.12523470019824734,
+                "observed_ci": [
+                  -0.2933326660976882,
+                  0.041636376701730794
+                ],
+                "conditional_null_mean": -0.13234451129279384,
+                "residual": 0.007109811094546503,
+                "residual_ci": [
+                  -0.03625214289514394,
+                  0.05161040752366467
+                ],
+                "coherent_p": 0.85,
+                "residual_leave_range": [
+                  -0.00013193552686004313,
+                  0.014302991642810053
+                ]
+              }
+            }
+          }
+        },
+        "donor": {
+          "north": {
+            "geography_gate": true,
+            "null_gate": true,
+            "metrics": {
+              "total": {
+                "observed": -0.0779461928972488,
+                "observed_ci": [
+                  -0.15397363870368277,
+                  0.013790105100410528
+                ],
+                "conditional_null_mean": -0.055706089466338087,
+                "residual": -0.022240103430910714,
+                "residual_ci": [
+                  -0.051535380215904494,
+                  0.005960535473515464
+                ],
+                "coherent_p": 0.15,
+                "residual_leave_range": [
+                  -0.029163255001375114,
+                  -0.0164054289698113
+                ]
+              }
+            }
+          },
+          "tropical": {
+            "geography_gate": false,
+            "null_gate": false,
+            "metrics": {
+              "total": {
+                "observed": -0.24020270564007423,
+                "observed_ci": [
+                  -0.3892186320962159,
+                  -0.09699205217815982
+                ],
+                "conditional_null_mean": -0.232063297755504,
+                "residual": -0.008139407884570238,
+                "residual_ci": [
+                  -0.04542315808356544,
+                  0.02858840867545105
+                ],
+                "coherent_p": 0.78,
+                "residual_leave_range": [
+                  -0.016345236762500374,
+                  0.0031450244469802286
+                ]
+              }
+            }
+          },
+          "south": {
+            "geography_gate": false,
+            "null_gate": false,
+            "metrics": {
+              "total": {
+                "observed": 0.026326610313741866,
+                "observed_ci": null,
+                "conditional_null_mean": 0.014926841613927072,
+                "residual": 0.011399768699814794,
+                "residual_ci": null,
+                "coherent_p": 0.94,
+                "residual_leave_range": [
+                  -0.012971642718939858,
+                  0.035771180118569446
+                ]
+              }
+            }
+          },
+          "tropical_minus_north": {
+            "geography_gate": false,
+            "null_gate": false,
+            "metrics": {
+              "total": {
+                "observed": -0.16225651274282543,
+                "observed_ci": [
+                  -0.3431772000333521,
+                  -0.0011908943026078971
+                ],
+                "conditional_null_mean": -0.1763572082891659,
+                "residual": 0.01410069554634047,
+                "residual_ci": [
+                  -0.033890721791505964,
+                  0.05874513956474028
+                ],
+                "coherent_p": 0.66,
+                "residual_leave_range": [
+                  0.005894866668410367,
+                  0.02538512787789097
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "pollen__strict__disjoint__n5": {
+      "status": "estimated",
+      "pairs": 5,
+      "species": 400,
+      "support": {
+        "north": {
+          "pairs": 5,
+          "blocks": 5,
+          "donors": 5,
+          "movable_species": 275,
+          "movable_genera": 61
+        },
+        "tropical": {
+          "pairs": 0,
+          "blocks": 0,
+          "donors": 0,
+          "movable_species": 0,
+          "movable_genera": 0
+        },
+        "south": {
+          "pairs": 0,
+          "blocks": 0,
+          "donors": 0,
+          "movable_species": 0,
+          "movable_genera": 0
+        }
+      },
+      "group_weightings": {
+        "block": {
+          "north": {
+            "geography_gate": false,
+            "null_gate": false,
+            "metrics": {
+              "total": {
+                "observed": -0.1999791801406887,
+                "observed_ci": [
+                  -0.34002674879404615,
+                  -0.09241930596528145
+                ],
+                "conditional_null_mean": -0.1473261703692476,
+                "residual": -0.05265300977144108,
+                "residual_ci": [
+                  -0.09504969868317178,
+                  0.004039662096116325
+                ],
+                "coherent_p": 0.02,
+                "residual_leave_range": [
+                  -0.0781132047768671,
+                  -0.04145655988372987
+                ]
+              }
+            }
+          }
+        },
+        "donor": {
+          "north": {
+            "geography_gate": false,
+            "null_gate": false,
+            "metrics": {
+              "total": {
+                "observed": -0.1999791801406887,
+                "observed_ci": [
+                  -0.30874276610167983,
+                  -0.08437129312161748
+                ],
+                "conditional_null_mean": -0.1473261703692476,
+                "residual": -0.05265300977144108,
+                "residual_ci": [
+                  -0.09461854800551994,
+                  0.004470812773768168
+                ],
+                "coherent_p": 0.02,
+                "residual_leave_range": [
+                  -0.0781132047768671,
+                  -0.04145655988372987
+                ]
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "tables": {},
+  "files": {},
+  "SOURCE": {
+    "nectar": {
+      "file": "Nectar_dataset.csv",
+      "status": "unavailable",
+      "error": "no unique explicitly log10 nectar/sugar column; actual columns: ['ID', 'Species', 'Genus', 'Family', 'Nectar.microg.per.day', 'Source']"
+    },
+    "pollen": {
+      "file": "Pollen_dataset_no_duplicates.csv",
+      "receipt": {
+        "status": "retrieved",
+        "size": 87156,
+        "sha256": "a2d4759c0940b568dbf788738ca844ce21f66618047ad6f8318156f0faf3c146",
+        "published_checksum": "md5:e65c34116c424d1aee677e96686bba1a",
+        "prior_attempt_errors": []
+      },
+      "rows": 1495,
+      "name_column": "Species",
+      "value_column": "log10Pollen",
+      "name_audit": {
+        "Species": {
+          "normalized_binomials": 1490,
+          "literal_binomials": 0,
+          "underscore_rows": 1494
+        }
+      },
+      "finite_log_values": 1495,
+      "distinct_names": 1490,
+      "conflicts": 0,
+      "usable_species": 1490
+    }
+  },
+  "ROSTER": {
+    "selection": {
+      "previous_targets": 0,
+      "previous_manifest_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "selected_targets": 288,
+      "selected_manifest_sha256": "8945ce01bd1b5a9294fe18ee570ec6ed9d207e93363c70ec3732ffe013f3c935",
+      "selected_regions": {
+        "north": 155,
+        "south": 35,
+        "tropical": 98
+      },
+      "shared_donors_with_previous": 0,
+      "selected_donors": 75,
+      "shared_blocks_with_previous": 0,
+      "selected_blocks": 103
+    },
+    "metadata_pins": [
+      {
+        "url": "https://gift.uni-goettingen.de/api/extended/index3.1.php?query=regions",
+        "sha256": "d12d9129eb8aeb7aafb295ddf99b3ffdd810dcd628ab951ca31e560ab772b64b",
+        "rows": 4047,
+        "canonical_rows_sha256": "f27f5c3675725a155b6deb70e5d530308d9908e5e976e6dddc6dea25065a0650"
+      },
+      {
+        "url": "https://gift.uni-goettingen.de/api/extended/index3.1.php?query=lists",
+        "sha256": "7cbf01e767f5abc061fb3622db031c95e4b24646b98d875eed9f1d9e742ba244",
+        "rows": 3611,
+        "canonical_rows_sha256": "13d4a4fb28655716aeb858acb501df9fcb86c38b35196a657b800cf31e152953"
+      },
+      {
+        "url": "https://gift.uni-goettingen.de/api/extended/index3.1.php?query=taxonomy",
+        "sha256": "ca6ece6d326efef2585ad96e9f19928d043233937e44f6a3b521d3728acb20c4",
+        "rows": 21192,
+        "canonical_rows_sha256": "3e79a3b5287b27afb6fab54f0e8d181fa7af08bf34a6c04d31dffe3657b0bae3"
+      },
+      {
+        "url": "https://gift.uni-goettingen.de/api/extended/index3.1.php?query=geoentities_env_misc&envvar=longitude%2Clatitude",
+        "sha256": "7b77226f0704d6d8557d7f132e506449a0cc7cf205bca2e91a39ec63775e6d04",
+        "rows": 4047,
+        "canonical_rows_sha256": "5791ee6eec7d1e2983bfc26c44b1917d9f6f50e69648e402c7f00fec0973954e"
+      },
+      {
+        "url": "https://gift.uni-goettingen.de/api/extended/index3.1.php?query=overlap",
+        "sha256": "3826ceba45b69dff5454fd213959b9e058b64f12ff4ca298b7aa5393d15c0568",
+        "rows": 31752,
+        "canonical_rows_sha256": "805bb2c0f59ac54dcc8a59733689f11da8731bf8caf91c1ca808efa01b057d07"
+      }
+    ],
+    "geography": {
+      "overlap_schema_audit": {
+        "raw_rows": 31752,
+        "irrelevant_rows": 26232,
+        "candidate_rows": 5520,
+        "valid_candidate_rows": 4980,
+        "invalid_candidate_rows": 540,
+        "invalid_reasons": {
+          "out_of_unit_interval": 540
+        },
+        "quarantined_candidate_entities": 283,
+        "eligible_candidate_entities": 1956,
+        "valid_fraction_range": [
+          0,
+          1
+        ],
+        "threshold": 0.1,
+        "rule": "candidate pairs first; quarantine both endpoints of any invalid relevant pair"
+      },
+      "eligible_island_entities": 1253,
+      "eligible_mainland_entities": 751,
+      "valid_island_centroids": 1133,
+      "valid_mainland_centroids": 540,
+      "nonoverlapping_mainland_candidates": 458,
+      "islands_without_comparator_within_2000km": 334,
+      "selected_island_entities": 288,
+      "selected_mainland_comparators": 75,
+      "selected_geographic_blocks": 103,
+      "skipped_overlap_in_selection": 36,
+      "centroid_distance_median_km": 773.4012493625145
+    },
+    "plan_sha256": "8945ce01bd1b5a9294fe18ee570ec6ed9d207e93363c70ec3732ffe013f3c935",
+    "planned_regions": {
+      "north": 155,
+      "south": 35,
+      "tropical": 98
+    },
+    "successful_lists": 363,
+    "download_errors": [],
+    "taxonomy_audit": {
+      "distinct_work_ids": 110757,
+      "conflicting_work_ids": 0,
+      "ambiguous_binomials": 0,
+      "clean_distinct_binomials": 110757
+    }
+  },
+  "COMPLETE": {
+    "panels": 4,
+    "verdict": {
+      "pollen": {
+        "gate": true,
+        "holm_p": 1,
+        "supported": false
+      },
+      "nectar": {
+        "gate": false,
+        "holm_p": 1,
+        "supported": false
+      }
+    }
+  },
+  "artifact_metadata": [
+    {
+      "id": 15231599861,
+      "digest": "sha256:4c5a5a8370bee26b001fd990f2ddcfb73cb9c1ad475b313e18a7f0bb177a676c"
+    }
+  ]
+}
