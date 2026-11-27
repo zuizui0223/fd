@@ -7,7 +7,7 @@ from tropical_pollinator_source_preflight import get,blobsha
 from external_wang_nhm_trait_bridge import ROOT,FILES,NHM_ROOT,NHM,strict_nhm,wang_tables
 from external_gift_native_flora_roster import cohort,SCOPES,self_test as roster_test
 
-def source_tables():
+def source_tables(include_values=False):
     b=get(NHM_ROOT+"combined.csv",maxbytes=25_000_000)
     assert blobsha(b)==NHM["combined.csv"]
     nhm,na=strict_nhm(b)
@@ -27,7 +27,9 @@ def source_tables():
         sy=set(sym)
         for k,v in {"symmetry":sy,"flower_color_symmetry":fc&sy,"flower_form_symmetry":fs&sy,"tube_symmetry":tube&sy,"flower_color_form_symmetry":fc&fs&sy,"corolla_color_tube_symmetry":cc&tube&sy}.items():
             base[scope+"__"+k]=v
-    return base,{"source_pins":pins,"nhm":na,"wang":wa,"global_carrier_counts":{k:len(v) for k,v in base.items()}}
+    info={"source_pins":pins,"nhm":na,"wang":wa,"global_carrier_counts":{k:len(v) for k,v in base.items()}}
+    if include_values:return base,info,nhm,wang
+    return base,info
 def census(plan,data,traits):
     panels={}
     for scope in SCOPES:
