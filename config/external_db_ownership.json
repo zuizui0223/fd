@@ -126,6 +126,7 @@
     "shared_db_research/scripts/fd_original_tropical_pollinator_bridge.py",
     "shared_db_research/scripts/fd_pairwise_flower_space.py",
     "shared_db_research/scripts/fd_repertoire_baseline_partition.py",
+    "shared_db_research/scripts/fd_repertoire_cell_partition.py",
     "shared_db_research/scripts/fd_source_repertoire_turnover.py",
     "src/fd/__init__.py",
     "src/fd/avoniche_nectar_preflight.py",
