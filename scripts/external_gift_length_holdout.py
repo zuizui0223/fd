@@ -16,7 +16,9 @@ PRIMARY="loose__disjoint__midpoint__n5"
 SPECS=[("loose","disjoint","midpoint",5),("loose","inclusive","midpoint",5),("loose","disjoint","max",5),("loose","disjoint","midpoint",10),("strict","disjoint","midpoint",5)]
 
 def assemble(rows,tab,matched):
-    kept=[];coeff=[];labels=("total","composition","within_radial","within_bilateral") if matched else ("total",)
+    if matched:
+        rows=[z for z in rows if all(sum(tab[s][0]==g for s in z[k])>=2 for k in ("t","s") for g in (0,1))]
+    kept=[];labels=("total","composition","within_radial","within_bilateral") if matched else ("total",)
     names=sorted(set().union(*(z["t"]|z["s"] for z in rows)))
     idx={s:i for i,s in enumerate(names)}
     mats=[([],[],[]) for _ in labels]
