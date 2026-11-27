@@ -151,10 +151,16 @@ def geo_plan(eligible,environment,overlap):
 
 def native_names(i,record,zid):
     rows,pin=fetch("checklists",listid=ident(record["list_ID"]),taxonid=zid,namesmatched=0,filter="native")
+    return parse_native_names(rows,pin,i,record)
+
+def parse_native_names(rows,pin,i,record):
     by=collections.defaultdict(list)
     cols=sorted({c for r in rows for c in r})
-    if rows:
-        assert {"entity_ID","list_ID","work_ID","genus_ID","species","native","questionable","quest_native"}<=set(cols),cols
+    # GIFT R wrapper documents species, but raw API uses work_species.
+    # Do not use original species epithet, genus or an inferred name.
+    required={"entity_ID","list_ID","work_ID","genus_ID","native","questionable","quest_native","work_species"}
+    if rows and not required<=set(cols):
+        raise ValueError("checklist schema missing "+str(sorted(required-set(cols)))+"; columns="+str(cols))
     for r in rows:
         assert ident(r["entity_ID"])==i and ident(r["list_ID"])==ident(record["list_ID"])
         if r.get("work_ID") not in (None,""):by[ident(r["work_ID"])].append(r)
@@ -163,14 +169,14 @@ def native_names(i,record,zid):
         n={flag(r.get("native")) for r in rs};q={flag(r.get("questionable")) for r in rs};s={flag(r.get("quest_native")) for r in rs}
         if n!={"1"} or not q<={"0","missing"} or not s<={"0","missing"}:
             excluded["nonliteral_native_or_question_flag"]+=1;continue
-        names={name(r.get("species")) for r in rs};g={str(r.get("genus_ID")) for r in rs}
+        names={name(r.get("work_species")) for r in rs};g={str(r.get("genus_ID")) for r in rs}
         if len(names)!=1 or None in names or len(g)!=1 or next(iter(g)) in {"None","","0"}:
             excluded["unresolved_binomial_or_genus"]+=1;continue
         v=(next(iter(names)),next(iter(g)))
         out[SCOPES[0]][w]=v
         if q=={"0"} and s=={"0"}:out[SCOPES[1]][w]=v
     assert set(out[SCOPES[1]])<=set(out[SCOPES[0]])
-    return out,{"source":pin,"columns":cols,"excluded":dict(excluded),"counts":{s:len(v) for s,v in out.items()}}
+    return out,{"source":pin,"columns":cols,"name_field":"work_species","excluded":dict(excluded),"counts":{s:len(v) for s,v in out.items()}}
 def consistent_names(data):
     byid=collections.defaultdict(set);byname=collections.defaultdict(set)
     for v in data.values():
@@ -204,13 +210,27 @@ def cohort():
             try:
                 data[i],z=native_names(i,eligible[kind][i],zid)
                 sources.append(z)
-            except Exception as e:errors.append({"entity_ID":i,"list_ID":eligible[kind][i]["list_ID"],"error_type":type(e).__name__,"detail":str(e)[:180]})
+                if j==0:print("FD_EXTERNAL_GIFT_CHECKLIST_SCHEMA",kind,json.dumps(z,allow_nan=False),flush=True)
+            except Exception as e:
+                err={"entity_ID":i,"list_ID":eligible[kind][i]["list_ID"],"error_type":type(e).__name__,"detail":str(e)[:500]}
+                errors.append(err)
+                if len(errors)<=5:print("FD_EXTERNAL_GIFT_CHECKLIST_ERROR",json.dumps(err),flush=True)
+                # Stop repeat schema failures immediately, not after 155 requests.
+                if len(errors)>=3 and not sources and all("checklist schema missing" in x["detail"] for x in errors):
+                    raise RuntimeError("Repeated raw checklist schema mismatch; no further requests")
             time.sleep(.25)
     native,audit=consistent_names(data)
+    print("FD_EXTERNAL_GIFT_CHECKLIST_STATUS",json.dumps({"attempted":len(sources)+len(errors),"successful":len(data),"errors":len(errors),"error_types":dict(collections.Counter(x["error_type"] for x in errors)),"taxonomy_audit":audit},allow_nan=False),flush=True)
     return manifest,native,{"metadata_pins":pins,"geography":census,"plan_sha256":plan_sha,"planned_regions":dict(collections.Counter(x["region"] for x in manifest)),"successful_lists":len(data),"checklist_sources":sources,"download_errors":errors,"taxonomy_audit":audit}
 def self_test():
     d={"a":{SCOPES[0]:{"1":("plant one","2"),"2":("plant two","2")},SCOPES[1]:{"1":("plant one","2")}},
        "b":{SCOPES[0]:{"3":("plant two","2")},SCOPES[1]:{}}}
     t,a=consistent_names(d);assert t["a"][SCOPES[0]]=={"plant one"} and a["ambiguous_binomials"]==1
     assert abs(km((0,0),(0,1))-111.195)<.01
+    row={"entity_ID":"9","list_ID":"7","work_ID":"1","genus_ID":"2","work_species":"Abelia biflora","native":"1","questionable":"0","quest_native":"0"}
+    roster,info=parse_native_names([row],{},"9",{"list_ID":"7"})
+    assert roster[SCOPES[1]]=={"1":("abelia biflora","2")} and info["name_field"]=="work_species"
+    try:parse_native_names([{k:v for k,v in row.items() if k!="work_species"}],{},"9",{"list_ID":"7"})
+    except ValueError as e:assert "work_species" in str(e)
+    else:raise AssertionError("raw schema accepted missing harmonized name")
     print("FD_EXTERNAL_GIFT_ROSTER_SELF_TEST_PASS",flush=True)
