@@ -54,6 +54,7 @@
     "results/20261126_external_floral_replication/length_holdout_from_verified_job_log.json",
     "results/20261126_external_floral_replication/native_coverage_from_verified_job_log.json",
     "results/20261126_external_floral_replication/wang_nhm_bridge_from_verified_job_log.json",
+    "results/20261127_floral_reward_source/verified_complete_source.json",
     "results/20261127_floral_reward_source/verified_retrieval_partial_parse.json",
     "scripts/audit_mdd_bat_diet_metadata.py",
     "scripts/bat_mdd_synonym_audit.py",
