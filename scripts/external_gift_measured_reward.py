@@ -31,6 +31,10 @@ def sources(nectar_col):
     for endpoint,file,col in (("nectar","Nectar_dataset.csv",nectar_col),("pollen","Pollen_dataset_no_duplicates.csv","log10Pollen")):
         try:
             raw,receipt=verified_file(f[file]);d=csv_table(raw,".csv")
+            if endpoint=="nectar" and col=="auto":
+                choices=[c for c in ("log10Nectar","log10Sugar","log10NectarSugar") if c in d.columns]
+                if len(choices)!=1:raise ValueError("no unique explicitly log10 nectar/sugar column; actual columns: "+str(list(d.columns)))
+                col=choices[0]
             if col not in d.columns:raise ValueError("unverified log10 reward column; actual columns: "+str(list(d.columns)))
             t,z=table(d,col);out[endpoint]=t
             audit[endpoint]={"file":file,"receipt":receipt,**z}
@@ -54,7 +58,7 @@ def self_test():
 def main():
     p=argparse.ArgumentParser();p.add_argument("--out",type=pathlib.Path);p.add_argument("--nectar-column",required=True);p.add_argument("--self-test",action="store_true");a=p.parse_args();self_test()
     if a.self_test:return
-    assert a.nectar_column in {"log10Nectar","log10Sugar","log10NectarSugar"},"requires verified explicit log10 nectar column"
+    assert a.nectar_column in {"auto","log10Nectar","log10Sugar","log10NectarSugar"},"requires verified explicit log10 nectar column"
     tabs,audit=sources(a.nectar_column)
     assert tabs,"no measured reward table retrieved"
     roster.LIMIT=288
