@@ -1,0 +1,266 @@
+{
+  "source_run": 46068881163,
+  "provenance": "verified job log, artifact ZIP bytes not independently checked",
+  "panels": {},
+  "tables": {
+    "Flower_trait_lookup.csv": {
+      "rows": 5332,
+      "columns": [
+        "Species",
+        "Genus",
+        "Family",
+        "Tube_length",
+        "Floral_shape_class",
+        "Symmetry",
+        "Orientation",
+        "Source"
+      ],
+      "name_column": "Species",
+      "candidate_name_column_counts": {
+        "Species": {
+          "normalized_binomials": 5292,
+          "literal_binomials": 0,
+          "underscore_rows": 5332
+        }
+      },
+      "numeric_fields": {
+        "Tube_length": {
+          "nonempty": 3095,
+          "numeric": 3095,
+          "positive": 2507,
+          "zero": 588,
+          "negative": 0,
+          "quantiles": [
+            0,
+            2.2583333335,
+            9.2,
+            24.33,
+            190.4
+          ],
+          "distinct_nonempty": 1353
+        },
+        "Symmetry": {
+          "nonempty": 4691,
+          "numeric": 0,
+          "positive": 0,
+          "zero": 0,
+          "negative": 0,
+          "quantiles": null,
+          "distinct_nonempty": 3
+        },
+        "Source": {
+          "nonempty": 2854,
+          "numeric": 0,
+          "positive": 0,
+          "zero": 0,
+          "negative": 0,
+          "quantiles": null,
+          "distinct_nonempty": 153
+        }
+      },
+      "exact_binomial_rows": 5292,
+      "exact_distinct_names": 4638,
+      "repeated_name_rows": 654,
+      "carrier_overlap": {
+        "NHM_tube": 708,
+        "Wang_conservative_symmetry": 2739,
+        "common_tube_symmetry": 501,
+        "radial_tube": 254,
+        "bilateral_tube": 247
+      }
+    },
+    "Nectar_dataset.csv": {
+      "rows": 1290,
+      "columns": [
+        "ID",
+        "Species",
+        "Genus",
+        "Family",
+        "Nectar.microg.per.day",
+        "Source"
+      ],
+      "name_column": "Species",
+      "candidate_name_column_counts": {
+        "Species": {
+          "normalized_binomials": 1261,
+          "literal_binomials": 0,
+          "underscore_rows": 1290
+        }
+      },
+      "numeric_fields": {
+        "Nectar.microg.per.day": {
+          "nonempty": 1290,
+          "numeric": 1290,
+          "positive": 1172,
+          "zero": 118,
+          "negative": 0,
+          "quantiles": [
+            0,
+            11,
+            120.34,
+            1015.25125,
+            186700
+          ],
+          "distinct_nonempty": 919
+        },
+        "Source": {
+          "nonempty": 1047,
+          "numeric": 0,
+          "positive": 0,
+          "zero": 0,
+          "negative": 0,
+          "quantiles": null,
+          "distinct_nonempty": 13
+        }
+      },
+      "exact_binomial_rows": 1261,
+      "exact_distinct_names": 942,
+      "repeated_name_rows": 319,
+      "carrier_overlap": {
+        "NHM_tube": 210,
+        "Wang_conservative_symmetry": 592,
+        "common_tube_symmetry": 156,
+        "radial_tube": 71,
+        "bilateral_tube": 85
+      }
+    },
+    "Pollen_dataset_no_duplicates.csv": {
+      "rows": 1495,
+      "columns": [
+        "Unnamed: 0",
+        "Species",
+        "Genus",
+        "Family",
+        "log10Pollen"
+      ],
+      "name_column": "Species",
+      "candidate_name_column_counts": {
+        "Species": {
+          "normalized_binomials": 1490,
+          "literal_binomials": 0,
+          "underscore_rows": 1494
+        }
+      },
+      "numeric_fields": {
+        "log10Pollen": {
+          "nonempty": 1495,
+          "numeric": 1495,
+          "positive": 1495,
+          "zero": 0,
+          "negative": 0,
+          "quantiles": [
+            1.301029996,
+            3.67792588,
+            4.238508506,
+            4.8713627405,
+            6.712000215
+          ],
+          "distinct_nonempty": 1453
+        }
+      },
+      "exact_binomial_rows": 1490,
+      "exact_distinct_names": 1490,
+      "repeated_name_rows": 0,
+      "carrier_overlap": {
+        "NHM_tube": 298,
+        "Wang_conservative_symmetry": 1093,
+        "common_tube_symmetry": 273,
+        "radial_tube": 158,
+        "bilateral_tube": 115
+      }
+    }
+  },
+  "files": {
+    "Flower_trait_lookup.csv": {
+      "status": "retrieved",
+      "size": 384273,
+      "sha256": "c785c94dff5a4b1aaa8e0fba767f9985cb1ea1608f565c1af17e698f21c7261e",
+      "published_checksum": "md5:a1ed24e2509be4293b90bf95c5d6c786",
+      "prior_attempt_errors": [],
+      "parse_status": "parsed",
+      "decode_encoding": "cp1252"
+    },
+    "Nectar_dataset.csv": {
+      "status": "retrieved",
+      "size": 88095,
+      "sha256": "abdf2dbbf2f852fd813f66b69eeffad78622149dfc91d1d1fa6ff0a4e482d8c2",
+      "published_checksum": "md5:eeb83133bc0a8205bb59798f1eb3add7",
+      "prior_attempt_errors": [],
+      "parse_status": "parsed",
+      "decode_encoding": "cp1252"
+    },
+    "Pollen_dataset_no_duplicates.csv": {
+      "status": "retrieved",
+      "size": 87156,
+      "sha256": "a2d4759c0940b568dbf788738ca844ce21f66618047ad6f8318156f0faf3c146",
+      "published_checksum": "md5:e65c34116c424d1aee677e96686bba1a",
+      "prior_attempt_errors": [],
+      "parse_status": "parsed",
+      "decode_encoding": "utf-8-sig"
+    }
+  },
+  "SOURCE_MANIFEST": {
+    "record": 17157828,
+    "doi": "10.5281/zenodo.17157828",
+    "title": "Data and code for Keasar & Bodner: Do flowers with specialized morphologies produce more nectar and pollen?",
+    "metadata_sha256": "ec406e2ff2ae8c2a58c188cc6fb19c3183986bd48b4a216e14960296f11a6ad8",
+    "license": {
+      "id": "cc-by-4.0"
+    },
+    "access_right": "open",
+    "files": [
+      {
+        "key": "Flower_trait_lookup.csv",
+        "size": 384273,
+        "checksum": "md5:a1ed24e2509be4293b90bf95c5d6c786"
+      },
+      {
+        "key": "Nectar_dataset.csv",
+        "size": 88095,
+        "checksum": "md5:eeb83133bc0a8205bb59798f1eb3add7"
+      },
+      {
+        "key": "Pollen_dataset_no_duplicates.csv",
+        "size": 87156,
+        "checksum": "md5:e65c34116c424d1aee677e96686bba1a"
+      },
+      {
+        "key": "Flower_shape_and_nectar_pollen_rewards_V5.R",
+        "size": 13437,
+        "checksum": "md5:73405584049dbe3ae3413b0adc81bb8e"
+      }
+    ]
+  },
+  "NAME_OVERLAP": {
+    "Flower_trait_lookup.csv__Nectar_dataset.csv": 842,
+    "Flower_trait_lookup.csv__Pollen_dataset_no_duplicates.csv": 339,
+    "Nectar_dataset.csv__Pollen_dataset_no_duplicates.csv": 146
+  },
+  "PUBLISHER_UNITS": {
+    "sha256": "28548f17ccaf591ebe04708dc1977441c24784ef42cab0d46f7cd10c90cb15c0",
+    "lines": [
+      "Pollen.by.family.mean=aggregate(Pollen.production3, log10Pollen~Family, FUN=mean)",
+      "Pollen.by.family.SE=aggregate(Pollen.production3, log10Pollen~Family, FUN=std.error)",
+      "model3 = pglmm(log10Pollen ~ Tube_length * Symmetry + (1 | Species__ ),",
+      "model3.1 = pglmm(log10Pollen ~ Symmetry + (1 | Species__ ),",
+      "model3.2 = pglmm(log10Pollen ~ Tube_length + (1 | Species__ ),",
+      "model3.3 = pglmm(log10Pollen ~ Tube_length + Symmetry + (1 | Species),",
+      "fit.yx<-gls(Nectar.microg.per.day~log10Pollen,data=Nectar.and.pollen,",
+      "model7=lmer(log10Pollen ~ 1|Family/Genus, data=Pollen.production3)",
+      "labs(x = \"Log10 daily sugar production (microgram)\", y = \"Number of records\")",
+      "ggplot(Pollen.production2, aes(x=log10Pollen, fill=Symmetry)) +",
+      "labs(x = \"Log10 pollen production\", y = \"Number of records\")",
+      "labs(x = \"Tube length (mm)\", y = \"Daily sugar production (microgram/flower)\") +"
+    ]
+  },
+  "SOURCE_COMPLETE": {
+    "retrieved_files": 3,
+    "tables": 3
+  },
+  "artifact_metadata": [
+    {
+      "id": 15232361047,
+      "digest": "sha256:de704249503c1fc515e61d91cf861b4307180b6b0ecc212ab4fd78b3859d4d3c"
+    }
+  ]
+}
