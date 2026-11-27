@@ -1,0 +1,81 @@
+{
+  "source_run": 46068685232,
+  "head": "b0b354fdec2b48d51571c07c45867a901c4dd3bc",
+  "conclusion": "failure",
+  "files": {
+    "Flower_trait_lookup.csv": {
+      "status": "retrieved",
+      "size": 384273,
+      "sha256": "c785c94dff5a4b1aaa8e0fba767f9985cb1ea1608f565c1af17e698f21c7261e",
+      "published_checksum": "md5:a1ed24e2509be4293b90bf95c5d6c786",
+      "prior_attempt_errors": [],
+      "parse_status": "failed",
+      "parse_error": "'utf-8' codec can't decode byte 0xa0 in position 154746: invalid start byte"
+    },
+    "Nectar_dataset.csv": {
+      "status": "retrieved",
+      "size": 88095,
+      "sha256": "abdf2dbbf2f852fd813f66b69eeffad78622149dfc91d1d1fa6ff0a4e482d8c2",
+      "published_checksum": "md5:eeb83133bc0a8205bb59798f1eb3add7",
+      "prior_attempt_errors": [],
+      "parse_status": "failed",
+      "parse_error": "'utf-8' codec can't decode byte 0xa0 in position 68387: invalid start byte"
+    },
+    "Pollen_dataset_no_duplicates.csv": {
+      "status": "retrieved",
+      "size": 87156,
+      "sha256": "a2d4759c0940b568dbf788738ca844ce21f66618047ad6f8318156f0faf3c146",
+      "published_checksum": "md5:e65c34116c424d1aee677e96686bba1a",
+      "prior_attempt_errors": [],
+      "parse_status": "parsed"
+    }
+  },
+  "tables": {
+    "Pollen_dataset_no_duplicates.csv": {
+      "rows": 1495,
+      "columns": [
+        "Unnamed: 0",
+        "Species",
+        "Genus",
+        "Family",
+        "log10Pollen"
+      ],
+      "name_column": "Species",
+      "candidate_name_column_counts": {
+        "Species": {
+          "normalized_binomials": 1490,
+          "literal_binomials": 0,
+          "underscore_rows": 1494
+        }
+      },
+      "numeric_fields": {
+        "log10Pollen": {
+          "nonempty": 1495,
+          "numeric": 1495,
+          "positive": 1495,
+          "zero": 0,
+          "negative": 0,
+          "quantiles": [
+            1.301029996,
+            3.67792588,
+            4.238508506,
+            4.8713627405,
+            6.712000215
+          ],
+          "distinct_nonempty": 1453
+        }
+      },
+      "exact_binomial_rows": 1490,
+      "exact_distinct_names": 1490,
+      "repeated_name_rows": 0,
+      "carrier_overlap": {
+        "NHM_tube": 298,
+        "Wang_conservative_symmetry": 1093,
+        "common_tube_symmetry": 273,
+        "radial_tube": 158,
+        "bilateral_tube": 115
+      }
+    }
+  },
+  "warning": "All published CSV bytes checksum-verified, two legacy-encoded CSVs failed parsing. Pollen names corrected. Not a biological effect."
+}
