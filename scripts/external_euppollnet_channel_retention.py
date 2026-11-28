@@ -14,7 +14,7 @@ def channel(order,family):
         return "bee" if family in BEE_F else "other_hymenoptera"
     return order if order in CHANNELS else "other_orders"
 
-def prepare(d,meta):
+def prepare(d,meta,eligible_study_year=None):
     assert set(REQ).issubset(d)
     bad=d[REQ].fillna("").apply(lambda x:x.str.contains("\ufffd",regex=False)).any(axis=1)
     assert bad.mean()<=.01
@@ -24,7 +24,8 @@ def prepare(d,meta):
     meta["year"]=pd.to_numeric(meta.Year,errors="coerce")
     meta["broad"]=meta.Taxa_recorded.fillna("").str.lower().map(lambda v:all(k in v for k in ORDERS))
     ok=meta.groupby(["Study_id","year"]).broad.all().reset_index()
-    d=d.merge(ok.loc[ok.broad,["Study_id","year"]],on=["Study_id","year"],validate="many_to_one")
+    eligible=ok.loc[ok.broad,["Study_id","year"]] if eligible_study_year is None else eligible_study_year[["Study_id","year"]].drop_duplicates()
+    d=d.merge(eligible,on=["Study_id","year"],validate="many_to_one")
     for k in SITE:d[k]=pd.to_numeric(d[k],errors="coerce")
     for k in ["Plant_rank","Pollinator_rank","Pollinator_order","Pollinator_family"]:
         d[k]=d[k].str.strip().str.casefold()

@@ -9,6 +9,7 @@
     ".github/workflows/external-db-boundary.yml",
     ".github/workflows/external-emln-spatial-audit.yml",
     ".github/workflows/external-emln-trait-turnover.yml",
+    ".github/workflows/external-eupolltrait-disjoint-validation.yml",
     ".github/workflows/external-eupolltrait-energy.yml",
     ".github/workflows/external-eupolltrait-intake.yml",
     ".github/workflows/external-eupolltrait-month-match.yml",
@@ -44,6 +45,7 @@
     "config/external_emln_spatial_source_manifest_20261128.json",
     "docs/EXTERNAL_EMLN_SPATIAL_AUDIT_20261128.md",
     "docs/EXTERNAL_EMLN_TRAIT_TURNOVER_20261128.md",
+    "docs/EXTERNAL_EUPOLLTRAIT_DISJOINT_VALIDATION_20261128.md",
     "docs/EXTERNAL_EUPOLLTRAIT_ENERGY_20261128.md",
     "docs/EXTERNAL_EUPOLLTRAIT_INTAKE_20261128.md",
     "docs/EXTERNAL_EUPOLLTRAIT_MONTH_MATCH_20261128.md",
@@ -94,6 +96,7 @@
     "results/20261128_external_euppollnet/eupolltrait_multivariate_from_verified_job_log.json",
     "results/20261128_external_euppollnet/eupolltrait_size_from_verified_job_log.json",
     "results/20261128_external_euppollnet/eupolltrait_size_qc_family_from_verified_job_log.json",
+    "results/20261128_external_euppollnet/eupolltrait_transport_from_verified_job_log.json",
     "results/20261128_external_euppollnet/eupolltrait_visitor_genus_from_verified_job_log.json",
     "results/20261128_external_euppollnet/spatial_scaling_from_verified_job_log.json",
     "scripts/audit_mdd_bat_diet_metadata.py",
@@ -102,6 +105,7 @@
     "scripts/export_mdd_bat_ranges.R",
     "scripts/external_emln_spatial_audit.py",
     "scripts/external_emln_trait_turnover.py",
+    "scripts/external_eupolltrait_disjoint_validation.py",
     "scripts/external_eupolltrait_energy.py",
     "scripts/external_eupolltrait_intake.py",
     "scripts/external_eupolltrait_month_match.py",
@@ -789,7 +793,16 @@
     "paths": [
       "scripts/external_eupolltrait_transport.py",
       ".github/workflows/external-eupolltrait-transport.yml",
-      "docs/EXTERNAL_EUPOLLTRAIT_TRANSPORT_20261128.md"
+      "docs/EXTERNAL_EUPOLLTRAIT_TRANSPORT_20261128.md",
+      "results/20261128_external_euppollnet/eupolltrait_transport_from_verified_job_log.json"
+    ]
+  },
+  "external_eupolltrait_disjoint_validation_20261128": {
+    "scope": "Pinned publisher EuPollTrait/EuPPollNet only. Metadata-defined study-ID and exact DOI-disjoint broad bee-inclusive protocol validation of corrected ITD, identical null and gate. Post-discovery, not independent source; no own inputs.",
+    "paths": [
+      "scripts/external_eupolltrait_disjoint_validation.py",
+      ".github/workflows/external-eupolltrait-disjoint-validation.yml",
+      "docs/EXTERNAL_EUPOLLTRAIT_DISJOINT_VALIDATION_20261128.md"
     ]
   }
 }

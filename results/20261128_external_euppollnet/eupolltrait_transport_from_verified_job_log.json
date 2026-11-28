@@ -1,0 +1,186 @@
+{
+  "receipt": {
+    "run_id": 46118355370,
+    "job_id": 140897119586,
+    "head_sha": "459b6242e2ef9b98710f2ea8703dedea6c976431",
+    "artifact_zip_verified": false
+  },
+  "result": {
+    "source_pins": {
+      "archive_sha256": "b6e6b2c0b9f4c348e11185382d3f604610d1aad4181b0088b18a146f6180f782",
+      "dwc_taxon_core_bees_hoverflies.csv": {
+        "sha256": "17e487ecfe775858b786ca0e4e0e60529d5b7adfc670d18bde00d8f2ee193a2c",
+        "encoding": "utf-8-sig"
+      },
+      "dwc_mof_bees_hoverflies.csv": {
+        "sha256": "4c8f13913775483d458ed5e4f7946e6518873ed3b455a209b775bfa9c1cc310d",
+        "encoding": "cp1252"
+      },
+      "trait_metadata.csv": {
+        "sha256": "fae52c364472e36958e49864d509fb3e8c7828aee8b795ae6a4c7ce470292378",
+        "encoding": "utf-8-sig"
+      }
+    },
+    "network_source_pins": {
+      "Interaction_data.csv.gz": {
+        "sha256": "cde17692dc66946002e19026433d9db429357d28873a369d884941f71131db61",
+        "expected_sha256": "cde17692dc66946002e19026433d9db429357d28873a369d884941f71131db61",
+        "bytes": 2374060,
+        "git_blob": "6e639d4af81feee76eefa6804622f8b901c39feb"
+      },
+      "Metadata.csv": {
+        "sha256": "adb396f31e7e7e3257425872b92d56c1051ca05849c6228a39675a71364d4833",
+        "expected_sha256": null,
+        "bytes": 28483,
+        "git_blob": "f9708e2f2b142ab2437a8be9d16e33aaefdef0ed"
+      }
+    },
+    "selection": {
+      "raw_rows": 2386,
+      "exact_f_rows": 1754,
+      "excluded": {},
+      "original_subset_species": 1668,
+      "restored_source_f_species": 86,
+      "retained_species": 1754,
+      "range_mm": [
+        0.63,
+        8.019999999999998
+      ],
+      "definition": "Published female ITD, explicitly workers for social bees; exact F/ITD_F_mm. Species-level measurements, visit sex unknown."
+    },
+    "network_name_audit": {
+      "name_collisions": 0,
+      "family_conflicts": 0
+    },
+    "annual_replay": 0.11064886953661242,
+    "site_audit": {
+      "eligible_site_year": 126,
+      "focal_site_records": 1574,
+      "small_site_year": 69,
+      "unresolved_focal": 3,
+      "normalized_plant_collision_count": 0,
+      "linked_species": 484
+    },
+    "prediction": {
+      "source_plant_study_year_cells": 864,
+      "source_focal_species": 577,
+      "source_studies": 17,
+      "prediction_audit": {
+        "target_plant_year_cells": 864,
+        "insufficient_species_training_studies": 655,
+        "insufficient_other_congeneric_training": 108
+      },
+      "primary": {
+        "metrics": {
+          "observed_relative": -0.08501428105845389,
+          "species_prediction": -0.03075110182248074,
+          "local_only_squared_error": 0.24352947852218976,
+          "species_squared_error": 0.21174197059768388,
+          "local_minus_species_mse": 0.03178750792450586
+        },
+        "inference": {
+          "support": {
+            "plant_study_year_cells": 209,
+            "species": 51,
+            "genera": 45,
+            "studies": 17,
+            "study_years": 23
+          },
+          "gate": true,
+          "estimate": 0.03178750792450586,
+          "supported": false,
+          "study_valid_draws": 9999,
+          "study_bootstrap_ci": [
+            -0.04631837003709278,
+            0.10723214974058679
+          ],
+          "genus_valid_draws": 9999,
+          "genus_bootstrap_ci": [
+            -0.04813696650406589,
+            0.1223074780714696
+          ],
+          "crossed_study_genus_valid_draws": 9999,
+          "crossed_study_genus_bootstrap_ci": [
+            -0.09228723841520763,
+            0.16340900966866795
+          ],
+          "leave_study_range": [
+            0.01252020480537308,
+            0.054334302867014156
+          ],
+          "leave_genus_range": [
+            0.003052221410408243,
+            0.048258876244239926
+          ]
+        },
+        "training_study_count_quantiles": [
+          2,
+          2,
+          3,
+          3,
+          5
+        ],
+        "supported": false,
+        "conditional_prediction_bootstrap_only": true
+      },
+      "descriptive_other_species_genus_comparator": {
+        "metrics": {
+          "observed_relative": 0.03337279012088463,
+          "species_prediction": 0.07872245115775696,
+          "local_only_squared_error": 0.21975144386377765,
+          "species_squared_error": 0.22118423943591567,
+          "local_minus_species_mse": -0.001432795572138006,
+          "genus_prediction": 0.14412861088748533,
+          "genus_squared_error": 0.16885575559008484,
+          "local_minus_genus_mse": 0.050895688273692855,
+          "genus_minus_species_mse": -0.05232848384583085
+        },
+        "inference": {
+          "support": {
+            "plant_study_year_cells": 101,
+            "species": 26,
+            "genera": 20,
+            "studies": 16,
+            "study_years": 21
+          },
+          "gate": false,
+          "estimate": -0.052328483845830845,
+          "supported": false,
+          "study_valid_draws": 9999,
+          "study_bootstrap_ci": [
+            -0.16063492862397752,
+            0.01844508922562599
+          ],
+          "genus_valid_draws": 9999,
+          "genus_bootstrap_ci": [
+            -0.16761416560110132,
+            0.023429211976857607
+          ],
+          "crossed_study_genus_valid_draws": 9999,
+          "crossed_study_genus_bootstrap_ci": [
+            -0.24799784832126195,
+            0.04676137051077435
+          ],
+          "leave_study_range": [
+            -0.06193631242649421,
+            -0.004479972578370702
+          ],
+          "leave_genus_range": [
+            -0.06666791525692384,
+            -0.002544878912029775
+          ]
+        },
+        "training_study_count_quantiles": [
+          2,
+          2,
+          3,
+          3,
+          5
+        ],
+        "supported": false,
+        "conditional_prediction_bootstrap_only": true
+      }
+    },
+    "scope": "Post-discovery leave-one-study-out transport of site-relative mean log2 ITD. Same public sources, distinct estimand and broader same-study-year site cohort; target study excluded from fitted plant/genus means. Observed local background is leave-focal edge degree-weighted, not independently sampled availability. Frozen held-out predictions share training studies; crossed conditional uncertainty is not fully calibrated external validation. No independent dataset, causal floral filtering, actual pollination or island claim."
+  }
+}

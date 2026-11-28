@@ -69,8 +69,8 @@ def taxon_table(t):
     conflict=set(q.loc[q.name.duplicated(keep=False),"name"]);bad["duplicate_name_ids_quarantined"]=len(conflict)
     return q.loc[~q.name.isin(conflict)].copy(),dict(bad)
 
-def prepare_network(raw,meta):
-    d=prepare(raw,meta)
+def prepare_network(raw,meta,eligible_study_year=None):
+    d=prepare(raw,meta,eligible_study_year=eligible_study_year)
     d["name"]=d[VISITOR].map(binomial)
     # Network and trait-source group/family must agree; no synonym guessing.
     d["family"]=d.Pollinator_family.str.strip().str.casefold()

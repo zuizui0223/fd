@@ -53,4 +53,6 @@ The [historical source-classification registry and validator in island PR #353](
 
 - [Recorded-month matching](EXTERNAL_EUPOLLTRAIT_MONTH_MATCH_20261128.md): same recorded month +.069004, only 9 studies, crossed interval includes zero; annual-month difference unresolved.
 
-- [Out-of-study plant size transport](EXTERNAL_EUPOLLTRAIT_TRANSPORT_20261128.md): new held-out study prediction test, pending.
+- [Out-of-study plant size transport](EXTERNAL_EUPOLLTRAIT_TRANSPORT_20261128.md): species prediction MSE improved 13.1%, crossed interval includes zero; other-congeneric comparison descriptive, insufficient support.
+
+- [Study-disjoint bee-inclusive validation](EXTERNAL_EUPOLLTRAIT_DISJOINT_VALIDATION_20261128.md): metadata-frozen separate study cohort, identical size endpoint, pending.

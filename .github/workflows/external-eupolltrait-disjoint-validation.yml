@@ -1,0 +1,26 @@
+name: External EuPollTrait study-disjoint protocol validation
+on:
+  pull_request:
+    paths:
+      - scripts/external_eupolltrait_disjoint_validation.py
+      - .github/workflows/external-eupolltrait-disjoint-validation.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  external:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: pip install numpy pandas
+      - run: python scripts/external_eupolltrait_disjoint_validation.py --self-test
+      - run: python -u scripts/external_eupolltrait_disjoint_validation.py --out /tmp/disjoint.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: external-eupolltrait-disjoint-validation
+          path: /tmp/disjoint.json
+          if-no-files-found: error
