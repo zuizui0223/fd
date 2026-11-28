@@ -40,3 +40,5 @@ The [historical source-classification registry and validator in island PR #353](
 
 - [Measured EMLN morphology](EXTERNAL_EMLN_TRAIT_TURNOVER_20261128.md): primary single-study morphology case opposite direction; no global inference.
 - [EuPollTrait bridge](EXTERNAL_EUPOLLTRAIT_INTAKE_20261128.md): new external trait intake for same-network common-carrier comparison.
+
+- [EuPollTrait group-specific size turnover](EXTERNAL_EUPOLLTRAIT_SIZE_TURNOVER_20261128.md): intake verified; fixed-margin size test with crossed dependence, pending results.
