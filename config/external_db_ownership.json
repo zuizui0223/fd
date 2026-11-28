@@ -64,10 +64,12 @@
     "results/20261126_external_floral_replication/length_holdout_from_verified_job_log.json",
     "results/20261126_external_floral_replication/native_coverage_from_verified_job_log.json",
     "results/20261126_external_floral_replication/wang_nhm_bridge_from_verified_job_log.json",
+    "results/20261128_external_emln/spatial_audit_from_verified_job_log.json",
     "results/20261128_external_euppollnet/architecture_from_verified_job_log.json",
     "results/20261128_external_euppollnet/bee_loss_corrected_from_verified_job_log.json",
     "results/20261128_external_euppollnet/channel_retention_from_verified_job_log.json",
     "results/20261128_external_euppollnet/curveball_from_verified_job_log.json",
+    "results/20261128_external_euppollnet/spatial_scaling_from_verified_job_log.json",
     "scripts/audit_mdd_bat_diet_metadata.py",
     "scripts/bat_mdd_synonym_audit.py",
     "scripts/check_external_source_boundary.py",
@@ -661,7 +663,8 @@
     "paths": [
       "scripts/external_euppollnet_spatial_scaling.py",
       ".github/workflows/external-euppollnet-spatial-scaling.yml",
-      "docs/EXTERNAL_EUPPOLLNET_SPATIAL_SCALING_20261128.md"
+      "docs/EXTERNAL_EUPPOLLNET_SPATIAL_SCALING_20261128.md",
+      "results/20261128_external_euppollnet/spatial_scaling_from_verified_job_log.json"
     ]
   },
   "external_emln_spatial_audit_20261128": {
@@ -670,7 +673,8 @@
       "config/external_emln_spatial_source_manifest_20261128.json",
       "scripts/external_emln_spatial_audit.py",
       ".github/workflows/external-emln-spatial-audit.yml",
-      "docs/EXTERNAL_EMLN_SPATIAL_AUDIT_20261128.md"
+      "docs/EXTERNAL_EMLN_SPATIAL_AUDIT_20261128.md",
+      "results/20261128_external_emln/spatial_audit_from_verified_job_log.json"
     ]
   }
 }

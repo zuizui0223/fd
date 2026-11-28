@@ -1,0 +1,923 @@
+{
+  "receipt": {
+    "run_id": 46110910520,
+    "job_id": 140874002937,
+    "head_sha": "1b142d1c9ac97e67dfbb49f494b809feedc49bdd",
+    "artifact_zip_verified": false,
+    "excluded_individual_panels_not_logged": true
+  },
+  "summary": {
+    "status_counts": {
+      "not_spatial_pollination": 26,
+      "coverage_audited": 16
+    },
+    "directories": 42
+  },
+  "panels": {
+    "21_Spatial_Arroyo_1982": {
+      "status": "coverage_audited",
+      "files": {
+        "description.csv": "87790405c4743d280aa336b9ada2d705a723dca22a64565fc9d57b3879de2da5",
+        "references.csv": "635d76bac31b26202fcec19eb6136f558b5c87790278611a9c4a8eb0329a423c",
+        "nodes.csv": "738c69e56fe58dd98788fd603ffddd909c3a6c9896a5c8e7f55b381772a0d3ea",
+        "layers.csv": "0ca85fd224bae5db75a9e59c5f0495b4a930c1dee0a36ac0c9d8bbc7dd5b4625",
+        "interactions.csv": "d60ece152862272833edfa75d4a81dbff50b8317fee0ffd4238994c67ef55840"
+      },
+      "ecological_network_type": [
+        "pollination"
+      ],
+      "layer_types": [
+        "spatial"
+      ],
+      "source_dois": [
+        "10.2307/2442833"
+      ],
+      "exact_euppollnet_doi_overlap": [],
+      "no_reference_doi": false,
+      "audit": {
+        "nodes": 286,
+        "layers": 3,
+        "interaction_records": 638,
+        "role_counts": {
+          "plant": 131,
+          "pollinator": 155
+        },
+        "visitor_verification_levels": {
+          "species": 25,
+          "[missing]": 130
+        },
+        "visitor_taxonomy": {},
+        "positive_measured_trait_carriers": {},
+        "strict_nodes": {
+          "plant": 77
+        },
+        "layer_type_counts": {
+          "space": 3
+        },
+        "explicit_year_layers": 0,
+        "coordinate_field_layers": 3,
+        "edge_attrition": {
+          "role_resolved_positive_local_links": 638,
+          "missing_verified_species_or_visitor_taxonomy": 638
+        },
+        "candidate_eligible_layers": 0,
+        "candidate_layer_pairs": 0,
+        "candidate_shared_plant_layer_pairs": 0,
+        "candidate_two_sided_turnover_pairs": 0,
+        "promotion_requires_review": true
+      }
+    },
+    "25_Spatial_Carstensen_2014": {
+      "status": "coverage_audited",
+      "files": {
+        "description.csv": "0abe4db9582127486d8a9c4b0c79a19cc97eab99b4a3ce4f144e4a63c804ece4",
+        "references.csv": "1a09725cf9d62fc4dc7ba45c390a83f414f0e34ba3d0ccac43f57bd7fa793f5b",
+        "nodes.csv": "229ab774c9d626932c14e1d7f6d6c69de2c32dbfdb5565e651ce339770219ea1",
+        "layers.csv": "30b13bb970c8d8f74ccff6f66c6a7e2384cfebb4de399151aa490b3991a7d2fb",
+        "interactions.csv": "26fb97a108de8e2044de5adf64638e6765f0329fd864aadf533b1149793d702d"
+      },
+      "ecological_network_type": [
+        "pollination"
+      ],
+      "layer_types": [
+        "spatial"
+      ],
+      "source_dois": [
+        "10.1371/journal.pone.0112903"
+      ],
+      "exact_euppollnet_doi_overlap": [],
+      "no_reference_doi": false,
+      "audit": {
+        "nodes": 300,
+        "layers": 7,
+        "interaction_records": 1736,
+        "role_counts": {
+          "plant": 101,
+          "pollinator": 199
+        },
+        "visitor_verification_levels": {
+          "species": 63,
+          "[missing]": 62,
+          "genus": 40,
+          "family": 14,
+          "subgenus": 4,
+          "order": 6,
+          "tribe": 3,
+          "subfamily": 7
+        },
+        "visitor_taxonomy": {},
+        "positive_measured_trait_carriers": {},
+        "strict_nodes": {
+          "plant": 17
+        },
+        "layer_type_counts": {
+          "space": 7
+        },
+        "explicit_year_layers": 0,
+        "coordinate_field_layers": 7,
+        "edge_attrition": {
+          "role_resolved_positive_local_links": 1419,
+          "missing_verified_species_or_visitor_taxonomy": 1419,
+          "invalid_roles": 317
+        },
+        "candidate_eligible_layers": 0,
+        "candidate_layer_pairs": 0,
+        "candidate_shared_plant_layer_pairs": 0,
+        "candidate_two_sided_turnover_pairs": 0,
+        "promotion_requires_review": true
+      }
+    },
+    "26_Spatial_Chacoff_2020": {
+      "status": "coverage_audited",
+      "files": {
+        "description.csv": "4a277c218a6c9829d8f97910f820e52f76afb0ab84aceed10adec6c8261f4efe",
+        "references.csv": "13a215a4397c559e178da6e310a0918e1ab99a6ac817954d931ad734f2bb3a4c",
+        "nodes.csv": "d479539dfa6229b95bac3bfb042443d5cbc2eb88848b95ad1e57b5ffcf3e0d0f",
+        "layers.csv": "95140a0993c83373ded318a946d15c1e105f64525b1b656e3483bacf64d47c4e",
+        "interactions.csv": "150215fa2b010724010867fc0c93b1e1ddcff80266f82ecfb5a1d2a299e04de9"
+      },
+      "ecological_network_type": [
+        "pollination"
+      ],
+      "layer_types": [
+        "spatial"
+      ],
+      "source_dois": [
+        "10.5061/dryad.8cz8w9gm1"
+      ],
+      "exact_euppollnet_doi_overlap": [],
+      "no_reference_doi": false,
+      "audit": {
+        "nodes": 180,
+        "layers": 4,
+        "interaction_records": 219,
+        "role_counts": {
+          "plant": 45,
+          "pollinator": 135
+        },
+        "visitor_verification_levels": {
+          "no rank": 2,
+          "species": 22,
+          "NA": 50,
+          "genus": 24,
+          "family": 30,
+          "tribe": 1,
+          "subgenus": 1,
+          "subfamily": 1,
+          "order": 4
+        },
+        "visitor_taxonomy": {},
+        "positive_measured_trait_carriers": {
+          "proboscis_length": 119,
+          "body_length": 123,
+          "body_width": 135,
+          "body_thickness": 133,
+          "proboscis_width": 122
+        },
+        "strict_nodes": {
+          "plant": 33
+        },
+        "layer_type_counts": {
+          "space": 4
+        },
+        "explicit_year_layers": 4,
+        "coordinate_field_layers": 4,
+        "edge_attrition": {
+          "role_resolved_positive_local_links": 219,
+          "missing_verified_species_or_visitor_taxonomy": 219
+        },
+        "candidate_eligible_layers": 0,
+        "candidate_layer_pairs": 0,
+        "candidate_shared_plant_layer_pairs": 0,
+        "candidate_two_sided_turnover_pairs": 0,
+        "promotion_requires_review": true
+      }
+    },
+    "28_Spatial_Dicks_2002": {
+      "status": "coverage_audited",
+      "files": {
+        "description.csv": "27ece7582c0356a9cefd5a244374f6971ce42e2650030d672465ba22aad08cdb",
+        "references.csv": "95e3c19e89d1d5708d7a0ed927a364249948f2641109f179a1fa79072898eb6e",
+        "nodes.csv": "3c71330f91b5f59d6695ad50e13ebd8889204aa6dcafd307762ce7922f230b3b",
+        "layers.csv": "dfdd2fe2de775121983e31fcc1d92e12f44c7c58e74ad8b88d9585ebc58325b7",
+        "interactions.csv": "b86fec790316c117f9dda557d2214191e4e53857f31e7252af8c25a8f9c3d07a"
+      },
+      "ecological_network_type": [
+        "pollination"
+      ],
+      "layer_types": [
+        "spatial"
+      ],
+      "source_dois": [
+        "10.1046/j.0021-8790.2001.00572.x"
+      ],
+      "exact_euppollnet_doi_overlap": [],
+      "no_reference_doi": false,
+      "audit": {
+        "nodes": 102,
+        "layers": 2,
+        "interaction_records": 231,
+        "role_counts": {
+          "pollinator": 79,
+          "plant": 23
+        },
+        "visitor_verification_levels": {
+          "[missing]": 17,
+          "species": 40,
+          "genus": 22
+        },
+        "visitor_taxonomy": {},
+        "positive_measured_trait_carriers": {},
+        "strict_nodes": {
+          "plant": 23
+        },
+        "layer_type_counts": {
+          "space": 2
+        },
+        "explicit_year_layers": 0,
+        "coordinate_field_layers": 2,
+        "edge_attrition": {
+          "role_resolved_positive_local_links": 231,
+          "missing_verified_species_or_visitor_taxonomy": 231
+        },
+        "candidate_eligible_layers": 0,
+        "candidate_layer_pairs": 0,
+        "candidate_shared_plant_layer_pairs": 0,
+        "candidate_two_sided_turnover_pairs": 0,
+        "promotion_requires_review": true
+      }
+    },
+    "29_Spatial_Dupont_Olesen_2009": {
+      "status": "coverage_audited",
+      "files": {
+        "description.csv": "2e506a96c59fbca5529333582ab0def9870a664fa219551af783ce662cda5c42",
+        "references.csv": "9ecde616aa488bdf2bc397a7d71477299cfa11281a6baa01ed63994fc05f2ae8",
+        "nodes.csv": "87470213cd4fb89cbd8a6ccb48ec5e153e97ef957c51dfb4585cca658de7b116",
+        "layers.csv": "24c2c55e9eb73e429ffa2701fc4de693e0e5951e31d18a8a44f3f18fc03a88f1",
+        "interactions.csv": "d9f61b445b305cd84ee4e0d19023389924d9fb249fadba5b3b40424b5eabe987"
+      },
+      "ecological_network_type": [
+        "pollination"
+      ],
+      "layer_types": [
+        "spatial"
+      ],
+      "source_dois": [
+        "10.1111/j.1365-2656.2008.01501.x"
+      ],
+      "exact_euppollnet_doi_overlap": [
+        "10.1111/j.1365-2656.2008.01501.x"
+      ],
+      "no_reference_doi": false,
+      "audit": {
+        "nodes": 360,
+        "layers": 2,
+        "interaction_records": 1096,
+        "role_counts": {
+          "plant": 31,
+          "pollinator": 329
+        },
+        "visitor_verification_levels": {
+          "species": 265,
+          "[missing]": 25,
+          "genus": 29,
+          "subgenus": 10
+        },
+        "visitor_taxonomy": {},
+        "positive_measured_trait_carriers": {},
+        "strict_nodes": {
+          "plant": 26
+        },
+        "layer_type_counts": {
+          "space": 2
+        },
+        "explicit_year_layers": 0,
+        "coordinate_field_layers": 2,
+        "edge_attrition": {
+          "role_resolved_positive_local_links": 1096,
+          "missing_verified_species_or_visitor_taxonomy": 1096
+        },
+        "candidate_eligible_layers": 0,
+        "candidate_layer_pairs": 0,
+        "candidate_shared_plant_layer_pairs": 0,
+        "candidate_two_sided_turnover_pairs": 0,
+        "promotion_requires_review": true
+      }
+    },
+    "30_Spatial_Elberling_1999": {
+      "status": "coverage_audited",
+      "files": {
+        "description.csv": "0ef7684e77fd6946002bfeb9a81f7f4ed838f7cbb3335e2079aefa5183f9bb87",
+        "references.csv": "8c824b0d7ad6f938e294a49a33c600fb15d67d026b8ee450cfb36b75366b8835",
+        "nodes.csv": "c819e0e5e0c40aaf9f7f38c658d48f56a05058a34fdabf74e1b7d2887661054b",
+        "layers.csv": "36683674a92f0a2f0e95ba15e2f1e0a1e3a21f2503f2facb3de422253794f5a7",
+        "interactions.csv": "bb0ee6068403d3cb3ea863e46a1c3e855ec8e723610892b90926edfd06a31d95"
+      },
+      "ecological_network_type": [
+        "pollination"
+      ],
+      "layer_types": [
+        "spatial"
+      ],
+      "source_dois": [],
+      "exact_euppollnet_doi_overlap": [],
+      "no_reference_doi": true,
+      "audit": {
+        "nodes": 241,
+        "layers": 2,
+        "interaction_records": 698,
+        "role_counts": {
+          "pollinator": 192,
+          "plant": 49
+        },
+        "visitor_verification_levels": {
+          "species": 89,
+          "genus": 46,
+          "[missing]": 35,
+          "subfamily": 8,
+          "family": 10,
+          "subgenus": 4
+        },
+        "visitor_taxonomy": {},
+        "positive_measured_trait_carriers": {},
+        "strict_nodes": {
+          "plant": 48
+        },
+        "layer_type_counts": {
+          "space": 2
+        },
+        "explicit_year_layers": 0,
+        "coordinate_field_layers": 2,
+        "edge_attrition": {
+          "role_resolved_positive_local_links": 698,
+          "missing_verified_species_or_visitor_taxonomy": 698
+        },
+        "candidate_eligible_layers": 0,
+        "candidate_layer_pairs": 0,
+        "candidate_shared_plant_layer_pairs": 0,
+        "candidate_two_sided_turnover_pairs": 0,
+        "promotion_requires_review": true
+      }
+    },
+    "35_Spatial_Ingversen_2006": {
+      "status": "coverage_audited",
+      "files": {
+        "description.csv": "2e506a96c59fbca5529333582ab0def9870a664fa219551af783ce662cda5c42",
+        "references.csv": "b4cabfb6fd99aa85c0f6b60502e7fcb5fd11699484c11ee9739b68b4503c791d",
+        "nodes.csv": "0c4937ea810bef2a2f479d17c1829eaa72be442887963f5f007494b6aa0343b9",
+        "layers.csv": "97e790018f2410a6392a1f242a037617ecf62c862bb62950be4a37ef88921b96",
+        "interactions.csv": "7370bb701e9162a11abaca225e45d135281ba88f17969df6414c93543a1c9105"
+      },
+      "ecological_network_type": [
+        "pollination"
+      ],
+      "layer_types": [
+        "spatial"
+      ],
+      "source_dois": [],
+      "exact_euppollnet_doi_overlap": [],
+      "no_reference_doi": true,
+      "audit": {
+        "nodes": 142,
+        "layers": 2,
+        "interaction_records": 259,
+        "role_counts": {
+          "plant": 59,
+          "pollinator": 83
+        },
+        "visitor_verification_levels": {
+          "species": 29,
+          "[missing]": 43,
+          "subspecies": 1,
+          "genus": 7,
+          "order": 1,
+          "subgenus": 2
+        },
+        "visitor_taxonomy": {},
+        "positive_measured_trait_carriers": {},
+        "strict_nodes": {
+          "plant": 31
+        },
+        "layer_type_counts": {
+          "space": 2
+        },
+        "explicit_year_layers": 0,
+        "coordinate_field_layers": 2,
+        "edge_attrition": {
+          "role_resolved_positive_local_links": 259,
+          "missing_verified_species_or_visitor_taxonomy": 259
+        },
+        "candidate_eligible_layers": 0,
+        "candidate_layer_pairs": 0,
+        "candidate_shared_plant_layer_pairs": 0,
+        "candidate_two_sided_turnover_pairs": 0,
+        "promotion_requires_review": true
+      }
+    },
+    "38_Spatial_Kyoto": {
+      "status": "coverage_audited",
+      "files": {
+        "description.csv": "0882f85cf39eb76e70ee19ef5c2bdf5f3a528fa54462c64c0efbd88cf8c1d990",
+        "references.csv": "0c5e7d02e541253faf07e70117761b3dc0a5d870edf3acaee599e36cd46cd0df",
+        "nodes.csv": "fe0246146ee2ca8a83c987fdb38a4d65897b42a69dbae4d834bfc312409a2876",
+        "layers.csv": "8e9a2a8022b7c6758f1eee09e4ac640e4d71560545109092e6eecfc7016bb9f0",
+        "interactions.csv": "c9b4aa5063e8a44eeade4076671499421fbdce26d3248f6af95ae76653eb0cea"
+      },
+      "ecological_network_type": [
+        "pollination"
+      ],
+      "layer_types": [
+        "spatial"
+      ],
+      "source_dois": [],
+      "exact_euppollnet_doi_overlap": [],
+      "no_reference_doi": true,
+      "audit": {
+        "nodes": 3490,
+        "layers": 7,
+        "interaction_records": 6902,
+        "role_counts": {
+          "plant": 543,
+          "pollinator": 2947
+        },
+        "visitor_verification_levels": {
+          "species": 385,
+          "genus": 266,
+          "[missing]": 2230,
+          "subspecies": 22,
+          "subgenus": 40,
+          "family": 3,
+          "clade": 1
+        },
+        "visitor_taxonomy": {},
+        "positive_measured_trait_carriers": {},
+        "strict_nodes": {
+          "plant": 421
+        },
+        "layer_type_counts": {
+          "space": 7
+        },
+        "explicit_year_layers": 0,
+        "coordinate_field_layers": 7,
+        "edge_attrition": {
+          "role_resolved_positive_local_links": 6902,
+          "missing_verified_species_or_visitor_taxonomy": 6902
+        },
+        "candidate_eligible_layers": 0,
+        "candidate_layer_pairs": 0,
+        "candidate_shared_plant_layer_pairs": 0,
+        "candidate_two_sided_turnover_pairs": 0,
+        "promotion_requires_review": true
+      }
+    },
+    "40_Spatial_Medan_2002": {
+      "status": "coverage_audited",
+      "files": {
+        "description.csv": "ca056270569ea120e5e601306985540edc47bd090827eac18183e3bb03c49168",
+        "references.csv": "2267e7e4d9b429c388bb8ca2dda85fd4e16b8fc3cf72fa3ebc2ea386bf274e63",
+        "nodes.csv": "f9bb0086e50aca0c78f150bc125bde282c036151201e9d32a8f1034f1a27c485",
+        "layers.csv": "4694520c92feafdf27bc733c5759a76727ddfefb2cb7007e2d3f58eb995a07b1",
+        "interactions.csv": "3992fecbc99d1368336bc81f69346807d56f78f1fcb1f74d52578f31adca0843"
+      },
+      "ecological_network_type": [
+        "pollination"
+      ],
+      "layer_types": [
+        "spatial"
+      ],
+      "source_dois": [
+        "10.1080/15230430.2002.12003490"
+      ],
+      "exact_euppollnet_doi_overlap": [],
+      "no_reference_doi": false,
+      "audit": {
+        "nodes": 160,
+        "layers": 2,
+        "interaction_records": 208,
+        "role_counts": {
+          "plant": 43,
+          "pollinator": 117
+        },
+        "visitor_verification_levels": {
+          "genus": 34,
+          "[missing]": 64,
+          "family": 3,
+          "species": 13,
+          "order": 1,
+          "subgenus": 2
+        },
+        "visitor_taxonomy": {},
+        "positive_measured_trait_carriers": {},
+        "strict_nodes": {
+          "plant": 31
+        },
+        "layer_type_counts": {
+          "space": 2
+        },
+        "explicit_year_layers": 0,
+        "coordinate_field_layers": 2,
+        "edge_attrition": {
+          "role_resolved_positive_local_links": 208,
+          "missing_verified_species_or_visitor_taxonomy": 208
+        },
+        "candidate_eligible_layers": 0,
+        "candidate_layer_pairs": 0,
+        "candidate_shared_plant_layer_pairs": 0,
+        "candidate_two_sided_turnover_pairs": 0,
+        "promotion_requires_review": true
+      }
+    },
+    "43_Spatial_Montero_2005": {
+      "status": "coverage_audited",
+      "files": {
+        "description.csv": "7ea7cfe97ebd3e08c6c974f1286d4ce9f11895160a2fbddb9459c289c20fb5ff",
+        "references.csv": "eb1cfbb19e9f6c58dc720dd43ce33bd78d164104816e6e9e9fbe717d7e254020",
+        "nodes.csv": "0d3594f2996a9b795f1f0feb9e367a968f363dab605fae9a2b1b0e6ffc6e1fcd",
+        "layers.csv": "24ebe3d3ef73f71255f94dfafa5b65cbac674024028c3b554903991f6c339267",
+        "interactions.csv": "f9adaff0b356221c9a3d88a0c1acbd5a5e3e3322a3f6a229cddbcf541efc20d4"
+      },
+      "ecological_network_type": [
+        "pollination"
+      ],
+      "layer_types": [
+        "spatial"
+      ],
+      "source_dois": [],
+      "exact_euppollnet_doi_overlap": [],
+      "no_reference_doi": true,
+      "audit": {
+        "nodes": 173,
+        "layers": 3,
+        "interaction_records": 151,
+        "role_counts": {
+          "plant": 39,
+          "pollinator": 134
+        },
+        "visitor_verification_levels": {
+          "genus": 3,
+          "species": 58,
+          "[missing]": 69,
+          "suborder": 3,
+          "order": 1
+        },
+        "visitor_taxonomy": {},
+        "positive_measured_trait_carriers": {},
+        "strict_nodes": {
+          "plant": 36
+        },
+        "layer_type_counts": {
+          "space": 3
+        },
+        "explicit_year_layers": 0,
+        "coordinate_field_layers": 3,
+        "edge_attrition": {
+          "role_resolved_positive_local_links": 151,
+          "missing_verified_species_or_visitor_taxonomy": 151
+        },
+        "candidate_eligible_layers": 0,
+        "candidate_layer_pairs": 0,
+        "candidate_shared_plant_layer_pairs": 0,
+        "candidate_two_sided_turnover_pairs": 0,
+        "promotion_requires_review": true
+      }
+    },
+    "44_Spatial_Olesen_2003": {
+      "status": "coverage_audited",
+      "files": {
+        "description.csv": "2e506a96c59fbca5529333582ab0def9870a664fa219551af783ce662cda5c42",
+        "references.csv": "2eb3ba6889df1c14bf0a8006498fac0292e68db5fedf2fa8b23c15244c21c31c",
+        "nodes.csv": "68e7108d2d30ef96c6bd37ce103b56480b8c0d33eba01ed6960700d80c8d4899",
+        "layers.csv": "284a038cd8473c231a41ab20debf818b7f958f195ddc367c2ea66d06b34972da",
+        "interactions.csv": "497dbe9ee28f7a75c051390ba5842bdfbf6be4509b44ac813963be7429042814"
+      },
+      "ecological_network_type": [
+        "pollination"
+      ],
+      "layer_types": [
+        "spatial"
+      ],
+      "source_dois": [
+        "10.1034/j.1600-0587.2003.03443.x"
+      ],
+      "exact_euppollnet_doi_overlap": [],
+      "no_reference_doi": false,
+      "audit": {
+        "nodes": 125,
+        "layers": 2,
+        "interaction_records": 251,
+        "role_counts": {
+          "plant": 40,
+          "pollinator": 85
+        },
+        "visitor_verification_levels": {
+          "[missing]": 36,
+          "species": 39,
+          "genus": 8,
+          "subgenus": 2
+        },
+        "visitor_taxonomy": {},
+        "positive_measured_trait_carriers": {},
+        "strict_nodes": {
+          "plant": 28
+        },
+        "layer_type_counts": {
+          "time": 2,
+          "space": 2
+        },
+        "explicit_year_layers": 0,
+        "coordinate_field_layers": 2,
+        "edge_attrition": {
+          "role_resolved_positive_local_links": 251,
+          "missing_verified_species_or_visitor_taxonomy": 251
+        },
+        "candidate_eligible_layers": 0,
+        "candidate_layer_pairs": 0,
+        "candidate_shared_plant_layer_pairs": 0,
+        "candidate_two_sided_turnover_pairs": 0,
+        "promotion_requires_review": true
+      }
+    },
+    "45_Spatial_Olesen_2002": {
+      "status": "coverage_audited",
+      "files": {
+        "description.csv": "84b162b91ae4ba08ab84c6faaabed3d258cc1a9081d2cddba0bb483e4f271acd",
+        "references.csv": "054c860c510b65299549a431cb35beb961c00ddc8411733015e1201e5f8e7dea",
+        "nodes.csv": "26db2eec6bc74a250d20c405ea0fd4a1fc2c41c1ac9d5bacf9f756766ca24b21",
+        "layers.csv": "031c5f8334fb52997a9c0e1ac61748ed2e7e4c85e4a32b68ea86a85d9314d81c",
+        "interactions.csv": "aeab677d7c5b6647c2d36d98324709d3a45e8ae34316d335b18d938c534d6a83"
+      },
+      "ecological_network_type": [
+        "pollination"
+      ],
+      "layer_types": [
+        "spatial"
+      ],
+      "source_dois": [
+        "10.1046/j.1472-4642.2002.00148.x"
+      ],
+      "exact_euppollnet_doi_overlap": [],
+      "no_reference_doi": false,
+      "audit": {
+        "nodes": 47,
+        "layers": 2,
+        "interaction_records": 82,
+        "role_counts": {
+          "plant": 24,
+          "pollinator": 23
+        },
+        "visitor_verification_levels": {
+          "subgenus": 1,
+          "[missing]": 6,
+          "species": 14,
+          "genus": 2
+        },
+        "visitor_taxonomy": {},
+        "positive_measured_trait_carriers": {},
+        "strict_nodes": {
+          "plant": 21
+        },
+        "layer_type_counts": {
+          "space": 2
+        },
+        "explicit_year_layers": 0,
+        "coordinate_field_layers": 2,
+        "edge_attrition": {
+          "role_resolved_positive_local_links": 82,
+          "missing_verified_species_or_visitor_taxonomy": 82
+        },
+        "candidate_eligible_layers": 0,
+        "candidate_layer_pairs": 0,
+        "candidate_shared_plant_layer_pairs": 0,
+        "candidate_two_sided_turnover_pairs": 0,
+        "promotion_requires_review": true
+      }
+    },
+    "49_Spatial_Perturbation_Vazquez_2002": {
+      "status": "coverage_audited",
+      "files": {
+        "description.csv": "c179ed240b4a7061eefedccfd1bc8a456c98e22bc18fde88021eda4a67324dae",
+        "references.csv": "903302bd247b82839edf41d5666aa02f5a1bcb962182a79a82dcff6351fde210",
+        "nodes.csv": "0ac36a065429a924f2ee7ac2486ae16ffa34317dfe8d37a24e31211c3566b215",
+        "layers.csv": "956c66116541c591e9f4364e9f8e43c937e91f3a6be586ee226edbcce88ab0e2",
+        "interactions.csv": "8768304a4c6d82457e800c46f33f4b896a9db76db14b286a379f43b39161def2"
+      },
+      "ecological_network_type": [
+        "pollination"
+      ],
+      "layer_types": [
+        "perturbation",
+        "spatial"
+      ],
+      "source_dois": [
+        "10.1046/j.1461-0248.2003.00534.x",
+        "10.1086/339991"
+      ],
+      "exact_euppollnet_doi_overlap": [],
+      "no_reference_doi": false,
+      "audit": {
+        "nodes": 144,
+        "layers": 8,
+        "interaction_records": 332,
+        "role_counts": {
+          "plant": 15,
+          "pollinator": 129
+        },
+        "visitor_verification_levels": {
+          "no rank": 2,
+          "[missing]": 98,
+          "genus": 13,
+          "species": 14,
+          "family": 1,
+          "subgenus": 1
+        },
+        "visitor_taxonomy": {
+          "order_known": 128,
+          "order_family_known": 88
+        },
+        "positive_measured_trait_carriers": {},
+        "strict_nodes": {
+          "plant": 14,
+          "pollinator": 14
+        },
+        "layer_type_counts": {
+          "perturbation": 8,
+          "space": 8
+        },
+        "explicit_year_layers": 0,
+        "coordinate_field_layers": 0,
+        "edge_attrition": {
+          "role_resolved_positive_local_links": 332,
+          "missing_verified_species_or_visitor_taxonomy": 229,
+          "strict_local_links": 103
+        },
+        "candidate_eligible_layers": 6,
+        "candidate_layer_pairs": 15,
+        "candidate_shared_plant_layer_pairs": 65,
+        "candidate_two_sided_turnover_pairs": 15,
+        "promotion_requires_review": true
+      }
+    },
+    "51_Spatial_Primack_1983": {
+      "status": "coverage_audited",
+      "files": {
+        "description.csv": "5c7ac7565bda0258c93ab32945f9de15b275fe1ce80449a43e9143317a6fb189",
+        "references.csv": "797675e114580582e9ac840ec74243d037b98ec1f7eefddad4305daefba0f890",
+        "nodes.csv": "f593b4b1a8d40546d13392a7e1d7b596d21b4c31d78bf672a8bc8703a0c2476c",
+        "layers.csv": "29c82cfb45fc727a61a9c497db8f813ef15298f27552cd160ac24aa8a714e265",
+        "interactions.csv": "3ca57cffa3082942eb1f0b84806c5134ec133d9c2ac512611357010b46dfad9f"
+      },
+      "ecological_network_type": [
+        "pollination"
+      ],
+      "layer_types": [
+        "spatial"
+      ],
+      "source_dois": [
+        "10.1080/0028825x.1983.10428561"
+      ],
+      "exact_euppollnet_doi_overlap": [],
+      "no_reference_doi": false,
+      "audit": {
+        "nodes": 305,
+        "layers": 3,
+        "interaction_records": 840,
+        "role_counts": {
+          "pollinator": 217,
+          "plant": 88
+        },
+        "visitor_verification_levels": {
+          "[missing]": 158,
+          "species": 20,
+          "genus": 34,
+          "subgenus": 5
+        },
+        "visitor_taxonomy": {},
+        "positive_measured_trait_carriers": {},
+        "strict_nodes": {
+          "plant": 52
+        },
+        "layer_type_counts": {
+          "space": 3
+        },
+        "explicit_year_layers": 0,
+        "coordinate_field_layers": 3,
+        "edge_attrition": {
+          "role_resolved_positive_local_links": 840,
+          "missing_verified_species_or_visitor_taxonomy": 840
+        },
+        "candidate_eligible_layers": 0,
+        "candidate_layer_pairs": 0,
+        "candidate_shared_plant_layer_pairs": 0,
+        "candidate_two_sided_turnover_pairs": 0,
+        "promotion_requires_review": true
+      }
+    },
+    "54_Spatial_Snow_B.K.Snow_1988": {
+      "status": "coverage_audited",
+      "files": {
+        "description.csv": "e771d60018f039a9c8e01619e69605bc870c2c0f42b692835a20ba9759461ab7",
+        "references.csv": "967cf8f95a91e2eb7dd9a3f7b5429c71e0bc3db5e95ae1168c81ff88b20c4462",
+        "nodes.csv": "dc7e3ae840b3a979b73b66925c474aa23ad22c980c89896e584f4329b329daaa",
+        "layers.csv": "ca2693f6da29351926bbce5de5a449ceb65ed736cd673b24844442dab66f6d77",
+        "interactions.csv": "744e8ceda9fed90aad5027d652f9709300db518402359aca7afc4ce1aebd08da"
+      },
+      "ecological_network_type": [
+        "pollination"
+      ],
+      "layer_types": [
+        "spatial"
+      ],
+      "source_dois": [
+        "10.2307/4083882"
+      ],
+      "exact_euppollnet_doi_overlap": [],
+      "no_reference_doi": false,
+      "audit": {
+        "nodes": 89,
+        "layers": 2,
+        "interaction_records": 281,
+        "role_counts": {
+          "seed_disperser": 28,
+          "plant": 61
+        },
+        "visitor_verification_levels": {},
+        "visitor_taxonomy": {},
+        "positive_measured_trait_carriers": {},
+        "strict_nodes": {
+          "plant": 33
+        },
+        "layer_type_counts": {
+          "space": 2
+        },
+        "explicit_year_layers": 0,
+        "coordinate_field_layers": 2,
+        "edge_attrition": {
+          "invalid_roles": 281
+        },
+        "candidate_eligible_layers": 0,
+        "candidate_layer_pairs": 0,
+        "candidate_shared_plant_layer_pairs": 0,
+        "candidate_two_sided_turnover_pairs": 0,
+        "promotion_requires_review": true
+      }
+    },
+    "60_Spatial_Trojelsgaard_2015": {
+      "status": "coverage_audited",
+      "files": {
+        "description.csv": "24377989c9a3457af2c1728f36254656aef35ce3be1062185ded8eb497b82b21",
+        "references.csv": "1dcb2253f755e9f5ead57953b6e0604a862471ffa19d74a8ab351607a63912f3",
+        "nodes.csv": "c433348936225ce0f369d5fbd3b55eb4a8d7bad8dce51bc488a5bd2cd65a253e",
+        "layers.csv": "6950431da850bcc53319644f62b7c6199b5c22c6c804b1d3e457c0bd46e0c4c1",
+        "interactions.csv": "ed6f77a16a56fdbeb04fbe5dc6dcec910b3c11b9db497b4bdd5af2d12e352c18"
+      },
+      "ecological_network_type": [
+        "pollination"
+      ],
+      "layer_types": [
+        "spatial"
+      ],
+      "source_dois": [
+        "10.1098/rspb.2014.2925",
+        "10.5061/dryad.76173"
+      ],
+      "exact_euppollnet_doi_overlap": [],
+      "no_reference_doi": false,
+      "audit": {
+        "nodes": 288,
+        "layers": 14,
+        "interaction_records": 969,
+        "role_counts": {
+          "pollinator": 249,
+          "plant": 39
+        },
+        "visitor_verification_levels": {
+          "genus": 54,
+          "family": 38,
+          "species": 42,
+          "[missing]": 102,
+          "order": 8,
+          "subgenus": 5
+        },
+        "visitor_taxonomy": {},
+        "positive_measured_trait_carriers": {},
+        "strict_nodes": {
+          "plant": 25
+        },
+        "layer_type_counts": {
+          "space": 14
+        },
+        "explicit_year_layers": 0,
+        "coordinate_field_layers": 14,
+        "edge_attrition": {
+          "role_resolved_positive_local_links": 969,
+          "missing_verified_species_or_visitor_taxonomy": 969
+        },
+        "candidate_eligible_layers": 0,
+        "candidate_layer_pairs": 0,
+        "candidate_shared_plant_layer_pairs": 0,
+        "candidate_two_sided_turnover_pairs": 0,
+        "promotion_requires_review": true
+      }
+    }
+  }
+}
