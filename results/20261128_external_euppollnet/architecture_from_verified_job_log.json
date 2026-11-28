@@ -1,0 +1,263 @@
+{
+  "receipt": {
+    "run_id": 46104264903,
+    "job_id": 140853373014,
+    "head_sha": "042f6af288e491f92ab3b0a0f23430d25f405350",
+    "source": "verified workflow job log",
+    "artifact_zip_verified": false
+  },
+  "result": {
+    "source_pins": {
+      "Interaction_data.csv.gz": {
+        "sha256": "cde17692dc66946002e19026433d9db429357d28873a369d884941f71131db61",
+        "expected_sha256": "cde17692dc66946002e19026433d9db429357d28873a369d884941f71131db61",
+        "bytes": 2374060,
+        "git_blob": "6e639d4af81feee76eefa6804622f8b901c39feb"
+      },
+      "Metadata.csv": {
+        "sha256": "adb396f31e7e7e3257425872b92d56c1051ca05849c6228a39675a71364d4833",
+        "expected_sha256": null,
+        "bytes": 28483,
+        "git_blob": "f9708e2f2b142ab2437a8be9d16e33aaefdef0ed"
+      }
+    },
+    "plant_source_pins": {
+      "nhm_combined": {
+        "git_blob": "e1cfd2d5c518c2061ec91d1a9e8b64fc7ca69389",
+        "sha256": "7548836b788ad5c9a3a6eaf382c05646ac2b0be73d889092228a3fba9dea5e0b"
+      },
+      "AngSplist_Symmetry20230625_Updated.rdata": {
+        "md5": "548c12e053d348696f4481d7d2c7104f",
+        "sha256": "c381206d3f99825fc766e66425a123cea055682432e448358727ecf831d5c45b"
+      },
+      "README.txt": {
+        "md5": "e3cea11344201ef4d385be0c6ecb8b75",
+        "sha256": "33f58031d1d6fab535e2e3cf13502d87fbe4d2c4d956ef8c27589307caad8baa"
+      }
+    },
+    "parent_replay_residual": 0.039527962549189964,
+    "parent_census": {
+      "conflicted_visitor_study_years": 0,
+      "eligible_sites": 167,
+      "eligible_site_pairs": 919,
+      "shared_plant_site_pairs": 3677,
+      "two_sided_taxonomic_turnover": 3043
+    },
+    "name_audit": {
+      "valid_exact_names": 283,
+      "normalized_name_collisions": 0,
+      "unmatched_record_names_or_collision": 0
+    },
+    "primary": {
+      "symmetry": {
+        "support": {
+          "trait_species_before_cell_gate": 155,
+          "species": 145,
+          "studies": 13,
+          "informative_studies": 13,
+          "cells": 24,
+          "genus_count": 85,
+          "movable_genera": 0,
+          "movable_species": 0,
+          "plant_study_year_class_rows": 276,
+          "cell_class_counts": {
+            "both_at_least_two": 12,
+            "one_on_either_side": 12
+          }
+        },
+        "gate": false,
+        "coefficient": 0.08419410070696479,
+        "p_for_family": 1,
+        "species_state_counts": {
+          "radial": 84,
+          "bilateral": 61
+        },
+        "study_bootstrap_ci": [
+          -0.05620945016496394,
+          0.24596275676084972
+        ],
+        "leave_study_range": [
+          0.02753892702282347,
+          0.11499072838688289
+        ],
+        "holm_p": 1,
+        "primary_supported": false
+      },
+      "tube_midpoint": {
+        "support": {
+          "trait_species_before_cell_gate": 56,
+          "species": 49,
+          "studies": 7,
+          "informative_studies": 7,
+          "cells": 13,
+          "genus_count": 34,
+          "movable_genera": 11,
+          "movable_species": 26,
+          "plant_study_year_class_rows": 111,
+          "cell_class_counts": {
+            "one_on_either_side": 7,
+            "both_at_least_two": 6
+          }
+        },
+        "gate": false,
+        "coefficient": -0.03446147115767874,
+        "p_for_family": 1,
+        "study_bootstrap_ci": [
+          -0.10595055875262689,
+          0.02197144149005403
+        ],
+        "leave_study_range": [
+          -0.06139617572031762,
+          -0.017939189375394425
+        ],
+        "genus_null_mean": -0.003553639979484018,
+        "genus_null_interval": [
+          -0.05118898923039997,
+          0.037255468294918215
+        ],
+        "genus_residual": -0.03090783117819472,
+        "genus_permutation_p": 0.3,
+        "valid_permutations": 999,
+        "holm_p": 1,
+        "primary_supported": false
+      }
+    },
+    "descriptive_sensitivity": {
+      "symmetry_all_publisher": {
+        "support": {
+          "trait_species_before_cell_gate": 232,
+          "species": 226,
+          "studies": 13,
+          "informative_studies": 13,
+          "cells": 31,
+          "genus_count": 143,
+          "movable_genera": 0,
+          "movable_species": 0,
+          "plant_study_year_class_rows": 461,
+          "cell_class_counts": {
+            "both_at_least_two": 16,
+            "one_on_either_side": 15
+          }
+        },
+        "gate": false,
+        "coefficient": 0.07528865090212646,
+        "p_for_family": 1,
+        "species_state_counts": {
+          "radial": 145,
+          "bilateral": 81
+        },
+        "study_bootstrap_ci": [
+          -0.0005448750965123302,
+          0.15288243613540434
+        ],
+        "leave_study_range": [
+          0.05525742980438244,
+          0.09729182099211273
+        ]
+      },
+      "tube_max": {
+        "support": {
+          "trait_species_before_cell_gate": 56,
+          "species": 49,
+          "studies": 7,
+          "informative_studies": 7,
+          "cells": 13,
+          "genus_count": 34,
+          "movable_genera": 9,
+          "movable_species": 22,
+          "plant_study_year_class_rows": 111,
+          "cell_class_counts": {
+            "one_on_either_side": 7,
+            "both_at_least_two": 6
+          }
+        },
+        "gate": false,
+        "coefficient": -0.004331103315509985,
+        "p_for_family": 1,
+        "study_bootstrap_ci": [
+          -0.06418160010162399,
+          0.06010111461713991
+        ],
+        "leave_study_range": [
+          -0.031898507060009816,
+          0.016907557985655644
+        ],
+        "genus_null_mean": 0.0035223169286962377,
+        "genus_null_interval": [
+          -0.031385274093291005,
+          0.029921969104941947
+        ],
+        "genus_residual": -0.007853420244206223,
+        "genus_permutation_p": 0.63,
+        "valid_permutations": 199
+      },
+      "symmetry_both_at_least_two": {
+        "support": {
+          "trait_species_before_cell_gate": 91,
+          "species": 84,
+          "studies": 10,
+          "informative_studies": 10,
+          "cells": 12,
+          "genus_count": 54,
+          "movable_genera": 0,
+          "movable_species": 0,
+          "plant_study_year_class_rows": 111,
+          "cell_class_counts": {
+            "both_at_least_two": 12
+          }
+        },
+        "gate": false,
+        "coefficient": -0.07558620549910887,
+        "p_for_family": 1,
+        "species_state_counts": {
+          "radial": 51,
+          "bilateral": 33
+        },
+        "study_bootstrap_ci": [
+          -0.16054723346441432,
+          0.021214108005830217
+        ],
+        "leave_study_range": [
+          -0.11297914007776631,
+          -0.05243898394241801
+        ]
+      },
+      "tube_both_at_least_two": {
+        "support": {
+          "trait_species_before_cell_gate": 35,
+          "species": 27,
+          "studies": 4,
+          "informative_studies": 4,
+          "cells": 6,
+          "genus_count": 21,
+          "movable_genera": 4,
+          "movable_species": 10,
+          "plant_study_year_class_rows": 42,
+          "cell_class_counts": {
+            "both_at_least_two": 6
+          }
+        },
+        "gate": false,
+        "coefficient": -0.032997539882637726,
+        "p_for_family": 1,
+        "study_bootstrap_ci": [
+          -0.09420748220543212,
+          0.04145891410894319
+        ],
+        "leave_study_range": [
+          -0.060795168873730335,
+          0.002688295574831504
+        ],
+        "genus_null_mean": -0.029367940514505787,
+        "genus_null_interval": [
+          -0.03814777825382186,
+          -0.01788043185813189
+        ],
+        "genus_residual": -0.003629599368131939,
+        "genus_permutation_p": 0.54,
+        "valid_permutations": 199
+      }
+    },
+    "scope": "Post-discovery floral moderation, external-only. Trait effects conditional on observed turnover and carrier support. Fixed study-year-turnover-class cells; equal cell/year/study weights, within-cell regression and coherent genus trait shuffles; study bootstrap conditional on observed species. No pollination effectiveness, evolutionary or island effect claim. Publisher symmetry not direct measurement; tube length not accessibility."
+  }
+}

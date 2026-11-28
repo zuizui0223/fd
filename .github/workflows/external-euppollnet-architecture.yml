@@ -1,0 +1,29 @@
+name: External EuPPollNet floral architecture and channel retention
+on:
+  pull_request:
+    paths:
+      - scripts/external_euppollnet_architecture.py
+      - .github/workflows/external-euppollnet-architecture.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  external:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - uses: r-lib/actions/setup-r@v2
+        with:
+          r-version: '4.4.3'
+      - run: pip install numpy pandas
+      - run: python scripts/external_euppollnet_architecture.py --self-test
+      - run: python -u scripts/external_euppollnet_architecture.py --out /tmp/architecture.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: external-euppollnet-architecture
+          path: /tmp/architecture.json
+          if-no-files-found: error

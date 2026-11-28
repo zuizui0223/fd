@@ -1,0 +1,123 @@
+{
+  "receipt": {
+    "run_id": 46103625006,
+    "job_id": 140851383813,
+    "head_sha": "935286ba2f3a70b33cdb5866eeb13e7749e6e499",
+    "source": "verified workflow job log",
+    "artifact_zip_verified": false
+  },
+  "result": {
+    "census": {
+      "source_rows": 623476,
+      "source_studies": 54,
+      "plant_ranks": {
+        "SPECIES": 611415,
+        "GENUS": 11906,
+        "FAMILY": 115,
+        "VARIETY": 40
+      },
+      "visitor_ranks": {
+        "SPECIES": 596959,
+        "GENUS": 20360,
+        "FAMILY": 5021,
+        "ORDER": 1088,
+        "SUPERFAMILY": 28,
+        "SUBFAMILY": 16,
+        "SUBORDER": 3,
+        "[missing]": 1
+      },
+      "four_order_documented_rows": 101302,
+      "qualified_visit_rows": 80562,
+      "qualified_studies": 18,
+      "site_classes": {
+        "continent": 172,
+        "island": 51,
+        "small_land": 2,
+        "unresolved": 1
+      }
+    },
+    "geography": {
+      "sha256": "8dbbe7e071e77e9e75f2d639239099ebca8d5c16d6a07df8169729d49f15cf41",
+      "expected_sha256": "8dbbe7e071e77e9e75f2d639239099ebca8d5c16d6a07df8169729d49f15cf41",
+      "bytes": 149157845,
+      "git_blob": null,
+      "fixed_geography_controls": [
+        {
+          "control": "central_france",
+          "expected": "continent",
+          "observed": "continent",
+          "area_km2": 50542442.1049936
+        },
+        {
+          "control": "central_britain",
+          "expected": "island",
+          "observed": "island",
+          "area_km2": 219502.41966300842
+        },
+        {
+          "control": "central_iceland",
+          "expected": "island",
+          "observed": "island",
+          "area_km2": 102424.00330910107
+        },
+        {
+          "control": "open_atlantic",
+          "expected": "unresolved",
+          "observed": "unresolved",
+          "area_km2": null
+        }
+      ],
+      "area_crs": "EPSG:6933; projected square metres divided by 1e6",
+      "landmass_classes": {
+        "small_land": 29802,
+        "island": 326,
+        "continent": 2
+      },
+      "ambiguous_sites_excluded": 0
+    },
+    "network_support": {
+      "continent": {
+        "networks": 125,
+        "studies": 12,
+        "zero_bee": 0,
+        "all_bee": 0,
+        "descriptive_network_mean_residual": 0.06477987015678763
+      },
+      "island": {
+        "networks": 47,
+        "studies": 4,
+        "zero_bee": 0,
+        "all_bee": 0,
+        "descriptive_network_mean_residual": 0.046528459833672736
+      }
+    },
+    "same_plant_support": {
+      "matched_plant_study_year": 0,
+      "matched_species": 0,
+      "matched_studies": 0,
+      "matched_island_landmasses": 0,
+      "matched_blocks": {
+        "island": 0,
+        "continent": 0
+      }
+    },
+    "primary_support_gate": false,
+    "primary_supported": false,
+    "source_pins": {
+      "Interaction_data.csv.gz": {
+        "sha256": "cde17692dc66946002e19026433d9db429357d28873a369d884941f71131db61",
+        "expected_sha256": "cde17692dc66946002e19026433d9db429357d28873a369d884941f71131db61",
+        "bytes": 2374060,
+        "git_blob": "6e639d4af81feee76eefa6804622f8b901c39feb"
+      },
+      "Metadata.csv": {
+        "sha256": "adb396f31e7e7e3257425872b92d56c1051ca05849c6228a39675a71364d4833",
+        "expected_sha256": null,
+        "bytes": 28483,
+        "git_blob": "f9708e2f2b142ab2437a8be9d16e33aaefdef0ed"
+      }
+    },
+    "scope": "External source only, observed species-level visits, documented four-order coverage not guaranteed complete survey. Hypothetical deletion and conditional random-species expectation, not measured pollination or historical loss.",
+    "primary": "Study-equal same-plant within-study/year island-minus-continent excess disconnection; support gate fixed before outcomes. Geography class is positive polygon membership, no inference from absence."
+  }
+}

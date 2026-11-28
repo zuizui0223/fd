@@ -1,0 +1,26 @@
+name: External EMLN measured visitor trait turnover
+on:
+  pull_request:
+    paths:
+      - scripts/external_emln_trait_turnover.py
+      - .github/workflows/external-emln-trait-turnover.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  external:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: pip install numpy pandas
+      - run: python scripts/external_emln_trait_turnover.py --self-test
+      - run: python -u scripts/external_emln_trait_turnover.py --out /tmp/trait_turnover.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: external-emln-trait-turnover
+          path: /tmp/trait_turnover.json
+          if-no-files-found: error

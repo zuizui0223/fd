@@ -1,0 +1,26 @@
+name: External EuPollTrait provenance cluster validation
+on:
+  pull_request:
+    paths:
+      - scripts/external_eupolltrait_provenance.py
+      - .github/workflows/external-eupolltrait-provenance.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  external:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: pip install numpy pandas
+      - run: python scripts/external_eupolltrait_provenance.py --self-test
+      - run: python -u scripts/external_eupolltrait_provenance.py --out /tmp/provenance.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: external-eupolltrait-provenance
+          path: /tmp/provenance.json
+          if-no-files-found: error

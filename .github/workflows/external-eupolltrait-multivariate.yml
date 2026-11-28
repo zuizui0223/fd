@@ -1,0 +1,26 @@
+name: External EuPollTrait multivariate morphology turnover
+on:
+  pull_request:
+    paths:
+      - scripts/external_eupolltrait_multivariate.py
+      - .github/workflows/external-eupolltrait-multivariate.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  external:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: pip install numpy pandas
+      - run: python scripts/external_eupolltrait_multivariate.py --self-test
+      - run: python -u scripts/external_eupolltrait_multivariate.py --out /tmp/multivariate.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: external-eupolltrait-multivariate
+          path: /tmp/multivariate.json
+          if-no-files-found: error

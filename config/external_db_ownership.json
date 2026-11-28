@@ -1,12 +1,31 @@
 {
-  "contract": "fd_scientific_ownership_20261125",
+  "contract": "fd_source_first_20261128",
   "owner": "fd",
-  "policy": "Scientific ownership follows the research estimand. FD owns floral functional diversity, syndrome composition, pollinator channels and functional assembly, including shared canonical island inputs. island owns data custody, protected execution, reproductive assurance and Chapter 1. Active external-only paths retain strict source screening; shared_db_research contains reviewed archival snapshots only.",
+  "policy": "Source-first scientific ownership: verified external-only biological inputs, including cohort selection, training, labels and derived inputs, belong to FD. Any direct or transitive dependency on project GBIF flora or integrated trait data belongs to island regardless of estimand. Unknown ancestry is quarantined. Outcome-blind geography and unfitted generic methods are neutral. Frozen island GloPL H3 is an explicit supporting-evidence exception.",
   "source_main": "43b80ab0b3b5fe580f4ad74ffe6af6809af718e2",
   "source_migration": "https://github.com/zuizui0223/island/pull/347",
   "source_pins": "https://github.com/zuizui0223/island/blob/64a58cd4817ccf1c54c179aa7fd1c5585f57dd43/config/fd_data_ownership_20261125.json",
   "allowed_paths": [
     ".github/workflows/external-db-boundary.yml",
+    ".github/workflows/external-emln-spatial-audit.yml",
+    ".github/workflows/external-emln-trait-turnover.yml",
+    ".github/workflows/external-eupolltrait-disjoint-validation.yml",
+    ".github/workflows/external-eupolltrait-energy.yml",
+    ".github/workflows/external-eupolltrait-intake.yml",
+    ".github/workflows/external-eupolltrait-month-match.yml",
+    ".github/workflows/external-eupolltrait-multivariate.yml",
+    ".github/workflows/external-eupolltrait-provenance.yml",
+    ".github/workflows/external-eupolltrait-size-qc-family.yml",
+    ".github/workflows/external-eupolltrait-size-turnover.yml",
+    ".github/workflows/external-eupolltrait-transport.yml",
+    ".github/workflows/external-eupolltrait-validation-energy.yml",
+    ".github/workflows/external-eupolltrait-validation-month.yml",
+    ".github/workflows/external-eupolltrait-visitor-genus.yml",
+    ".github/workflows/external-euppollnet-architecture.yml",
+    ".github/workflows/external-euppollnet-bee-loss.yml",
+    ".github/workflows/external-euppollnet-channel-retention.yml",
+    ".github/workflows/external-euppollnet-curveball.yml",
+    ".github/workflows/external-euppollnet-spatial-scaling.yml",
     ".github/workflows/external-floral-replication-intake.yml",
     ".github/workflows/external-gift-continuous-flower-space.yml",
     ".github/workflows/external-gift-floral-replication-coverage.yml",
@@ -26,6 +45,27 @@
     ".gitignore",
     "README.md",
     "config/external_db_ownership.json",
+    "config/external_emln_spatial_source_manifest_20261128.json",
+    "docs/EXTERNAL_BEE_SIZE_MANUSCRIPT_EVIDENCE_20261128.md",
+    "docs/EXTERNAL_EMLN_SPATIAL_AUDIT_20261128.md",
+    "docs/EXTERNAL_EMLN_TRAIT_TURNOVER_20261128.md",
+    "docs/EXTERNAL_EUPOLLTRAIT_DISJOINT_VALIDATION_20261128.md",
+    "docs/EXTERNAL_EUPOLLTRAIT_ENERGY_20261128.md",
+    "docs/EXTERNAL_EUPOLLTRAIT_INTAKE_20261128.md",
+    "docs/EXTERNAL_EUPOLLTRAIT_MONTH_MATCH_20261128.md",
+    "docs/EXTERNAL_EUPOLLTRAIT_MULTIVARIATE_20261128.md",
+    "docs/EXTERNAL_EUPOLLTRAIT_PROVENANCE_20261128.md",
+    "docs/EXTERNAL_EUPOLLTRAIT_SIZE_QC_FAMILY_20261128.md",
+    "docs/EXTERNAL_EUPOLLTRAIT_SIZE_TURNOVER_20261128.md",
+    "docs/EXTERNAL_EUPOLLTRAIT_TRANSPORT_20261128.md",
+    "docs/EXTERNAL_EUPOLLTRAIT_VALIDATION_ENERGY_20261128.md",
+    "docs/EXTERNAL_EUPOLLTRAIT_VALIDATION_MONTH_20261128.md",
+    "docs/EXTERNAL_EUPOLLTRAIT_VISITOR_GENUS_20261128.md",
+    "docs/EXTERNAL_EUPPOLLNET_ARCHITECTURE_20261128.md",
+    "docs/EXTERNAL_EUPPOLLNET_BEE_LOSS_20261128.md",
+    "docs/EXTERNAL_EUPPOLLNET_CHANNEL_RETENTION_20261128.md",
+    "docs/EXTERNAL_EUPPOLLNET_CURVEBALL_20261128.md",
+    "docs/EXTERNAL_EUPPOLLNET_SPATIAL_SCALING_20261128.md",
     "docs/EXTERNAL_FLORAL_REPLICATION_INTAKE_20261126.md",
     "docs/EXTERNAL_SOURCE_RESEARCH_INDEX.md",
     "docs/legacy_external_workflows/acquire-thousand-island-lake-source.yml",
@@ -51,10 +91,47 @@
     "results/20261126_external_floral_replication/length_holdout_from_verified_job_log.json",
     "results/20261126_external_floral_replication/native_coverage_from_verified_job_log.json",
     "results/20261126_external_floral_replication/wang_nhm_bridge_from_verified_job_log.json",
+    "results/20261128_external_emln/spatial_audit_from_verified_job_log.json",
+    "results/20261128_external_emln/trait_turnover_from_verified_job_log.json",
+    "results/20261128_external_euppollnet/architecture_from_verified_job_log.json",
+    "results/20261128_external_euppollnet/bee_loss_corrected_from_verified_job_log.json",
+    "results/20261128_external_euppollnet/channel_retention_from_verified_job_log.json",
+    "results/20261128_external_euppollnet/curveball_from_verified_job_log.json",
+    "results/20261128_external_euppollnet/eupolltrait_disjoint_validation_from_verified_job_log.json",
+    "results/20261128_external_euppollnet/eupolltrait_energy_from_verified_job_log.json",
+    "results/20261128_external_euppollnet/eupolltrait_intake_from_verified_job_log.json",
+    "results/20261128_external_euppollnet/eupolltrait_month_match_from_verified_job_log.json",
+    "results/20261128_external_euppollnet/eupolltrait_multivariate_from_verified_job_log.json",
+    "results/20261128_external_euppollnet/eupolltrait_provenance_from_verified_job_log.json",
+    "results/20261128_external_euppollnet/eupolltrait_size_from_verified_job_log.json",
+    "results/20261128_external_euppollnet/eupolltrait_size_qc_family_from_verified_job_log.json",
+    "results/20261128_external_euppollnet/eupolltrait_transport_from_verified_job_log.json",
+    "results/20261128_external_euppollnet/eupolltrait_validation_month_from_verified_job_log.json",
+    "results/20261128_external_euppollnet/eupolltrait_visitor_genus_from_verified_job_log.json",
+    "results/20261128_external_euppollnet/spatial_scaling_from_verified_job_log.json",
     "scripts/audit_mdd_bat_diet_metadata.py",
     "scripts/bat_mdd_synonym_audit.py",
     "scripts/check_external_source_boundary.py",
     "scripts/export_mdd_bat_ranges.R",
+    "scripts/external_emln_spatial_audit.py",
+    "scripts/external_emln_trait_turnover.py",
+    "scripts/external_eupolltrait_disjoint_validation.py",
+    "scripts/external_eupolltrait_energy.py",
+    "scripts/external_eupolltrait_intake.py",
+    "scripts/external_eupolltrait_month_match.py",
+    "scripts/external_eupolltrait_multivariate.py",
+    "scripts/external_eupolltrait_provenance.py",
+    "scripts/external_eupolltrait_size_qc_family.py",
+    "scripts/external_eupolltrait_size_turnover.py",
+    "scripts/external_eupolltrait_transport.py",
+    "scripts/external_eupolltrait_validation_energy.py",
+    "scripts/external_eupolltrait_validation_month.py",
+    "scripts/external_eupolltrait_visitor_genus.py",
+    "scripts/external_euppollnet_architecture.py",
+    "scripts/external_euppollnet_bee_loss.py",
+    "scripts/external_euppollnet_channel_retention.py",
+    "scripts/external_euppollnet_curveball.py",
+    "scripts/external_euppollnet_spatial_scaling.py",
     "scripts/external_floral_replication_intake.py",
     "scripts/external_gift_continuous_flower_space.py",
     "scripts/external_gift_floral_replication_coverage.py",
@@ -536,8 +613,8 @@
       "mode": "100644"
     }
   ],
-  "scope_limit": "No protected raw rows or credentials copied. No independent replication inferred from shared inputs. Archived scripts are not activated workflows. Prior external-only inventory retained as provenance; historical files require dependency and export review before promotion.",
-  "shared_db_research_policy": "Reviewed archival namespace only; active external paths retain original marker screen; protected execution remains island.",
+  "scope_limit": "No protected raw rows or credentials copied. No independent replication inferred from shared inputs or merely distinct publisher files. Archived scripts are not activated workflows. Path allowlist and marker screen do not certify full ancestry; require explicit source and cohort dependency review before promotion. Prior theme-first review entries retained only as provenance.",
+  "shared_db_research_policy": "Read-only historical provenance of island-owned shared-source results. Do not activate these scripts or use these data/aggregates as inputs to FD research. Historical theme-first review fields are not active ownership permissions.",
   "prior_source_only_contract": "fd_external_only_20261125",
   "fd_syndrome_architecture_review_20261125": {
     "scope": "FD-owned shared-source archival anonymous aggregate robustness audit (80 historical panels, no raw records); prospective conditional architecture analysis contract and exact algebra kernel, synthetic-only test in existing CI. Protected empirical execution remains island; no modification of protected workflows, island files, or frozen submission. No biological animal-channel claim.",
@@ -595,6 +672,183 @@
       "shared_db_research/results/20261125_fd_syndrome_architecture/source_aggregation_all_recorded.json",
       "shared_db_research/results/20261125_fd_syndrome_architecture/source_aggregation_original_native.json",
       "shared_db_research/results/20261125_fd_syndrome_architecture/source_aggregation_high_quality_only.json"
+    ]
+  },
+  "external_euppollnet_bee_loss_20261128": {
+    "scope": "Original publisher EuPPollNet v1.3.0 interaction and metadata files, independently retrieved public GSHHG 2.3.7 L1 polygons. No own biological or selected cohort input. Same-plant within-study-year hypothetical bee loss conditional on observed richness and degree; frozen support gate, descriptive if insufficient.",
+    "paths": [
+      "scripts/external_euppollnet_bee_loss.py",
+      ".github/workflows/external-euppollnet-bee-loss.yml",
+      "docs/EXTERNAL_EUPPOLLNET_BEE_LOSS_20261128.md",
+      "results/20261128_external_euppollnet/bee_loss_corrected_from_verified_job_log.json"
+    ]
+  },
+  "external_euppollnet_channel_retention_20261128": {
+    "scope": "Original EuPPollNet v1.3.0 only. Same-plant spatial replacement conditional on local visitor degree background excluding focal plant. No own data or geographic labels. Primary and support frozen before outcomes.",
+    "paths": [
+      "scripts/external_euppollnet_channel_retention.py",
+      ".github/workflows/external-euppollnet-channel-retention.yml",
+      "docs/EXTERNAL_EUPPOLLNET_CHANNEL_RETENTION_20261128.md",
+      "results/20261128_external_euppollnet/channel_retention_from_verified_job_log.json"
+    ]
+  },
+  "external_euppollnet_architecture_20261128": {
+    "scope": "Original public EuPPollNet v1.3.0 network, publisher-pinned Wang symmetry and NHM tube ranges only. No own biological inputs. Fixed turnover-support strata and species-coherent genus null. Two primary endpoints frozen, descriptive sensitivities.",
+    "paths": [
+      "scripts/external_euppollnet_architecture.py",
+      ".github/workflows/external-euppollnet-architecture.yml",
+      "docs/EXTERNAL_EUPPOLLNET_ARCHITECTURE_20261128.md",
+      "results/20261128_external_euppollnet/architecture_from_verified_job_log.json"
+    ]
+  },
+  "external_euppollnet_curveball_20261128": {
+    "scope": "Same pinned external EuPPollNet source and parent comparisons only. Local binary fixed-margin randomization and exact observed overlap conditioning. Frozen support before new outcomes. No own biological inputs.",
+    "paths": [
+      "scripts/external_euppollnet_curveball.py",
+      ".github/workflows/external-euppollnet-curveball.yml",
+      "docs/EXTERNAL_EUPPOLLNET_CURVEBALL_20261128.md",
+      "results/20261128_external_euppollnet/curveball_from_verified_job_log.json"
+    ]
+  },
+  "external_euppollnet_spatial_scaling_20261128": {
+    "scope": "Pinned public EuPPollNet only; replay parent conditional null. Direct publisher coordinates; study/genus crossed dependence and within-plant spatial slopes. No own biological data; frozen support.",
+    "paths": [
+      "scripts/external_euppollnet_spatial_scaling.py",
+      ".github/workflows/external-euppollnet-spatial-scaling.yml",
+      "docs/EXTERNAL_EUPPOLLNET_SPATIAL_SCALING_20261128.md",
+      "results/20261128_external_euppollnet/spatial_scaling_from_verified_job_log.json"
+    ]
+  },
+  "external_emln_spatial_audit_20261128": {
+    "scope": "Pinned EMLN publisher website CSVs and original EuPPollNet metadata for DOI overlap only. Spatial metadata-selected source audit, no ecology effect, no project biological inputs.",
+    "paths": [
+      "config/external_emln_spatial_source_manifest_20261128.json",
+      "scripts/external_emln_spatial_audit.py",
+      ".github/workflows/external-emln-spatial-audit.yml",
+      "docs/EXTERNAL_EMLN_SPATIAL_AUDIT_20261128.md",
+      "results/20261128_external_emln/spatial_audit_from_verified_job_log.json"
+    ]
+  },
+  "external_emln_trait_turnover_20261128": {
+    "scope": "Pinned EMLN26 original external morphology and local interactions only. Four 2006 sites, single-study descriptive trait-conditioned comparison; no own biological data.",
+    "paths": [
+      "scripts/external_emln_trait_turnover.py",
+      ".github/workflows/external-emln-trait-turnover.yml",
+      "docs/EXTERNAL_EMLN_TRAIT_TURNOVER_20261128.md",
+      "results/20261128_external_emln/trait_turnover_from_verified_job_log.json"
+    ]
+  },
+  "external_eupolltrait_intake_20261128": {
+    "scope": "Pinned public EuPollTrait Zenodo 18032357 and EuPPollNet v1.3.0 only; schema and coverage audit, no effect, no own biological inputs.",
+    "paths": [
+      "scripts/external_eupolltrait_intake.py",
+      ".github/workflows/external-eupolltrait-intake.yml",
+      "docs/EXTERNAL_EUPOLLTRAIT_INTAKE_20261128.md",
+      "results/20261128_external_euppollnet/eupolltrait_intake_from_verified_job_log.json"
+    ]
+  },
+  "external_eupolltrait_size_turnover_20261128": {
+    "scope": "Verified public EuPollTrait + EuPPollNet only. Group-specific size retention on observed trait carriers, fixed local degrees/shared count, crossed uncertainty. Bee primary, hoverfly descriptive, frozen gates.",
+    "paths": [
+      "scripts/external_eupolltrait_size_turnover.py",
+      ".github/workflows/external-eupolltrait-size-turnover.yml",
+      "docs/EXTERNAL_EUPOLLTRAIT_SIZE_TURNOVER_20261128.md",
+      "results/20261128_external_euppollnet/eupolltrait_size_from_verified_job_log.json"
+    ]
+  },
+  "external_eupolltrait_size_qc_family_20261128": {
+    "scope": "Pinned publisher EuPollTrait and EuPPollNet only, exact documented F coding correction and fly plausibility quarantine; exact family-pair common-support size accounting. Post-discovery, no own biological data.",
+    "paths": [
+      "scripts/external_eupolltrait_size_qc_family.py",
+      ".github/workflows/external-eupolltrait-size-qc-family.yml",
+      "docs/EXTERNAL_EUPOLLTRAIT_SIZE_QC_FAMILY_20261128.md",
+      "results/20261128_external_euppollnet/eupolltrait_size_qc_family_from_verified_job_log.json"
+    ]
+  },
+  "external_eupolltrait_visitor_genus_20261128": {
+    "scope": "Pinned external EuPollTrait and EuPPollNet; exact parent replay, fixed family weights, coherent trait permutation within visitor genus and crossed study/plant genus inference. No own inputs; post-discovery.",
+    "paths": [
+      "scripts/external_eupolltrait_visitor_genus.py",
+      ".github/workflows/external-eupolltrait-visitor-genus.yml",
+      "docs/EXTERNAL_EUPOLLTRAIT_VISITOR_GENUS_20261128.md",
+      "results/20261128_external_euppollnet/eupolltrait_visitor_genus_from_verified_job_log.json"
+    ]
+  },
+  "external_eupolltrait_energy_20261128": {
+    "scope": "Pinned publisher EuPollTrait and EuPPollNet, exact corrected bee pair replay; half-energy and dispersion decomposition, descriptive genus-compatible components. Post-discovery, no own inputs.",
+    "paths": [
+      "scripts/external_eupolltrait_energy.py",
+      ".github/workflows/external-eupolltrait-energy.yml",
+      "docs/EXTERNAL_EUPOLLTRAIT_ENERGY_20261128.md",
+      "results/20261128_external_euppollnet/eupolltrait_energy_from_verified_job_log.json"
+    ]
+  },
+  "external_eupolltrait_multivariate_20261128": {
+    "scope": "Pinned external EuPollTrait and EuPPollNet, exact common adult female ITD/hair-length/density carrier subweb; fixed-margin joint half-energy, post-discovery, no own inputs.",
+    "paths": [
+      "scripts/external_eupolltrait_multivariate.py",
+      ".github/workflows/external-eupolltrait-multivariate.yml",
+      "docs/EXTERNAL_EUPOLLTRAIT_MULTIVARIATE_20261128.md",
+      "results/20261128_external_euppollnet/eupolltrait_multivariate_from_verified_job_log.json"
+    ]
+  },
+  "external_eupolltrait_month_match_20261128": {
+    "scope": "Pinned publisher EuPollTrait and EuPPollNet only. Exact corrected annual replay; recorded calendar-month spatial turnover with fixed margins/overlap and crossed uncertainty. No own biological data; post-discovery temporal audit.",
+    "paths": [
+      "scripts/external_eupolltrait_month_match.py",
+      ".github/workflows/external-eupolltrait-month-match.yml",
+      "docs/EXTERNAL_EUPOLLTRAIT_MONTH_MATCH_20261128.md",
+      "results/20261128_external_euppollnet/eupolltrait_month_match_from_verified_job_log.json"
+    ]
+  },
+  "external_eupolltrait_transport_20261128": {
+    "scope": "Pinned public EuPollTrait/EuPPollNet only, held-out whole-study plant-specific relative ITD prediction; frozen support, conditional uncertainty. Post-discovery, no own inputs.",
+    "paths": [
+      "scripts/external_eupolltrait_transport.py",
+      ".github/workflows/external-eupolltrait-transport.yml",
+      "docs/EXTERNAL_EUPOLLTRAIT_TRANSPORT_20261128.md",
+      "results/20261128_external_euppollnet/eupolltrait_transport_from_verified_job_log.json"
+    ]
+  },
+  "external_eupolltrait_disjoint_validation_20261128": {
+    "scope": "Pinned publisher EuPollTrait/EuPPollNet only. Metadata-defined study-ID and exact DOI-disjoint broad bee-inclusive protocol validation of corrected ITD, identical null and gate. Post-discovery, not independent source; no own inputs.",
+    "paths": [
+      "scripts/external_eupolltrait_disjoint_validation.py",
+      ".github/workflows/external-eupolltrait-disjoint-validation.yml",
+      "docs/EXTERNAL_EUPOLLTRAIT_DISJOINT_VALIDATION_20261128.md",
+      "results/20261128_external_euppollnet/eupolltrait_disjoint_validation_from_verified_job_log.json"
+    ]
+  },
+  "external_eupolltrait_provenance_20261128": {
+    "scope": "Pinned external EuPollTrait/EuPPollNet only. Exact replay of study-disjoint size result, metadata DOI/ORCID component bootstrap and discovery-genus novelty. Post-discovery, no own inputs or personal identifiers exported.",
+    "paths": [
+      "scripts/external_eupolltrait_provenance.py",
+      ".github/workflows/external-eupolltrait-provenance.yml",
+      "docs/EXTERNAL_EUPOLLTRAIT_PROVENANCE_20261128.md",
+      "results/20261128_external_euppollnet/eupolltrait_provenance_from_verified_job_log.json"
+    ]
+  },
+  "external_eupolltrait_validation_month_20261128": {
+    "scope": "Pinned external EuPollTrait/EuPPollNet only. Identical recorded-month protocol in separate study-ID validation cohort, exact annual replay and metadata component dependence.",
+    "paths": [
+      "scripts/external_eupolltrait_validation_month.py",
+      ".github/workflows/external-eupolltrait-validation-month.yml",
+      "docs/EXTERNAL_EUPOLLTRAIT_VALIDATION_MONTH_20261128.md",
+      "results/20261128_external_euppollnet/eupolltrait_validation_month_from_verified_job_log.json"
+    ]
+  },
+  "external_bee_size_manuscript_evidence_20261128": {
+    "scope": "Verified external-only aggregate ledgers and claim limits; no new empirical effect.",
+    "paths": [
+      "docs/EXTERNAL_BEE_SIZE_MANUSCRIPT_EVIDENCE_20261128.md"
+    ]
+  },
+  "external_eupolltrait_validation_energy_20261128": {
+    "scope": "Pinned external EuPollTrait/EuPPollNet only. Frozen univariate half-energy test in study-ID-disjoint validation cohort, exact annual cross-gain replay, metadata component robustness; no own data or raw exports.",
+    "paths": [
+      "scripts/external_eupolltrait_validation_energy.py",
+      ".github/workflows/external-eupolltrait-validation-energy.yml",
+      "docs/EXTERNAL_EUPOLLTRAIT_VALIDATION_ENERGY_20261128.md"
     ]
   }
 }

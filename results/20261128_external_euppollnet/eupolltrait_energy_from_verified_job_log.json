@@ -1,0 +1,410 @@
+{
+  "receipt": {
+    "run_id": 46115141133,
+    "job_id": 140887155434,
+    "head_sha": "4b29bade884eb8c443ac1b9fc51d37eff23dd411",
+    "artifact_zip_verified": false
+  },
+  "result": {
+    "source_pins": {
+      "archive_sha256": "b6e6b2c0b9f4c348e11185382d3f604610d1aad4181b0088b18a146f6180f782",
+      "dwc_taxon_core_bees_hoverflies.csv": {
+        "sha256": "17e487ecfe775858b786ca0e4e0e60529d5b7adfc670d18bde00d8f2ee193a2c",
+        "encoding": "utf-8-sig"
+      },
+      "dwc_mof_bees_hoverflies.csv": {
+        "sha256": "4c8f13913775483d458ed5e4f7946e6518873ed3b455a209b775bfa9c1cc310d",
+        "encoding": "cp1252"
+      },
+      "trait_metadata.csv": {
+        "sha256": "fae52c364472e36958e49864d509fb3e8c7828aee8b795ae6a4c7ce470292378",
+        "encoding": "utf-8-sig"
+      }
+    },
+    "network_source_pins": {
+      "Interaction_data.csv.gz": {
+        "sha256": "cde17692dc66946002e19026433d9db429357d28873a369d884941f71131db61",
+        "expected_sha256": "cde17692dc66946002e19026433d9db429357d28873a369d884941f71131db61",
+        "bytes": 2374060,
+        "git_blob": "6e639d4af81feee76eefa6804622f8b901c39feb"
+      },
+      "Metadata.csv": {
+        "sha256": "adb396f31e7e7e3257425872b92d56c1051ca05849c6228a39675a71364d4833",
+        "expected_sha256": null,
+        "bytes": 28483,
+        "git_blob": "f9708e2f2b142ab2437a8be9d16e33aaefdef0ed"
+      }
+    },
+    "selection": {
+      "raw_rows": 2386,
+      "exact_f_rows": 1754,
+      "excluded": {},
+      "original_subset_species": 1668,
+      "restored_source_f_species": 86,
+      "retained_species": 1754,
+      "range_mm": [
+        0.63,
+        8.019999999999998
+      ],
+      "definition": "Published female ITD, explicitly workers for social bees; exact F/ITD_F_mm. Species-level measurements, visit sex unknown."
+    },
+    "network": {
+      "network_visit_rows": 45164,
+      "visitor_species": 484,
+      "studies_with_visits": 17,
+      "family_count": 6,
+      "eligible_sites": 126,
+      "frozen_sites": 0,
+      "candidate_pairs": 1304,
+      "rejected_conditional_support": 43,
+      "accepted_draw_quantiles": [
+        0,
+        152,
+        235,
+        329,
+        399
+      ]
+    },
+    "primary": {
+      "name_audit": {
+        "input_pairs": 1261,
+        "exact_name_pairs": 1261,
+        "colliding_exact_names": 0
+      },
+      "comparisons": 1261,
+      "site_pairs": 517,
+      "study_equal": {
+        "cross_obs": 0.6286437443826596,
+        "cross_null": 0.7392926139192719,
+        "cross_gain": 0.11064886953661238,
+        "cross_genus_expected_gain": 0.08747877792968513,
+        "cross_genus_residual": 0.02317009160692724,
+        "dispersion_obs": 0.202916556404736,
+        "dispersion_null": 0.21657194749817996,
+        "dispersion_gain": 0.013655391093443964,
+        "dispersion_genus_expected_gain": 0.0030249641275429283,
+        "dispersion_genus_residual": 0.010630426965901035,
+        "energy_half_obs": 0.42572718797792364,
+        "energy_half_null": 0.522720666421092,
+        "energy_half_gain": 0.09699347844316843,
+        "energy_half_genus_expected_gain": 0.08445381380214208,
+        "energy_half_genus_residual": 0.012539664641026344
+      },
+      "inference": {
+        "cross_gain": {
+          "support": {
+            "plant_study_year_cells": 238,
+            "species": 178,
+            "genera": 119,
+            "studies": 14,
+            "study_years": 18
+          },
+          "gate": true,
+          "estimate": 0.11064886953661238,
+          "supported": true,
+          "study_valid_draws": 9999,
+          "study_bootstrap_ci": [
+            0.06363185034695916,
+            0.16114072646314395
+          ],
+          "genus_valid_draws": 9999,
+          "genus_bootstrap_ci": [
+            0.05727073969933469,
+            0.1604171913376776
+          ],
+          "crossed_study_genus_valid_draws": 9999,
+          "crossed_study_genus_bootstrap_ci": [
+            0.024189195263896696,
+            0.19118848749117648
+          ],
+          "leave_study_range": [
+            0.09353932166448907,
+            0.12560411245467085
+          ],
+          "leave_genus_range": [
+            0.09353932166448907,
+            0.11825944408621247
+          ]
+        },
+        "dispersion_gain": {
+          "support": {
+            "plant_study_year_cells": 238,
+            "species": 178,
+            "genera": 119,
+            "studies": 14,
+            "study_years": 18
+          },
+          "gate": true,
+          "estimate": 0.013655391093443964,
+          "supported": false,
+          "study_valid_draws": 9999,
+          "study_bootstrap_ci": [
+            -0.017130394367916007,
+            0.038127685933803585
+          ],
+          "genus_valid_draws": 9999,
+          "genus_bootstrap_ci": [
+            -0.012459070447211531,
+            0.03582067010355883
+          ],
+          "crossed_study_genus_valid_draws": 9999,
+          "crossed_study_genus_bootstrap_ci": [
+            -0.03430463256641775,
+            0.046597183048440155
+          ],
+          "leave_study_range": [
+            0.00725041085710836,
+            0.02595167011017755
+          ],
+          "leave_genus_range": [
+            0.011730739865462943,
+            0.02595167011017755
+          ]
+        },
+        "energy_half_gain": {
+          "support": {
+            "plant_study_year_cells": 238,
+            "species": 178,
+            "genera": 119,
+            "studies": 14,
+            "study_years": 18
+          },
+          "gate": true,
+          "estimate": 0.0969934784431684,
+          "supported": false,
+          "study_valid_draws": 9999,
+          "study_bootstrap_ci": [
+            0.038888366840252195,
+            0.17044623988517243
+          ],
+          "genus_valid_draws": 9999,
+          "genus_bootstrap_ci": [
+            0.03021730809402727,
+            0.1654010666236141
+          ],
+          "crossed_study_genus_valid_draws": 9999,
+          "crossed_study_genus_bootstrap_ci": [
+            -0.0015497592664084866,
+            0.21358834441029745
+          ],
+          "leave_study_range": [
+            0.06758765155431154,
+            0.11286956281078411
+          ],
+          "leave_genus_range": [
+            0.06758765155431154,
+            0.10478824951750672
+          ]
+        },
+        "energy_half_genus_residual": {
+          "support": {
+            "plant_study_year_cells": 238,
+            "species": 178,
+            "genera": 119,
+            "studies": 14,
+            "study_years": 18
+          },
+          "gate": true,
+          "estimate": 0.012539664641026346,
+          "supported": false,
+          "study_valid_draws": 9999,
+          "study_bootstrap_ci": [
+            -0.01139819771529165,
+            0.03526449836471727
+          ],
+          "genus_valid_draws": 9999,
+          "genus_bootstrap_ci": [
+            -0.01215401345155724,
+            0.036486939513647385
+          ],
+          "crossed_study_genus_valid_draws": 9999,
+          "crossed_study_genus_bootstrap_ci": [
+            -0.027981566722107214,
+            0.05140871279264335
+          ],
+          "leave_study_range": [
+            0.007140123737192665,
+            0.01840632095591467
+          ],
+          "leave_genus_range": [
+            0.00852863407137884,
+            0.017518295967640922
+          ]
+        }
+      },
+      "supported": false,
+      "genus_residual_descriptive_only": true
+    },
+    "descriptive_both_exclusive_ge2": {
+      "name_audit": {
+        "input_pairs": 333,
+        "exact_name_pairs": 333,
+        "colliding_exact_names": 0
+      },
+      "comparisons": 333,
+      "site_pairs": 251,
+      "study_equal": {
+        "cross_obs": 0.6637282816507074,
+        "cross_null": 0.7397710191704995,
+        "cross_gain": 0.07604273751979201,
+        "cross_genus_expected_gain": 0.059897121386349526,
+        "cross_genus_residual": 0.016145616133442498,
+        "dispersion_obs": 0.3936031258690113,
+        "dispersion_null": 0.43411623507241764,
+        "dispersion_gain": 0.0405131092034064,
+        "dispersion_genus_expected_gain": 0.028559220039163533,
+        "dispersion_genus_residual": 0.011953889164242858,
+        "energy_half_obs": 0.2701251557816961,
+        "energy_half_null": 0.3056547840980818,
+        "energy_half_gain": 0.035529628316385654,
+        "energy_half_genus_expected_gain": 0.03133790134718604,
+        "energy_half_genus_residual": 0.0041917269691996205
+      },
+      "inference": {
+        "cross_gain": {
+          "support": {
+            "plant_study_year_cells": 100,
+            "species": 75,
+            "genera": 52,
+            "studies": 12,
+            "study_years": 15
+          },
+          "gate": true,
+          "estimate": 0.07604273751979201,
+          "supported": false,
+          "study_valid_draws": 9999,
+          "study_bootstrap_ci": [
+            0.017529673332210255,
+            0.13524103444707242
+          ],
+          "genus_valid_draws": 9999,
+          "genus_bootstrap_ci": [
+            0.02747577649573696,
+            0.13547387405833788
+          ],
+          "crossed_study_genus_valid_draws": 9999,
+          "crossed_study_genus_bootstrap_ci": [
+            -0.005525396271965596,
+            0.17405167935538676
+          ],
+          "leave_study_range": [
+            0.059287781590952736,
+            0.08932906258939667
+          ],
+          "leave_genus_range": [
+            0.05531323812616169,
+            0.08208381352579323
+          ]
+        },
+        "dispersion_gain": {
+          "support": {
+            "plant_study_year_cells": 100,
+            "species": 75,
+            "genera": 52,
+            "studies": 12,
+            "study_years": 15
+          },
+          "gate": true,
+          "estimate": 0.040513109203406394,
+          "supported": false,
+          "study_valid_draws": 9999,
+          "study_bootstrap_ci": [
+            -0.00043613533879753173,
+            0.08493635339573168
+          ],
+          "genus_valid_draws": 9999,
+          "genus_bootstrap_ci": [
+            0.006922403975091895,
+            0.07447620766712633
+          ],
+          "crossed_study_genus_valid_draws": 9999,
+          "crossed_study_genus_bootstrap_ci": [
+            -0.01731579996312153,
+            0.10446987700474732
+          ],
+          "leave_study_range": [
+            0.02751504006238997,
+            0.049457489834753725
+          ],
+          "leave_genus_range": [
+            0.036929218451129,
+            0.05319965109474741
+          ]
+        },
+        "energy_half_gain": {
+          "support": {
+            "plant_study_year_cells": 100,
+            "species": 75,
+            "genera": 52,
+            "studies": 12,
+            "study_years": 15
+          },
+          "gate": true,
+          "estimate": 0.03552962831638567,
+          "supported": false,
+          "study_valid_draws": 9999,
+          "study_bootstrap_ci": [
+            -0.010827170645983101,
+            0.09181306574006623
+          ],
+          "genus_valid_draws": 9999,
+          "genus_bootstrap_ci": [
+            -0.013865611957496839,
+            0.08518128530841519
+          ],
+          "crossed_study_genus_valid_draws": 9999,
+          "crossed_study_genus_bootstrap_ci": [
+            -0.04109599752535154,
+            0.12253144443564036
+          ],
+          "leave_study_range": [
+            0.012984027042888762,
+            0.043434925000992226
+          ],
+          "leave_genus_range": [
+            0.01838401967503271,
+            0.043173632646116254
+          ]
+        },
+        "energy_half_genus_residual": {
+          "support": {
+            "plant_study_year_cells": 100,
+            "species": 75,
+            "genera": 52,
+            "studies": 12,
+            "study_years": 15
+          },
+          "gate": true,
+          "estimate": 0.004191726969199622,
+          "supported": false,
+          "study_valid_draws": 9999,
+          "study_bootstrap_ci": [
+            -0.019323503831631606,
+            0.028126614203187985
+          ],
+          "genus_valid_draws": 9999,
+          "genus_bootstrap_ci": [
+            -0.024086731830548477,
+            0.029011848428872118
+          ],
+          "crossed_study_genus_valid_draws": 9999,
+          "crossed_study_genus_bootstrap_ci": [
+            -0.040511032755266324,
+            0.04357284706399094
+          ],
+          "leave_study_range": [
+            -0.004935305840125365,
+            0.012005272447286745
+          ],
+          "leave_genus_range": [
+            -0.0008537458329501272,
+            0.012172512145489723
+          ]
+        }
+      },
+      "supported": false,
+      "genus_residual_descriptive_only": true
+    },
+    "scope": "Post-discovery half-energy distribution-distance test on identical corrected bee pairs; exact cross distance = within-exclusive-set dispersion + half-energy. Genus trait-label expected distances descriptive, not causal. Fixed local degrees and shared counts, crossed study/plant genus uncertainty. Not an independent replication or direct pollination measure."
+  }
+}

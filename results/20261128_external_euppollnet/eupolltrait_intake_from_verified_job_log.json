@@ -1,0 +1,834 @@
+{
+  "receipt": {
+    "run_id": 46113757282,
+    "job_id": 140882839232,
+    "head_sha": "a44538216ff3d520afd5397d945bc51d918e551a",
+    "artifact_zip_verified": false
+  },
+  "schema": {
+    "doi": "10.5281/zenodo.18032357",
+    "md5": "7a50cc03e2c5a287e663dc5d029f8026",
+    "sha256": "b6e6b2c0b9f4c348e11185382d3f604610d1aad4181b0088b18a146f6180f782",
+    "bytes": 3863918,
+    "members": [
+      "pollinator_traits_bees_hoverflies_repository/code/traits_to_DwC_MOF_conversion.R",
+      "pollinator_traits_bees_hoverflies_repository/input/taxonomic_backbone_bees_hoverflies.csv",
+      "pollinator_traits_bees_hoverflies_repository/input/taxonomic_backbone_bees_hoverflies_EXCEL.xlsx",
+      "pollinator_traits_bees_hoverflies_repository/input/trait_data_input.csv",
+      "pollinator_traits_bees_hoverflies_repository/input/trait_metadata.csv",
+      "pollinator_traits_bees_hoverflies_repository/output/dwc_MOF_bees_hoverflies.csv",
+      "pollinator_traits_bees_hoverflies_repository/output/dwc_taxon_core_bees_hoverflies.csv",
+      "pollinator_traits_bees_hoverflies_repository/output/dwc_taxon_core_bees_hoverflies_EXCEL.xlsx",
+      "pollinator_traits_bees_hoverflies_repository/output/metadata_traits_MOF.xlsx",
+      "pollinator_traits_bees_hoverflies_repository/output/metadata_traits_raw.xlsx",
+      "pollinator_traits_bees_hoverflies_repository/output/traits_raw_bees_hoverflies.xlsx",
+      "pollinator_traits_bees_hoverflies_repository/output/trait_validation_bees.xlsx",
+      "pollinator_traits_bees_hoverflies_repository/README.md"
+    ],
+    "dwc_taxon_core_bees_hoverflies.csv": {
+      "member": "pollinator_traits_bees_hoverflies_repository/output/dwc_taxon_core_bees_hoverflies.csv",
+      "rows": 3052,
+      "columns": [
+        "taxonID",
+        "kingdom",
+        "phylum",
+        "class",
+        "order",
+        "family",
+        "genus",
+        "specificEpithet",
+        "scientificName",
+        "taxonRank",
+        "taxonRemarks",
+        "references",
+        "scientificNameAuthorship"
+      ],
+      "encoding": "utf-8-sig",
+      "sha256": "17e487ecfe775858b786ca0e4e0e60529d5b7adfc670d18bde00d8f2ee193a2c"
+    },
+    "dwc_mof_bees_hoverflies.csv": {
+      "member": "pollinator_traits_bees_hoverflies_repository/output/dwc_MOF_bees_hoverflies.csv",
+      "rows": 72196,
+      "columns": [
+        "taxonID",
+        "measurementID",
+        "measurementType",
+        "measurementValue",
+        "measurementUnit",
+        "measurementRemarks",
+        "measurementSource",
+        "sex",
+        "lifeStage",
+        "traitGroup",
+        "originalColumn"
+      ],
+      "encoding": "cp1252",
+      "sha256": "4c8f13913775483d458ed5e4f7946e6518873ed3b455a209b775bfa9c1cc310d"
+    },
+    "trait_metadata.csv": {
+      "member": "pollinator_traits_bees_hoverflies_repository/input/trait_metadata.csv",
+      "rows": 41,
+      "columns": [
+        "section",
+        "trait",
+        "trait_description",
+        "trait_states",
+        "categories",
+        "pollinator_taxa",
+        "type_of_variable",
+        "unit",
+        "data_source"
+      ],
+      "encoding": "utf-8-sig",
+      "sha256": "fae52c364472e36958e49864d509fb3e8c7828aee8b795ae6a4c7ce470292378"
+    }
+  },
+  "summary": {
+    "group_counts": {
+      "bee": 2139,
+      "hoverfly": 913
+    },
+    "taxonomy_audit": {
+      "conflicting_ids": 0,
+      "duplicate_name_ids_quarantined": 0
+    },
+    "network_name_audit": {
+      "name_collisions": 0,
+      "family_conflicts": 0
+    }
+  },
+  "coverage": {
+    "bee": {
+      "AOO_(Area_of_occupancy)": {
+        "records": 2073,
+        "unique_species": 2073,
+        "exact_overlap_species": 493,
+        "family_agree_overlap_species": 493,
+        "positive_numeric_records": 2073,
+        "multiple_rows_species": 0,
+        "raw_units": {
+          "km²": 2073
+        },
+        "remarks_nonempty": 0
+      },
+      "Body_hair_(categories)": {
+        "records": 368,
+        "unique_species": 368,
+        "exact_overlap_species": 201,
+        "family_agree_overlap_species": 201,
+        "positive_numeric_records": 0,
+        "multiple_rows_species": 0,
+        "raw_units": {
+          "NA": 368
+        },
+        "remarks_nonempty": 0
+      },
+      "Body_length_(categories)": {
+        "records": 1754,
+        "unique_species": 1754,
+        "exact_overlap_species": 484,
+        "family_agree_overlap_species": 484,
+        "positive_numeric_records": 0,
+        "multiple_rows_species": 0,
+        "raw_units": {
+          "NA": 1754
+        },
+        "remarks_nonempty": 0,
+        "candidate_network_support": {
+          "visit_rows": 45164,
+          "visitor_species": 484,
+          "studies": 17,
+          "eligible_sites": 126,
+          "candidate_same_plant_pairs": 1959,
+          "candidate_two_sided_turnover_pairs": 1304,
+          "turnover_focal_plant_names": 181,
+          "turnover_studies": 14
+        }
+      },
+      "Buzz_pollinator": {
+        "records": 164,
+        "unique_species": 164,
+        "exact_overlap_species": 31,
+        "family_agree_overlap_species": 31,
+        "positive_numeric_records": 0,
+        "multiple_rows_species": 0,
+        "raw_units": {
+          "NA": 164
+        },
+        "remarks_nonempty": 0
+      },
+      "EOO_(Extent_of_occurrence)": {
+        "records": 2073,
+        "unique_species": 2073,
+        "exact_overlap_species": 493,
+        "family_agree_overlap_species": 493,
+        "positive_numeric_records": 1864,
+        "multiple_rows_species": 0,
+        "raw_units": {
+          "km²": 2073
+        },
+        "remarks_nonempty": 0
+      },
+      "Flight_period_(months)": {
+        "records": 1979,
+        "unique_species": 1979,
+        "exact_overlap_species": 489,
+        "family_agree_overlap_species": 489,
+        "positive_numeric_records": 0,
+        "multiple_rows_species": 0,
+        "raw_units": {
+          "NA": 1979
+        },
+        "remarks_nonempty": 0
+      },
+      "Flight_period_(season)": {
+        "records": 5933,
+        "unique_species": 1979,
+        "exact_overlap_species": 489,
+        "family_agree_overlap_species": 489,
+        "positive_numeric_records": 0,
+        "multiple_rows_species": 1670,
+        "raw_units": {
+          "NA": 5933
+        },
+        "remarks_nonempty": 0
+      },
+      "Host": {
+        "records": 222,
+        "unique_species": 222,
+        "exact_overlap_species": 52,
+        "family_agree_overlap_species": 52,
+        "positive_numeric_records": 0,
+        "multiple_rows_species": 0,
+        "raw_units": {
+          "NA": 222
+        },
+        "remarks_nonempty": 0
+      },
+      "Larval_diet_breadth": {
+        "records": 1568,
+        "unique_species": 1568,
+        "exact_overlap_species": 450,
+        "family_agree_overlap_species": 450,
+        "positive_numeric_records": 0,
+        "multiple_rows_species": 0,
+        "raw_units": {
+          "NA": 1568
+        },
+        "remarks_nonempty": 0
+      },
+      "Larval_location": {
+        "records": 1673,
+        "unique_species": 1673,
+        "exact_overlap_species": 447,
+        "family_agree_overlap_species": 447,
+        "positive_numeric_records": 0,
+        "multiple_rows_species": 0,
+        "raw_units": {
+          "NA": 1673
+        },
+        "remarks_nonempty": 0
+      },
+      "Larval_microhabitat": {
+        "records": 1766,
+        "unique_species": 1647,
+        "exact_overlap_species": 437,
+        "family_agree_overlap_species": 437,
+        "positive_numeric_records": 0,
+        "multiple_rows_species": 91,
+        "raw_units": {
+          "NA": 1766
+        },
+        "remarks_nonempty": 0
+      },
+      "Larval_nutrition": {
+        "records": 2138,
+        "unique_species": 2138,
+        "exact_overlap_species": 497,
+        "family_agree_overlap_species": 497,
+        "positive_numeric_records": 0,
+        "multiple_rows_species": 0,
+        "raw_units": {
+          "NA": 2138
+        },
+        "remarks_nonempty": 0
+      },
+      "Larval_specific_microhabitat": {
+        "records": 1647,
+        "unique_species": 1647,
+        "exact_overlap_species": 437,
+        "family_agree_overlap_species": 437,
+        "positive_numeric_records": 0,
+        "multiple_rows_species": 0,
+        "raw_units": {
+          "NA": 1647
+        },
+        "remarks_nonempty": 0
+      },
+      "Nest": {
+        "records": 2138,
+        "unique_species": 2138,
+        "exact_overlap_species": 497,
+        "family_agree_overlap_species": 497,
+        "positive_numeric_records": 0,
+        "multiple_rows_species": 0,
+        "raw_units": {
+          "NA": 2138
+        },
+        "remarks_nonempty": 0
+      },
+      "Nest_with_active_construction": {
+        "records": 1710,
+        "unique_species": 1710,
+        "exact_overlap_species": 436,
+        "family_agree_overlap_species": 436,
+        "positive_numeric_records": 0,
+        "multiple_rows_species": 0,
+        "raw_units": {
+          "NA": 1710
+        },
+        "remarks_nonempty": 0
+      },
+      "Nest_with_active_construction_and_material": {
+        "records": 286,
+        "unique_species": 286,
+        "exact_overlap_species": 115,
+        "family_agree_overlap_species": 115,
+        "positive_numeric_records": 0,
+        "multiple_rows_species": 0,
+        "raw_units": {
+          "NA": 286
+        },
+        "remarks_nonempty": 0
+      },
+      "Nesting_behavior": {
+        "records": 1796,
+        "unique_species": 1762,
+        "exact_overlap_species": 455,
+        "family_agree_overlap_species": 455,
+        "positive_numeric_records": 0,
+        "multiple_rows_species": 33,
+        "raw_units": {
+          "NA": 1796
+        },
+        "remarks_nonempty": 0
+      },
+      "Nesting_material": {
+        "records": 349,
+        "unique_species": 286,
+        "exact_overlap_species": 115,
+        "family_agree_overlap_species": 115,
+        "positive_numeric_records": 0,
+        "multiple_rows_species": 58,
+        "raw_units": {
+          "NA": 349
+        },
+        "remarks_nonempty": 0
+      },
+      "Nesting_specific_material": {
+        "records": 286,
+        "unique_species": 286,
+        "exact_overlap_species": 115,
+        "family_agree_overlap_species": 115,
+        "positive_numeric_records": 0,
+        "multiple_rows_species": 0,
+        "raw_units": {
+          "NA": 286
+        },
+        "remarks_nonempty": 0
+      },
+      "Number_of_generations": {
+        "records": 2051,
+        "unique_species": 1991,
+        "exact_overlap_species": 488,
+        "family_agree_overlap_species": 488,
+        "positive_numeric_records": 1998,
+        "multiple_rows_species": 59,
+        "raw_units": {
+          "NA": 2051
+        },
+        "remarks_nonempty": 0
+      },
+      "Number_of_larval_microhabitats": {
+        "records": 1647,
+        "unique_species": 1647,
+        "exact_overlap_species": 437,
+        "family_agree_overlap_species": 437,
+        "positive_numeric_records": 1647,
+        "multiple_rows_species": 0,
+        "raw_units": {
+          "NA": 1647
+        },
+        "remarks_nonempty": 0
+      },
+      "Plant_taxa": {
+        "records": 1223,
+        "unique_species": 1223,
+        "exact_overlap_species": 390,
+        "family_agree_overlap_species": 390,
+        "positive_numeric_records": 0,
+        "multiple_rows_species": 0,
+        "raw_units": {
+          "NA": 1223
+        },
+        "remarks_nonempty": 0
+      },
+      "SCI_(Species_continentality_index)": {
+        "records": 2080,
+        "unique_species": 2080,
+        "exact_overlap_species": 494,
+        "family_agree_overlap_species": 494,
+        "positive_numeric_records": 2080,
+        "multiple_rows_species": 0,
+        "raw_units": {
+          "NA": 2080
+        },
+        "remarks_nonempty": 0
+      },
+      "STI_(Species_temperature_index)": {
+        "records": 2080,
+        "unique_species": 2080,
+        "exact_overlap_species": 494,
+        "family_agree_overlap_species": 494,
+        "positive_numeric_records": 2073,
+        "multiple_rows_species": 0,
+        "raw_units": {
+          "NA": 2080
+        },
+        "remarks_nonempty": 0
+      },
+      "Sociality": {
+        "records": 2089,
+        "unique_species": 2089,
+        "exact_overlap_species": 489,
+        "family_agree_overlap_species": 489,
+        "positive_numeric_records": 0,
+        "multiple_rows_species": 0,
+        "raw_units": {
+          "NA": 2089
+        },
+        "remarks_nonempty": 0
+      },
+      "hair_density": {
+        "records": 393,
+        "unique_species": 372,
+        "exact_overlap_species": 203,
+        "family_agree_overlap_species": 203,
+        "positive_numeric_records": 393,
+        "multiple_rows_species": 21,
+        "raw_units": {
+          "NA": 393
+        },
+        "remarks_nonempty": 393,
+        "candidate_network_support": {
+          "visit_rows": 41025,
+          "visitor_species": 203,
+          "studies": 17,
+          "eligible_sites": 107,
+          "candidate_same_plant_pairs": 1237,
+          "candidate_two_sided_turnover_pairs": 656,
+          "turnover_focal_plant_names": 128,
+          "turnover_studies": 14
+        }
+      },
+      "hair_length": {
+        "records": 393,
+        "unique_species": 372,
+        "exact_overlap_species": 203,
+        "family_agree_overlap_species": 203,
+        "positive_numeric_records": 393,
+        "multiple_rows_species": 21,
+        "raw_units": {
+          "NA": 393
+        },
+        "remarks_nonempty": 393,
+        "candidate_network_support": {
+          "visit_rows": 41025,
+          "visitor_species": 203,
+          "studies": 17,
+          "eligible_sites": 107,
+          "candidate_same_plant_pairs": 1237,
+          "candidate_two_sided_turnover_pairs": 656,
+          "turnover_focal_plant_names": 128,
+          "turnover_studies": 14
+        }
+      },
+      "hairiness_index": {
+        "records": 393,
+        "unique_species": 372,
+        "exact_overlap_species": 203,
+        "family_agree_overlap_species": 203,
+        "positive_numeric_records": 393,
+        "multiple_rows_species": 21,
+        "raw_units": {
+          "NA": 393
+        },
+        "remarks_nonempty": 393,
+        "candidate_network_support": {
+          "visit_rows": 41025,
+          "visitor_species": 203,
+          "studies": 17,
+          "eligible_sites": 107,
+          "candidate_same_plant_pairs": 1237,
+          "candidate_two_sided_turnover_pairs": 656,
+          "turnover_focal_plant_names": 128,
+          "turnover_studies": 14
+        }
+      },
+      "intertegular_distance": {
+        "records": 2386,
+        "unique_species": 1778,
+        "exact_overlap_species": 487,
+        "family_agree_overlap_species": 487,
+        "positive_numeric_records": 2386,
+        "multiple_rows_species": 607,
+        "raw_units": {
+          "NA": 2386
+        },
+        "remarks_nonempty": 2386,
+        "candidate_network_support": {
+          "visit_rows": 45189,
+          "visitor_species": 487,
+          "studies": 17,
+          "eligible_sites": 126,
+          "candidate_same_plant_pairs": 1959,
+          "candidate_two_sided_turnover_pairs": 1306,
+          "turnover_focal_plant_names": 181,
+          "turnover_studies": 14
+        }
+      },
+      "tongue_length": {
+        "records": 2311,
+        "unique_species": 1723,
+        "exact_overlap_species": 473,
+        "family_agree_overlap_species": 473,
+        "positive_numeric_records": 2311,
+        "multiple_rows_species": 587,
+        "raw_units": {
+          "NA": 2311
+        },
+        "remarks_nonempty": 2311,
+        "candidate_network_support": {
+          "visit_rows": 44913,
+          "visitor_species": 473,
+          "studies": 17,
+          "eligible_sites": 125,
+          "candidate_same_plant_pairs": 1951,
+          "candidate_two_sided_turnover_pairs": 1293,
+          "turnover_focal_plant_names": 179,
+          "turnover_studies": 14
+        }
+      }
+    },
+    "hoverfly": {
+      "AOO_(Area_of_occupancy)": {
+        "records": 646,
+        "unique_species": 646,
+        "exact_overlap_species": 73,
+        "family_agree_overlap_species": 73,
+        "positive_numeric_records": 600,
+        "multiple_rows_species": 0,
+        "raw_units": {
+          "km²": 646
+        },
+        "remarks_nonempty": 0
+      },
+      "Adult_macrohabitat": {
+        "records": 1502,
+        "unique_species": 913,
+        "exact_overlap_species": 169,
+        "family_agree_overlap_species": 169,
+        "positive_numeric_records": 0,
+        "multiple_rows_species": 460,
+        "raw_units": {
+          "NA": 1502
+        },
+        "remarks_nonempty": 0
+      },
+      "Body_hair_(categories)": {
+        "records": 913,
+        "unique_species": 913,
+        "exact_overlap_species": 169,
+        "family_agree_overlap_species": 169,
+        "positive_numeric_records": 0,
+        "multiple_rows_species": 0,
+        "raw_units": {
+          "NA": 913
+        },
+        "remarks_nonempty": 0
+      },
+      "Body_length_(categories)": {
+        "records": 913,
+        "unique_species": 913,
+        "exact_overlap_species": 169,
+        "family_agree_overlap_species": 169,
+        "positive_numeric_records": 0,
+        "multiple_rows_species": 0,
+        "raw_units": {
+          "NA": 913
+        },
+        "remarks_nonempty": 0,
+        "candidate_network_support": {
+          "visit_rows": 9357,
+          "visitor_species": 169,
+          "studies": 17,
+          "eligible_sites": 55,
+          "candidate_same_plant_pairs": 509,
+          "candidate_two_sided_turnover_pairs": 344,
+          "turnover_focal_plant_names": 64,
+          "turnover_studies": 9
+        }
+      },
+      "Body_length_(mm,_raw_data)": {
+        "records": 912,
+        "unique_species": 912,
+        "exact_overlap_species": 169,
+        "family_agree_overlap_species": 169,
+        "positive_numeric_records": 884,
+        "multiple_rows_species": 0,
+        "raw_units": {
+          "mm": 912
+        },
+        "remarks_nonempty": 0,
+        "candidate_network_support": {
+          "visit_rows": 9357,
+          "visitor_species": 169,
+          "studies": 17,
+          "eligible_sites": 55,
+          "candidate_same_plant_pairs": 509,
+          "candidate_two_sided_turnover_pairs": 344,
+          "turnover_focal_plant_names": 64,
+          "turnover_studies": 9
+        }
+      },
+      "Body_structure": {
+        "records": 913,
+        "unique_species": 913,
+        "exact_overlap_species": 169,
+        "family_agree_overlap_species": 169,
+        "positive_numeric_records": 0,
+        "multiple_rows_species": 0,
+        "raw_units": {
+          "NA": 913
+        },
+        "remarks_nonempty": 0
+      },
+      "Duration_of_larval_development": {
+        "records": 1188,
+        "unique_species": 913,
+        "exact_overlap_species": 169,
+        "family_agree_overlap_species": 169,
+        "positive_numeric_records": 0,
+        "multiple_rows_species": 246,
+        "raw_units": {
+          "NA": 1188
+        },
+        "remarks_nonempty": 0
+      },
+      "EOO_(Extent_of_occurrence)": {
+        "records": 624,
+        "unique_species": 624,
+        "exact_overlap_species": 74,
+        "family_agree_overlap_species": 74,
+        "positive_numeric_records": 614,
+        "multiple_rows_species": 0,
+        "raw_units": {
+          "km²": 624
+        },
+        "remarks_nonempty": 0
+      },
+      "Flight_behaviour": {
+        "records": 912,
+        "unique_species": 912,
+        "exact_overlap_species": 169,
+        "family_agree_overlap_species": 169,
+        "positive_numeric_records": 0,
+        "multiple_rows_species": 0,
+        "raw_units": {
+          "NA": 912
+        },
+        "remarks_nonempty": 0
+      },
+      "Flight_height": {
+        "records": 913,
+        "unique_species": 913,
+        "exact_overlap_species": 169,
+        "family_agree_overlap_species": 169,
+        "positive_numeric_records": 0,
+        "multiple_rows_species": 0,
+        "raw_units": {
+          "NA": 913
+        },
+        "remarks_nonempty": 0
+      },
+      "Flight_period_(months)": {
+        "records": 912,
+        "unique_species": 912,
+        "exact_overlap_species": 169,
+        "family_agree_overlap_species": 169,
+        "positive_numeric_records": 0,
+        "multiple_rows_species": 0,
+        "raw_units": {
+          "NA": 912
+        },
+        "remarks_nonempty": 0
+      },
+      "Flight_period_(season)": {
+        "records": 2381,
+        "unique_species": 912,
+        "exact_overlap_species": 169,
+        "family_agree_overlap_species": 169,
+        "positive_numeric_records": 0,
+        "multiple_rows_species": 747,
+        "raw_units": {
+          "NA": 2381
+        },
+        "remarks_nonempty": 0
+      },
+      "Host": {
+        "records": 13,
+        "unique_species": 13,
+        "exact_overlap_species": 2,
+        "family_agree_overlap_species": 2,
+        "positive_numeric_records": 0,
+        "multiple_rows_species": 0,
+        "raw_units": {
+          "NA": 13
+        },
+        "remarks_nonempty": 0
+      },
+      "Inundation_tolerance_of_larvae": {
+        "records": 316,
+        "unique_species": 316,
+        "exact_overlap_species": 48,
+        "family_agree_overlap_species": 48,
+        "positive_numeric_records": 0,
+        "multiple_rows_species": 0,
+        "raw_units": {
+          "NA": 316
+        },
+        "remarks_nonempty": 0
+      },
+      "Larval_location": {
+        "records": 913,
+        "unique_species": 913,
+        "exact_overlap_species": 169,
+        "family_agree_overlap_species": 169,
+        "positive_numeric_records": 0,
+        "multiple_rows_species": 0,
+        "raw_units": {
+          "NA": 913
+        },
+        "remarks_nonempty": 0
+      },
+      "Larval_microhabitat": {
+        "records": 2200,
+        "unique_species": 913,
+        "exact_overlap_species": 169,
+        "family_agree_overlap_species": 169,
+        "positive_numeric_records": 0,
+        "multiple_rows_species": 776,
+        "raw_units": {
+          "NA": 2200
+        },
+        "remarks_nonempty": 0
+      },
+      "Larval_nutrition": {
+        "records": 913,
+        "unique_species": 913,
+        "exact_overlap_species": 169,
+        "family_agree_overlap_species": 169,
+        "positive_numeric_records": 0,
+        "multiple_rows_species": 0,
+        "raw_units": {
+          "NA": 913
+        },
+        "remarks_nonempty": 0
+      },
+      "Number_of_generations": {
+        "records": 1060,
+        "unique_species": 913,
+        "exact_overlap_species": 169,
+        "family_agree_overlap_species": 169,
+        "positive_numeric_records": 950,
+        "multiple_rows_species": 145,
+        "raw_units": {
+          "NA": 1060
+        },
+        "remarks_nonempty": 0
+      },
+      "Number_of_larval_microhabitats": {
+        "records": 913,
+        "unique_species": 913,
+        "exact_overlap_species": 169,
+        "family_agree_overlap_species": 169,
+        "positive_numeric_records": 913,
+        "multiple_rows_species": 0,
+        "raw_units": {
+          "NA": 913
+        },
+        "remarks_nonempty": 0
+      },
+      "SCI_(Species_continentality_index)": {
+        "records": 879,
+        "unique_species": 879,
+        "exact_overlap_species": 169,
+        "family_agree_overlap_species": 169,
+        "positive_numeric_records": 877,
+        "multiple_rows_species": 0,
+        "raw_units": {
+          "NA": 879
+        },
+        "remarks_nonempty": 0
+      },
+      "STI_(Species_temperature_index)": {
+        "records": 879,
+        "unique_species": 879,
+        "exact_overlap_species": 169,
+        "family_agree_overlap_species": 169,
+        "positive_numeric_records": 844,
+        "multiple_rows_species": 0,
+        "raw_units": {
+          "NA": 879
+        },
+        "remarks_nonempty": 0
+      },
+      "Sociality": {
+        "records": 913,
+        "unique_species": 913,
+        "exact_overlap_species": 169,
+        "family_agree_overlap_species": 169,
+        "positive_numeric_records": 0,
+        "multiple_rows_species": 0,
+        "raw_units": {
+          "NA": 913
+        },
+        "remarks_nonempty": 0
+      },
+      "Spatial_distribution_in_Europe": {
+        "records": 913,
+        "unique_species": 913,
+        "exact_overlap_species": 169,
+        "family_agree_overlap_species": 169,
+        "positive_numeric_records": 0,
+        "multiple_rows_species": 0,
+        "raw_units": {
+          "NA": 913
+        },
+        "remarks_nonempty": 0
+      },
+      "Tolerance_to_human_influence": {
+        "records": 913,
+        "unique_species": 913,
+        "exact_overlap_species": 169,
+        "family_agree_overlap_species": 169,
+        "positive_numeric_records": 0,
+        "multiple_rows_species": 0,
+        "raw_units": {
+          "NA": 913
+        },
+        "remarks_nonempty": 0
+      }
+    }
+  }
+}

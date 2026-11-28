@@ -1,0 +1,192 @@
+{
+  "receipt": {
+    "run_id": 46114586243,
+    "job_id": 140885440986,
+    "head_sha": "e6fe7ae51e6da0e0cad0fb1e593ffd983b8318a1",
+    "artifact_zip_verified": false
+  },
+  "result": {
+    "source_pins": {
+      "archive_sha256": "b6e6b2c0b9f4c348e11185382d3f604610d1aad4181b0088b18a146f6180f782",
+      "dwc_taxon_core_bees_hoverflies.csv": {
+        "sha256": "17e487ecfe775858b786ca0e4e0e60529d5b7adfc670d18bde00d8f2ee193a2c",
+        "encoding": "utf-8-sig"
+      },
+      "dwc_mof_bees_hoverflies.csv": {
+        "sha256": "4c8f13913775483d458ed5e4f7946e6518873ed3b455a209b775bfa9c1cc310d",
+        "encoding": "cp1252"
+      },
+      "trait_metadata.csv": {
+        "sha256": "fae52c364472e36958e49864d509fb3e8c7828aee8b795ae6a4c7ce470292378",
+        "encoding": "utf-8-sig"
+      }
+    },
+    "network_source_pins": {
+      "Interaction_data.csv.gz": {
+        "sha256": "cde17692dc66946002e19026433d9db429357d28873a369d884941f71131db61",
+        "expected_sha256": "cde17692dc66946002e19026433d9db429357d28873a369d884941f71131db61",
+        "bytes": 2374060,
+        "git_blob": "6e639d4af81feee76eefa6804622f8b901c39feb"
+      },
+      "Metadata.csv": {
+        "sha256": "adb396f31e7e7e3257425872b92d56c1051ca05849c6228a39675a71364d4833",
+        "expected_sha256": null,
+        "bytes": 28483,
+        "git_blob": "f9708e2f2b142ab2437a8be9d16e33aaefdef0ed"
+      }
+    },
+    "selection": {
+      "raw_rows": 2386,
+      "exact_f_rows": 1754,
+      "excluded": {},
+      "original_subset_species": 1668,
+      "restored_source_f_species": 86,
+      "retained_species": 1754,
+      "range_mm": [
+        0.63,
+        8.019999999999998
+      ],
+      "definition": "Published female ITD, explicitly workers for social bees; exact F/ITD_F_mm. Species-level measurements, visit sex unknown."
+    },
+    "network": {
+      "network_visit_rows": 45164,
+      "visitor_species": 484,
+      "studies_with_visits": 17,
+      "family_count": 6,
+      "eligible_sites": 126,
+      "frozen_sites": 0,
+      "candidate_pairs": 1304,
+      "rejected_conditional_support": 43,
+      "accepted_draw_quantiles": [
+        0,
+        152,
+        235,
+        329,
+        399
+      ]
+    },
+    "primary": {
+      "name_audit": {
+        "input_pairs": 1117,
+        "exact_name_pairs": 1117,
+        "colliding_exact_names": 0
+      },
+      "comparisons": 1117,
+      "site_pairs": 503,
+      "visitor_species": 484,
+      "visitor_genera_with_family_stratum": 47,
+      "active_visitor_species": 453,
+      "movable_visitor_genera": 37,
+      "active_movable_visitor_species": 444,
+      "family_standardized_gain": 0.04219365065251105,
+      "visitor_genus_label_null_exact_mean": 0.033147041347150276,
+      "visitor_genus_label_null_mc_mean": 0.03366535425090795,
+      "visitor_genus_label_null_interval": [
+        0.0072843100944658115,
+        0.059827791889505266
+      ],
+      "visitor_genus_adjusted_gain": 0.009046609305360775,
+      "permutation_p": 0.506,
+      "draws": 999,
+      "crossed_study_plant_genus_residual": {
+        "support": {
+          "plant_study_year_cells": 223,
+          "species": 169,
+          "genera": 116,
+          "studies": 14,
+          "study_years": 18
+        },
+        "gate": true,
+        "estimate": 0.009046609305360748,
+        "supported": false,
+        "study_valid_draws": 9999,
+        "study_bootstrap_ci": [
+          -0.017716805926465427,
+          0.03532471591302694
+        ],
+        "genus_valid_draws": 9999,
+        "genus_bootstrap_ci": [
+          -0.017119845678132923,
+          0.03715652223295645
+        ],
+        "crossed_study_genus_valid_draws": 9999,
+        "crossed_study_genus_bootstrap_ci": [
+          -0.03352340182596633,
+          0.052010529934442516
+        ],
+        "leave_study_range": [
+          0.0019194609144612385,
+          0.015441821965015702
+        ],
+        "leave_genus_range": [
+          0.004309610127066045,
+          0.014983313938168836
+        ]
+      },
+      "support_gate": true,
+      "supported": false
+    },
+    "descriptive_both_exclusive_ge2": {
+      "name_audit": {
+        "input_pairs": 314,
+        "exact_name_pairs": 314,
+        "colliding_exact_names": 0
+      },
+      "comparisons": 314,
+      "site_pairs": 244,
+      "visitor_species": 484,
+      "visitor_genera_with_family_stratum": 47,
+      "active_visitor_species": 434,
+      "movable_visitor_genera": 37,
+      "active_movable_visitor_species": 426,
+      "family_standardized_gain": 0.0559200591870658,
+      "visitor_genus_label_null_exact_mean": 0.030502454636149784,
+      "visitor_genus_label_null_mc_mean": 0.03046795491766966,
+      "visitor_genus_label_null_interval": [
+        0.0021327981098701915,
+        0.061603467981348574
+      ],
+      "visitor_genus_adjusted_gain": 0.025417604550916018,
+      "permutation_p": 0.11,
+      "draws": 999,
+      "crossed_study_plant_genus_residual": {
+        "support": {
+          "plant_study_year_cells": 95,
+          "species": 72,
+          "genera": 51,
+          "studies": 12,
+          "study_years": 15
+        },
+        "gate": true,
+        "estimate": 0.02541760455091598,
+        "supported": false,
+        "study_valid_draws": 9999,
+        "study_bootstrap_ci": [
+          0.0007893811249174086,
+          0.05084976342652239
+        ],
+        "genus_valid_draws": 9999,
+        "genus_bootstrap_ci": [
+          -0.0007210815459643012,
+          0.05196738169044934
+        ],
+        "crossed_study_genus_valid_draws": 9999,
+        "crossed_study_genus_bootstrap_ci": [
+          -0.017263956955220875,
+          0.06931291306821659
+        ],
+        "leave_study_range": [
+          0.016953922029777815,
+          0.032652106762242054
+        ],
+        "leave_genus_range": [
+          0.017111765385202597,
+          0.03258010854704138
+        ]
+      },
+      "support_gate": true,
+      "supported": false
+    },
+    "scope": "Post-discovery visitor-genus trait label audit. Exact parent pair support and family-standardized weights replayed; exchangeability only within visitor family/genus, one size label per species across all sites. Crossed bootstrap by study and focal plant genus, not a calibrated phylogenetic or visitor-degree model. No independent observations, actual pollination, or causal interpretation."
+  }
+}

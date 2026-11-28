@@ -1,0 +1,26 @@
+name: External EuPollTrait within-group visitor size turnover
+on:
+  pull_request:
+    paths:
+      - scripts/external_eupolltrait_size_turnover.py
+      - .github/workflows/external-eupolltrait-size-turnover.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  external:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: pip install numpy pandas
+      - run: python scripts/external_eupolltrait_size_turnover.py --self-test
+      - run: python -u scripts/external_eupolltrait_size_turnover.py --out /tmp/size_turnover.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: external-eupolltrait-size-turnover
+          path: /tmp/size_turnover.json
+          if-no-files-found: error

@@ -12,14 +12,14 @@
 
 External animal records that are used as predictors of our own plant-flora aggregates are **mixed**. Under the 28 November source-first policy, own-dependent functional-diversity and channel-response estimands are island-owned; FD retains independently sourced external-only research. External source acquisition or stand-alone animal analyses are retained here. Historical source artifact IDs and immutable original results remain traceable; no raw restricted records are copied. Original mixed source documents have not been rewritten as external-only evidence.
 
-The external-only path list is intentionally conservative. Historical variants not source-audited are held in the source-pinned archive; do not treat them as proven external-independent. Current own/mixed archive checkpoint: [island ownership contract](https://github.com/zuizui0223/island/blob/64a58cd4817ccf1c54c179aa7fd1c5585f57dd43/docs/fd_data_ownership_20261125.md). No deletion of Git history.
+The external-only path list is intentionally conservative. Historical variants not source-audited are held in the source-pinned archive; do not treat them as proven external-independent. Current own/mixed archive checkpoint: [source-first island policy (PR #361)](https://github.com/zuizui0223/island/pull/361); the earlier contract is historical. No deletion of Git history.
 
 
-## Input-provenance classification and official GIFT distinction (2026-11-25)
+## Source-first result ownership and official GIFT distinction (2026-11-28)
 
-The controlling unit for **source classification, not scientific ownership**, is the actual biological input ancestry of a result, including selection of the analysis cohort, training data, labels, and derived aggregates. Neither island count nor the historical label "GIFT4505" identifies a data source.
+The controlling unit for **both source classification and scientific ownership**, is the actual biological input ancestry of a result, including selection of the analysis cohort, training data, labels, and derived aggregates. Neither island count nor the historical label "GIFT4505" identifies a data source.
 
-- A project-built GBIF island-species roster or project-integrated floral/reproductive ledger is own data; any result dependent on either must be labelled shared-source and use protected execution in island. Scientific ownership follows the estimand. Official GIFT mainland donor pools, animal data, and external experiments may provide comparison or explanatory information without changing that owner.
+- A project-built GBIF island-species roster or project-integrated floral/reproductive ledger is own data; any result dependent on either must be labelled shared-source and use protected execution in island. Scientific ownership belongs to island regardless of the estimand. Official GIFT mainland donor pools, animal data, and external experiments do not change that owner.
 - A publisher GIFT island checklist and independently retrieved publisher trait values, with no own biological data used even for cohort selection, are external-only and are eligible for FD's functional-diversity research. Shared generic code and outcome-blind geography/climate alone are neutral.
 - External-only is a statement about the provenance of the inputs, not proof of independent underlying species observations or source publications. Unknown dependencies must be audited before promotion.
 - The previously archived EuPPollNet guild-removal simulation selected eleven islands from the own 928-island morphology-complete cohort, hence its selected result is shared-source, and therefore belongs to island despite the external network endpoint. A fresh external-only network cohort would be eligible here.
@@ -27,3 +27,39 @@ The controlling unit for **source classification, not scientific ownership**, is
 - [Official GIFT source pilot (fd #72)](https://github.com/zuizui0223/fd/pull/72) is coverage/readiness, not a fitted ecological effect. Source audit run 45560668861 retrieved official publisher values: strict colour × maximum flower length shared 404 work IDs globally, but in the bounded 24-island-list pilot only two lists had any joint coverage (maximum four carriers). Do not treat publisher self-fertilization as automatically equivalent to self-compatibility or syndrome categories as measured pollinators.
 
 The [historical source-classification registry and validator in island PR #353](https://github.com/zuizui0223/island/pull/353) retain source references, support and claim limits. Its inventory is not an independent external replication and does not alter the frozen GEB submission.
+
+## New external-only network research (2026-11-28)
+[Same-plant conditional bee loss](EXTERNAL_EUPPOLLNET_BEE_LOSS_20261128.md): direct EuPPollNet publisher records and public geography only; corrected island–mainland primary nonestimable (zero same study/year/plant pairs).
+
+- [Channel retention](EXTERNAL_EUPPOLLNET_CHANNEL_RETENTION_20261128.md): +.039528, initial frozen gate passed; two-exclusive sensitivity unresolved.
+- [Floral moderation](EXTERNAL_EUPPOLLNET_ARCHITECTURE_20261128.md): both frozen morphology gates failed.
+- [Fixed-margin conditional null](EXTERNAL_EUPPOLLNET_CURVEBALL_20261128.md): +.044582, original degree and overlap controlled, supported; two-exclusive sensitivity unresolved.
+- [Geographic scaling and crossed dependence](EXTERNAL_EUPPOLLNET_SPATIAL_SCALING_20261128.md): crossed study/genus uncertainty and positive spatial slope unsupported.
+
+- [Independent EMLN source readiness](EXTERNAL_EMLN_SPATIAL_AUDIT_20261128.md): 42 source directories, 16 audits, only one strict candidate study; no independent macro replication.
+
+- [Measured EMLN morphology](EXTERNAL_EMLN_TRAIT_TURNOVER_20261128.md): primary single-study morphology case opposite direction; no global inference.
+- [EuPollTrait bridge](EXTERNAL_EUPOLLTRAIT_INTAKE_20261128.md): new external trait intake for same-network common-carrier comparison.
+
+- [EuPollTrait group-specific size turnover](EXTERNAL_EUPOLLTRAIT_SIZE_TURNOVER_20261128.md): original bee size and family positive directions but crossed gates failed; hoverfly invalid value audit required.
+
+- [Size QC and exact family-pair accounting](EXTERNAL_EUPOLLTRAIT_SIZE_QC_FAMILY_20261128.md): corrected bee size gain +.110649 and family-standardized +.042194 passed crossed gates; hoverfly no eligible pairs after QC.
+
+- [Visitor-genus coherent trait null](EXTERNAL_EUPOLLTRAIT_VISITOR_GENUS_20261128.md): genus-adjusted residual +.009047, p=.506; unsupported.
+
+- [Size distribution versus dispersion](EXTERNAL_EUPOLLTRAIT_ENERGY_20261128.md): half-energy +.096993, crossed interval includes zero; dispersion unsupported.
+
+- [Multidimensional morphology turnover](EXTERNAL_EUPOLLTRAIT_MULTIVARIATE_20261128.md): joint half-energy +.098272, crossed gate failed; >=2-exclusive sensitivity opposite direction.
+
+- [Recorded-month matching](EXTERNAL_EUPOLLTRAIT_MONTH_MATCH_20261128.md): same recorded month +.069004, only 9 studies, crossed interval includes zero; annual-month difference unresolved.
+
+- [Out-of-study plant size transport](EXTERNAL_EUPOLLTRAIT_TRANSPORT_20261128.md): species prediction MSE improved 13.1%, crossed interval includes zero; other-congeneric comparison descriptive, insufficient support.
+
+- [Study-disjoint bee-inclusive validation](EXTERNAL_EUPOLLTRAIT_DISJOINT_VALIDATION_20261128.md): 29-study validation size gain +.109531 [.039549,.172565] supported; >=2-exclusive and family-standardized descriptives pass.
+
+- [Provenance cluster and novel focal genus audit](EXTERNAL_EUPOLLTRAIT_PROVENANCE_20261128.md): component-crossed +.109531 [.041240,.174949]; discovery-linked component exclusion +.094601 [.026666,.165620], supported; novel focal genus unsupported.
+
+- [Validation cohort calendar-month audit](EXTERNAL_EUPOLLTRAIT_VALIDATION_MONTH_20261128.md): same-month +.149014 [.045913,.285947], study-ID gate passed; 8 components, component support gate failed.
+- [Bee size manuscript evidence freeze](EXTERNAL_BEE_SIZE_MANUSCRIPT_EVIDENCE_20261128.md): verified main estimates and completed provenance/temporal limits.
+
+- [Validation cohort size distribution](EXTERNAL_EUPOLLTRAIT_VALIDATION_ENERGY_20261128.md): frozen discovery half-energy estimand in larger study-disjoint cohort; pending.

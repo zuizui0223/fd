@@ -1,0 +1,26 @@
+name: External EuPollTrait size QC and family-pair accounting
+on:
+  pull_request:
+    paths:
+      - scripts/external_eupolltrait_size_qc_family.py
+      - .github/workflows/external-eupolltrait-size-qc-family.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  external:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: pip install numpy pandas
+      - run: python scripts/external_eupolltrait_size_qc_family.py --self-test
+      - run: python -u scripts/external_eupolltrait_size_qc_family.py --out /tmp/size_qc_family.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: external-eupolltrait-size-qc-family
+          path: /tmp/size_qc_family.json
+          if-no-files-found: error
