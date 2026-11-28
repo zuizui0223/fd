@@ -9,7 +9,7 @@ import pandas as pd
 BASE="https://raw.githubusercontent.com/joseblanuza/EuPPollNet/v1.3.0/Data/3_Final_data/"
 SOURCES={
  "Interaction_data.csv.gz":("cde17692dc66946002e19026433d9db429357d28873a369d884941f71131db61","6e639d4af81feee76eefa6804622f8b901c39feb"),
- "Metadata.csv":("adb396f31e7e3257425872b92d56c1051ca05849c6228a39675a71364d4833","f9708e2f2b142ab2437a8be9d16e33aaefdef0ed")}
+ "Metadata.csv":(None,"f9708e2f2b142ab2437a8be9d16e33aaefdef0ed")}
 GEO="https://github.com/GenericMappingTools/gshhg-gmt/releases/download/2.3.7/gshhg-shp-2.3.7.zip"
 GEO_SHA="8dbbe7e071e77e9e75f2d639239099ebca8d5c16d6a07df8169729d49f15cf41"
 BEE={"Apidae","Andrenidae","Colletidae","Halictidae","Megachilidae","Melittidae","Stenotritidae"}
@@ -25,12 +25,13 @@ def download(url,path,sha,limit,blob=None):
             n+=len(b)
             if n>limit:raise ValueError("source exceeds declared size limit")
             h.update(b);f.write(b)
-    if h.hexdigest()!=sha:raise ValueError("source SHA256 mismatch: "+path.name)
+    if not sha and not blob:raise ValueError("source identity pin missing")
+    if sha and h.hexdigest()!=sha:raise ValueError("source SHA256 mismatch: "+path.name)
     if blob:
         raw=path.read_bytes()
         if hashlib.sha1(b"blob "+str(len(raw)).encode()+b"\0"+raw).hexdigest()!=blob:
             raise ValueError("publisher git blob mismatch")
-    return {"sha256":sha,"bytes":n,"git_blob":blob}
+    return {"sha256":h.hexdigest(),"expected_sha256":sha,"bytes":n,"git_blob":blob}
 
 def probability(n,m,d):
     if not 0<=m<=n or not 1<=d<=n:raise ValueError("invalid degree")
