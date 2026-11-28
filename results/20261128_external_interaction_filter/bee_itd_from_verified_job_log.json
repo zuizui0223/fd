@@ -1,0 +1,161 @@
+{
+  "source_run": 46103855599,
+  "source_head": "d9c43c904b1e2553a09f0bf66aea0d60fe228d69",
+  "job": 140852102692,
+  "artifact": 15246667534,
+  "reported_zip_digest": "sha256:79cde000ee78cd3110e3e1f4f2e569cc95553aac17e02c0c17c570222fbdf6d4",
+  "extraction": "completed original job log; archive ZIP not independently verified",
+  "network_source": {
+    "raw_rows": 623476,
+    "invalid_utf8_rows_excluded": 8,
+    "qualified_name_date_coord_rows": 585740,
+    "bad_dates": 0,
+    "source_pins": {
+      "Interaction_data.csv.gz": {
+        "blob": "6e639d4af81feee76eefa6804622f8b901c39feb",
+        "sha256": "cde17692dc66946002e19026433d9db429357d28873a369d884941f71131db61",
+        "rows": 623476
+      },
+      "Metadata.csv": {
+        "blob": "f9708e2f2b142ab2437a8be9d16e33aaefdef0ed",
+        "sha256": "adb396f31e7e7e3257425872b92d56c1051ca05849c6228a39675a71364d4833",
+        "rows": 80
+      }
+    },
+    "study_count": 54,
+    "matched_trait_visitor_names": 699,
+    "matched_trait_rows": 37212
+  },
+  "fit_status": "completed",
+  "geography": {
+    "source_sha256": "8dbbe7e071e77e9e75f2d639239099ebca8d5c16d6a07df8169729d49f15cf41",
+    "area_min_km2": 20,
+    "continental_threshold_km2": 7000000,
+    "unmatched_or_small_is_unresolved": true,
+    "classification_counts": {
+      "mainland": 894,
+      "island": 79,
+      "unresolved": 7
+    }
+  },
+  "rejections": {
+    "insufficient_breadth": 96,
+    "small_subweb": 711,
+    "no_trait_visitor": 59,
+    "burnin_low_switch": 3,
+    "multi_coord_site_year": 6
+  },
+  "all_block": {
+    "networks": 980,
+    "groups": 12,
+    "studies": 49,
+    "observed": 0.47335833402980687,
+    "null_mean": 0.5890613488588909,
+    "residual": -0.11570301482908407,
+    "conditional_p": 0.005,
+    "group_boot_interval": [
+      -0.15271318035735382,
+      -0.07641500672826027
+    ],
+    "leave_group_range": [
+      -0.12598490881001415,
+      -0.10536225233263709
+    ],
+    "support_gate": true
+  },
+  "all_study": {
+    "networks": 980,
+    "groups": 49,
+    "studies": 49,
+    "observed": 0.5092798467535854,
+    "null_mean": 0.6318487920389109,
+    "residual": -0.12256894528532544,
+    "conditional_p": 0.005,
+    "group_boot_interval": [
+      -0.15434342339046583,
+      -0.09243968506611525
+    ],
+    "leave_group_range": [
+      -0.12632145181691964,
+      -0.11780748683908109
+    ],
+    "support_gate": true
+  },
+  "island_mainland": {
+    "island": {
+      "networks": 79,
+      "groups": 4,
+      "studies": 9,
+      "observed": 0.5429187663126935,
+      "null_mean": 0.6398862972574398,
+      "residual": -0.09696753094474625,
+      "conditional_p": 0.005,
+      "group_boot_interval": null,
+      "leave_group_range": [
+        -0.11569341474153157,
+        -0.06899688826403254
+      ],
+      "support_gate": false
+    },
+    "mainland": {
+      "networks": 894,
+      "groups": 9,
+      "studies": 40,
+      "observed": 0.4636584976784197,
+      "null_mean": 0.579645406340023,
+      "residual": -0.11598690866160331,
+      "conditional_p": 0.005,
+      "group_boot_interval": null,
+      "leave_group_range": [
+        -0.13025529643514155,
+        -0.10180384695805358
+      ],
+      "support_gate": false
+    },
+    "island_units": 12,
+    "mixed_studies": 0,
+    "support_gate": false,
+    "descriptive_difference": 0.019019377716857064
+  },
+  "coast_clear_sensitivity": {
+    "island": {
+      "networks": 69,
+      "groups": 4,
+      "studies": 9,
+      "observed": 0.4946820954246118,
+      "null_mean": 0.5994661735682544,
+      "residual": -0.10478407814364263,
+      "conditional_p": 0.005,
+      "group_boot_interval": null,
+      "leave_group_range": [
+        -0.12034233149630612,
+        -0.07603515778482776
+      ],
+      "support_gate": false
+    },
+    "mainland": {
+      "networks": 889,
+      "groups": 9,
+      "studies": 40,
+      "observed": 0.4644294956474249,
+      "null_mean": 0.5804576396284978,
+      "residual": -0.11602814398107292,
+      "conditional_p": 0.005,
+      "group_boot_interval": null,
+      "leave_group_range": [
+        -0.13031925073383727,
+        -0.10185023669245691
+      ],
+      "support_gate": false
+    },
+    "island_units": 10,
+    "mixed_studies": 0,
+    "support_gate": false,
+    "descriptive_difference": 0.01124406583743029
+  },
+  "holm2": {
+    "global_block": 0.01,
+    "island_mainland": 1
+  },
+  "claim_limit": "Exact-name recorded bee subwebs only. ITD is adult size; degree-conditioned breadth not effective pollination, nectar accessibility or historical filtering. Shared species/studies and source coverage limit conditional uncertainty; no inferred absences. Geography uses positive source polygon membership, no own biological cohort."
+}
