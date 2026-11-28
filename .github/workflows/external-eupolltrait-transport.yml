@@ -1,0 +1,26 @@
+name: External EuPollTrait out-of-study plant size transport
+on:
+  pull_request:
+    paths:
+      - scripts/external_eupolltrait_transport.py
+      - .github/workflows/external-eupolltrait-transport.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  external:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: pip install numpy pandas
+      - run: python scripts/external_eupolltrait_transport.py --self-test
+      - run: python -u scripts/external_eupolltrait_transport.py --out /tmp/transport.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: external-eupolltrait-transport
+          path: /tmp/transport.json
+          if-no-files-found: error

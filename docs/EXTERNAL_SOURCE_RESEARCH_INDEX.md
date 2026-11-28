@@ -51,4 +51,6 @@ The [historical source-classification registry and validator in island PR #353](
 
 - [Multidimensional morphology turnover](EXTERNAL_EUPOLLTRAIT_MULTIVARIATE_20261128.md): joint half-energy +.098272, crossed gate failed; >=2-exclusive sensitivity opposite direction.
 
-- [Recorded-month matching](EXTERNAL_EUPOLLTRAIT_MONTH_MATCH_20261128.md): new temporal opportunity audit of supported all-ITD cross-distance result, pending.
+- [Recorded-month matching](EXTERNAL_EUPOLLTRAIT_MONTH_MATCH_20261128.md): same recorded month +.069004, only 9 studies, crossed interval includes zero; annual-month difference unresolved.
+
+- [Out-of-study plant size transport](EXTERNAL_EUPOLLTRAIT_TRANSPORT_20261128.md): new held-out study prediction test, pending.

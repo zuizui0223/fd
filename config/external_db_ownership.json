@@ -15,6 +15,7 @@
     ".github/workflows/external-eupolltrait-multivariate.yml",
     ".github/workflows/external-eupolltrait-size-qc-family.yml",
     ".github/workflows/external-eupolltrait-size-turnover.yml",
+    ".github/workflows/external-eupolltrait-transport.yml",
     ".github/workflows/external-eupolltrait-visitor-genus.yml",
     ".github/workflows/external-euppollnet-architecture.yml",
     ".github/workflows/external-euppollnet-bee-loss.yml",
@@ -49,6 +50,7 @@
     "docs/EXTERNAL_EUPOLLTRAIT_MULTIVARIATE_20261128.md",
     "docs/EXTERNAL_EUPOLLTRAIT_SIZE_QC_FAMILY_20261128.md",
     "docs/EXTERNAL_EUPOLLTRAIT_SIZE_TURNOVER_20261128.md",
+    "docs/EXTERNAL_EUPOLLTRAIT_TRANSPORT_20261128.md",
     "docs/EXTERNAL_EUPOLLTRAIT_VISITOR_GENUS_20261128.md",
     "docs/EXTERNAL_EUPPOLLNET_ARCHITECTURE_20261128.md",
     "docs/EXTERNAL_EUPPOLLNET_BEE_LOSS_20261128.md",
@@ -88,6 +90,7 @@
     "results/20261128_external_euppollnet/curveball_from_verified_job_log.json",
     "results/20261128_external_euppollnet/eupolltrait_energy_from_verified_job_log.json",
     "results/20261128_external_euppollnet/eupolltrait_intake_from_verified_job_log.json",
+    "results/20261128_external_euppollnet/eupolltrait_month_match_from_verified_job_log.json",
     "results/20261128_external_euppollnet/eupolltrait_multivariate_from_verified_job_log.json",
     "results/20261128_external_euppollnet/eupolltrait_size_from_verified_job_log.json",
     "results/20261128_external_euppollnet/eupolltrait_size_qc_family_from_verified_job_log.json",
@@ -105,6 +108,7 @@
     "scripts/external_eupolltrait_multivariate.py",
     "scripts/external_eupolltrait_size_qc_family.py",
     "scripts/external_eupolltrait_size_turnover.py",
+    "scripts/external_eupolltrait_transport.py",
     "scripts/external_eupolltrait_visitor_genus.py",
     "scripts/external_euppollnet_architecture.py",
     "scripts/external_euppollnet_bee_loss.py",
@@ -776,7 +780,16 @@
     "paths": [
       "scripts/external_eupolltrait_month_match.py",
       ".github/workflows/external-eupolltrait-month-match.yml",
-      "docs/EXTERNAL_EUPOLLTRAIT_MONTH_MATCH_20261128.md"
+      "docs/EXTERNAL_EUPOLLTRAIT_MONTH_MATCH_20261128.md",
+      "results/20261128_external_euppollnet/eupolltrait_month_match_from_verified_job_log.json"
+    ]
+  },
+  "external_eupolltrait_transport_20261128": {
+    "scope": "Pinned public EuPollTrait/EuPPollNet only, held-out whole-study plant-specific relative ITD prediction; frozen support, conditional uncertainty. Post-discovery, no own inputs.",
+    "paths": [
+      "scripts/external_eupolltrait_transport.py",
+      ".github/workflows/external-eupolltrait-transport.yml",
+      "docs/EXTERNAL_EUPOLLTRAIT_TRANSPORT_20261128.md"
     ]
   }
 }
