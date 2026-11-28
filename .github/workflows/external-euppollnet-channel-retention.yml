@@ -1,0 +1,26 @@
+name: External EuPPollNet cross-site channel retention
+on:
+  pull_request:
+    paths:
+      - scripts/external_euppollnet_channel_retention.py
+      - .github/workflows/external-euppollnet-channel-retention.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  external:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: pip install numpy pandas
+      - run: python scripts/external_euppollnet_channel_retention.py --self-test
+      - run: python -u scripts/external_euppollnet_channel_retention.py --out /tmp/channel_retention.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: external-euppollnet-channel-retention
+          path: /tmp/channel_retention.json
+          if-no-files-found: error

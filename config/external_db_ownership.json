@@ -8,6 +8,7 @@
   "allowed_paths": [
     ".github/workflows/external-db-boundary.yml",
     ".github/workflows/external-euppollnet-bee-loss.yml",
+    ".github/workflows/external-euppollnet-channel-retention.yml",
     ".github/workflows/external-floral-replication-intake.yml",
     ".github/workflows/external-gift-continuous-flower-space.yml",
     ".github/workflows/external-gift-floral-replication-coverage.yml",
@@ -28,6 +29,7 @@
     "README.md",
     "config/external_db_ownership.json",
     "docs/EXTERNAL_EUPPOLLNET_BEE_LOSS_20261128.md",
+    "docs/EXTERNAL_EUPPOLLNET_CHANNEL_RETENTION_20261128.md",
     "docs/EXTERNAL_FLORAL_REPLICATION_INTAKE_20261126.md",
     "docs/EXTERNAL_SOURCE_RESEARCH_INDEX.md",
     "docs/legacy_external_workflows/acquire-thousand-island-lake-source.yml",
@@ -59,6 +61,7 @@
     "scripts/check_external_source_boundary.py",
     "scripts/export_mdd_bat_ranges.R",
     "scripts/external_euppollnet_bee_loss.py",
+    "scripts/external_euppollnet_channel_retention.py",
     "scripts/external_floral_replication_intake.py",
     "scripts/external_gift_continuous_flower_space.py",
     "scripts/external_gift_floral_replication_coverage.py",
@@ -608,6 +611,14 @@
       ".github/workflows/external-euppollnet-bee-loss.yml",
       "docs/EXTERNAL_EUPPOLLNET_BEE_LOSS_20261128.md",
       "results/20261128_external_euppollnet/bee_loss_corrected_from_verified_job_log.json"
+    ]
+  },
+  "external_euppollnet_channel_retention_20261128": {
+    "scope": "Original EuPPollNet v1.3.0 only. Same-plant spatial replacement conditional on local visitor degree background excluding focal plant. No own data or geographic labels. Primary and support frozen before outcomes.",
+    "paths": [
+      "scripts/external_euppollnet_channel_retention.py",
+      ".github/workflows/external-euppollnet-channel-retention.yml",
+      "docs/EXTERNAL_EUPPOLLNET_CHANNEL_RETENTION_20261128.md"
     ]
   }
 }
