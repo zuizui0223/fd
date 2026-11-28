@@ -1,0 +1,94 @@
+{
+  "receipt": {
+    "run_id": 46105778974,
+    "job_id": 140858069702,
+    "head_sha": "01de1fff7f3f310305a4bbd05cafbf9bdd685614",
+    "source": "verified workflow job log",
+    "artifact_zip_verified": false
+  },
+  "result": {
+    "source_pins": {
+      "Interaction_data.csv.gz": {
+        "sha256": "cde17692dc66946002e19026433d9db429357d28873a369d884941f71131db61",
+        "expected_sha256": "cde17692dc66946002e19026433d9db429357d28873a369d884941f71131db61",
+        "bytes": 2374060,
+        "git_blob": "6e639d4af81feee76eefa6804622f8b901c39feb"
+      },
+      "Metadata.csv": {
+        "sha256": "adb396f31e7e7e3257425872b92d56c1051ca05849c6228a39675a71364d4833",
+        "expected_sha256": null,
+        "bytes": 28483,
+        "git_blob": "f9708e2f2b142ab2437a8be9d16e33aaefdef0ed"
+      }
+    },
+    "parent_replay": 0.039527962549189964,
+    "diagnostics": {
+      "sites": 161,
+      "frozen_sites": 0,
+      "median_site_sample_changes": 6012,
+      "parent_pairs": 3043,
+      "accepted_pairs": 2537,
+      "rejected_pairs": 506,
+      "accepted_draw_quantiles": [
+        0,
+        60,
+        188,
+        354,
+        399
+      ]
+    },
+    "primary": {
+      "support": {
+        "comparisons": 2537,
+        "species": 263,
+        "studies": 14,
+        "site_pairs": 788
+      },
+      "support_gate": true,
+      "study_equal": {
+        "observed": 0.42209964532263683,
+        "null": 0.377517367182445,
+        "residual": 0.04458227814019177,
+        "original_residual": 0.04121528112174145,
+        "half_gap": 0.0002811284046926622
+      },
+      "median_abs_pair_half_gap": 0.020745692387483416,
+      "primary_supported": true,
+      "study_bootstrap_ci": [
+        0.012339066738850032,
+        0.07476746638498716
+      ],
+      "leave_study_range": [
+        0.03788036896559023,
+        0.05419069169698138
+      ]
+    },
+    "sensitivity_min_two_exclusive": {
+      "support": {
+        "comparisons": 1109,
+        "species": 162,
+        "studies": 14,
+        "site_pairs": 546
+      },
+      "support_gate": true,
+      "study_equal": {
+        "observed": 0.3983239230107318,
+        "null": 0.3644742728030383,
+        "residual": 0.03384965020769364,
+        "original_residual": 0.02017111013827791,
+        "half_gap": 0.0033536816445607943
+      },
+      "median_abs_pair_half_gap": 0.016322412155745508,
+      "primary_supported": false,
+      "study_bootstrap_ci": [
+        -0.0012809225827076223,
+        0.07457104412859752
+      ],
+      "leave_study_range": [
+        0.019068276095885295,
+        0.041841621237004044
+      ]
+    },
+    "scope": "Post-discovery conditional null audit, no new independent observations. Both local binary degree margins, species identities and observed cross-site shared count preserved; 399 curveball samples with fixed burn/thinning, minimum 30 accepted per pair and at least 10 each half. Chain mixing not certified. No island-specific effect or effectiveness."
+  }
+}

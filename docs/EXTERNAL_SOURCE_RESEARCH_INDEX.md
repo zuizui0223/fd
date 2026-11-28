@@ -29,4 +29,9 @@ The controlling unit for **both source classification and scientific ownership**
 The [historical source-classification registry and validator in island PR #353](https://github.com/zuizui0223/island/pull/353) retain source references, support and claim limits. Its inventory is not an independent external replication and does not alter the frozen GEB submission.
 
 ## New external-only network research (2026-11-28)
-[Same-plant conditional bee loss](EXTERNAL_EUPPOLLNET_BEE_LOSS_20261128.md): direct EuPPollNet publisher records and public geography only; no empirical result yet.
+[Same-plant conditional bee loss](EXTERNAL_EUPPOLLNET_BEE_LOSS_20261128.md): direct EuPPollNet publisher records and public geography only; corrected island–mainland primary nonestimable (zero same study/year/plant pairs).
+
+- [Channel retention](EXTERNAL_EUPPOLLNET_CHANNEL_RETENTION_20261128.md): +.039528, initial frozen gate passed; two-exclusive sensitivity unresolved.
+- [Floral moderation](EXTERNAL_EUPPOLLNET_ARCHITECTURE_20261128.md): both frozen morphology gates failed.
+- [Fixed-margin conditional null](EXTERNAL_EUPPOLLNET_CURVEBALL_20261128.md): +.044582, original degree and overlap controlled, supported; two-exclusive sensitivity unresolved.
+- [Geographic scaling and crossed dependence](EXTERNAL_EUPPOLLNET_SPATIAL_SCALING_20261128.md): new post-discovery test; pending execution.
