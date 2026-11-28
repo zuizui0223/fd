@@ -1,0 +1,375 @@
+{
+  "receipt": {
+    "run_id": 46121804490,
+    "job_id": 140907741167,
+    "head_sha": "6d95a1a791d347e6a5ec2b4d8e4fde80a56e7494",
+    "artifact_zip_verified": false
+  },
+  "result": {
+    "source_pins": {
+      "archive_sha256": "b6e6b2c0b9f4c348e11185382d3f604610d1aad4181b0088b18a146f6180f782",
+      "dwc_taxon_core_bees_hoverflies.csv": {
+        "sha256": "17e487ecfe775858b786ca0e4e0e60529d5b7adfc670d18bde00d8f2ee193a2c",
+        "encoding": "utf-8-sig"
+      },
+      "dwc_mof_bees_hoverflies.csv": {
+        "sha256": "4c8f13913775483d458ed5e4f7946e6518873ed3b455a209b775bfa9c1cc310d",
+        "encoding": "cp1252"
+      },
+      "trait_metadata.csv": {
+        "sha256": "fae52c364472e36958e49864d509fb3e8c7828aee8b795ae6a4c7ce470292378",
+        "encoding": "utf-8-sig"
+      }
+    },
+    "network_source_pins": {
+      "Interaction_data.csv.gz": {
+        "sha256": "cde17692dc66946002e19026433d9db429357d28873a369d884941f71131db61",
+        "expected_sha256": "cde17692dc66946002e19026433d9db429357d28873a369d884941f71131db61",
+        "bytes": 2374060,
+        "git_blob": "6e639d4af81feee76eefa6804622f8b901c39feb"
+      },
+      "Metadata.csv": {
+        "sha256": "adb396f31e7e7e3257425872b92d56c1051ca05849c6228a39675a71364d4833",
+        "expected_sha256": null,
+        "bytes": 28483,
+        "git_blob": "f9708e2f2b142ab2437a8be9d16e33aaefdef0ed"
+      }
+    },
+    "metadata_audit": {
+      "all_studies": 54,
+      "components": 26,
+      "component_sizes": [
+        9,
+        7,
+        5,
+        4,
+        3,
+        2,
+        2,
+        2,
+        2,
+        2,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "studies_without_valid_orcid": 2,
+      "studies_without_doi": 16,
+      "studies_without_either": 1,
+      "invalid_orcid_study_token_count": 0,
+      "discovery_components": 12,
+      "validation_candidate_studies": 34,
+      "validation_candidate_components": 15,
+      "validation_candidates_linked_to_discovery": 8
+    },
+    "validation_replay": {
+      "comparisons": 19618,
+      "size_gain": 0.10953097474723927
+    },
+    "primary": {
+      "name_audit": {
+        "input_pairs": 19621,
+        "exact_name_pairs": 19618,
+        "colliding_exact_names": 0
+      },
+      "comparisons": 19618,
+      "site_pairs": 8073,
+      "study_count": 29,
+      "component_count": 14,
+      "plant_species": 405,
+      "plant_genera": 212,
+      "contributing_component_sizes": [
+        6,
+        5,
+        4,
+        3,
+        2,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "largest_component_weight_fraction": 0.20689655172413793,
+      "study_equal_with_component_bootstrap": true,
+      "estimate": 0.10953097474723927,
+      "observed": 0.5458305637068172,
+      "null": 0.6553615384540565,
+      "gate": true,
+      "supported": true,
+      "crossed_component_plant_genus_valid_draws": 9999,
+      "crossed_component_plant_genus_ci": [
+        0.04123982150888786,
+        0.17494890169502467
+      ],
+      "component_valid_draws": 9999,
+      "component_ci": [
+        0.06855338569464015,
+        0.15190233222970373
+      ],
+      "plant_genus_valid_draws": 9999,
+      "plant_genus_ci": [
+        0.06460446031505492,
+        0.1533486583148982
+      ],
+      "leave_component_range": [
+        0.08965071811796434,
+        0.11981156091365075
+      ],
+      "leave_plant_genus_range": [
+        0.09782028824738807,
+        0.12002442412279375
+      ]
+    },
+    "discovery_component_disjoint": {
+      "name_audit": {
+        "input_pairs": 15332,
+        "exact_name_pairs": 15329,
+        "colliding_exact_names": 0
+      },
+      "comparisons": 15329,
+      "site_pairs": 6789,
+      "study_count": 22,
+      "component_count": 12,
+      "plant_species": 360,
+      "plant_genera": 200,
+      "contributing_component_sizes": [
+        5,
+        4,
+        3,
+        2,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "largest_component_weight_fraction": 0.22727272727272727,
+      "study_equal_with_component_bootstrap": true,
+      "estimate": 0.09460116254202293,
+      "observed": 0.526001284337836,
+      "null": 0.6206024468798591,
+      "gate": true,
+      "supported": true,
+      "crossed_component_plant_genus_valid_draws": 9999,
+      "crossed_component_plant_genus_ci": [
+        0.026665559561158472,
+        0.1656197984100596
+      ],
+      "component_valid_draws": 9999,
+      "component_ci": [
+        0.06699270511545477,
+        0.13968038124788676
+      ],
+      "plant_genus_valid_draws": 9999,
+      "plant_genus_ci": [
+        0.04355058797090316,
+        0.14331139030320347
+      ],
+      "leave_component_range": [
+        0.08557692290005114,
+        0.10472381001071669
+      ],
+      "leave_plant_genus_range": [
+        0.0818935936625972,
+        0.10799560448604577
+      ]
+    },
+    "descriptive_equal_component": {
+      "name_audit": {
+        "input_pairs": 19621,
+        "exact_name_pairs": 19618,
+        "colliding_exact_names": 0
+      },
+      "comparisons": 19618,
+      "site_pairs": 8073,
+      "study_count": 29,
+      "component_count": 14,
+      "plant_species": 405,
+      "plant_genera": 212,
+      "contributing_component_sizes": [
+        6,
+        5,
+        4,
+        3,
+        2,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "largest_component_weight_fraction": 0.07142857142857144,
+      "study_equal_with_component_bootstrap": false,
+      "estimate": 0.108746192354734,
+      "observed": 0.5673381018414978,
+      "null": 0.6760842941962317,
+      "gate": true,
+      "supported": true,
+      "crossed_component_plant_genus_valid_draws": 9999,
+      "crossed_component_plant_genus_ci": [
+        0.03244993838297355,
+        0.18453015946411996
+      ],
+      "component_valid_draws": 9999,
+      "component_ci": [
+        0.06377286854931195,
+        0.15575525426129588
+      ],
+      "plant_genus_valid_draws": 9999,
+      "plant_genus_ci": [
+        0.05983981336022867,
+        0.15630395638136133
+      ],
+      "leave_component_range": [
+        0.0952566536879112,
+        0.11859275016750775
+      ],
+      "leave_plant_genus_range": [
+        0.09610373432699888,
+        0.12091813267102909
+      ]
+    },
+    "descriptive_novel_focal_genus": {
+      "name_audit": {
+        "input_pairs": 4936,
+        "exact_name_pairs": 4936,
+        "colliding_exact_names": 0
+      },
+      "comparisons": 4936,
+      "site_pairs": 3566,
+      "study_count": 28,
+      "component_count": 14,
+      "plant_species": 200,
+      "plant_genera": 137,
+      "contributing_component_sizes": [
+        6,
+        4,
+        4,
+        3,
+        2,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "largest_component_weight_fraction": 0.21428571428571427,
+      "study_equal_with_component_bootstrap": true,
+      "estimate": 0.09249127439501,
+      "observed": 0.5738389061542356,
+      "null": 0.6663301805492455,
+      "gate": true,
+      "supported": false,
+      "crossed_component_plant_genus_valid_draws": 9999,
+      "crossed_component_plant_genus_ci": [
+        -0.0589607712709277,
+        0.2515854075805632
+      ],
+      "component_valid_draws": 9999,
+      "component_ci": [
+        0.003778851886792068,
+        0.18348550422331267
+      ],
+      "plant_genus_valid_draws": 9999,
+      "plant_genus_ci": [
+        -0.004787849076007643,
+        0.19668217988487852
+      ],
+      "leave_component_range": [
+        0.06523564687237016,
+        0.1201908307092182
+      ],
+      "leave_plant_genus_range": [
+        0.06634006626292924,
+        0.13773636424432703
+      ]
+    },
+    "descriptive_novel_genus_and_component_disjoint": {
+      "name_audit": {
+        "input_pairs": 4342,
+        "exact_name_pairs": 4342,
+        "colliding_exact_names": 0
+      },
+      "comparisons": 4342,
+      "site_pairs": 3078,
+      "study_count": 21,
+      "component_count": 12,
+      "plant_species": 187,
+      "plant_genera": 133,
+      "contributing_component_sizes": [
+        4,
+        4,
+        3,
+        2,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "largest_component_weight_fraction": 0.19047619047619047,
+      "study_equal_with_component_bootstrap": true,
+      "estimate": 0.06040075692550836,
+      "observed": 0.567050551481506,
+      "null": 0.6274513084070142,
+      "gate": true,
+      "supported": false,
+      "crossed_component_plant_genus_valid_draws": 9999,
+      "crossed_component_plant_genus_ci": [
+        -0.09986889474423431,
+        0.2687014120833466
+      ],
+      "component_valid_draws": 9999,
+      "component_ci": [
+        -0.025969324736206167,
+        0.18358769719138401
+      ],
+      "plant_genus_valid_draws": 9999,
+      "plant_genus_ci": [
+        -0.05563095157577192,
+        0.1870412036420245
+      ],
+      "leave_component_range": [
+        0.025241879201879036,
+        0.09195530290568425
+      ],
+      "leave_plant_genus_range": [
+        0.025241879201879036,
+        0.11847426046688789
+      ]
+    },
+    "scope": "Post-discovery provenance audit. Metadata DOI/valid ORCID connected components across all 54 studies, not proof of field-project identity or independence. Study-equal point estimate retained, component x focal genus product bootstrap. Discovery-linked exclusion is a prespecified stricter sensitivity, novel genus refers only to original eligible comparisons. No personal identifiers exported, no new source or causal claim."
+  }
+}

@@ -18,6 +18,7 @@
     ".github/workflows/external-eupolltrait-size-qc-family.yml",
     ".github/workflows/external-eupolltrait-size-turnover.yml",
     ".github/workflows/external-eupolltrait-transport.yml",
+    ".github/workflows/external-eupolltrait-validation-energy.yml",
     ".github/workflows/external-eupolltrait-validation-month.yml",
     ".github/workflows/external-eupolltrait-visitor-genus.yml",
     ".github/workflows/external-euppollnet-architecture.yml",
@@ -57,6 +58,7 @@
     "docs/EXTERNAL_EUPOLLTRAIT_SIZE_QC_FAMILY_20261128.md",
     "docs/EXTERNAL_EUPOLLTRAIT_SIZE_TURNOVER_20261128.md",
     "docs/EXTERNAL_EUPOLLTRAIT_TRANSPORT_20261128.md",
+    "docs/EXTERNAL_EUPOLLTRAIT_VALIDATION_ENERGY_20261128.md",
     "docs/EXTERNAL_EUPOLLTRAIT_VALIDATION_MONTH_20261128.md",
     "docs/EXTERNAL_EUPOLLTRAIT_VISITOR_GENUS_20261128.md",
     "docs/EXTERNAL_EUPPOLLNET_ARCHITECTURE_20261128.md",
@@ -100,9 +102,11 @@
     "results/20261128_external_euppollnet/eupolltrait_intake_from_verified_job_log.json",
     "results/20261128_external_euppollnet/eupolltrait_month_match_from_verified_job_log.json",
     "results/20261128_external_euppollnet/eupolltrait_multivariate_from_verified_job_log.json",
+    "results/20261128_external_euppollnet/eupolltrait_provenance_from_verified_job_log.json",
     "results/20261128_external_euppollnet/eupolltrait_size_from_verified_job_log.json",
     "results/20261128_external_euppollnet/eupolltrait_size_qc_family_from_verified_job_log.json",
     "results/20261128_external_euppollnet/eupolltrait_transport_from_verified_job_log.json",
+    "results/20261128_external_euppollnet/eupolltrait_validation_month_from_verified_job_log.json",
     "results/20261128_external_euppollnet/eupolltrait_visitor_genus_from_verified_job_log.json",
     "results/20261128_external_euppollnet/spatial_scaling_from_verified_job_log.json",
     "scripts/audit_mdd_bat_diet_metadata.py",
@@ -120,6 +124,7 @@
     "scripts/external_eupolltrait_size_qc_family.py",
     "scripts/external_eupolltrait_size_turnover.py",
     "scripts/external_eupolltrait_transport.py",
+    "scripts/external_eupolltrait_validation_energy.py",
     "scripts/external_eupolltrait_validation_month.py",
     "scripts/external_eupolltrait_visitor_genus.py",
     "scripts/external_euppollnet_architecture.py",
@@ -819,7 +824,8 @@
     "paths": [
       "scripts/external_eupolltrait_provenance.py",
       ".github/workflows/external-eupolltrait-provenance.yml",
-      "docs/EXTERNAL_EUPOLLTRAIT_PROVENANCE_20261128.md"
+      "docs/EXTERNAL_EUPOLLTRAIT_PROVENANCE_20261128.md",
+      "results/20261128_external_euppollnet/eupolltrait_provenance_from_verified_job_log.json"
     ]
   },
   "external_eupolltrait_validation_month_20261128": {
@@ -827,13 +833,22 @@
     "paths": [
       "scripts/external_eupolltrait_validation_month.py",
       ".github/workflows/external-eupolltrait-validation-month.yml",
-      "docs/EXTERNAL_EUPOLLTRAIT_VALIDATION_MONTH_20261128.md"
+      "docs/EXTERNAL_EUPOLLTRAIT_VALIDATION_MONTH_20261128.md",
+      "results/20261128_external_euppollnet/eupolltrait_validation_month_from_verified_job_log.json"
     ]
   },
   "external_bee_size_manuscript_evidence_20261128": {
     "scope": "Verified external-only aggregate ledgers and claim limits; no new empirical effect.",
     "paths": [
       "docs/EXTERNAL_BEE_SIZE_MANUSCRIPT_EVIDENCE_20261128.md"
+    ]
+  },
+  "external_eupolltrait_validation_energy_20261128": {
+    "scope": "Pinned external EuPollTrait/EuPPollNet only. Frozen univariate half-energy test in study-ID-disjoint validation cohort, exact annual cross-gain replay, metadata component robustness; no own data or raw exports.",
+    "paths": [
+      "scripts/external_eupolltrait_validation_energy.py",
+      ".github/workflows/external-eupolltrait-validation-energy.yml",
+      "docs/EXTERNAL_EUPOLLTRAIT_VALIDATION_ENERGY_20261128.md"
     ]
   }
 }

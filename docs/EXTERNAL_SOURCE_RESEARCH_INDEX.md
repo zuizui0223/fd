@@ -57,7 +57,9 @@ The [historical source-classification registry and validator in island PR #353](
 
 - [Study-disjoint bee-inclusive validation](EXTERNAL_EUPOLLTRAIT_DISJOINT_VALIDATION_20261128.md): 29-study validation size gain +.109531 [.039549,.172565] supported; >=2-exclusive and family-standardized descriptives pass.
 
-- [Provenance cluster and novel focal genus audit](EXTERNAL_EUPOLLTRAIT_PROVENANCE_20261128.md): same endpoint, metadata-connected components and discovery-linked exclusion, pending.
+- [Provenance cluster and novel focal genus audit](EXTERNAL_EUPOLLTRAIT_PROVENANCE_20261128.md): component-crossed +.109531 [.041240,.174949]; discovery-linked component exclusion +.094601 [.026666,.165620], supported; novel focal genus unsupported.
 
-- [Validation cohort calendar-month audit](EXTERNAL_EUPOLLTRAIT_VALIDATION_MONTH_20261128.md): original month protocol applied to separate larger study cohort, pending.
-- [Bee size manuscript evidence freeze](EXTERNAL_BEE_SIZE_MANUSCRIPT_EVIDENCE_20261128.md): verified main estimates, evidence hierarchy and limits; pending provenance and temporal checks.
+- [Validation cohort calendar-month audit](EXTERNAL_EUPOLLTRAIT_VALIDATION_MONTH_20261128.md): same-month +.149014 [.045913,.285947], study-ID gate passed; 8 components, component support gate failed.
+- [Bee size manuscript evidence freeze](EXTERNAL_BEE_SIZE_MANUSCRIPT_EVIDENCE_20261128.md): verified main estimates and completed provenance/temporal limits.
+
+- [Validation cohort size distribution](EXTERNAL_EUPOLLTRAIT_VALIDATION_ENERGY_20261128.md): frozen discovery half-energy estimand in larger study-disjoint cohort; pending.
