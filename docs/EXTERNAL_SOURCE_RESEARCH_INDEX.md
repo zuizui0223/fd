@@ -49,4 +49,6 @@ The [historical source-classification registry and validator in island PR #353](
 
 - [Size distribution versus dispersion](EXTERNAL_EUPOLLTRAIT_ENERGY_20261128.md): half-energy +.096993, crossed interval includes zero; dispersion unsupported.
 
-- [Multidimensional morphology turnover](EXTERNAL_EUPOLLTRAIT_MULTIVARIATE_20261128.md): new common-carrier ITD/hair length/hair density joint half-energy test, pending.
+- [Multidimensional morphology turnover](EXTERNAL_EUPOLLTRAIT_MULTIVARIATE_20261128.md): joint half-energy +.098272, crossed gate failed; >=2-exclusive sensitivity opposite direction.
+
+- [Recorded-month matching](EXTERNAL_EUPOLLTRAIT_MONTH_MATCH_20261128.md): new temporal opportunity audit of supported all-ITD cross-distance result, pending.
