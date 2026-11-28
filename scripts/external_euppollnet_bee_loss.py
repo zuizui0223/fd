@@ -80,8 +80,8 @@ def analyze(d,meta,work):
     assert set(REQ).issubset(d),sorted(set(REQ)-set(d))
     assert {"Study_id","Year","Taxa_recorded"}.issubset(meta)
     census={"source_rows":len(d),"source_studies":int(d.Study_id.nunique()),
-       "plant_ranks":d.Plant_rank.value_counts(dropna=False).to_dict(),
-       "visitor_ranks":d.Pollinator_rank.value_counts(dropna=False).to_dict()}
+       "plant_ranks":{str(k):int(v) for k,v in d.Plant_rank.fillna("[missing]").value_counts().items()},
+       "visitor_ranks":{str(k):int(v) for k,v in d.Pollinator_rank.fillna("[missing]").value_counts().items()}}
     bad=d[REQ].fillna("").apply(lambda x:x.str.contains("\ufffd",regex=False)).any(axis=1)
     if bad.mean()>.01:raise ValueError("invalid source encoding exceeds 1%")
     d=d.loc[~bad,REQ].copy()
@@ -154,6 +154,31 @@ def self_test():
     g=pd.DataFrame({PLANT:["p"+str(i) for i in range(5) for _ in range(2)],VISITOR:["v"+str(j) for i in range(5) for j in (i,(i+1)%5)]})
     g["is_bee"]=g[VISITOR].isin(["v0","v1"])
     p,n,m=network_rows(g);assert n==5 and m==2 and abs(p["null"].mean()-.1)<1e-12
+    # Integration fixture: same plants, two classes, only one study;
+    # support must fail, but the conditional estimate must be computable.
+    from unittest.mock import patch
+    visits=[]
+    for role,lat in (("island","31"),("continent","41")):
+        for i in range(5):
+            for j in (i,(i+1)%5):
+                visits.append({"Study_id":"s","Network_id":role,"Latitude":lat,"Longitude":"0",
+                   "Date":"2020-06-01","Interaction":"1",PLANT:"Plant "+str(i),VISITOR:"Visitor "+str(j),
+                   "Plant_rank":"species","Pollinator_rank":"species",
+                   "Pollinator_order":"Hymenoptera" if j<2 else "Diptera",
+                   "Pollinator_family":"Apidae" if j<2 else "Syrphidae"})
+    metadata=pd.DataFrame({"Study_id":["s"],"Year":["2020"],"Taxa_recorded":["Hymenoptera, Diptera, Lepidoptera and Coleoptera"]})
+    def fake_geo(sites,work):
+        sites=sites.copy()
+        sites["class"]=sites.Network_id
+        sites["landmass"]=sites.Network_id
+        sites["block"]=sites.Network_id
+        return sites,{"synthetic":True}
+    with patch(__name__+".geography",side_effect=fake_geo):
+        q=analyze(pd.DataFrame(visits),metadata,None)
+    assert q["same_plant_support"]["matched_species"]==5
+    assert not q["primary_support_gate"] and not q["primary_supported"]
+    assert abs(q["descriptive_matched_island_minus_continent"]["residual"])<1e-12
+    json.dumps(q,allow_nan=False)
     print("FD_EXTERNAL_BEE_LOSS_SELF_TEST_PASS",flush=True)
 
 def main():
