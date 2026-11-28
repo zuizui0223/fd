@@ -49,6 +49,16 @@ def network_rows(g):
     p["residual"]=p.loss-p["null"]
     return p.reset_index()[[PLANT,"loss","null","residual"]],n,m
 
+def classify_areas(land):
+    projected=land.to_crs(6933)
+    assert projected.crs.is_projected and projected.crs.to_epsg()==6933
+    assert all(a.unit_name.lower() in {"metre","meter"} for a in projected.crs.axis_info)
+    area=projected.geometry.area.to_numpy()/1e6
+    assert np.isfinite(area).all() and (area>0).all()
+    # Never use GeoDataFrame.area attribute: it returns geometry area in
+    # the current CRS even when a column named "area" has been assigned.
+    return area,np.select([area>7_000_000,area>=20],["continent","island"],default="small_land")
+
 def geography(sites,work):
     import geopandas as gpd
     z=work/"gshhg.zip";receipt=download(GEO,z,GEO_SHA,500_000_000)
@@ -56,23 +66,37 @@ def geography(sites,work):
         members=[v for v in a.namelist() if pathlib.PurePosixPath(v).stem=="GSHHS_h_L1" and pathlib.PurePosixPath(v).suffix in {".shp",".shx",".dbf",".prj",".cpg"}]
         if len([v for v in members if v.endswith(".shp")])!=1:raise ValueError("GSHHG L1 schema drift")
         for v in members:(work/pathlib.PurePosixPath(v).name).write_bytes(a.read(v))
-    box=(float(sites.Longitude.min())-0.1,float(sites.Latitude.min())-0.1,float(sites.Longitude.max())+0.1,float(sites.Latitude.max())+0.1)
+    # Outcome-blind known geographic controls; never enter any network.
+    controls=pd.DataFrame([
+      {"Study_id":"__geo_control__","year":0,"Network_id":"central_france","Latitude":46.5,"Longitude":2.5,"expected":"continent"},
+      {"Study_id":"__geo_control__","year":0,"Network_id":"central_britain","Latitude":52.5,"Longitude":-1.5,"expected":"island"},
+      {"Study_id":"__geo_control__","year":0,"Network_id":"central_iceland","Latitude":64.8,"Longitude":-18.5,"expected":"island"},
+      {"Study_id":"__geo_control__","year":0,"Network_id":"open_atlantic","Latitude":45.0,"Longitude":-35.0,"expected":"unresolved"}])
+    assert not sites.Study_id.eq("__geo_control__").any()
+    all_sites=pd.concat([sites,controls[KEY]],ignore_index=True)
+    box=(float(all_sites.Longitude.min())-0.1,float(all_sites.Latitude.min())-0.1,float(all_sites.Longitude.max())+0.1,float(all_sites.Latitude.max())+0.1)
     land=gpd.read_file(work/"GSHHS_h_L1.shp",bbox=box)
     if land.crs is None:land=land.set_crs(4326)
     land=land.to_crs(4326)
     idcol=next((c for c in land if c.lower()=="id"),None)
     if idcol is None:raise ValueError("GSHHG polygon IDs absent")
     land=land[[idcol,"geometry"]].dissolve(by=idcol,as_index=False)
-    land["area"]=land.to_crs(6933).area/1e6
+    land["area_km2"],land["class"]=classify_areas(land)
     land["landmass"]=land[idcol].astype(str)
-    land["class"]=np.select([land.area>7_000_000,land.area>=20],["continent","island"],default="small_land")
-    points=gpd.GeoDataFrame(sites,geometry=gpd.points_from_xy(sites.Longitude,sites.Latitude),crs=4326)
-    join=gpd.sjoin(points,land[["landmass","class","geometry"]],how="left",predicate="within")
+    points=gpd.GeoDataFrame(all_sites,geometry=gpd.points_from_xy(all_sites.Longitude,all_sites.Latitude),crs=4326)
+    join=gpd.sjoin(points,land[["landmass","class","area_km2","geometry"]],how="left",predicate="within")
     bad=set(join.index[join.index.duplicated(keep=False)])
-    join=join.loc[~join.index.isin(bad),KEY+["landmass","class"]].copy()
+    join=join.loc[~join.index.isin(bad),KEY+["landmass","class","area_km2"]].copy()
     join["class"]=join["class"].fillna("unresolved")
-    out=sites.merge(join,on=KEY,how="left",validate="one_to_one")
+    out=all_sites.merge(join,on=KEY,how="left",validate="one_to_one")
     out["class"]=out["class"].fillna("unresolved")
+    check=controls.merge(out[["Network_id","class","area_km2"]].loc[out.Study_id.eq("__geo_control__")],on="Network_id",validate="one_to_one")
+    receipt["fixed_geography_controls"]=[{"control":v.Network_id,"expected":v.expected,"observed":v["class"],"area_km2":float(v.area_km2) if pd.notna(v.area_km2) else None} for _,v in check.iterrows()]
+    print("FD_EXTERNAL_GEO_CONTROLS",json.dumps(receipt["fixed_geography_controls"],allow_nan=False),flush=True)
+    assert len(check)==len(controls) and check.expected.eq(check["class"]).all(),"positive geographic controls failed"
+    receipt["area_crs"]="EPSG:6933; projected square metres divided by 1e6"
+    receipt["landmass_classes"]={str(k):int(v) for k,v in land["class"].value_counts().items()}
+    out=out.loc[~out.Study_id.eq("__geo_control__")].drop(columns="area_km2").copy()
     out["block"]=[f"{math.floor(y/5)}:{math.floor(x/5)}" for y,x in zip(out.Latitude,out.Longitude)]
     receipt["ambiguous_sites_excluded"]=len(bad)
     return out,receipt
@@ -155,6 +179,13 @@ def self_test():
     g=pd.DataFrame({PLANT:["p"+str(i) for i in range(5) for _ in range(2)],VISITOR:["v"+str(j) for i in range(5) for j in (i,(i+1)%5)]})
     g["is_bee"]=g[VISITOR].isin(["v0","v1"])
     p,n,m=network_rows(g);assert n==5 and m==2 and abs(p["null"].mean()-.1)<1e-12
+    # Geometry regression: a large and a small projected polygon with an
+    # intentionally conflicting "area" attribute in the table.
+    import geopandas as gpd
+    from shapely.geometry import box
+    fake=gpd.GeoDataFrame({"area":[0.,99999999.]},geometry=[box(0,0,3000000,3000000),box(0,0,10000,10000)],crs=6933).to_crs(4326)
+    ar,classes=classify_areas(fake)
+    assert np.allclose(ar,[9000000,100],rtol=1e-5) and list(classes)==["continent","island"]
     # Integration fixture: same plants, two classes, only one study;
     # support must fail, but the conditional estimate must be computable.
     from unittest.mock import patch
