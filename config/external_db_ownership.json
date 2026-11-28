@@ -7,6 +7,7 @@
   "source_pins": "https://github.com/zuizui0223/island/blob/64a58cd4817ccf1c54c179aa7fd1c5585f57dd43/config/fd_data_ownership_20261125.json",
   "allowed_paths": [
     ".github/workflows/external-db-boundary.yml",
+    ".github/workflows/external-emln-spatial-audit.yml",
     ".github/workflows/external-euppollnet-architecture.yml",
     ".github/workflows/external-euppollnet-bee-loss.yml",
     ".github/workflows/external-euppollnet-channel-retention.yml",
@@ -31,6 +32,8 @@
     ".gitignore",
     "README.md",
     "config/external_db_ownership.json",
+    "config/external_emln_spatial_source_manifest_20261128.json",
+    "docs/EXTERNAL_EMLN_SPATIAL_AUDIT_20261128.md",
     "docs/EXTERNAL_EUPPOLLNET_ARCHITECTURE_20261128.md",
     "docs/EXTERNAL_EUPPOLLNET_BEE_LOSS_20261128.md",
     "docs/EXTERNAL_EUPPOLLNET_CHANNEL_RETENTION_20261128.md",
@@ -69,6 +72,7 @@
     "scripts/bat_mdd_synonym_audit.py",
     "scripts/check_external_source_boundary.py",
     "scripts/export_mdd_bat_ranges.R",
+    "scripts/external_emln_spatial_audit.py",
     "scripts/external_euppollnet_architecture.py",
     "scripts/external_euppollnet_bee_loss.py",
     "scripts/external_euppollnet_channel_retention.py",
@@ -658,6 +662,15 @@
       "scripts/external_euppollnet_spatial_scaling.py",
       ".github/workflows/external-euppollnet-spatial-scaling.yml",
       "docs/EXTERNAL_EUPPOLLNET_SPATIAL_SCALING_20261128.md"
+    ]
+  },
+  "external_emln_spatial_audit_20261128": {
+    "scope": "Pinned EMLN publisher website CSVs and original EuPPollNet metadata for DOI overlap only. Spatial metadata-selected source audit, no ecology effect, no project biological inputs.",
+    "paths": [
+      "config/external_emln_spatial_source_manifest_20261128.json",
+      "scripts/external_emln_spatial_audit.py",
+      ".github/workflows/external-emln-spatial-audit.yml",
+      "docs/EXTERNAL_EMLN_SPATIAL_AUDIT_20261128.md"
     ]
   }
 }

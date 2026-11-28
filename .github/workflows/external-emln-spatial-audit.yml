@@ -1,0 +1,27 @@
+name: External EMLN spatial pollination validation audit
+on:
+  pull_request:
+    paths:
+      - scripts/external_emln_spatial_audit.py
+      - config/external_emln_spatial_source_manifest_20261128.json
+      - .github/workflows/external-emln-spatial-audit.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  external:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: pip install pandas numpy
+      - run: python scripts/external_emln_spatial_audit.py --self-test
+      - run: python -u scripts/external_emln_spatial_audit.py --out /tmp/emln_audit.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: external-emln-spatial-audit
+          path: /tmp/emln_audit.json
+          if-no-files-found: error

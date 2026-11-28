@@ -1,0 +1,920 @@
+{
+  "source_repo": "Ecological-Complexity-Lab/emln",
+  "source_commit": "e66e8702910728358e71f7814d01afd3c7b00c30",
+  "source_tree_sha": "e66e8702910728358e71f7814d01afd3c7b00c30",
+  "selection": "All publisher directory names with Spatial token; descriptions independently checked for spatial pollination before reading interaction tables. No outcome selection.",
+  "directories": {
+    "19_Spatial_Angelini": {
+      "description.csv": {
+        "blob": "a775b5ce86a3cc8f2e7f962bf73cbc02776c4688",
+        "size": 198
+      },
+      "interactions.csv": {
+        "blob": "6f088ad96ba1fc8d69bf1138bd979be9f5952eca",
+        "size": 28532
+      },
+      "layers.csv": {
+        "blob": "b74f9eeaad4956f020e637139eb5fb6df04e6fe5",
+        "size": 402
+      },
+      "nodes.csv": {
+        "blob": "2d9de871abe34e55c2e32bdcc9e97a8758f94ff0",
+        "size": 5100
+      },
+      "references.csv": {
+        "blob": "a6ec77ae9334960a8b42ed711ac63e175d0f59ca",
+        "size": 317
+      }
+    },
+    "20_Spatial_Angelini_2013": {
+      "description.csv": {
+        "blob": "a775b5ce86a3cc8f2e7f962bf73cbc02776c4688",
+        "size": 198
+      },
+      "interactions.csv": {
+        "blob": "7e48170f35699753f3aef4b7951f26b291e13a30",
+        "size": 62841
+      },
+      "layers.csv": {
+        "blob": "e765a39582a90db97d92f1d53cbec70a351904f1",
+        "size": 433
+      },
+      "nodes.csv": {
+        "blob": "87df41d209c169e392d84577274f7d691d9f05cd",
+        "size": 4046
+      },
+      "references.csv": {
+        "blob": "76854475a559aab9b3c46cc6bce0e684c3742f97",
+        "size": 76
+      }
+    },
+    "21_Spatial_Arroyo_1982": {
+      "description.csv": {
+        "blob": "7153f231f897445af3cdf665f50382221aa3b32a",
+        "size": 299
+      },
+      "interactions.csv": {
+        "blob": "ec600faad5d09520e3c148c731ad78b52c3afeda",
+        "size": 84824
+      },
+      "layers.csv": {
+        "blob": "c399a4034b589fc7b6f42081e102b67e17ec5dc3",
+        "size": 505
+      },
+      "nodes.csv": {
+        "blob": "c69c3aa0f179ec9585744e2949ede5db1569829d",
+        "size": 28642
+      },
+      "references.csv": {
+        "blob": "dc0505e3b97b7744d6e75612fe6b8c82cc19c823",
+        "size": 64
+      }
+    },
+    "22_Spatial_Beaver_1985": {
+      "description.csv": {
+        "blob": "bf462e9911dee2b4e1d8941f1f8a412f4dead7ad",
+        "size": 201
+      },
+      "interactions.csv": {
+        "blob": "f5a4ffc44491e12e32217137a2065ff1aef27242",
+        "size": 21150
+      },
+      "layers.csv": {
+        "blob": "7e2c2ff4010715e7a4956fe97544954db0764d87",
+        "size": 734
+      },
+      "nodes.csv": {
+        "blob": "2efdc21c83a265789a19d9d727fcf1e87eec69fa",
+        "size": 6712
+      },
+      "references.csv": {
+        "blob": "e4aa1634fab6b7498feda4e194afcc93b8a41870",
+        "size": 154
+      }
+    },
+    "23_Spatial_Canadian-fish-parasite": {
+      "description.csv": {
+        "blob": "771e8cfa7c8eacae0b42612c3b56c703b4758fee",
+        "size": 410
+      },
+      "interactions.csv": {
+        "blob": "4ddc2f76ff8c2d71f84426b7f6210e92ef48b806",
+        "size": 288784
+      },
+      "layers.csv": {
+        "blob": "df345338ac2db004cb3240eb3231581fc5957cda",
+        "size": 1605
+      },
+      "nodes.csv": {
+        "blob": "0b1e97b2226ff2862c887cb82b3397a3e3cd2100",
+        "size": 27980
+      },
+      "references.csv": {
+        "blob": "0ee48efaae7810f519c5668acbd1caa3b85350f2",
+        "size": 340
+      }
+    },
+    "24_Spatial_Carlo_2003": {
+      "description.csv": {
+        "blob": "d2022c534b3d1a5983279c06c14d3a12035556dc",
+        "size": 204
+      },
+      "interactions.csv": {
+        "blob": "142f0374d9741b991f53778acaf5f70a0640b7cd",
+        "size": 35090
+      },
+      "layers.csv": {
+        "blob": "c8947f6c871cb05bb1afd80101619c8814949d3a",
+        "size": 646
+      },
+      "nodes.csv": {
+        "blob": "ce88d68a0336d38887d27e8ff8008af17be9ce65",
+        "size": 9732
+      },
+      "references.csv": {
+        "blob": "fde5ef0c9a15ea441126dc05c5f35ee2e3508c0e",
+        "size": 69
+      }
+    },
+    "25_Spatial_Carstensen_2014": {
+      "description.csv": {
+        "blob": "c38e17f9d75aba89141b35825cd00a84fd7e3100",
+        "size": 306
+      },
+      "interactions.csv": {
+        "blob": "a3f9c8b230b249db308afcd44b53abd25fb6469a",
+        "size": 288354
+      },
+      "layers.csv": {
+        "blob": "56d37fa3ec15fcbc715b5beb2491f7bb2ae39f5f",
+        "size": 1029
+      },
+      "nodes.csv": {
+        "blob": "7e275d174cae0e37d398ff77ab5aee613d49cbfb",
+        "size": 32544
+      },
+      "references.csv": {
+        "blob": "e6fe9ba155ae1aab3e6e5bd866546cb3f34b071c",
+        "size": 77
+      }
+    },
+    "26_Spatial_Chacoff_2020": {
+      "description.csv": {
+        "blob": "61bffbcd2d9c85a00d7122f424b5406dfda6389f",
+        "size": 225
+      },
+      "interactions.csv": {
+        "blob": "fac3728fecddcd0ec7eb1b73085d305630c56b5a",
+        "size": 23070
+      },
+      "layers.csv": {
+        "blob": "7114cfb7f75e596adf62907b534bd5c66ef837f3",
+        "size": 618
+      },
+      "nodes.csv": {
+        "blob": "7f1acc34d96f5d52e5f6c5e3d2435a9b41f638a2",
+        "size": 58460
+      },
+      "references.csv": {
+        "blob": "f09d574f15fbda313156bd1bc9d0d35d7176b2db",
+        "size": 72
+      }
+    },
+    "27_Spatial_Dexter_1947": {
+      "description.csv": {
+        "blob": "757c39da58024a59817aa1604c6f6bdec30d17f7",
+        "size": 201
+      },
+      "interactions.csv": {
+        "blob": "87c89a598629e815313c321014dd442b5c980776",
+        "size": 66179
+      },
+      "layers.csv": {
+        "blob": "5229b0f0bcf8fb333e63e2f8279885d10cf19ebf",
+        "size": 683
+      },
+      "nodes.csv": {
+        "blob": "07a2525fa23c94d16e288f0666aaae97440214aa",
+        "size": 12524
+      },
+      "references.csv": {
+        "blob": "b63b92250f42bbd8fe3e828e99d0b914df637b79",
+        "size": 103
+      }
+    },
+    "28_Spatial_Dicks_2002": {
+      "description.csv": {
+        "blob": "2e10d6abc7dd710b8b77239f3059190209b50bb9",
+        "size": 273
+      },
+      "interactions.csv": {
+        "blob": "cde38c44485c1a1a0807fd9fcfbc5be7c77bfd0a",
+        "size": 34878
+      },
+      "layers.csv": {
+        "blob": "8d46425d80e993646ba77508f480b627777f3d07",
+        "size": 339
+      },
+      "nodes.csv": {
+        "blob": "42490f8a21064855590eb1201689c0cf8c437b9f",
+        "size": 13856
+      },
+      "references.csv": {
+        "blob": "6a0a21e06a29d4fb54d8174f53229ac39c3bd89f",
+        "size": 217
+      }
+    },
+    "29_Spatial_Dupont_Olesen_2009": {
+      "description.csv": {
+        "blob": "8e300c8c4693faf21ba59b0c8cd24021527df454",
+        "size": 201
+      },
+      "interactions.csv": {
+        "blob": "3c730315a96f7f3d4e97da74ea16ab227fde5bf9",
+        "size": 142011
+      },
+      "layers.csv": {
+        "blob": "2abbef3390562b1581e3cecb828ff8e759fbea50",
+        "size": 295
+      },
+      "nodes.csv": {
+        "blob": "b2d47c9793e2c191eab150c946e7f596c269b816",
+        "size": 43275
+      },
+      "references.csv": {
+        "blob": "d65f82765772feeb925edd15122ae20324cf3df0",
+        "size": 94
+      }
+    },
+    "30_Spatial_Elberling_1999": {
+      "description.csv": {
+        "blob": "9693aa02978e56cec8052292a69a89122b715ebf",
+        "size": 576
+      },
+      "interactions.csv": {
+        "blob": "24d15e04741fcbe0e89e6a0c5d39cc3cc1648d3c",
+        "size": 107676
+      },
+      "layers.csv": {
+        "blob": "c11f61cdcbf4dbb27074f4a464c1548434efa4d0",
+        "size": 317
+      },
+      "nodes.csv": {
+        "blob": "be97a050942684cc0736f23208e00099fb667e3a",
+        "size": 33806
+      },
+      "references.csv": {
+        "blob": "b296e35ecbc8741b26e7895b20012c21e6ea84c8",
+        "size": 441
+      }
+    },
+    "31_Spatial_Environment_Cornaby_1974": {
+      "description.csv": {
+        "blob": "3b32e0ef05757470df26cdac05c0803330b06763",
+        "size": 237
+      },
+      "interactions.csv": {
+        "blob": "21947d7793915fc1b3aa76ba7f543edc45c06e87",
+        "size": 21766
+      },
+      "layers.csv": {
+        "blob": "d4a07c332ef912f5eea12a75df27a2d8b92e0f24",
+        "size": 547
+      },
+      "nodes.csv": {
+        "blob": "064424a267e2da1f46665541abbd6796c397f621",
+        "size": 10428
+      },
+      "references.csv": {
+        "blob": "04c9ff5a0dbc32e1968455657c8921f09d194c81",
+        "size": 131
+      }
+    },
+    "32_Spatial_Environment_Mckinnerney_1978": {
+      "description.csv": {
+        "blob": "9084c2d809f0a8691f6da23c253605659c86c492",
+        "size": 238
+      },
+      "interactions.csv": {
+        "blob": "24533397822d38d541c765442435dace046d670b",
+        "size": 22327
+      },
+      "layers.csv": {
+        "blob": "4e9aa9cb87adb5fc64aab15d262b7b08fe45c21f",
+        "size": 1134
+      },
+      "nodes.csv": {
+        "blob": "53dc1e8df3e7fac7901c22498600bfc482063337",
+        "size": 7536
+      },
+      "references.csv": {
+        "blob": "67c97e539e0400759991f4fdc91572679dd3bb48",
+        "size": 164
+      }
+    },
+    "33_Spatial_Hadfield_2013": {
+      "description.csv": {
+        "blob": "05c2fda4fe3a3dec9ac932d038afe5effffda604",
+        "size": 284
+      },
+      "interactions.csv": {
+        "blob": "6ac7d8d36de27166f55c2e18df9677ffd6882a85",
+        "size": 565900
+      },
+      "layers.csv": {
+        "blob": "de4afaf5be5326f9b9fab4bdfb2a1ef4acee2922",
+        "size": 7513
+      },
+      "nodes.csv": {
+        "blob": "2b71d2759fef9779af82afd3f3d6d8e2c025055c",
+        "size": 30058
+      },
+      "references.csv": {
+        "blob": "b64f57c2835d3b8188ea98f0648a9e58ac322a12",
+        "size": 61
+      }
+    },
+    "34_Spatial_Havens_1992": {
+      "description.csv": {
+        "blob": "6841622e71d19b09869b47ce385122c4c1b912d9",
+        "size": 201
+      },
+      "interactions.csv": {
+        "blob": "d4a91bd2acf1b74cf81c096b2f6e05d4704bc754",
+        "size": 1289712
+      },
+      "layers.csv": {
+        "blob": "03e4c27507b5ed1a77ab5bfa6cee6761f2d8ccab",
+        "size": 5688
+      },
+      "nodes.csv": {
+        "blob": "d4193be1d53f6f22c1ba2ddb99da4d2eafae5c59",
+        "size": 35962
+      },
+      "references.csv": {
+        "blob": "c8d9548090094d2dbbf5ddc4dc3e59d3ddb582e3",
+        "size": 127
+      }
+    },
+    "35_Spatial_Ingversen_2006": {
+      "description.csv": {
+        "blob": "8e300c8c4693faf21ba59b0c8cd24021527df454",
+        "size": 201
+      },
+      "interactions.csv": {
+        "blob": "61c8dfe9b22a6245cdde6fcce0de0acb04e115a9",
+        "size": 34575
+      },
+      "layers.csv": {
+        "blob": "8ea6357bbf7bc7eebc3c490d15a95d0b97210716",
+        "size": 352
+      },
+      "nodes.csv": {
+        "blob": "d6956d27efc3c6314361739d938ff81fe7699eae",
+        "size": 15137
+      },
+      "references.csv": {
+        "blob": "fe2303b9f25083179f9ee6da1862aa7314332435",
+        "size": 86
+      }
+    },
+    "36_Spatial_Joern_1979": {
+      "description.csv": {
+        "blob": "ed6f753eabb02986553744cd8152c70993c6c598",
+        "size": 439
+      },
+      "interactions.csv": {
+        "blob": "aab410a3bc75cfa33dd409cfdd9ee98b4c2b4f61",
+        "size": 58845
+      },
+      "layers.csv": {
+        "blob": "3dbaa08116c7fbf24d91d998d116605fe09f8d80",
+        "size": 358
+      },
+      "nodes.csv": {
+        "blob": "9775b18ac9f3929ff5dd4da5423aa8f80e145329",
+        "size": 6904
+      },
+      "references.csv": {
+        "blob": "c91d93122afd1ca330d1c41360f639f8abc5aae5",
+        "size": 289
+      }
+    },
+    "37_Spatial_Jordano-unpubl": {
+      "description.csv": {
+        "blob": "d2022c534b3d1a5983279c06c14d3a12035556dc",
+        "size": 204
+      },
+      "interactions.csv": {
+        "blob": "a50638db5260e8ba2a410545474c33b5dbe72de8",
+        "size": 10234
+      },
+      "layers.csv": {
+        "blob": "4058f5b478168c5e52b9dbfae76243b4ea83f3f7",
+        "size": 912
+      },
+      "nodes.csv": {
+        "blob": "d01d705c5d79df415acf88b2961f96be6357029d",
+        "size": 2418
+      }
+    },
+    "38_Spatial_Kyoto": {
+      "description.csv": {
+        "blob": "0455723581fbd4bfde9290a3af3a1998b7fbe9a5",
+        "size": 292
+      },
+      "interactions.csv": {
+        "blob": "ecdb88e6f8a051521730466b8836db7b45553654",
+        "size": 1081301
+      },
+      "layers.csv": {
+        "blob": "09dcd9009f94b3f0a63cb75d17d055e6fb24b32e",
+        "size": 1395
+      },
+      "nodes.csv": {
+        "blob": "4c106795ae65c2a650de26e44037524a6544be4f",
+        "size": 371605
+      },
+      "references.csv": {
+        "blob": "28b64cf51bd2fd22c7633938abbc101b4ad88170",
+        "size": 1113
+      }
+    },
+    "39_Spatial_Leather_1991": {
+      "description.csv": {
+        "blob": "a44d093bd91eaf964c7a1ad4fc0a63db1d84d43e",
+        "size": 345
+      },
+      "interactions.csv": {
+        "blob": "48878e1d9d67f657c0a2f2f9ba5cb0e20f172064",
+        "size": 34648
+      },
+      "layers.csv": {
+        "blob": "58112a7332c2fb353a7e88fd67d909aa5cd8793c",
+        "size": 308
+      },
+      "nodes.csv": {
+        "blob": "e4023a5222bdf2dee7dc34c0e2787f576c575a86",
+        "size": 15309
+      },
+      "references.csv": {
+        "blob": "c79087e20b114d43e9bca17de4fca7b4340fb915",
+        "size": 288
+      }
+    },
+    "40_Spatial_Medan_2002": {
+      "description.csv": {
+        "blob": "b3513303ec1461a36980e43f47b575a80cd0d203",
+        "size": 304
+      },
+      "interactions.csv": {
+        "blob": "c33a826ddb778f1dfad1a46d68d3bef9ae65617e",
+        "size": 27322
+      },
+      "layers.csv": {
+        "blob": "cffa45d1418f668e14f5d1607162574ca7d02aaf",
+        "size": 350
+      },
+      "nodes.csv": {
+        "blob": "0d0e6113b15fe13062c2e3567eea1097c617cfb4",
+        "size": 17116
+      },
+      "references.csv": {
+        "blob": "810c085dd5a84c2bb4561e51a8a0fd52601e8e66",
+        "size": 70
+      }
+    },
+    "41_Spatial_Melian_2015": {
+      "description.csv": {
+        "blob": "a8b6d47275be9b85bd318cb766c54d9c241daa72",
+        "size": 218
+      },
+      "interactions.csv": {
+        "blob": "401d19c65cfd5831d01327c15f8b7d03d7d7fd11",
+        "size": 734076
+      },
+      "layers.csv": {
+        "blob": "628d5fddb5b6bd4126a5ed6fc2836519f82c38e4",
+        "size": 8594
+      },
+      "nodes.csv": {
+        "blob": "570d9bf6db8ac1509ed3f9539f27e4572c9e8220",
+        "size": 130448
+      },
+      "references.csv": {
+        "blob": "ca193f31cae807aa07377d7bef15cb550391f606",
+        "size": 59
+      }
+    },
+    "42_Spatial_Menge_Sutherland_1976": {
+      "description.csv": {
+        "blob": "fcf40f7fe636bfa499cca2da443d50cf91728c09",
+        "size": 202
+      },
+      "interactions.csv": {
+        "blob": "5efcc135059c6d46ee68202582bfe38373873108",
+        "size": 6717
+      },
+      "layers.csv": {
+        "blob": "9214f21aa177b2c5ca019e369d97440554ce2bef",
+        "size": 842
+      },
+      "nodes.csv": {
+        "blob": "f8eb01ef454f57af5b7c6c12e88f61b0d322fce7",
+        "size": 2664
+      },
+      "references.csv": {
+        "blob": "7ac372b0ce3bff539569f84ba1440b96303757a7",
+        "size": 119
+      }
+    },
+    "43_Spatial_Montero_2005": {
+      "description.csv": {
+        "blob": "71e521c2b39b05f16130373fc91aba8c9d484632",
+        "size": 200
+      },
+      "interactions.csv": {
+        "blob": "87608737db4317151daed5b8f0fc86df1a63f915",
+        "size": 23018
+      },
+      "layers.csv": {
+        "blob": "33cbfb057e33e431281a71ddaa4fd823436ca8c5",
+        "size": 641
+      },
+      "nodes.csv": {
+        "blob": "05e38b4de13fe166dfe93c1232caa36c5fe6ad6e",
+        "size": 18742
+      },
+      "references.csv": {
+        "blob": "8af450866b9499a67962ae0dfb6aa84e481e5ed4",
+        "size": 340
+      }
+    },
+    "44_Spatial_Olesen_2003": {
+      "description.csv": {
+        "blob": "8e300c8c4693faf21ba59b0c8cd24021527df454",
+        "size": 201
+      },
+      "interactions.csv": {
+        "blob": "ad669851f3d0e3dd9c88d9a500c81812a4d2b325",
+        "size": 32491
+      },
+      "layers.csv": {
+        "blob": "6487d5db95a518d88eaf74ad02b3b27efe197877",
+        "size": 368
+      },
+      "nodes.csv": {
+        "blob": "485ce13ba3aef02a68039c113d0aba9bd6e43c9c",
+        "size": 13278
+      },
+      "references.csv": {
+        "blob": "597b2fcb4089b4585da059885732d26da2b894f1",
+        "size": 141
+      }
+    },
+    "45_Spatial_Olesen_2002": {
+      "description.csv": {
+        "blob": "36694200afbc879e34ee6c7cfa5fa7fecbe0d07c",
+        "size": 204
+      },
+      "interactions.csv": {
+        "blob": "3d8cf3f0d860841a46eb028a4d764b4b0c064cd7",
+        "size": 12303
+      },
+      "layers.csv": {
+        "blob": "a18113c1f871d036c47a326ae0b0672e51b8f0bc",
+        "size": 268
+      },
+      "nodes.csv": {
+        "blob": "4442e3cda8f5ff6076e2cdc96177e76051de0a7a",
+        "size": 8045
+      },
+      "references.csv": {
+        "blob": "5eb89ea0718faef16476eaaecbaff36f2df5b860",
+        "size": 150
+      }
+    },
+    "46_Spatial_P.Jordano_unpubl": {
+      "description.csv": {
+        "blob": "d2022c534b3d1a5983279c06c14d3a12035556dc",
+        "size": 204
+      },
+      "interactions.csv": {
+        "blob": "cf198009b6ce51a498afc18111d1c63dccb40042",
+        "size": 35410
+      },
+      "layers.csv": {
+        "blob": "c4b8192f5792eb13f20f242057d070c19d29c5a3",
+        "size": 344
+      },
+      "nodes.csv": {
+        "blob": "002afb28d3af644e89ecf56df9532de43d7cc211",
+        "size": 6400
+      }
+    },
+    "47_Spatial_Paine_1963": {
+      "description.csv": {
+        "blob": "83d96cd31f36b3e49047e597355feef1320fa888",
+        "size": 202
+      },
+      "interactions.csv": {
+        "blob": "74904e25af6108fd6590a1676920b55bd9ed8311",
+        "size": 12542
+      },
+      "layers.csv": {
+        "blob": "0f55052195adb287c6e2b4fffa0e38bcd88f6e8e",
+        "size": 314
+      },
+      "nodes.csv": {
+        "blob": "258f87d2b76dca39f40c3e04bc027fbf0f559ccb",
+        "size": 4316
+      },
+      "references.csv": {
+        "blob": "e80491d77e3de60725b46bde83c3242a80335682",
+        "size": 152
+      }
+    },
+    "49_Spatial_Perturbation_Vazquez_2002": {
+      "description.csv": {
+        "blob": "25a539395c87c51675320ef987030c00b430cae1",
+        "size": 703
+      },
+      "interactions.csv": {
+        "blob": "4701de6439b4a100210e3ea47d5f46d645355a26",
+        "size": 48393
+      },
+      "layers.csv": {
+        "blob": "4c66e0774074b76d1a22ac6b1cf834f45c39e6ab",
+        "size": 3552
+      },
+      "nodes.csv": {
+        "blob": "5bdde461f9371d0aa531ce273015fa99a1c25a94",
+        "size": 33679
+      },
+      "references.csv": {
+        "blob": "56beb930fe1d37948e8ae9e0157efacfb77e2f3d",
+        "size": 579
+      }
+    },
+    "50_Spatial_Poulin_1999": {
+      "description.csv": {
+        "blob": "d9f0c09b2df0648bb366199eb0d696abe7089a0c",
+        "size": 295
+      },
+      "interactions.csv": {
+        "blob": "698594cbc9f176529180f4215a2a71fe465c91ab",
+        "size": 10971
+      },
+      "layers.csv": {
+        "blob": "4aee0a8d5d578d3a22f4b8cc55e5c8952bfe6c48",
+        "size": 372
+      },
+      "nodes.csv": {
+        "blob": "a72c43f04e2798d6b3c27d456e13a1a74ef0b4d2",
+        "size": 4170
+      },
+      "references.csv": {
+        "blob": "519d25cd149fb9b8721bf1de0e00e40a95459580",
+        "size": 69
+      }
+    },
+    "51_Spatial_Primack_1983": {
+      "description.csv": {
+        "blob": "e2f762e5dbfb51354cc97f0f3fb6b89d4c10e34a",
+        "size": 227
+      },
+      "interactions.csv": {
+        "blob": "1c49bf2044a7572f9b293ff69569f01a12c6da02",
+        "size": 142558
+      },
+      "layers.csv": {
+        "blob": "9f83c09f985ad8c0f02a4ddd51b4be0a3a4040ff",
+        "size": 609
+      },
+      "nodes.csv": {
+        "blob": "479261165137d5bbf6f2dff2babf631a25ffb1df",
+        "size": 37936
+      },
+      "references.csv": {
+        "blob": "992a68abd7b1dc96f50976e2c823cc80ae1b432e",
+        "size": 169
+      }
+    },
+    "52_Spatial_Ricciardi_2010": {
+      "description.csv": {
+        "blob": "5b49d4913bf036d610e4c2f75ae097be176f7a9a",
+        "size": 205
+      },
+      "interactions.csv": {
+        "blob": "9817f77b2b031367b9bdba0c1e360f3f36f57d2a",
+        "size": 15677
+      },
+      "layers.csv": {
+        "blob": "f8f7a7125dba96b75cd22620c417cb5c25bd55a8",
+        "size": 2777
+      },
+      "nodes.csv": {
+        "blob": "adf5b00822314e600bfe45c0f54e8132a5ea90a6",
+        "size": 2775
+      },
+      "references.csv": {
+        "blob": "bda6dd08aed6a85bf1e3b8ab863d98912467d507",
+        "size": 135
+      }
+    },
+    "53_Spatial_Slovakia": {
+      "description.csv": {
+        "blob": "7d2de39fa2b537457c744a2edbde3ed2ef3bd9d9",
+        "size": 163
+      },
+      "interactions.csv": {
+        "blob": "c856f454ce00917dd02348bd91e87f5ad35ae91c",
+        "size": 4482968
+      },
+      "layers.csv": {
+        "blob": "213c5f02ab84d9d651275c6fc094a04183b58bc6",
+        "size": 33728
+      },
+      "nodes.csv": {
+        "blob": "01edba38b94753e50d2408b42d777b31a2009c9b",
+        "size": 32511
+      }
+    },
+    "54_Spatial_Snow_B.K.Snow_1988": {
+      "description.csv": {
+        "blob": "9993e55d8c4339e2cc83cb54cdc8579766a829c7",
+        "size": 410
+      },
+      "interactions.csv": {
+        "blob": "1dd59151bcb373003837f558cf9a3e7fa783ca2b",
+        "size": 45709
+      },
+      "layers.csv": {
+        "blob": "8b93f89db7c2313dfb35f7dbd7927e0564294ccf",
+        "size": 342
+      },
+      "nodes.csv": {
+        "blob": "39fe5f41bf2ffe90ae786708128252fcea0f866a",
+        "size": 11798
+      },
+      "references.csv": {
+        "blob": "a15161f93827c309d1258b8f7d77de1fc35a2605",
+        "size": 490
+      }
+    },
+    "55_Spatial_Temporal_Alcorlo_2001": {
+      "description.csv": {
+        "blob": "fd5cd6692c5f290fc14191551869f78e305b8d51",
+        "size": 234
+      },
+      "interactions.csv": {
+        "blob": "bb676938ad623fa209ad773f4a5d863e2e4ec2ca",
+        "size": 12984
+      },
+      "layers.csv": {
+        "blob": "84dab054a8aaa1f226e679c1f7dd4c10f0f42d7d",
+        "size": 656
+      },
+      "nodes.csv": {
+        "blob": "1b5b1f155e4969a3b0fdfb8fc9ff3ff37b635967",
+        "size": 2370
+      },
+      "references.csv": {
+        "blob": "cc1b70c95ec587e1e28c5a76029eae1af6820534",
+        "size": 132
+      }
+    },
+    "56_Spatial_Temporal_Closs_1994": {
+      "description.csv": {
+        "blob": "b5cb66ddc8f44bcf7709a815d83c55f432d8c6a5",
+        "size": 234
+      },
+      "interactions.csv": {
+        "blob": "dea9b07f28826ced379833263d482bf465451e90",
+        "size": 171608
+      },
+      "layers.csv": {
+        "blob": "1f1c10b088ee8ef4d62ae4866bd641291a22cfc4",
+        "size": 1711
+      },
+      "nodes.csv": {
+        "blob": "62f81d87ce9cf4a84778a618b0c75f9ef2caa523",
+        "size": 12196
+      },
+      "references.csv": {
+        "blob": "1777527a30846b2ce9a23f40ee9115449d75ab80",
+        "size": 99
+      }
+    },
+    "57_Spatial_Temporal_Kolpelke_2017": {
+      "description.csv": {
+        "blob": "44f787707df1b4c2c4889031120a94fc80f874ac",
+        "size": 238
+      },
+      "interactions.csv": {
+        "blob": "c052a8fc8dabf465a107f0f843faf2b50596c349",
+        "size": 1058839
+      },
+      "layers.csv": {
+        "blob": "ec04ca090cdff2a3137718afb2e415bedc0e77eb",
+        "size": 233372
+      },
+      "nodes.csv": {
+        "blob": "3f7e76e1738eb4ad35f1bc3801ce6ef5c51a6c9f",
+        "size": 91292
+      },
+      "references.csv": {
+        "blob": "e558f707d37bcd3e701d6e79392bd5de49cb9422",
+        "size": 132
+      }
+    },
+    "58_Spatial_Temporal_Martins_2020": {
+      "description.csv": {
+        "blob": "62a92991e5d28be0bb9a1d702300abd444b188cf",
+        "size": 507
+      },
+      "interactions.csv": {
+        "blob": "7bbfd501f1bb29c132b715a5ca85372ec678e1d4",
+        "size": 104025
+      },
+      "layers.csv": {
+        "blob": "b6f96ce96a9ed84dbdeeeee2f241700c358d2c46",
+        "size": 16970
+      },
+      "nodes.csv": {
+        "blob": "46d2833114e5a0c3cc46fb261cc1636aa483f224",
+        "size": 14105
+      },
+      "references.csv": {
+        "blob": "5efb4d4b2659cf7bbfcfe4996d095569ca70ffe6",
+        "size": 185
+      }
+    },
+    "59_Spatial_Thompson_2003": {
+      "description.csv": {
+        "blob": "a775b5ce86a3cc8f2e7f962bf73cbc02776c4688",
+        "size": 198
+      },
+      "interactions.csv": {
+        "blob": "2ce5ffa0ef3e142d3d8773bb90038aa0cd1c3676",
+        "size": 233220
+      },
+      "layers.csv": {
+        "blob": "9071557a308ebd953bb0b99a6c36618913e9f6ab",
+        "size": 1234
+      },
+      "nodes.csv": {
+        "blob": "9bbbf807114597f146b04bda2fcf4dbf763f16c3",
+        "size": 33027
+      },
+      "references.csv": {
+        "blob": "6140f98bfa3b0bcf7e09bd63f7daa94eb531e341",
+        "size": 90
+      }
+    },
+    "60_Spatial_Trojelsgaard_2015": {
+      "description.csv": {
+        "blob": "020ed0bbbd789532299d212e34f26501b9025359",
+        "size": 235
+      },
+      "interactions.csv": {
+        "blob": "4c80e72339606433dde56543d1713cba40abec99",
+        "size": 161653
+      },
+      "layers.csv": {
+        "blob": "d35470a1a50e67248d0b7abfa198614fcdb515da",
+        "size": 1160
+      },
+      "nodes.csv": {
+        "blob": "b989c163fd7b2ea8ad79098acb5d7cbb776dc1d6",
+        "size": 26490
+      },
+      "references.csv": {
+        "blob": "e0cc8db60bc37c61b1aaace0b2971e635ef6c9c0",
+        "size": 205
+      }
+    },
+    "61_Spatial_Yanez_1978": {
+      "description.csv": {
+        "blob": "f9e55e53234e073b9bf2cfdad2227118394ffcb1",
+        "size": 201
+      },
+      "interactions.csv": {
+        "blob": "b0de2c0e6ec94f236587f432e9bc38bc4fbe5485",
+        "size": 10011
+      },
+      "layers.csv": {
+        "blob": "92a3f7b95c1b069c76a890e8b7b076e21252c79c",
+        "size": 282
+      },
+      "nodes.csv": {
+        "blob": "fd9636149ad00b24be5cafb374746af1197fd620",
+        "size": 1994
+      },
+      "references.csv": {
+        "blob": "099f6d820a1f91852e0eb3c097d1d38ab4264bc1",
+        "size": 215
+      }
+    }
+  }
+}

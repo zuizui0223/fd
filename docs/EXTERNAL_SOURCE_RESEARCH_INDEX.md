@@ -35,3 +35,5 @@ The [historical source-classification registry and validator in island PR #353](
 - [Floral moderation](EXTERNAL_EUPPOLLNET_ARCHITECTURE_20261128.md): both frozen morphology gates failed.
 - [Fixed-margin conditional null](EXTERNAL_EUPPOLLNET_CURVEBALL_20261128.md): +.044582, original degree and overlap controlled, supported; two-exclusive sensitivity unresolved.
 - [Geographic scaling and crossed dependence](EXTERNAL_EUPPOLLNET_SPATIAL_SCALING_20261128.md): new post-discovery test; pending execution.
+
+- [Independent EMLN source readiness](EXTERNAL_EMLN_SPATIAL_AUDIT_20261128.md): pinned spatial source inventory and protocol/taxonomy/overlap audit, no ecological result yet.
