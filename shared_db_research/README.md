@@ -1,3 +1,9 @@
+# Archived shared-data research — source-first boundary 2026-11-28
+
+**Superseded ownership notice:** The text below documents the 25 November theme-first policy and is historical only. All own-DB-dependent results, including mixed-source functional diversity and animal bridges, now route to island for scientific continuation and publication. [Island evidence review](https://github.com/zuizui0223/island/blob/docs/source-first-ownership-20261128/research/fd_own_db/current/functional_reassembly_20261128/INTEGRATION_REVIEW.md). Preserve this subtree and Git history as immutable evidence; no new active FD executions using it. No restricted source bytes transferred. Original reports are not new external-only replications.
+
+---
+
 # FD / island research ownership (proposed 2026-11-25)
 
 Supersedes the source-only ownership decision if merged. Ownership follows scientific question, not input provenance.

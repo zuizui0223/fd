@@ -1,18 +1,22 @@
-# FD — floral functional diversity and pollinator channels
+# FD — external-source functional diversity and pollinator channels
 
-**Scientific ownership (effective upon merging PR #76):** FD owns floral functional diversity, syndrome composition and pollinator-channel research regardless of source. island retains canonical data custody, protected execution and Chapter 1 reproductive-assurance research. See [shared-source research and ownership](shared_db_research/README.md). Shared-source snapshots are archival, not active external workflows; no raw data copied. Historical external-only safeguards remain active for external workflows.
+**Source-first boundary (28 November 2026):** this repository owns only verified external biological inputs, independently of analysis technique. Project GBIF island incidence, integrated floral/reproductive trait ledger, derived aggregates or cohorts selected from those data belong to [island](https://github.com/zuizui0223/island), even when mixed with external source pools or animal observations. This supersedes the theme-first assignment in PR #76. Prior shared-source results and code are preserved for provenance only, not active FD research or independent evidence. See [island's source-first contract](https://github.com/zuizui0223/island/blob/docs/source-first-ownership-20261128/docs/source_first_research_ownership_20261128.md).
 
-## Research here
-- Independent bird occurrence/checklist, diet, and flight morphology; bee/butterfly source geometry and trait audits; documented source limitations.
-- Independent EMLN observed flower-visitor turnover, source-only bird nectar metadata and independent MDD bat source/trait audit. GloBI external catalog can be used if independent of focal plant records.
-- Shared-database floral functional diversity, functional reassembly, pollinator-channel opportunity, and syndrome composition. See [FD evidence spine](shared_db_research/FD_EVIDENCE_SPINE.md). No biological claim of pollinator replacement follows from the external source audits.
+## Active research
 
-## Boundary checks
+- Publisher GIFT native lists with external NHM, Wang and AusTraits floral measurements; [coverage and effect audit](docs/EXTERNAL_FLORAL_REPLICATION_INTAKE_20261126.md). Raw length direction is promising but holdout geographic and conditional genus gates failed.
+- Independently sourced bird, bee, butterfly and bat occurrence/range/checklist, diet and functional trait studies.
+- Independent EMLN visitation networks, external nectar and reward datasets, and GloBI only without own-DB cohort dependence.
+- No project botanical inputs, including public aggregates, in new active FD workflows. Shared geography and generic code are neutral if not fitted to own biological observations. Source-file independence is not proof of independent original observations.
+
+## Archive and boundary checks
+
+[Shared-source archive](shared_db_research/README.md) is read-only historical provenance; no deletion or new raw transfer. Own-dependent analyses should continue in island. [External source index](docs/EXTERNAL_SOURCE_RESEARCH_INDEX.md).
+
 ```sh
 python scripts/check_external_source_boundary.py
 python -m pip install -e '.[test]'
 python -m pytest -q
 ```
-Static path allowlist and known-source marker checks are a safeguard, not complete proof of all transitive data provenance. A new or changed research source requires explicit dependency review and manifest update. No original data are newly published by this reorganization.
 
-Historical fd reports may refer to the botanical analyses as context; ownership follows the scientific estimand in the shared-source registry. Preserve original results and uncertainty and cite the owning repository.
+Static file allowlist and own-source marker screens do not prove all transitive source ancestry. Audit source chains and cohort selection before activating new workflows. Preserve all nulls and avoid duplicate publication or claiming measured pollinator replacement from morphology.
