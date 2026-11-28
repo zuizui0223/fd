@@ -58,10 +58,9 @@ def num(x):
         return np.nan
 
 def texttable(raw,compression=None):
-    try:
-        return pd.read_csv(io.BytesIO(raw),compression=compression,dtype=str,keep_default_na=False,encoding="utf-8-sig")
-    except UnicodeDecodeError:
-        return pd.read_csv(io.BytesIO(raw),compression=compression,dtype=str,keep_default_na=False,encoding="cp1252")
+    # Published v1.3.0 combines legacy encodings. Do not reinterpret every
+    # UTF-8 species/site name as CP1252; quarantine replacement-marked rows.
+    return pd.read_csv(io.BytesIO(raw),compression=compression,dtype=str,keep_default_na=False,encoding="utf-8-sig",encoding_errors="replace",low_memory=False)
 
 def traits():
     raw=get(TRAIT_URL,maxbytes=10_000_000)
@@ -98,7 +97,7 @@ def traits():
         leaf=headers[2][j].casefold()
         if (re.search(r"\bitd\b|inter[ -]?tegular",lo)
             and not re.search(r"tongue|hair",lo)
-            and re.search(r"\bfemale\b|\bworker\b|♀",lo)
+            and (re.search(r"\bfemale\b|\bworker\b|♀",lo) or leaf=="itd f mm")
             and not re.search(r"\bmale\b|\bqueen\b|♂",leaf)
             and not re.search(r"\b(n|count|number|sample|sd|se|min|max)\b|specimen|deviation",leaf)):
             candidates.append((j,label))
@@ -137,7 +136,13 @@ def source_visits():
     assert len(d)==623476,"EuPPollNet v1.3.0 rows changed"
     req=["Study_id","Network_id","Latitude","Longitude","Plant_accepted_name","Pollinator_accepted_name","Date"]
     assert set(req)<=set(d.columns),"source schema drift"
-    d=d[req].copy()
+    raw_count=len(d)
+    invalid=pd.Series(False,index=d.index)
+    for col in d.columns:
+        invalid |= d[col].str.contains("\ufffd",regex=False)
+    encoding_excluded=int(invalid.sum())
+    assert encoding_excluded/raw_count<=.01,"more than 1% source rows contain invalid UTF8"
+    d=d.loc[~invalid,req].copy()
     d["plant"]=d.Plant_accepted_name.map(name)
     d["visitor"]=d.Pollinator_accepted_name.map(name)
     # Source ISO year, never guess an ambiguous date.
@@ -145,7 +150,7 @@ def source_visits():
     d["lat"]=pd.to_numeric(d.Latitude,errors="coerce")
     d["lon"]=pd.to_numeric(d.Longitude,errors="coerce")
     keep=d.plant.notna()&d.visitor.notna()&d.year.notna()&d.lat.between(-90,90)&d.lon.between(-180,180)&d.Study_id.ne("")&d.Network_id.ne("")
-    census={"raw_rows":len(d),"qualified_name_date_coord_rows":int(keep.sum()),"bad_dates":int(d.year.isna().sum()),"source_pins":pins,"study_count":int(d.Study_id.nunique())}
+    census={"raw_rows":raw_count,"invalid_utf8_rows_excluded":encoding_excluded,"qualified_name_date_coord_rows":int(keep.sum()),"bad_dates":int(d.year.isna().sum()),"source_pins":pins,"study_count":int(d.Study_id.nunique())}
     print("FD_EXTERNAL_EU_NETWORK_CENSUS",json.dumps(census),flush=True)
     d=d.loc[keep,["Study_id","Network_id","year","lat","lon","plant","visitor"]].drop_duplicates()
     return d,census
@@ -336,6 +341,8 @@ def self_test():
     assert swaps(E,A,1000,SEED)>0
     assert np.array_equal(a,A.sum(0)) and np.array_equal(b,A.sum(1))
     assert name("Bombus_terrestris")=="Bombus terrestris" and name("Bombus sp.") is None
+    q=texttable(b"name,note\nBombus terrestris,\x8d\n")
+    assert q.note.str.contains("\ufffd",regex=False).sum()==1
     print("FD_BEE_ITD_NULL_SELF_TEST_PASS",flush=True)
 
 def main():
