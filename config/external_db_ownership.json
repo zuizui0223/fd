@@ -6,6 +6,7 @@
   "source_migration": "https://github.com/zuizui0223/island/pull/347",
   "source_pins": "https://github.com/zuizui0223/island/blob/64a58cd4817ccf1c54c179aa7fd1c5585f57dd43/config/fd_data_ownership_20261125.json",
   "allowed_paths": [
+    ".github/workflows/external-bee-itd-network-null.yml",
     ".github/workflows/external-db-boundary.yml",
     ".github/workflows/external-floral-replication-intake.yml",
     ".github/workflows/external-gift-continuous-flower-space.yml",
@@ -57,6 +58,7 @@
     "scripts/bat_mdd_synonym_audit.py",
     "scripts/check_external_source_boundary.py",
     "scripts/export_mdd_bat_ranges.R",
+    "scripts/external_bee_itd_network_null.py",
     "scripts/external_floral_replication_intake.py",
     "scripts/external_gift_continuous_flower_space.py",
     "scripts/external_gift_floral_replication_coverage.py",

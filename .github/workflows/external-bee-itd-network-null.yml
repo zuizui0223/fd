@@ -1,0 +1,27 @@
+name: External bee morphology interaction null
+on:
+  push:
+    branches: [analysis/external-interaction-functional-filter-20261128]
+    paths:
+      - scripts/external_bee_itd_network_null.py
+      - .github/workflows/external-bee-itd-network-null.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  fit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: pip install "numpy<2.3" pandas numba openpyxl geopandas pyogrio
+      - run: python scripts/external_bee_itd_network_null.py --self-test
+      - run: python -u scripts/external_bee_itd_network_null.py --out /tmp/external_bee_itd_null.json
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: external-bee-itd-null
+          path: /tmp/external_bee_itd_null.json
