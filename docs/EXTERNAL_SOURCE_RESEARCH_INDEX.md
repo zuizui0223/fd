@@ -55,4 +55,6 @@ The [historical source-classification registry and validator in island PR #353](
 
 - [Out-of-study plant size transport](EXTERNAL_EUPOLLTRAIT_TRANSPORT_20261128.md): species prediction MSE improved 13.1%, crossed interval includes zero; other-congeneric comparison descriptive, insufficient support.
 
-- [Study-disjoint bee-inclusive validation](EXTERNAL_EUPOLLTRAIT_DISJOINT_VALIDATION_20261128.md): metadata-frozen separate study cohort, identical size endpoint, pending.
+- [Study-disjoint bee-inclusive validation](EXTERNAL_EUPOLLTRAIT_DISJOINT_VALIDATION_20261128.md): 29-study validation size gain +.109531 [.039549,.172565] supported; >=2-exclusive and family-standardized descriptives pass.
+
+- [Provenance cluster and novel focal genus audit](EXTERNAL_EUPOLLTRAIT_PROVENANCE_20261128.md): same endpoint, metadata-connected components and discovery-linked exclusion, pending.
