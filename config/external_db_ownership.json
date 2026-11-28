@@ -10,6 +10,7 @@
     ".github/workflows/external-emln-spatial-audit.yml",
     ".github/workflows/external-emln-trait-turnover.yml",
     ".github/workflows/external-eupolltrait-intake.yml",
+    ".github/workflows/external-eupolltrait-size-qc-family.yml",
     ".github/workflows/external-eupolltrait-size-turnover.yml",
     ".github/workflows/external-euppollnet-architecture.yml",
     ".github/workflows/external-euppollnet-bee-loss.yml",
@@ -39,6 +40,7 @@
     "docs/EXTERNAL_EMLN_SPATIAL_AUDIT_20261128.md",
     "docs/EXTERNAL_EMLN_TRAIT_TURNOVER_20261128.md",
     "docs/EXTERNAL_EUPOLLTRAIT_INTAKE_20261128.md",
+    "docs/EXTERNAL_EUPOLLTRAIT_SIZE_QC_FAMILY_20261128.md",
     "docs/EXTERNAL_EUPOLLTRAIT_SIZE_TURNOVER_20261128.md",
     "docs/EXTERNAL_EUPPOLLNET_ARCHITECTURE_20261128.md",
     "docs/EXTERNAL_EUPPOLLNET_BEE_LOSS_20261128.md",
@@ -77,6 +79,7 @@
     "results/20261128_external_euppollnet/channel_retention_from_verified_job_log.json",
     "results/20261128_external_euppollnet/curveball_from_verified_job_log.json",
     "results/20261128_external_euppollnet/eupolltrait_intake_from_verified_job_log.json",
+    "results/20261128_external_euppollnet/eupolltrait_size_from_verified_job_log.json",
     "results/20261128_external_euppollnet/spatial_scaling_from_verified_job_log.json",
     "scripts/audit_mdd_bat_diet_metadata.py",
     "scripts/bat_mdd_synonym_audit.py",
@@ -85,6 +88,7 @@
     "scripts/external_emln_spatial_audit.py",
     "scripts/external_emln_trait_turnover.py",
     "scripts/external_eupolltrait_intake.py",
+    "scripts/external_eupolltrait_size_qc_family.py",
     "scripts/external_eupolltrait_size_turnover.py",
     "scripts/external_euppollnet_architecture.py",
     "scripts/external_euppollnet_bee_loss.py",
@@ -711,7 +715,16 @@
     "paths": [
       "scripts/external_eupolltrait_size_turnover.py",
       ".github/workflows/external-eupolltrait-size-turnover.yml",
-      "docs/EXTERNAL_EUPOLLTRAIT_SIZE_TURNOVER_20261128.md"
+      "docs/EXTERNAL_EUPOLLTRAIT_SIZE_TURNOVER_20261128.md",
+      "results/20261128_external_euppollnet/eupolltrait_size_from_verified_job_log.json"
+    ]
+  },
+  "external_eupolltrait_size_qc_family_20261128": {
+    "scope": "Pinned publisher EuPollTrait and EuPPollNet only, exact documented F coding correction and fly plausibility quarantine; exact family-pair common-support size accounting. Post-discovery, no own biological data.",
+    "paths": [
+      "scripts/external_eupolltrait_size_qc_family.py",
+      ".github/workflows/external-eupolltrait-size-qc-family.yml",
+      "docs/EXTERNAL_EUPOLLTRAIT_SIZE_QC_FAMILY_20261128.md"
     ]
   }
 }
