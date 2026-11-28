@@ -11,6 +11,7 @@
     ".github/workflows/external-emln-trait-turnover.yml",
     ".github/workflows/external-eupolltrait-energy.yml",
     ".github/workflows/external-eupolltrait-intake.yml",
+    ".github/workflows/external-eupolltrait-multivariate.yml",
     ".github/workflows/external-eupolltrait-size-qc-family.yml",
     ".github/workflows/external-eupolltrait-size-turnover.yml",
     ".github/workflows/external-eupolltrait-visitor-genus.yml",
@@ -43,6 +44,7 @@
     "docs/EXTERNAL_EMLN_TRAIT_TURNOVER_20261128.md",
     "docs/EXTERNAL_EUPOLLTRAIT_ENERGY_20261128.md",
     "docs/EXTERNAL_EUPOLLTRAIT_INTAKE_20261128.md",
+    "docs/EXTERNAL_EUPOLLTRAIT_MULTIVARIATE_20261128.md",
     "docs/EXTERNAL_EUPOLLTRAIT_SIZE_QC_FAMILY_20261128.md",
     "docs/EXTERNAL_EUPOLLTRAIT_SIZE_TURNOVER_20261128.md",
     "docs/EXTERNAL_EUPOLLTRAIT_VISITOR_GENUS_20261128.md",
@@ -82,6 +84,7 @@
     "results/20261128_external_euppollnet/bee_loss_corrected_from_verified_job_log.json",
     "results/20261128_external_euppollnet/channel_retention_from_verified_job_log.json",
     "results/20261128_external_euppollnet/curveball_from_verified_job_log.json",
+    "results/20261128_external_euppollnet/eupolltrait_energy_from_verified_job_log.json",
     "results/20261128_external_euppollnet/eupolltrait_intake_from_verified_job_log.json",
     "results/20261128_external_euppollnet/eupolltrait_size_from_verified_job_log.json",
     "results/20261128_external_euppollnet/eupolltrait_size_qc_family_from_verified_job_log.json",
@@ -95,6 +98,7 @@
     "scripts/external_emln_trait_turnover.py",
     "scripts/external_eupolltrait_energy.py",
     "scripts/external_eupolltrait_intake.py",
+    "scripts/external_eupolltrait_multivariate.py",
     "scripts/external_eupolltrait_size_qc_family.py",
     "scripts/external_eupolltrait_size_turnover.py",
     "scripts/external_eupolltrait_visitor_genus.py",
@@ -750,7 +754,16 @@
     "paths": [
       "scripts/external_eupolltrait_energy.py",
       ".github/workflows/external-eupolltrait-energy.yml",
-      "docs/EXTERNAL_EUPOLLTRAIT_ENERGY_20261128.md"
+      "docs/EXTERNAL_EUPOLLTRAIT_ENERGY_20261128.md",
+      "results/20261128_external_euppollnet/eupolltrait_energy_from_verified_job_log.json"
+    ]
+  },
+  "external_eupolltrait_multivariate_20261128": {
+    "scope": "Pinned external EuPollTrait and EuPPollNet, exact common adult female ITD/hair-length/density carrier subweb; fixed-margin joint half-energy, post-discovery, no own inputs.",
+    "paths": [
+      "scripts/external_eupolltrait_multivariate.py",
+      ".github/workflows/external-eupolltrait-multivariate.yml",
+      "docs/EXTERNAL_EUPOLLTRAIT_MULTIVARIATE_20261128.md"
     ]
   }
 }

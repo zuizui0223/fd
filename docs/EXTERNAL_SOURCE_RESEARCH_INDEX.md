@@ -47,4 +47,6 @@ The [historical source-classification registry and validator in island PR #353](
 
 - [Visitor-genus coherent trait null](EXTERNAL_EUPOLLTRAIT_VISITOR_GENUS_20261128.md): genus-adjusted residual +.009047, p=.506; unsupported.
 
-- [Size distribution versus dispersion](EXTERNAL_EUPOLLTRAIT_ENERGY_20261128.md): frozen full-support half-energy decomposition, pending.
+- [Size distribution versus dispersion](EXTERNAL_EUPOLLTRAIT_ENERGY_20261128.md): half-energy +.096993, crossed interval includes zero; dispersion unsupported.
+
+- [Multidimensional morphology turnover](EXTERNAL_EUPOLLTRAIT_MULTIVARIATE_20261128.md): new common-carrier ITD/hair length/hair density joint half-energy test, pending.
