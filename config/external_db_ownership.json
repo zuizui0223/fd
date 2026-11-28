@@ -1,7 +1,7 @@
 {
-  "contract": "fd_scientific_ownership_20261125",
+  "contract": "fd_external_source_ownership_20261128",
   "owner": "fd",
-  "policy": "Scientific ownership follows the research estimand. FD owns floral functional diversity, syndrome composition, pollinator channels and functional assembly, including shared canonical island inputs. island owns data custody, protected execution, reproductive assurance and Chapter 1. Active external-only paths retain strict source screening; shared_db_research contains reviewed archival snapshots only.",
+  "policy": "Active FD research requires verified external-only biological inputs, including cohort selection and training. Any use of project GBIF flora, integrated floral/reproductive evidence or derived aggregates is island-owned. Shared neutral geography and generic methods are allowed. shared_db_research is historical provenance only; no new active shared-source analyses. Source-file independence does not guarantee independent biological observations.",
   "source_main": "43b80ab0b3b5fe580f4ad74ffe6af6809af718e2",
   "source_migration": "https://github.com/zuizui0223/island/pull/347",
   "source_pins": "https://github.com/zuizui0223/island/blob/64a58cd4817ccf1c54c179aa7fd1c5585f57dd43/config/fd_data_ownership_20261125.json",
@@ -11,6 +11,7 @@
     ".github/workflows/external-gift-continuous-flower-space.yml",
     ".github/workflows/external-gift-floral-replication-coverage.yml",
     ".github/workflows/external-gift-length-holdout.yml",
+    ".github/workflows/external-network-functional-intake.yml",
     ".github/workflows/external-wang-nhm-trait-bridge.yml",
     ".github/workflows/global_bird_source_audit.yml",
     ".github/workflows/pollinator_guild_source_sensitivity.yml",
@@ -27,6 +28,7 @@
     "README.md",
     "config/external_db_ownership.json",
     "docs/EXTERNAL_FLORAL_REPLICATION_INTAKE_20261126.md",
+    "docs/EXTERNAL_INTERACTION_FUNCTIONAL_FILTER_20261128.md",
     "docs/EXTERNAL_SOURCE_RESEARCH_INDEX.md",
     "docs/legacy_external_workflows/acquire-thousand-island-lake-source.yml",
     "docs/legacy_external_workflows/audit-emln-pollination-source.yml",
@@ -60,6 +62,7 @@
     "scripts/external_gift_floral_replication_coverage.py",
     "scripts/external_gift_length_holdout.py",
     "scripts/external_gift_native_flora_roster.py",
+    "scripts/external_network_functional_intake.py",
     "scripts/external_wang_nhm_trait_bridge.py",
     "scripts/global_bird_source_audit.py",
     "scripts/pollinator_guild_source_sensitivity.py",
@@ -537,7 +540,7 @@
     }
   ],
   "scope_limit": "No protected raw rows or credentials copied. No independent replication inferred from shared inputs. Archived scripts are not activated workflows. Prior external-only inventory retained as provenance; historical files require dependency and export review before promotion.",
-  "shared_db_research_policy": "Reviewed archival namespace only; active external paths retain original marker screen; protected execution remains island.",
+  "shared_db_research_policy": "Historical archive only; own-data-dependent analyses route to island. Do not use archived botanical inputs or outcomes as active external FD predictors, cohort criteria or independent evidence.",
   "prior_source_only_contract": "fd_external_only_20261125",
   "fd_syndrome_architecture_review_20261125": {
     "scope": "FD-owned shared-source archival anonymous aggregate robustness audit (80 historical panels, no raw records); prospective conditional architecture analysis contract and exact algebra kernel, synthetic-only test in existing CI. Protected empirical execution remains island; no modification of protected workflows, island files, or frozen submission. No biological animal-channel claim.",
@@ -596,5 +599,6 @@
       "shared_db_research/results/20261125_fd_syndrome_architecture/source_aggregation_original_native.json",
       "shared_db_research/results/20261125_fd_syndrome_architecture/source_aggregation_high_quality_only.json"
     ]
-  }
+  },
+  "prior_theme_first_policy_20261125": "Scientific ownership follows the research estimand. FD owns floral functional diversity, syndrome composition, pollinator channels and functional assembly, including shared canonical island inputs. island owns data custody, protected execution, reproductive assurance and Chapter 1. Active external-only paths retain strict source screening; shared_db_research contains reviewed archival snapshots only."
 }

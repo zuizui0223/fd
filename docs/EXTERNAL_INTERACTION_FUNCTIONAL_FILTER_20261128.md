@@ -1,0 +1,20 @@
+# FD: external interaction filtering — prospective research route, 2026-11-28
+
+Source-first policy is merged. This branch uses only independently published data. No own botanical roster, own trait ledger or own-data selected islands. Previous FD results are context for the question, not inputs. The latest measured-reward run 46070314913 does not support regional reward shifts (nectar tropical n=8; pollen and nectar primary Holm=1). Dryad network run 46075364185 failed on HTTP 401; do not circumvent authentication. No fitted interaction result from that failure.
+
+## Scientific question
+
+Does an island plant's realized visitor functional breadth differ from what is expected given its locally available recorded visitor pool and the network's degree distribution? This separates community-level availability from interaction sorting conditional on observed margins; not historical causation or measured effective pollination.
+
+Vollstädt et al. (2025), Functional Ecology, DOI 10.1111/1365-2435.70068, published the Caribbean/mainland hummingbird network and trait comparisons (data DOI 10.5281/zenodo.15276347). Their regional floral traits and visitor functional diversity conclusions are prior art, not new FD discoveries. New proposed estimand: degree-conditioned departure in functional visitor dispersion, and whether it differs between explicitly classified island and mainland local networks, with uncertainty across independent geographical blocks. If morphology measurements and complete pair rosters permit, use bill length, curvature and body mass; assess flower tube length and externally joined symmetry as predictors only on same measured carriers. Do not impute nectar, use assumed guild identity, or guess site status from country name. Separate source geographic strata from arbitrary latitude cutoffs.
+
+Complementary public global network database: Doré et al. (2021) DOI 10.1111/gcb.15474, original interaction data DOI 10.5281/zenodo.4300427. Distinct taxonomic/measurement framework; use for global opportunity and geographic support assessment, not substitution into the hummingbird test or independent replication of overlapping network sources. Original published network richness/generalism findings are not ours.
+
+## Locked intake and decision
+
+1. Verify exact Zenodo record IDs and DOI; publisher byte lengths and checksums; inspect table schemas and units. Retain aggregate schema only, no raw records in Git. Do not execute publisher code.
+2. Require independently documented location/network ID, observed link weights, plant and visitor IDs, and clear species traits. Identify actual island status and study/sampling context from source. If source does not provide the pair universe, explicitly define the observed species cross-product within each complete local network; unobserved pairs are not forbidden interactions.
+3. Prospective primary if supported: equal-network/independent geographic-group weighted island-minus-mainland contrast in degree-conditioned visitor trait breadth. Use within-local degree-preserving checkerboard swaps and same complete-trait roster, plant-equal weight, plants with >=2 recorded visitors, standardized trait distances using a fixed reference; report null mixing, degree and carrier losses. Require at least 10 geographical groups per class, >=20 eligible networks per class, complete location/origin metadata, and consistent leave-group signs. Additional morphology interactions are exploratory and require matched plant carriers and a predeclared corrected test family. If there are insufficient independent islands, no regional claim. Trait breadth is not effective pollen service.
+4. If downloads or schema gates fail, report failures; do not search for significant subsets. Cross-source effects only after matching estimands and auditing overlapping source networks. This is a prospective test specification, not completed evidence.
+
+This PR runs the actual source acquisition/schema intake first. A biological fit is not run before documented schema, geographic and carrier gates have been checked. It also corrects the machine-readable ownership policy to match merged #83.

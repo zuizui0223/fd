@@ -1,0 +1,30 @@
+name: External network functional-filter source intake
+on:
+  push:
+    branches: [analysis/external-interaction-functional-filter-20261128]
+    paths:
+      - scripts/external_network_functional_intake.py
+      - .github/workflows/external-network-functional-intake.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  intake:
+    runs-on: ubuntu-latest
+    timeout-minutes: 18
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - uses: r-lib/actions/setup-r@v2
+        with:
+          r-version: "4.4.3"
+      - run: pip install openpyxl
+      - run: python scripts/external_network_functional_intake.py --self-test
+      - run: python -u scripts/external_network_functional_intake.py --out /tmp/external_network_intake.json
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: external-network-intake
+          path: /tmp/external_network_intake.json
