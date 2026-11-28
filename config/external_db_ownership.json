@@ -12,6 +12,7 @@
     ".github/workflows/external-eupolltrait-intake.yml",
     ".github/workflows/external-eupolltrait-size-qc-family.yml",
     ".github/workflows/external-eupolltrait-size-turnover.yml",
+    ".github/workflows/external-eupolltrait-visitor-genus.yml",
     ".github/workflows/external-euppollnet-architecture.yml",
     ".github/workflows/external-euppollnet-bee-loss.yml",
     ".github/workflows/external-euppollnet-channel-retention.yml",
@@ -42,6 +43,7 @@
     "docs/EXTERNAL_EUPOLLTRAIT_INTAKE_20261128.md",
     "docs/EXTERNAL_EUPOLLTRAIT_SIZE_QC_FAMILY_20261128.md",
     "docs/EXTERNAL_EUPOLLTRAIT_SIZE_TURNOVER_20261128.md",
+    "docs/EXTERNAL_EUPOLLTRAIT_VISITOR_GENUS_20261128.md",
     "docs/EXTERNAL_EUPPOLLNET_ARCHITECTURE_20261128.md",
     "docs/EXTERNAL_EUPPOLLNET_BEE_LOSS_20261128.md",
     "docs/EXTERNAL_EUPPOLLNET_CHANNEL_RETENTION_20261128.md",
@@ -80,6 +82,7 @@
     "results/20261128_external_euppollnet/curveball_from_verified_job_log.json",
     "results/20261128_external_euppollnet/eupolltrait_intake_from_verified_job_log.json",
     "results/20261128_external_euppollnet/eupolltrait_size_from_verified_job_log.json",
+    "results/20261128_external_euppollnet/eupolltrait_size_qc_family_from_verified_job_log.json",
     "results/20261128_external_euppollnet/spatial_scaling_from_verified_job_log.json",
     "scripts/audit_mdd_bat_diet_metadata.py",
     "scripts/bat_mdd_synonym_audit.py",
@@ -90,6 +93,7 @@
     "scripts/external_eupolltrait_intake.py",
     "scripts/external_eupolltrait_size_qc_family.py",
     "scripts/external_eupolltrait_size_turnover.py",
+    "scripts/external_eupolltrait_visitor_genus.py",
     "scripts/external_euppollnet_architecture.py",
     "scripts/external_euppollnet_bee_loss.py",
     "scripts/external_euppollnet_channel_retention.py",
@@ -724,7 +728,16 @@
     "paths": [
       "scripts/external_eupolltrait_size_qc_family.py",
       ".github/workflows/external-eupolltrait-size-qc-family.yml",
-      "docs/EXTERNAL_EUPOLLTRAIT_SIZE_QC_FAMILY_20261128.md"
+      "docs/EXTERNAL_EUPOLLTRAIT_SIZE_QC_FAMILY_20261128.md",
+      "results/20261128_external_euppollnet/eupolltrait_size_qc_family_from_verified_job_log.json"
+    ]
+  },
+  "external_eupolltrait_visitor_genus_20261128": {
+    "scope": "Pinned external EuPollTrait and EuPPollNet; exact parent replay, fixed family weights, coherent trait permutation within visitor genus and crossed study/plant genus inference. No own inputs; post-discovery.",
+    "paths": [
+      "scripts/external_eupolltrait_visitor_genus.py",
+      ".github/workflows/external-eupolltrait-visitor-genus.yml",
+      "docs/EXTERNAL_EUPOLLTRAIT_VISITOR_GENUS_20261128.md"
     ]
   }
 }

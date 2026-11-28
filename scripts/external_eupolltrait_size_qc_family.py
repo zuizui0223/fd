@@ -104,7 +104,7 @@ def conditional(a,b,sa,sb,T,F,K):
     if n<MIN_ACCEPT or min(halves)<10:return {"accepted":n,"eligible":False}
     return dict(decompose(c,d,C,D,hits,n,K),accepted=n,eligible=True)
 
-def network(d,tab,group,tax):
+def network(d,tab,group,tax,pair_fn=conditional):
     fm=tax.set_index("name").family.to_dict()
     q=d.loc[d.group.eq(group)&d.name.isin(tab)&d.name.map(fm).eq(d.family)].copy()
     ids={k:i for i,k in enumerate(sorted(q.name.unique()))}
@@ -126,7 +126,7 @@ def network(d,tab,group,tax):
                 a,b=ra[ia[p]],rb[ib[p]]
                 if not a-b or not b-a:continue
                 diag["candidate_pairs"]+=1
-                z=conditional(a,b,sa[ia[p]],sb[ib[p]],T,F,len(families))
+                z=pair_fn(a,b,sa[ia[p]],sb[ib[p]],T,F,len(families))
                 acc.append(z["accepted"])
                 if not z["eligible"]:
                     diag["rejected_conditional_support"]+=1;continue

@@ -43,4 +43,6 @@ The [historical source-classification registry and validator in island PR #353](
 
 - [EuPollTrait group-specific size turnover](EXTERNAL_EUPOLLTRAIT_SIZE_TURNOVER_20261128.md): original bee size and family positive directions but crossed gates failed; hoverfly invalid value audit required.
 
-- [Size QC and exact family-pair accounting](EXTERNAL_EUPOLLTRAIT_SIZE_QC_FAMILY_20261128.md): source-defined female/worker correction, hoverfly quarantine, decomposition pending.
+- [Size QC and exact family-pair accounting](EXTERNAL_EUPOLLTRAIT_SIZE_QC_FAMILY_20261128.md): corrected bee size gain +.110649 and family-standardized +.042194 passed crossed gates; hoverfly no eligible pairs after QC.
+
+- [Visitor-genus coherent trait null](EXTERNAL_EUPOLLTRAIT_VISITOR_GENUS_20261128.md): new test beyond visitor genus, pending.
