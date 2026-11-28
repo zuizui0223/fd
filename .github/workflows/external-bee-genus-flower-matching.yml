@@ -1,0 +1,27 @@
+name: External bee genus and floral morphology matching
+on:
+  push:
+    branches: [analysis/external-interaction-functional-filter-20261128]
+    paths:
+      - scripts/external_bee_genus_and_flower_matching.py
+      - .github/workflows/external-bee-genus-flower-matching.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  fit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: pip install "numpy<2.3" pandas scipy numba openpyxl
+      - run: python scripts/external_bee_genus_and_flower_matching.py --self-test
+      - run: python -u scripts/external_bee_genus_and_flower_matching.py --out /tmp/external_bee_genus_morphology.json
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: external-bee-genus-morphology
+          path: /tmp/external_bee_genus_morphology.json
