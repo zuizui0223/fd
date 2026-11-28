@@ -1,0 +1,26 @@
+name: External EuPPollNet same-plant bee loss
+on:
+  pull_request:
+    paths:
+      - scripts/external_euppollnet_bee_loss.py
+      - .github/workflows/external-euppollnet-bee-loss.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  external:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: pip install numpy pandas geopandas pyogrio shapely
+      - run: python scripts/external_euppollnet_bee_loss.py --self-test
+      - run: python -u scripts/external_euppollnet_bee_loss.py --out /tmp/bee_loss.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: external-euppollnet-bee-loss
+          path: /tmp/bee_loss.json
+          if-no-files-found: error
