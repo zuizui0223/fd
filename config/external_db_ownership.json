@@ -9,6 +9,7 @@
     ".github/workflows/external-db-boundary.yml",
     ".github/workflows/external-emln-spatial-audit.yml",
     ".github/workflows/external-emln-trait-turnover.yml",
+    ".github/workflows/external-eupolltrait-intake.yml",
     ".github/workflows/external-euppollnet-architecture.yml",
     ".github/workflows/external-euppollnet-bee-loss.yml",
     ".github/workflows/external-euppollnet-channel-retention.yml",
@@ -36,6 +37,7 @@
     "config/external_emln_spatial_source_manifest_20261128.json",
     "docs/EXTERNAL_EMLN_SPATIAL_AUDIT_20261128.md",
     "docs/EXTERNAL_EMLN_TRAIT_TURNOVER_20261128.md",
+    "docs/EXTERNAL_EUPOLLTRAIT_INTAKE_20261128.md",
     "docs/EXTERNAL_EUPPOLLNET_ARCHITECTURE_20261128.md",
     "docs/EXTERNAL_EUPPOLLNET_BEE_LOSS_20261128.md",
     "docs/EXTERNAL_EUPPOLLNET_CHANNEL_RETENTION_20261128.md",
@@ -67,6 +69,7 @@
     "results/20261126_external_floral_replication/native_coverage_from_verified_job_log.json",
     "results/20261126_external_floral_replication/wang_nhm_bridge_from_verified_job_log.json",
     "results/20261128_external_emln/spatial_audit_from_verified_job_log.json",
+    "results/20261128_external_emln/trait_turnover_from_verified_job_log.json",
     "results/20261128_external_euppollnet/architecture_from_verified_job_log.json",
     "results/20261128_external_euppollnet/bee_loss_corrected_from_verified_job_log.json",
     "results/20261128_external_euppollnet/channel_retention_from_verified_job_log.json",
@@ -78,6 +81,7 @@
     "scripts/export_mdd_bat_ranges.R",
     "scripts/external_emln_spatial_audit.py",
     "scripts/external_emln_trait_turnover.py",
+    "scripts/external_eupolltrait_intake.py",
     "scripts/external_euppollnet_architecture.py",
     "scripts/external_euppollnet_bee_loss.py",
     "scripts/external_euppollnet_channel_retention.py",
@@ -685,7 +689,16 @@
     "paths": [
       "scripts/external_emln_trait_turnover.py",
       ".github/workflows/external-emln-trait-turnover.yml",
-      "docs/EXTERNAL_EMLN_TRAIT_TURNOVER_20261128.md"
+      "docs/EXTERNAL_EMLN_TRAIT_TURNOVER_20261128.md",
+      "results/20261128_external_emln/trait_turnover_from_verified_job_log.json"
+    ]
+  },
+  "external_eupolltrait_intake_20261128": {
+    "scope": "Pinned public EuPollTrait Zenodo 18032357 and EuPPollNet v1.3.0 only; schema and coverage audit, no effect, no own biological inputs.",
+    "paths": [
+      "scripts/external_eupolltrait_intake.py",
+      ".github/workflows/external-eupolltrait-intake.yml",
+      "docs/EXTERNAL_EUPOLLTRAIT_INTAKE_20261128.md"
     ]
   }
 }

@@ -37,3 +37,6 @@ The [historical source-classification registry and validator in island PR #353](
 - [Geographic scaling and crossed dependence](EXTERNAL_EUPPOLLNET_SPATIAL_SCALING_20261128.md): crossed study/genus uncertainty and positive spatial slope unsupported.
 
 - [Independent EMLN source readiness](EXTERNAL_EMLN_SPATIAL_AUDIT_20261128.md): 42 source directories, 16 audits, only one strict candidate study; no independent macro replication.
+
+- [Measured EMLN morphology](EXTERNAL_EMLN_TRAIT_TURNOVER_20261128.md): primary single-study morphology case opposite direction; no global inference.
+- [EuPollTrait bridge](EXTERNAL_EUPOLLTRAIT_INTAKE_20261128.md): new external trait intake for same-network common-carrier comparison.

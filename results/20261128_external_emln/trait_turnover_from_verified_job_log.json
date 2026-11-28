@@ -1,0 +1,173 @@
+{
+  "receipt": {
+    "run_id": 46112381998,
+    "job_id": 140878602440,
+    "head_sha": "4c6d7a020d200f4cdbc7fffad68351dba4414b7d",
+    "artifact_zip_verified": false
+  },
+  "result": {
+    "traits": [
+      "log2_mouthpart_length",
+      "log2_body_length"
+    ],
+    "candidate_pairs": 40,
+    "rejected_pairs": 8,
+    "complete_trait_visitor_nodes": 115,
+    "eligible_sites": 4,
+    "site_changed_trades": [
+      17106,
+      23102,
+      19024,
+      17811
+    ],
+    "primary": {
+      "comparisons": 32,
+      "focal_plant_taxa": 13,
+      "site_pairs": 6,
+      "sites": 4,
+      "observed_mean_abs_log2_distance": [
+        1.989603234267096,
+        1.6086574299431922
+      ],
+      "null_mean_abs_log2_distance": [
+        1.5472793104152736,
+        1.4475958634964565
+      ],
+      "null_minus_observed_by_trait": [
+        -0.44232392385182273,
+        -0.16106156644673575
+      ],
+      "joint_gain": -0.30169274514927924
+    },
+    "descriptive_support_gate": true,
+    "leave_one_site": [
+      {
+        "comparisons": 15,
+        "focal_plant_taxa": 12,
+        "site_pairs": 3,
+        "sites": 3,
+        "observed_mean_abs_log2_distance": [
+          1.996501884147266,
+          1.687326672833825
+        ],
+        "null_mean_abs_log2_distance": [
+          1.5661141995387784,
+          1.5094518372568302
+        ],
+        "null_minus_observed_by_trait": [
+          -0.4303876846084879,
+          -0.17787483557699524
+        ],
+        "joint_gain": -0.3041312600927416
+      },
+      {
+        "comparisons": 13,
+        "focal_plant_taxa": 8,
+        "site_pairs": 3,
+        "sites": 3,
+        "observed_mean_abs_log2_distance": [
+          1.9022017596250516,
+          1.8662255585577336
+        ],
+        "null_mean_abs_log2_distance": [
+          1.5875364526884586,
+          1.5391418468615916
+        ],
+        "null_minus_observed_by_trait": [
+          -0.3146653069365928,
+          -0.3270837116961417
+        ],
+        "joint_gain": -0.32087450931636724
+      },
+      {
+        "comparisons": 16,
+        "focal_plant_taxa": 9,
+        "site_pairs": 3,
+        "sites": 3,
+        "observed_mean_abs_log2_distance": [
+          1.9687933261905117,
+          1.8536304125560545
+        ],
+        "null_mean_abs_log2_distance": [
+          1.5659642174757797,
+          1.5090895717412351
+        ],
+        "null_minus_observed_by_trait": [
+          -0.4028291087147318,
+          -0.3445408408148199
+        ],
+        "joint_gain": -0.37368497476477586
+      },
+      {
+        "comparisons": 20,
+        "focal_plant_taxa": 11,
+        "site_pairs": 3,
+        "sites": 3,
+        "observed_mean_abs_log2_distance": [
+          1.7247600817411872,
+          1.325627256860141
+        ],
+        "null_mean_abs_log2_distance": [
+          1.4807542776315819,
+          1.2906359107820953
+        ],
+        "null_minus_observed_by_trait": [
+          -0.24400580410960532,
+          -0.03499134607804589
+        ],
+        "joint_gain": -0.1394985750938256
+      }
+    ],
+    "both_exclusive_ge2": {
+      "comparisons": 9,
+      "focal_plant_taxa": 4,
+      "site_pairs": 4,
+      "sites": 4,
+      "observed_mean_abs_log2_distance": [
+        1.4170820670955655,
+        1.5270224378594404
+      ],
+      "null_mean_abs_log2_distance": [
+        1.5721196909888278,
+        1.4896990733451838
+      ],
+      "null_minus_observed_by_trait": [
+        0.15503762389326226,
+        -0.0373233645142568
+      ],
+      "joint_gain": 0.05885712968950273
+    },
+    "scope": "One study, original morphotaxa, no cross-study inference. Positive gain means smaller morphological distance than conditional null. Mouthparts not homologous reach across orders; no pollination equivalence or geographical slope.",
+    "source_pins": {
+      "nodes.csv": "d479539dfa6229b95bac3bfb042443d5cbc2eb88848b95ad1e57b5ffcf3e0d0f",
+      "layers.csv": "95140a0993c83373ded318a946d15c1e105f64525b1b656e3483bacf64d47c4e",
+      "interactions.csv": "150215fa2b010724010867fc0c93b1e1ddcff80266f82ecfb5a1d2a299e04de9"
+    },
+    "source_counts": {
+      "positive_local_records": 219,
+      "complete_trait_records": 209
+    },
+    "layer_census": [
+      {
+        "plant_taxa": 11,
+        "visitor_taxa": 28,
+        "unique_links": 55
+      },
+      {
+        "plant_taxa": 16,
+        "visitor_taxa": 28,
+        "unique_links": 57
+      },
+      {
+        "plant_taxa": 11,
+        "visitor_taxa": 34,
+        "unique_links": 56
+      },
+      {
+        "plant_taxa": 14,
+        "visitor_taxa": 20,
+        "unique_links": 41
+      }
+    ]
+  }
+}
