@@ -53,6 +53,7 @@
     "results/20261126_external_floral_replication/length_holdout_from_verified_job_log.json",
     "results/20261126_external_floral_replication/native_coverage_from_verified_job_log.json",
     "results/20261126_external_floral_replication/wang_nhm_bridge_from_verified_job_log.json",
+    "results/20261128_external_euppollnet/bee_loss_corrected_from_verified_job_log.json",
     "scripts/audit_mdd_bat_diet_metadata.py",
     "scripts/bat_mdd_synonym_audit.py",
     "scripts/check_external_source_boundary.py",
@@ -605,7 +606,8 @@
     "paths": [
       "scripts/external_euppollnet_bee_loss.py",
       ".github/workflows/external-euppollnet-bee-loss.yml",
-      "docs/EXTERNAL_EUPPOLLNET_BEE_LOSS_20261128.md"
+      "docs/EXTERNAL_EUPPOLLNET_BEE_LOSS_20261128.md",
+      "results/20261128_external_euppollnet/bee_loss_corrected_from_verified_job_log.json"
     ]
   }
 }
