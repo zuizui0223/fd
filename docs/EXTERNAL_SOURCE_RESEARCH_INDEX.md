@@ -45,4 +45,6 @@ The [historical source-classification registry and validator in island PR #353](
 
 - [Size QC and exact family-pair accounting](EXTERNAL_EUPOLLTRAIT_SIZE_QC_FAMILY_20261128.md): corrected bee size gain +.110649 and family-standardized +.042194 passed crossed gates; hoverfly no eligible pairs after QC.
 
-- [Visitor-genus coherent trait null](EXTERNAL_EUPOLLTRAIT_VISITOR_GENUS_20261128.md): new test beyond visitor genus, pending.
+- [Visitor-genus coherent trait null](EXTERNAL_EUPOLLTRAIT_VISITOR_GENUS_20261128.md): genus-adjusted residual +.009047, p=.506; unsupported.
+
+- [Size distribution versus dispersion](EXTERNAL_EUPOLLTRAIT_ENERGY_20261128.md): frozen full-support half-energy decomposition, pending.

@@ -9,6 +9,7 @@
     ".github/workflows/external-db-boundary.yml",
     ".github/workflows/external-emln-spatial-audit.yml",
     ".github/workflows/external-emln-trait-turnover.yml",
+    ".github/workflows/external-eupolltrait-energy.yml",
     ".github/workflows/external-eupolltrait-intake.yml",
     ".github/workflows/external-eupolltrait-size-qc-family.yml",
     ".github/workflows/external-eupolltrait-size-turnover.yml",
@@ -40,6 +41,7 @@
     "config/external_emln_spatial_source_manifest_20261128.json",
     "docs/EXTERNAL_EMLN_SPATIAL_AUDIT_20261128.md",
     "docs/EXTERNAL_EMLN_TRAIT_TURNOVER_20261128.md",
+    "docs/EXTERNAL_EUPOLLTRAIT_ENERGY_20261128.md",
     "docs/EXTERNAL_EUPOLLTRAIT_INTAKE_20261128.md",
     "docs/EXTERNAL_EUPOLLTRAIT_SIZE_QC_FAMILY_20261128.md",
     "docs/EXTERNAL_EUPOLLTRAIT_SIZE_TURNOVER_20261128.md",
@@ -83,6 +85,7 @@
     "results/20261128_external_euppollnet/eupolltrait_intake_from_verified_job_log.json",
     "results/20261128_external_euppollnet/eupolltrait_size_from_verified_job_log.json",
     "results/20261128_external_euppollnet/eupolltrait_size_qc_family_from_verified_job_log.json",
+    "results/20261128_external_euppollnet/eupolltrait_visitor_genus_from_verified_job_log.json",
     "results/20261128_external_euppollnet/spatial_scaling_from_verified_job_log.json",
     "scripts/audit_mdd_bat_diet_metadata.py",
     "scripts/bat_mdd_synonym_audit.py",
@@ -90,6 +93,7 @@
     "scripts/export_mdd_bat_ranges.R",
     "scripts/external_emln_spatial_audit.py",
     "scripts/external_emln_trait_turnover.py",
+    "scripts/external_eupolltrait_energy.py",
     "scripts/external_eupolltrait_intake.py",
     "scripts/external_eupolltrait_size_qc_family.py",
     "scripts/external_eupolltrait_size_turnover.py",
@@ -737,7 +741,16 @@
     "paths": [
       "scripts/external_eupolltrait_visitor_genus.py",
       ".github/workflows/external-eupolltrait-visitor-genus.yml",
-      "docs/EXTERNAL_EUPOLLTRAIT_VISITOR_GENUS_20261128.md"
+      "docs/EXTERNAL_EUPOLLTRAIT_VISITOR_GENUS_20261128.md",
+      "results/20261128_external_euppollnet/eupolltrait_visitor_genus_from_verified_job_log.json"
+    ]
+  },
+  "external_eupolltrait_energy_20261128": {
+    "scope": "Pinned publisher EuPollTrait and EuPPollNet, exact corrected bee pair replay; half-energy and dispersion decomposition, descriptive genus-compatible components. Post-discovery, no own inputs.",
+    "paths": [
+      "scripts/external_eupolltrait_energy.py",
+      ".github/workflows/external-eupolltrait-energy.yml",
+      "docs/EXTERNAL_EUPOLLTRAIT_ENERGY_20261128.md"
     ]
   }
 }
