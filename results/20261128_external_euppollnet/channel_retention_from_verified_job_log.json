@@ -1,0 +1,132 @@
+{
+  "receipt": {
+    "run_id": 46103780440,
+    "job_id": 140851866175,
+    "head_sha": "58a1f2e49d967a9162a92bbc1106a2a9d621c2c8",
+    "source": "verified workflow job log",
+    "artifact_zip_verified": false
+  },
+  "result": {
+    "source_pins": {
+      "Interaction_data.csv.gz": {
+        "sha256": "cde17692dc66946002e19026433d9db429357d28873a369d884941f71131db61",
+        "expected_sha256": "cde17692dc66946002e19026433d9db429357d28873a369d884941f71131db61",
+        "bytes": 2374060,
+        "git_blob": "6e639d4af81feee76eefa6804622f8b901c39feb"
+      },
+      "Metadata.csv": {
+        "sha256": "adb396f31e7e7e3257425872b92d56c1051ca05849c6228a39675a71364d4833",
+        "expected_sha256": null,
+        "bytes": 28483,
+        "git_blob": "f9708e2f2b142ab2437a8be9d16e33aaefdef0ed"
+      }
+    },
+    "source_rows": 623476,
+    "qualified_rows": 80562,
+    "qualified_studies": 18,
+    "census": {
+      "conflicted_visitor_study_years": 0,
+      "eligible_sites": 167,
+      "eligible_site_pairs": 919,
+      "shared_plant_site_pairs": 3677,
+      "two_sided_taxonomic_turnover": 3043
+    },
+    "primary": {
+      "support": {
+        "comparisons": 3043,
+        "species": 283,
+        "studies": 14,
+        "study_years": 19,
+        "site_pairs": 800
+      },
+      "primary_support_gate": true,
+      "study_equal": {
+        "taxonomic_jaccard": 0.11959139472346435,
+        "channel_observed": 0.42011408131366645,
+        "channel_degree_null": 0.38058611876447657,
+        "channel_uniform_null": 0.36712604627005446,
+        "channel_residual": 0.039527962549189964,
+        "channel_uniform_residual": 0.052988035043611985,
+        "family_observed": 0.17275935235613513,
+        "family_degree_null": 0.1284832555098922,
+        "family_uniform_null": 0.10834605476656949,
+        "family_residual": 0.04427609684624294,
+        "family_uniform_residual": 0.06441329758956564
+      },
+      "channel_residual_study_bootstrap_ci": [
+        0.0030554678546772583,
+        0.07337148717300976
+      ],
+      "channel_residual_leave_study_range": [
+        0.03355913964304215,
+        0.051173104756392286
+      ],
+      "channel_uniform_residual_study_bootstrap_ci": [
+        0.02262799086769528,
+        0.0847084741921213
+      ],
+      "channel_uniform_residual_leave_study_range": [
+        0.04591667613235195,
+        0.05961127034210793
+      ],
+      "family_residual_study_bootstrap_ci": [
+        0.015554346889001053,
+        0.07644358397820208
+      ],
+      "family_residual_leave_study_range": [
+        0.03351412229288127,
+        0.05049341152158204
+      ],
+      "primary_supported": true
+    },
+    "sensitivity_min_two_exclusive": {
+      "support": {
+        "comparisons": 1483,
+        "species": 181,
+        "studies": 14,
+        "study_years": 18,
+        "site_pairs": 579
+      },
+      "primary_support_gate": true,
+      "study_equal": {
+        "taxonomic_jaccard": 0.1504214316457723,
+        "channel_observed": 0.3935471147925132,
+        "channel_degree_null": 0.37739238695500016,
+        "channel_uniform_null": 0.3630871383098221,
+        "channel_residual": 0.01615472783751321,
+        "channel_uniform_residual": 0.03045997648269119,
+        "family_observed": 0.14801538632236302,
+        "family_degree_null": 0.1275895493886832,
+        "family_uniform_null": 0.1059312955465157,
+        "family_residual": 0.02042583693367983,
+        "family_uniform_residual": 0.04208409077584733
+      },
+      "channel_residual_study_bootstrap_ci": [
+        -0.01717013784485387,
+        0.05285792811832407
+      ],
+      "channel_residual_leave_study_range": [
+        0.00382334625599317,
+        0.023448566523384375
+      ],
+      "channel_uniform_residual_study_bootstrap_ci": [
+        -0.0016545956659688842,
+        0.069030039965355
+      ],
+      "channel_uniform_residual_leave_study_range": [
+        0.01705873322225289,
+        0.035355125846061305
+      ],
+      "family_residual_study_bootstrap_ci": [
+        -0.004549058759794814,
+        0.048693821284170644
+      ],
+      "family_residual_leave_study_range": [
+        0.009971978013184347,
+        0.027159989629619765
+      ],
+      "primary_supported": false
+    },
+    "interpretation": "Same species, different sites within study-year; conditional on observed two-sided taxonomic turnover. Coarse visitor channels are not measured functional effectiveness. No island-specific inference, historical change, or independent replication of other EuPPollNet results."
+  }
+}

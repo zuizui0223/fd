@@ -7,6 +7,7 @@
   "source_pins": "https://github.com/zuizui0223/island/blob/64a58cd4817ccf1c54c179aa7fd1c5585f57dd43/config/fd_data_ownership_20261125.json",
   "allowed_paths": [
     ".github/workflows/external-db-boundary.yml",
+    ".github/workflows/external-euppollnet-architecture.yml",
     ".github/workflows/external-euppollnet-bee-loss.yml",
     ".github/workflows/external-euppollnet-channel-retention.yml",
     ".github/workflows/external-floral-replication-intake.yml",
@@ -28,6 +29,7 @@
     ".gitignore",
     "README.md",
     "config/external_db_ownership.json",
+    "docs/EXTERNAL_EUPPOLLNET_ARCHITECTURE_20261128.md",
     "docs/EXTERNAL_EUPPOLLNET_BEE_LOSS_20261128.md",
     "docs/EXTERNAL_EUPPOLLNET_CHANNEL_RETENTION_20261128.md",
     "docs/EXTERNAL_FLORAL_REPLICATION_INTAKE_20261126.md",
@@ -56,10 +58,12 @@
     "results/20261126_external_floral_replication/native_coverage_from_verified_job_log.json",
     "results/20261126_external_floral_replication/wang_nhm_bridge_from_verified_job_log.json",
     "results/20261128_external_euppollnet/bee_loss_corrected_from_verified_job_log.json",
+    "results/20261128_external_euppollnet/channel_retention_from_verified_job_log.json",
     "scripts/audit_mdd_bat_diet_metadata.py",
     "scripts/bat_mdd_synonym_audit.py",
     "scripts/check_external_source_boundary.py",
     "scripts/export_mdd_bat_ranges.R",
+    "scripts/external_euppollnet_architecture.py",
     "scripts/external_euppollnet_bee_loss.py",
     "scripts/external_euppollnet_channel_retention.py",
     "scripts/external_floral_replication_intake.py",
@@ -618,7 +622,16 @@
     "paths": [
       "scripts/external_euppollnet_channel_retention.py",
       ".github/workflows/external-euppollnet-channel-retention.yml",
-      "docs/EXTERNAL_EUPPOLLNET_CHANNEL_RETENTION_20261128.md"
+      "docs/EXTERNAL_EUPPOLLNET_CHANNEL_RETENTION_20261128.md",
+      "results/20261128_external_euppollnet/channel_retention_from_verified_job_log.json"
+    ]
+  },
+  "external_euppollnet_architecture_20261128": {
+    "scope": "Original public EuPPollNet v1.3.0 network, publisher-pinned Wang symmetry and NHM tube ranges only. No own biological inputs. Fixed turnover-support strata and species-coherent genus null. Two primary endpoints frozen, descriptive sensitivities.",
+    "paths": [
+      "scripts/external_euppollnet_architecture.py",
+      ".github/workflows/external-euppollnet-architecture.yml",
+      "docs/EXTERNAL_EUPPOLLNET_ARCHITECTURE_20261128.md"
     ]
   }
 }
